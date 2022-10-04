@@ -1,4 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime
+from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
@@ -8,9 +11,16 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
     is_active = db.Column(db.Boolean(), default=False)
-    phone = db.Column(db.Integer(80), unique=True)
+    phone = db.Column(db.Integer, unique=True)
     location = db.Column(db.String(120))
     company = db.Column(db.String(120))
+
+    basket = relationship("Basket", back_populates="user", uselist=False)
+
+    # def __init__(self, username, email, password, phone=None, location=None, company=None):
+    #     self.username = username
+    #     self.email = email
+    #     self.password = password
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -53,11 +63,13 @@ class Unit(db.Model):
             "unit": self.unit,
         }
 
-class By_Product(db.Model):
+class ByProduct(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     type_id = db.Column(db.Integer, db.ForeignKey('type.id'))
     unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
+    # image_id = db.Column(db.Integer, db.ForeignKey('image.id'))
+    # orderrow_id = db.Column(db.Integer, db.ForeignKey('orderrow.id'))
     name = db.Column(db.String(120), nullable=False)
     stock = db.Column(db.String(120))
     price = db.Column(db.Numeric(120))
@@ -65,8 +77,12 @@ class By_Product(db.Model):
     locationY = db.Column(db.Numeric(120))
     description = db.Column(db.String(120))
 
+    user = db.relationship('User', backref='byproducts')
+    type = db.relationship('Type', backref='byproducts')
+    unit = db.relationship('Unit', backref='byproducts')
+
     def __repr__(self):
-        return f'<By_Product {self.name}>'
+        return f'<ByProduct {self.name}>'
 
     def serialize(self):
         return {
@@ -90,6 +106,8 @@ class Image(db.Model):
     name = db.Column(db.String(120), nullable=False)
     is_default = db.Column(db.Boolean(), nullable=False)
 
+    by_product = db.relationship('ByProduct', backref='images')
+
     def __repr__(self):
         return f'<Image {self.name}>'
 
@@ -98,7 +116,7 @@ class Image(db.Model):
             "id": self.id,
             "img": self.img,
             "mimetype": self.mimetype,
-            "by_product_id": self.by_product_id,
+            "by_product_id": self.byproduct_id,
             "name": self.name,
             "is_default": self.is_default
         }
@@ -129,7 +147,10 @@ class Order(db.Model):
     address = db.Column(db.String(120))
     location = db.Column(db.String(120))
 
-        def __repr__(self):
+    user = db.relationship('User', backref='orders')
+    status = db.relationship('Status', backref='orders')
+
+    def __repr__(self):
         return f'<Order {self.id}>'
 
     def serialize(self):
@@ -143,12 +164,15 @@ class Order(db.Model):
             "location": self.location
         }
 
-class Order_Row(db.Model):
+class OrderRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     by_product_id = db.Column(db.Integer, db.ForeignKey('by_product.id'))
     quantity = db.Column(db.Numeric(120))
     subtotal = db.Column(db.Numeric(120))
+
+    order = db.relationship('Order', backref='order_rows')
+    by_product = db.relationship('ByProduct', backref='order_rows')
 
     def __repr__(self):
         return f'<Order_Row {self.id}>'
@@ -167,6 +191,8 @@ class Basket(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     total = db.Column(db.Numeric(120))
 
+    user = db.relationship('User', back_populates='basket')
+
     def __repr__(self):
         return f'<Basket {self.id}>'
 
@@ -177,15 +203,18 @@ class Basket(db.Model):
             "total": self.total
         }
 
-class Basket_Row(db.Model):
+class BasketRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     basket_id = db.Column(db.Integer, db.ForeignKey('basket.id'))
     by_product_id = db.Column(db.Integer, db.ForeignKey('by_product.id'))
     quantity = db.Column(db.Numeric(120))
     subtotal = db.Column(db.Numeric(120))
 
+    basket = db.relationship('Basket', backref='basket_rows')
+    by_product = db.relationship('ByProduct', backref='basket_rows')
+
     def __repr__(self):
-        return f'<Basket_Row {self.id}>'
+        return f'<BasketRow {self.id}>'
 
     def serialize(self):
         return {
