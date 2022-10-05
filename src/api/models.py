@@ -11,9 +11,9 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
     is_active = db.Column(db.Boolean(), default=False)
-    phone = db.Column(db.Integer, unique=True)
-    location = db.Column(db.String(120))
-    company = db.Column(db.String(120))
+    phone = db.Column(db.Integer, unique=True, default="")
+    location = db.Column(db.String(120), default="")
+    company = db.Column(db.String(120), default="")
 
     basket = relationship("Basket", back_populates="user", uselist=False)
 
