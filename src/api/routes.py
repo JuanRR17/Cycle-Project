@@ -26,9 +26,9 @@ def sign_up():
     elif 'password' not in request_keys or request_body['password']=="":
         return 'You need to specify the password', 400
     elif User.query.filter_by(email = request_body['email']).first() != None:
-        return 'This email is already in use',500
+        return jsonify({"msg":'This email is already in use'}),500
     elif User.query.filter_by(username = request_body['username']).first() != None:
-        return 'This username is already in use',500
+        return jsonify({"msg":'This username is already in use'}),500
     else:
 
         new_user = User()
@@ -59,12 +59,16 @@ def get_users():
 def create_token():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
-    user = User.query.filter_by(email=email, password=password).first()
-    if user is None:
-        return jsonify({"msg": "Bad email or password"}), 401
-
-    access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token), 200
+    userEmailCheck = User.query.filter_by(email=email).first()
+    if userEmailCheck == None:
+        return jsonify({"msg":"This user doesn\'t exist"}),401
+    else:
+        user = User.query.filter_by(email=email, password=password).first()
+        if user == None:
+            return jsonify({"msg": "Wrong password"}), 401
+        else:
+            access_token = create_access_token(identity=email)
+            return jsonify(access_token=access_token), 200
 
 # GET ONE USER DATA
 @api.route("/protected", methods=["GET"])

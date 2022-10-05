@@ -111,6 +111,7 @@ export const SignUp = () => {
             />
           </div>
         </div>
+        {store.message ? <div>{store.message}</div> : null}
         <button
           // type="submit"
           className="btn btn-primary"

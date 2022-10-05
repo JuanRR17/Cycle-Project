@@ -8,18 +8,25 @@ export const Home = () => {
 
   return (
     <div className="text-center mt-5">
-      <div>
-        <Link to="signup">Sign Up</Link>
-      </div>
-      <div>
-        <Link to="login">Login</Link>
-      </div>
-      <div>
-        <Link to="profile">Profile</Link>
-      </div>
-      <button onClick={() => actions.logout()} className="btn btn-danger">
-        Log out
-      </button>
+      {store.token ? (
+        <>
+          <div>
+            <Link to="profile">Profile</Link>
+          </div>
+          <button onClick={() => actions.logout()} className="btn btn-danger">
+            Log out
+          </button>
+        </>
+      ) : (
+        <>
+          <div>
+            <Link to="signup">Sign Up</Link>
+          </div>
+          <div>
+            <Link to="login">Login</Link>
+          </div>
+        </>
+      )}
     </div>
   );
 };
