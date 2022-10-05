@@ -56,14 +56,17 @@ const getState = ({ getStore, getActions, setStore }) => {
             opts
           );
           if (resp.status !== 200) {
-            console.log("There has been some error");
+            // console.log("There has been some error", resp.status);
+            // console.log("resp", resp);
+            const data = await resp.json();
+            setStore({ message: data.msg });
             return false;
           }
           const data = await resp.json();
           console.log("User created data response", data);
           return true;
         } catch (error) {
-          console.error("There has been an error signing up:", error);
+          console.error("There has been an error signing up:", resp.status);
         }
       },
 
@@ -87,6 +90,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           if (resp.status !== 200) {
             console.log("There has been some error generating token");
+            const data = await resp.json();
+            setStore({ message: data.msg });
             return false;
           }
 

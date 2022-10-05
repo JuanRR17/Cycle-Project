@@ -51,6 +51,7 @@ export const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        {store.message && <div>{store.message}</div>}
         <button
           // type="submit"
           className="btn btn-success"
