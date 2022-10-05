@@ -1,36 +1,47 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
+import UserDataForm from "../component/user_profile/UserDataForm";
+import UserInfo from "../component/user_profile/UserInfo";
 
 export const Profile = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const [edit, setEdit] = useState(false);
+  console.log("edit", edit);
+
+  const handleEditProfile = () => {
+    setEdit(true);
+  };
 
   useEffect(() => {
     if (store.token == undefined) navigate("/");
-    // if (store.data == null) actions.getData();
+    if (store.data == undefined) actions.getData();
   }, [store.token, store.data]);
-  console.log("token in private", store.token);
+  // console.log("token in private", store.token);
   console.log("data", store.data);
 
   return (
-    <div className="text-center mt-5">
-      {store.data ? (
-        <div>
-          <h1>Your Data:</h1>
+    <div className="mt-5">
+      <h1>User Profile</h1>
+      <div className="m-auto w-75 bg-warning p-3">
+        {edit ? (
           <div>
-            <div>username: {store.data.username}</div>
-            <div>email: {store.data.email}</div>
-            <div>id: {store.data.id}</div>
+            <UserDataForm handleSetEdit={(value) => setEdit(value)} />
           </div>
-          <button onClick={() => actions.logout()} className="btn btn-danger">
-            Log out
-          </button>
-        </div>
-      ) : (
-        <div>Loading your data...</div>
-      )}
+        ) : (
+          <>
+            <UserInfo data={store.data} />
+            <button onClick={handleEditProfile} className="btn btn-primary">
+              Edit Profile
+            </button>
+          </>
+        )}
+      </div>
+      <button onClick={() => actions.logout()} className="btn btn-danger">
+        Log out
+      </button>
     </div>
   );
 };

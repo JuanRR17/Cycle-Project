@@ -17,14 +17,13 @@ api = Blueprint('api', __name__)
 def sign_up():
     request_body = request.get_json(force=True)
     request_keys = list(request_body.keys())
-    if len(request_keys)==0:
-        return "The request body is null", 400
-    elif 'username' not in request_keys or request_body['username']=="":
-        return 'You need to specify the username',400
+
+    if 'username' not in request_keys or request_body['username']=="":
+        return jsonify({"msg":'You need to specify the username'}),400
     elif 'email' not in request_keys or request_body['email']=="":
-        return 'You need to specify the email', 400
+        return jsonify({"msg":'You need to specify the email'}), 400
     elif 'password' not in request_keys or request_body['password']=="":
-        return 'You need to specify the password', 400
+        return jsonify({"msg":'You need to specify the password'}), 400
     elif User.query.filter_by(email = request_body['email']).first() != None:
         return jsonify({"msg":'This email is already in use'}),500
     elif User.query.filter_by(username = request_body['username']).first() != None:
@@ -34,8 +33,6 @@ def sign_up():
         new_user = User()
         fields = list(new_user.serialize().keys())
         fields.remove("id")
-        fields.remove("is_active")
-        fields.append("password")
 
         gen = (f for f in fields if f in request_keys)
         for f in gen:
@@ -71,13 +68,54 @@ def create_token():
             return jsonify(access_token=access_token), 200
 
 # GET ONE USER DATA
-@api.route("/protected", methods=["GET"])
+@api.route("/user", methods=["GET"])
 @jwt_required()
 def protected():
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
-    # print("user info")
-    # print(user)
-    # return jsonify(logged_in_as=current_user), 200
+
     return jsonify(user.serialize()), 200
+
+# UPDATE USER
+@api.route('/user/edit', methods=['PUT'])
+@jwt_required()
+def update_user():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email=current_user).first()
+    if user != None:
+        request_body = request.get_json(force=True)
+        request_keys = list(request_body.keys())
+
+        if 'username' not in request_keys or request_body['username']=="":
+            return jsonify({"msg":'You need to specify the username'}),400
+        elif 'email' not in request_keys or request_body['email']=="":
+            return jsonify({"msg":'You need to specify the email'}), 400
+        elif 'password' not in request_keys or request_body['password']=="":
+            return jsonify({"msg":'You need to specify the password'}), 400
+        elif User.query.filter_by(email = request_body['email']).first() != None and request_body['email']!=user.email:
+            return jsonify({"msg":'This email is already in use'}),500
+        elif User.query.filter_by(username = request_body['username']).first() != None and request_body['username']!=user.username:
+            return jsonify({"msg":'This username is already in use'}),500
+        else:
+            fields = list(user.serialize().keys())
+            fields.remove("id")
+            unvalid_fields = []
+            for f in request_body:
+                if f in fields:
+                    # if f == "id":
+                    #     return jsonify({"msg":"You cant modify id"}),400
+                    # elif f == "phone":
+                    #     setattr(user, f, int(request_body[f]))
+                    # else:
+                    setattr(user, f, request_body[f])
+                else:
+                    unvalid_fields.append(f)
+            if len(unvalid_fields)>0:
+                return jsonify({"msg":f"These fields are not valid: {unvalid_fields}"}),400
+            else:
+                db.session.commit()
+                return jsonify(user.serialize()),200
+    else:
+        return jsonify({"msg":"This user doesnt exist"}),500
