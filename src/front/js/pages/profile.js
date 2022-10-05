@@ -2,127 +2,42 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
+import UserDataForm from "../component/user_profile/UserDataForm";
+import UserInfo from "../component/user_profile/UserInfo";
 
 export const Profile = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const [edit, setEdit] = useState(false);
+  console.log("edit", edit);
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [phone, setPhone] = useState("");
-  const [location, setLocation] = useState("");
+  const handleEditProfile = () => {
+    setEdit(true);
+  };
 
   useEffect(() => {
     if (store.token == undefined) navigate("/");
-    if (store.data != undefined) {
-      setUsername(store.data.username);
-      setEmail(store.data.email);
-      setCompany(store.data.company ? store.data.company : "");
-      setPhone(store.data.phone ? store.data.phone : "");
-      setLocation(store.data.location ? store.data.location : "");
-    }
   }, [store.token, store.data]);
-  console.log("token in private", store.token);
-  console.log("data", store.data);
+  // console.log("token in private", store.token);
+  // console.log("data", store.data);
 
   return (
     <div className="mt-5">
-      {store.data ? (
-        <div className="m-auto w-75 bg-warning p-3">
-          <h1>User Profile</h1>
-          {/* <form className="container"> */}
-          <div className="container">
-            <div className="row">
-              {/* username field */}
-              <div className="mb-3 col col-lg-6">
-                <label htmlFor="inputUser" className="form-label">
-                  Username
-                </label>
-                <input
-                  required
-                  type="text"
-                  className="form-control"
-                  id="inputUser"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-              {/* email field */}
-              <div className="mb-3 col-md-6">
-                <label htmlFor="inputEmail" className="form-label">
-                  Email
-                </label>
-                <input
-                  required
-                  type="email"
-                  className="form-control"
-                  id="inputEmail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              {/* Company field */}
-              <div className="mb-3 col-md-6">
-                <label htmlFor="inputCompany" className="form-label">
-                  Company
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputCompany"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                />
-              </div>
-              {/* Phone field */}
-              <div className="mb-3 col-md-6">
-                <label htmlFor="inputPhone" className="form-label">
-                  Phone
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputPhone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              {/* Location field */}
-              <div className="mb-3 col-md-6">
-                <label htmlFor="inputLocation" className="form-label">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputLocation"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <button onClick={() => actions.logout()} className="btn btn-danger">
-              Log out
-            </button>
-            {/* </form> */}
+      <h1>User Profile</h1>
+      <div className="m-auto w-75 bg-warning p-3">
+        {edit ? (
+          <div>
+            <UserDataForm handleSetEdit={(value) => setEdit(value)} />
           </div>
-        </div>
-      ) : (
-        // <div>
-        //   <h1>Your Data:</h1>
-        //   <div>
-        //     <div>username: {store.data.username}</div>
-        //     <div>email: {store.data.email}</div>
-        //     <div>id: {store.data.id}</div>
-        //   </div>
-        //   <button onClick={() => actions.logout()} className="btn btn-danger">
-        //     Log out
-        //   </button>
-        // </div>
-        <div>Loading your data...</div>
-      )}
+        ) : (
+          <>
+            <UserInfo data={store.data} />
+            <button onClick={handleEditProfile} className="btn btn-primary">
+              Edit Profile
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };
