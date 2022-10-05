@@ -17,9 +17,10 @@ export const Profile = () => {
 
   useEffect(() => {
     if (store.token == undefined) navigate("/");
+    if (store.data == undefined) actions.getData();
   }, [store.token, store.data]);
   // console.log("token in private", store.token);
-  // console.log("data", store.data);
+  console.log("data", store.data);
 
   return (
     <div className="mt-5">
@@ -38,6 +39,9 @@ export const Profile = () => {
           </>
         )}
       </div>
+      <button onClick={() => actions.logout()} className="btn btn-danger">
+        Log out
+      </button>
     </div>
   );
 };
