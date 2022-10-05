@@ -26,7 +26,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       logout: () => {
         sessionStorage.removeItem("token");
         console.log("Login out");
-        setStore({ token: null });
+        setStore({ token: null, data: null });
       },
 
       syncTokenFromSessionStore: () => {
@@ -52,11 +52,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            process.env.BACKEND_URL + "/api/signup",
+            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu67.gitpod.io/api/signup",
             opts
           );
           if (resp.status !== 200) {
-            alert("There has been some error");
+            console.log("There has been some error");
             return false;
           }
           const data = await resp.json();
@@ -81,12 +81,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            process.env.BACKEND_URL + "/api/token",
+            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu67.gitpod.io/api/token",
             opts
           );
 
           if (resp.status !== 200) {
-            alert("There has been some error generating token");
+            console.log("There has been some error generating token");
             return false;
           }
 
@@ -115,12 +115,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            process.env.BACKEND_URL + "/api/protected",
+            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu67.gitpod.io/api/protected",
             data_opts
           );
 
           if (resp.status !== 200) {
-            alert("There has been some error retrieving data");
+            console.log("There has been some error retrieving data");
             return false;
           }
 

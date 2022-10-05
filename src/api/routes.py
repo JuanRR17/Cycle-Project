@@ -30,9 +30,6 @@ def sign_up():
     elif User.query.filter_by(username = request_body['username']).first() != None:
         return 'This username is already in use',500
     else:
-        # email = request_body['email']
-        # username = request_body['username']
-        # password = request_body['password']
 
         new_user = User()
         fields = list(new_user.serialize().keys())
@@ -40,11 +37,14 @@ def sign_up():
         fields.remove("is_active")
         fields.append("password")
 
-        return jsonify(fields)
+        gen = (f for f in fields if f in request_keys)
+        for f in gen:
+            if request_body[f] != "":
+                setattr(new_user, f, request_body[f])
 
-        # db.session.add(new_user)
-        # db.session.commit()
-        # return jsonify(new_user.serialize()), 200
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify(new_user.serialize()), 200
 
 # GET ALL USERS
 @api.route("/users", methods=['GET'])
@@ -53,3 +53,27 @@ def get_users():
     all_users = list(map(lambda x: x.serialize(), all_users))
     json_text = jsonify(all_users)
     return json_text
+
+# CREATE JWT TOKEN
+@api.route("/token", methods=["POST"])
+def create_token():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    user = User.query.filter_by(email=email, password=password).first()
+    if user is None:
+        return jsonify({"msg": "Bad email or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token), 200
+
+# GET ONE USER DATA
+@api.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email=current_user).first()
+    # print("user info")
+    # print(user)
+    # return jsonify(logged_in_as=current_user), 200
+    return jsonify(user.serialize()), 200

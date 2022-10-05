@@ -11,7 +11,7 @@ export const SignUp = () => {
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const { store, actions } = useContext(Context);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     console.log("handleSubmit");

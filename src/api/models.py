@@ -17,11 +17,6 @@ class User(db.Model):
 
     basket = relationship("Basket", back_populates="user", uselist=False)
 
-    # def __init__(self, username, email, password, phone=None, location=None, company=None):
-    #     self.username = username
-    #     self.email = email
-    #     self.password = password
-
     def __repr__(self):
         return f'<User {self.email}>'
 
