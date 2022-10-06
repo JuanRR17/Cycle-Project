@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User,ByProduct
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -135,11 +135,10 @@ def delete_user(id):
         return jsonify(user.serialize()),200
 
 # CREATE NEW BYPRODUCT
-@api.route("/byproduct/create", methods=['POST'])
+@api.route("/by_product", methods=['POST'])
 @jwt_required()
 
 def new_byproduct():
-    # Access the identity of the current user with get_jwt_identity
     request_body = request.get_json(force=True)
     request_keys = list(request_body.keys())
 

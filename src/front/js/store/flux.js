@@ -4,6 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: null,
       data: null,
       message: null,
+      types: ["Select a type", "Organic", "Plastic", "Textile", "Metalic"],
+      units: ["kg", "g", "m", "m2", "m3", "L", "unit/s"],
     },
     actions: {
       // Use getActions to call a function within a function
@@ -204,6 +206,61 @@ const getState = ({ getStore, getActions, setStore }) => {
           return true;
         } catch (error) {
           console.error("There has been an error deleting the user:", error);
+        }
+      },
+
+      new_byproduct: async (
+        user_id,
+        name,
+        stock,
+        type,
+        price,
+        unit,
+        location,
+        description
+      ) => {
+        const store = getStore();
+
+        const opts = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify({
+            user_id: user_id,
+            name: name,
+            stock: stock,
+            type: type,
+            price: price,
+            unit: unit,
+            location: location,
+            description: description,
+          }),
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/by_product",
+            opts
+          );
+          if (resp.status !== 200) {
+            console.log(
+              "There has been some error creating the by-product",
+              resp.status
+            );
+            const data = await resp.json();
+            setStore({ message: data.msg });
+            return false;
+          }
+          const data = await resp.json();
+          setStore({ message: null });
+          console.log("By-product created data:", data);
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error creating the by-product:",
+            resp.status
+          );
         }
       },
     },

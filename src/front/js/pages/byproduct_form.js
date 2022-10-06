@@ -12,11 +12,26 @@ const ByProductForm = ({ handleSetEdit }) => {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState(0);
+  const [unit, setUnit] = useState(0);
+  const [stock, setStock] = useState(0);
+
+  const types = store.types;
+  const units = store.units;
+  const user_id = store.data.id;
 
   const handleConfirm = async () => {
     if (
-      await actions.editprofile(name, email, company, phone, location, password)
+      await actions.new_byproduct(
+        user_id,
+        name,
+        stock,
+        type,
+        price,
+        unit,
+        location,
+        description
+      )
     )
       navigate("/profile");
   };
@@ -31,10 +46,10 @@ const ByProductForm = ({ handleSetEdit }) => {
       setName(store.byproducts.name);
       setLocation(store.byproducts.location);
       setPrice(store.byproducts.price);
-      setDescription(
-        store.byproducts.description ? store.byproducts.description : ""
-      );
+      setDescription(store.byproducts.description);
       setType(store.byproducts.type);
+      setUnit(store.byproducts.unit);
+      setStock(store.byproducts.stock);
     }
   }, [store.byproducts]);
 
@@ -85,9 +100,48 @@ const ByProductForm = ({ handleSetEdit }) => {
                 placeholder="€"
                 id="inputPrice"
                 value={price}
+                min="0"
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
+            {/* Unit field */}
+            <div className="mb-3 col-md-6">
+              <label htmlFor="inputUnit" className="form-label">
+                Units
+              </label>
+              <select
+                name="select"
+                className="form-select"
+                id="inputType"
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+              >
+                {units.map((u, idx) => {
+                  return (
+                    <option key={idx} value={idx}>
+                      {u}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            {/* Stock field */}
+            <div className="mb-3 col-md-6">
+              <label htmlFor="inputStock" className="form-label">
+                Stock
+              </label>
+              <input
+                required
+                type="number"
+                className="form-control"
+                placeholder={unit}
+                id="inputStock"
+                value={stock}
+                min="0"
+                onChange={(e) => setStock(e.target.value)}
+              />
+            </div>
+            {/* Type field */}
             <div className="mb-3 col-md-6">
               <label htmlFor="inputType" className="form-label">
                 Type
@@ -96,14 +150,16 @@ const ByProductForm = ({ handleSetEdit }) => {
                 name="select"
                 className="form-select"
                 id="inputType"
-                defaultValue={"0"}
-                // value={type}
+                value={type}
                 onChange={(e) => setType(e.target.value)}
               >
-                <option value="0">Select a Type</option>
-                <option value="organic">Organic</option>
-                <option value="plastic">Plastic</option>
-                <option value="textile">Textile</option>
+                {types.map((t, idx) => {
+                  return (
+                    <option key={idx} value={idx}>
+                      {t}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             {/* Description field */}
