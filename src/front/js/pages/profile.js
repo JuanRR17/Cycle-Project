@@ -12,6 +12,8 @@ const Profile = () => {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
 
+  // const id = store.data.id;
+
   const handleEditProfile = () => {
     setEdit(true);
   };
@@ -91,7 +93,7 @@ const Profile = () => {
                   type="button"
                   className="btn btn-danger"
                   data-bs-dismiss="modal"
-                  onClick={() => actions.delete_profile()}
+                  onClick={() => actions.delete_profile(store.data.id)}
                 >
                   Yes, Remove my Profile
                 </button>

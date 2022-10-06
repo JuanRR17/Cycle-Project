@@ -36,12 +36,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/signup",
+            process.env.BACKEND_URL + "/api/signup",
             opts
           );
           if (resp.status !== 200) {
-            // console.log("There has been some error", resp.status);
-            // console.log("resp", resp);
+            console.log("There has been some error", resp.status);
             const data = await resp.json();
             setStore({ message: data.msg });
             return false;
@@ -69,7 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/token",
+            process.env.BACKEND_URL + "/api/token",
             opts
           );
 
@@ -85,7 +84,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           sessionStorage.setItem("token", data.access_token);
           setStore({ token: data.access_token, message: null });
-          //return true;
         } catch (error) {
           console.error("There has been an error logging in:", error);
         }
@@ -105,7 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/user",
+            process.env.BACKEND_URL + "/api/user",
             data_opts
           );
 
@@ -124,6 +122,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       editprofile: async (
+        id,
         username,
         email,
         company,
@@ -150,7 +149,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/user/edit",
+            process.env.BACKEND_URL + "/api/user/" + id,
             opts
           );
 
@@ -174,7 +173,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ message: null });
       },
 
-      delete_profile: async () => {
+      delete_profile: async (id) => {
         const store = getStore();
 
         const opts = {
@@ -186,7 +185,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/user/delete",
+            process.env.BACKEND_URL + "/api/user/" + id,
             opts
           );
 

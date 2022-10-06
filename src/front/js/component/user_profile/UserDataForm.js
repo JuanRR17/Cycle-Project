@@ -15,10 +15,12 @@ const UserDataForm = ({ handleSetEdit }) => {
   const [location, setLocation] = useState("");
   const [password, setPassword] = useState("");
 
-  // const handleConfirm = () => {
+  const id = store.data.id;
+
   const handleConfirm = async () => {
     if (
       await actions.editprofile(
+        id,
         username,
         email,
         company,

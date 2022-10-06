@@ -78,12 +78,11 @@ def protected():
     return jsonify(user.serialize()), 200
 
 # UPDATE USER
-@api.route('/user/edit', methods=['PUT'])
+@api.route('/user/<int:id>', methods=['PUT'])
 @jwt_required()
-def update_user():
+def update_user(id):
     # Access the identity of the current user with get_jwt_identity
-    current_user = get_jwt_identity()
-    user = User.query.filter_by(email=current_user).first()
+    user = User.query.filter_by(id=id).first()
     if user != None:
         request_body = request.get_json(force=True)
         request_keys = list(request_body.keys())
@@ -121,14 +120,11 @@ def update_user():
         return jsonify({"msg":"This user doesnt exist"}),500
     
 # DELETE USER
-@api.route('/user/delete', methods=['DELETE'])
+@api.route('/user/<int:id>', methods=['DELETE'])
 @jwt_required()
-def delete_user():
-    # Access the identity of the current user with get_jwt_identity
-    current_user = get_jwt_identity()
-
+def delete_user(id):
     try:
-        user = User.query.filter_by(email=current_user).first()
+        user = User.query.filter_by(id=id).first()
         if user == None:
             raise Exception()
     except Exception:
@@ -137,3 +133,34 @@ def delete_user():
         db.session.delete(user)
         db.session.commit()
         return jsonify(user.serialize()),200
+
+# # CREATE NEW BYPRODUCT
+# @api.route("/byproduct/create", methods=['POST'])
+# @jwt_required()
+
+# def new_byproduct():
+#     # Access the identity of the current user with get_jwt_identity
+#     current_user = get_jwt_identity()
+#     request_body = request.get_json(force=True)
+#     request_keys = list(request_body.keys())
+
+#     if 'name' not in request_keys or request_body['name']=="":
+#         return jsonify({"msg":'You need to specify the name'}),400
+#     elif Byproduct.query.filter_by(email = request_body['email']).first() != None:
+#         return jsonify({"msg":'This email is already in use'}),500
+#     elif User.query.filter_by(username = request_body['username']).first() != None:
+#         return jsonify({"msg":'This username is already in use'}),500
+#     else:
+
+#         new_user = User()
+#         fields = list(new_user.serialize().keys())
+#         fields.remove("id")
+
+#         gen = (f for f in fields if f in request_keys)
+#         for f in gen:
+#             if request_body[f] != "":
+#                 setattr(new_user, f, request_body[f])
+
+#         db.session.add(new_user)
+#         db.session.commit()
+#         return jsonify(new_user.serialize()), 200

@@ -62,13 +62,10 @@ class ByProduct(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     type_id = db.Column(db.Integer, db.ForeignKey('type.id'))
     unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
-    # image_id = db.Column(db.Integer, db.ForeignKey('image.id'))
-    # orderrow_id = db.Column(db.Integer, db.ForeignKey('orderrow.id'))
     name = db.Column(db.String(120), nullable=False)
     stock = db.Column(db.String(120))
     price = db.Column(db.Numeric(120))
-    locationX = db.Column(db.Numeric(120))
-    locationY = db.Column(db.Numeric(120))
+    location = db.Column(db.Numeric(120))
     description = db.Column(db.String(120))
 
     user = db.relationship('User', backref='byproducts')
@@ -87,8 +84,7 @@ class ByProduct(db.Model):
             "name": self.name,
             "stock": self.stock,
             "price": self.price,
-            "locationX": self.locationX,
-            "locationY":self.locationY,
+            "location": self.location,
             "description":self.description,
         }
 
