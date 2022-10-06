@@ -10,7 +10,7 @@ class User(db.Model):
     username = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
-    phone = db.Column(db.String(120), unique=True, default="")
+    phone = db.Column(db.String(120), default="")
     location = db.Column(db.String(120), default="")
     company = db.Column(db.String(120), default="")
 
