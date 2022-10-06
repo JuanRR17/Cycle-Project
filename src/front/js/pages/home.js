@@ -28,7 +28,6 @@ export const Home = () => {
           </div>
         </>
       )}
-      <UserByProductsTable />
     </div>
   );
 };

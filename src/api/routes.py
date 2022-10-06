@@ -119,3 +119,21 @@ def update_user():
                 return jsonify(user.serialize()),200
     else:
         return jsonify({"msg":"This user doesnt exist"}),500
+    
+# DELETE USER
+@api.route('/user/delete', methods=['DELETE'])
+@jwt_required()
+def delete_user():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+
+    try:
+        user = User.query.filter_by(email=current_user).first()
+        if user == None:
+            raise Exception()
+    except Exception:
+        return jsonify({"msg":"This user doesn\'t exist"}),500
+    else:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify(user.serialize()),200

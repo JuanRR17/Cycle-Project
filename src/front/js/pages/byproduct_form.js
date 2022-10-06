@@ -14,7 +14,6 @@ const ByProductForm = ({ handleSetEdit }) => {
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
 
-  // const handleConfirm = () => {
   const handleConfirm = async () => {
     if (
       await actions.editprofile(name, email, company, phone, location, password)
@@ -23,6 +22,7 @@ const ByProductForm = ({ handleSetEdit }) => {
   };
 
   const handleCancel = () => {
+    actions.clearmessage();
     navigate("/profile");
   };
 

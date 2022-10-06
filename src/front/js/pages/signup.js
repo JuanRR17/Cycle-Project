@@ -14,11 +14,14 @@ export const SignUp = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    console.log("handleSubmit");
     if (await actions.signup(username, email, password)) {
-      console.log("User created");
       navigate("/login");
     }
+  };
+
+  const handleCancel = () => {
+    actions.clearmessage();
+    navigate("/");
   };
 
   return (
@@ -118,6 +121,9 @@ export const SignUp = () => {
           onClick={handleSubmit}
         >
           Sign Up
+        </button>
+        <button onClick={handleCancel} className="btn btn-danger">
+          Cancel
         </button>
         {/* </form> */}
       </div>

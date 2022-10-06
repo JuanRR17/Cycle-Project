@@ -122,6 +122,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There has been an error retrieving data:", error);
         }
       },
+
       editprofile: async (
         username,
         email,
@@ -168,8 +169,43 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There has been an error retrieving data:", error);
         }
       },
+
       clearmessage: () => {
         setStore({ message: null });
+      },
+
+      delete_profile: async () => {
+        const store = getStore();
+
+        const opts = {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/user/delete",
+            opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error deleting the user");
+            const msg = await resp.json();
+            setStore({ message: msg.msg });
+            return false;
+          }
+
+          const user_data = await resp.json();
+          console.log("This is the user data", user_data);
+          sessionStorage.removeItem("token");
+          console.log("User deleted");
+          setStore({ token: null, data: null, message: null });
+          return true;
+        } catch (error) {
+          console.error("There has been an error deleting the user:", error);
+        }
       },
     },
   };
