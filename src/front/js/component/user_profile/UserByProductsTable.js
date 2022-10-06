@@ -26,7 +26,7 @@ const UserByProductsTable = (props) => {
       sortable: true,
     },
     {
-      name: "Price",
+      name: "Price ",
       selector: (row) => row.price,
       sortable: true,
     },
@@ -70,7 +70,16 @@ const UserByProductsTable = (props) => {
       type: "Plastic",
     },
   ];
-  return <DataTableBase title="My Byproducts" columns={columns} data={data} />;
+  return (
+    <>
+      <button type="button" className="btn btn-success">
+        <Link to="/byproduct_form" className="text-decoration-none text-light">
+          Add new Byproduct
+        </Link>
+      </button>
+      <DataTableBase title="My Byproducts" columns={columns} data={data} />
+    </>
+  );
 };
 
 UserByProductsTable.propTypes = {};

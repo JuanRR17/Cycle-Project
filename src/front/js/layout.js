@@ -8,8 +8,8 @@ import { Single } from "./pages/single";
 
 import { SignUp } from "./pages/signup";
 import { Login } from "./pages/login";
-import { Profile } from "./pages/profile";
-import { ProductForm } from "./pages/product_form";
+import Profile from "./pages/profile";
+import ByProductForm from "./pages/byproduct_form";
 import { List } from "./pages/prod_list";
 import { Product } from "./pages/product";
 import { Blog } from "./pages/blog";
@@ -36,7 +36,7 @@ const Layout = () => {
             <Route element={<SignUp />} path="/signup" />
             <Route element={<Login />} path="/login" />
             <Route element={<Profile />} path="/profile" />
-            <Route element={<ProductForm />} path="/product_form" />
+            <Route element={<ByProductForm />} path="/byproduct_form" />
             <Route element={<List />} path="/prod_list" />
             <Route element={<Blog />} path="/blog" />
             <Route element={<BlogEntryForm />} path="/blog_entry_form" />
