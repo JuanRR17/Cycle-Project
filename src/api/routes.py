@@ -134,33 +134,30 @@ def delete_user(id):
         db.session.commit()
         return jsonify(user.serialize()),200
 
-# # CREATE NEW BYPRODUCT
-# @api.route("/byproduct/create", methods=['POST'])
-# @jwt_required()
+# CREATE NEW BYPRODUCT
+@api.route("/byproduct/create", methods=['POST'])
+@jwt_required()
 
-# def new_byproduct():
-#     # Access the identity of the current user with get_jwt_identity
-#     current_user = get_jwt_identity()
-#     request_body = request.get_json(force=True)
-#     request_keys = list(request_body.keys())
+def new_byproduct():
+    # Access the identity of the current user with get_jwt_identity
+    request_body = request.get_json(force=True)
+    request_keys = list(request_body.keys())
 
-#     if 'name' not in request_keys or request_body['name']=="":
-#         return jsonify({"msg":'You need to specify the name'}),400
-#     elif Byproduct.query.filter_by(email = request_body['email']).first() != None:
-#         return jsonify({"msg":'This email is already in use'}),500
-#     elif User.query.filter_by(username = request_body['username']).first() != None:
-#         return jsonify({"msg":'This username is already in use'}),500
-#     else:
+    if 'name' not in request_keys or request_body['name']=="":
+        return jsonify({"msg":'You need to specify the name'}),400
+    elif ByProduct.query.filter_by(name = request_body['name']).first() != None:
+        return jsonify({"msg":'This name is already in use'}),500
+    else:
 
-#         new_user = User()
-#         fields = list(new_user.serialize().keys())
-#         fields.remove("id")
+        new_byproduct = ByProduct()
+        fields = list(new_byproduct.serialize().keys())
+        fields.remove("id")
 
-#         gen = (f for f in fields if f in request_keys)
-#         for f in gen:
-#             if request_body[f] != "":
-#                 setattr(new_user, f, request_body[f])
+        gen = (f for f in fields if f in request_keys)
+        for f in gen:
+            if request_body[f] != "":
+                setattr(new_byproduct, f, request_body[f])
 
-#         db.session.add(new_user)
-#         db.session.commit()
-#         return jsonify(new_user.serialize()), 200
+        db.session.add(new_byproduct)
+        db.session.commit()
+        return jsonify(new_byproduct.serialize()), 200

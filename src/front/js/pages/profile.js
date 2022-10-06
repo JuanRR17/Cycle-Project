@@ -12,8 +12,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
 
-  // const id = store.data.id;
-
   const handleEditProfile = () => {
     setEdit(true);
   };

@@ -31,46 +31,48 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Type(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
+# class Type(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(120), unique=True, nullable=False)
 
-    def __repr__(self):
-        return f'<Type {self.name}>'
+#     def __repr__(self):
+#         return f'<Type {self.name}>'
 
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-        }
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "name": self.name,
+#         }
 
-class Unit(db.Model): 
-    id = db.Column(db.Integer, primary_key=True)
-    unit = db.Column(db.String(120), unique=True, nullable=False)
+# class Unit(db.Model): 
+#     id = db.Column(db.Integer, primary_key=True)
+#     unit = db.Column(db.String(120), unique=True, nullable=False)
 
-    def __repr__(self):
-        return f'<Unit {self.unit}>'
+#     def __repr__(self):
+#         return f'<Unit {self.unit}>'
 
-    def serialize(self):
-        return {
-            "id": self.id,
-            "unit": self.unit,
-        }
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "unit": self.unit,
+#         }
 
 class ByProduct(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    type_id = db.Column(db.Integer, db.ForeignKey('type.id'))
-    unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
+    # type = db.Column(db.Integer, db.ForeignKey('type.id'))
+    # unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
     name = db.Column(db.String(120), nullable=False)
     stock = db.Column(db.String(120))
+    type = db.Column(db.String(120))
     price = db.Column(db.Numeric(120))
+    unit = db.Column(db.String(120))
     location = db.Column(db.Numeric(120))
     description = db.Column(db.String(120))
 
     user = db.relationship('User', backref='byproducts')
-    type = db.relationship('Type', backref='byproducts')
-    unit = db.relationship('Unit', backref='byproducts')
+    # type = db.relationship('Type', backref='byproducts')
+    # unit = db.relationship('Unit', backref='byproducts')
 
     def __repr__(self):
         return f'<ByProduct {self.name}>'
@@ -79,11 +81,13 @@ class ByProduct(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "type_id": self.type_id,
-            "unit_id": self.unit_id,
+            # "type_id": self.type_id,
+            # "unit_id": self.unit_id,
             "name": self.name,
             "stock": self.stock,
+            "type": self.type,
             "price": self.price,
+            "unit": self.unit,
             "location": self.location,
             "description":self.description,
         }
