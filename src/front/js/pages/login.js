@@ -9,10 +9,9 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     console.log("handleLogin");
-    actions.login(email, password);
-    console.log("User logged in");
+    if (await actions.login(email, password)) console.log("User logged in");
   };
 
   useEffect(() => {

@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import UserDataForm from "../component/user_profile/UserDataForm";
 import UserInfo from "../component/user_profile/UserInfo";
+import UserByProductsTable from "../component/user_profile/UserByProductsTable";
+import PropTypes from "prop-types";
 
-export const Profile = () => {
+const Profile = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
@@ -32,16 +34,23 @@ export const Profile = () => {
           </div>
         ) : (
           <>
-            <UserInfo data={store.data} />
             <button onClick={handleEditProfile} className="btn btn-primary">
               Edit Profile
             </button>
+            <UserInfo data={store.data} />
           </>
         )}
       </div>
-      <button onClick={() => actions.logout()} className="btn btn-danger">
-        Log out
-      </button>
+      <div>
+        <button onClick={() => actions.logout()} className="btn btn-danger">
+          Log out
+        </button>
+      </div>
+      <UserByProductsTable />
     </div>
   );
 };
+
+Profile.propTypes = {};
+
+export default Profile;

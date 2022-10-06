@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
+import UserByProductsTable from "../component/user_profile/UserByProductsTable";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
 
   return (
-    <div className="text-center mt-5">
+    <div className="text-left mt-5">
       {store.token ? (
         <>
           <div>
@@ -27,6 +28,7 @@ export const Home = () => {
           </div>
         </>
       )}
+      <UserByProductsTable />
     </div>
   );
 };
