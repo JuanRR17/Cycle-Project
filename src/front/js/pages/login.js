@@ -10,16 +10,18 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    console.log("handleLogin");
-    if (await actions.login(email, password)) console.log("User logged in");
+    await actions.login(email, password);
+  };
+
+  const handleCancel = () => {
+    actions.clearmessage();
+    navigate("/");
   };
 
   useEffect(() => {
     if (store.token && store.token != "" && store.token != undefined)
       navigate("/profile");
   }, [store.token]);
-
-  console.log("token in login", store.token);
 
   return (
     <div className="m-auto w-50">
@@ -57,6 +59,9 @@ export const Login = () => {
           onClick={handleLogin}
         >
           Login
+        </button>
+        <button onClick={handleCancel} className="btn btn-danger">
+          Cancel
         </button>
       </div>
     </div>

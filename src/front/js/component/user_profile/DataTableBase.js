@@ -16,7 +16,7 @@ const DataTableBase = (props) => {
   const [selectedRows, setSelectedRows] = React.useState([]);
   const [toggleCleared, setToggleCleared] = React.useState(false);
   const [data, setData] = React.useState(props.data);
-  console.log("data", data);
+
   const handleRowSelected = React.useCallback((state) => {
     setSelectedRows(state.selectedRows);
   }, []);
@@ -36,7 +36,7 @@ const DataTableBase = (props) => {
     };
 
     return (
-      <div style={{ backgroundColor: "yellow" }}>
+      <div>
         <Button
           key="delete"
           onClick={handleDelete}
