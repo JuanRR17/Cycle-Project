@@ -19,12 +19,11 @@ const ByProductForm = ({ handleSetEdit }) => {
     if (
       await actions.editprofile(name, email, company, phone, location, password)
     )
-      handleSetEdit(false);
+      navigate("/profile");
   };
 
   const handleCancel = () => {
-    actions.clearmessage();
-    handleSetEdit(false);
+    navigate("/profile");
   };
 
   useEffect(() => {

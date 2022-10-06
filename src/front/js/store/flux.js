@@ -36,7 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu67.gitpod.io/api/signup",
+            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/signup",
             opts
           );
           if (resp.status !== 200) {
@@ -69,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu67.gitpod.io/api/token",
+            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/token",
             opts
           );
 
@@ -105,7 +105,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu67.gitpod.io/api/user",
+            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/user",
             data_opts
           );
 
@@ -149,7 +149,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu67.gitpod.io/api/user/edit",
+            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/user/edit",
             opts
           );
 
