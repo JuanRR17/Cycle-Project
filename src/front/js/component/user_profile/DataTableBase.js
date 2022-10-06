@@ -3,7 +3,10 @@ import DataTable from "react-data-table-component";
 import PropTypes from "prop-types";
 import Checkbox from "@material-ui/core/Checkbox";
 
+import Button from "@material-ui/core/Button";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 const _ = require("lodash");
 const sortIcon = <ArrowDownward />;
@@ -33,26 +36,28 @@ const DataTableBase = (props) => {
     };
 
     return (
-      <>
-        <button
+      <div style={{ backgroundColor: "yellow" }}>
+        <Button
           key="delete"
           onClick={handleDelete}
-          style={{ backgroundColor: "red" }}
-          // icon
+          variant="contained"
+          color="secondary"
+          startIcon={<DeleteIcon />}
         >
           Delete
-        </button>
+        </Button>
         {selectedRows.length == 1 ? (
-          <button
+          <Button
             key="edit"
             onClick={handleDelete}
-            style={{ backgroundColor: "blue" }}
-            // icon
+            variant="contained"
+            color="primary"
+            startIcon={<EditIcon />}
           >
             Edit
-          </button>
+          </Button>
         ) : null}
-      </>
+      </div>
     );
   }, [data, selectedRows, toggleCleared]);
   return (

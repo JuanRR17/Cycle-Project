@@ -70,7 +70,7 @@ const UserByProductsTable = (props) => {
       type: "Plastic",
     },
   ];
-  return <DataTableBase title="Desserts" columns={columns} data={data} />;
+  return <DataTableBase title="My Byproducts" columns={columns} data={data} />;
 };
 
 UserByProductsTable.propTypes = {};
