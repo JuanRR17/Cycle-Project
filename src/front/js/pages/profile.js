@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import UserDataForm from "../component/user_profile/UserDataForm";
 import UserInfo from "../component/user_profile/UserInfo";
+import UserByProductsTable from "../component/user_profile/UserByProductsTable";
 
 export const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -42,6 +43,7 @@ export const Profile = () => {
       <button onClick={() => actions.logout()} className="btn btn-danger">
         Log out
       </button>
+      <UserByProductsTable />
     </div>
   );
 };

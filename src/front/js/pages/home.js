@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
+import UserByProductsTable from "../component/user_profile/UserByProductsTable";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -27,6 +28,7 @@ export const Home = () => {
           </div>
         </>
       )}
+      <UserByProductsTable />
     </div>
   );
 };
