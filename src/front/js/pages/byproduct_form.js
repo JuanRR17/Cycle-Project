@@ -14,7 +14,7 @@ const ByProductForm = ({ handleSetEdit }) => {
   const [description, setDescription] = useState("");
   const [type, setType] = useState(0);
   const [unit, setUnit] = useState(0);
-  const [stock, setStock] = useState(0);
+  const [stock, setStock] = useState("");
 
   const types = store.types;
   const units = store.units;

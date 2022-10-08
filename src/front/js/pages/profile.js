@@ -17,9 +17,13 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (store.token == undefined) navigate("/");
+    if (store.token == undefined) {
+      navigate("/");
+      actions.logout();
+    }
     if (store.data == undefined) actions.getUserData();
-  }, [store.token, store.data]);
+  });
+  // }, [store.token, store.data]);
 
   return (
     <div className="mt-5">

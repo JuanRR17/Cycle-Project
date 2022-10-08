@@ -4,7 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: null,
       data: null,
       message: null,
-      types: ["Select a type", "Organic", "Plastic", "Textile", "Metalic"],
+      types: ["Select a type", "Organic", "Plastic", "Textile", "Metallic"],
       units: ["kg", "g", "m", "m2", "m3", "L", "unit/s"],
       user_products: null,
       product: null,
