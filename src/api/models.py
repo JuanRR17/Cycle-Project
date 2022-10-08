@@ -37,7 +37,7 @@ class Product(db.Model):
     name = db.Column(db.String(120), nullable=False)
     stock = db.Column(db.Integer)
     type = db.Column(db.String(120))
-    price = db.Column(db.Numeric(120))
+    price = db.Column(db.Integer)
     unit = db.Column(db.String(120))
     location = db.Column(db.String(120))
     description = db.Column(db.String(120))
