@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useContext } from "react";
+import { Context } from "../../store/appContext";
 import DataTable from "react-data-table-component";
 import PropTypes from "prop-types";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -16,10 +17,13 @@ const DataTableBase = (props) => {
   const [selectedRows, setSelectedRows] = React.useState([]);
   const [toggleCleared, setToggleCleared] = React.useState(false);
   const [data, setData] = React.useState(props.data);
+  const { store, actions } = useContext(Context);
 
   const handleRowSelected = React.useCallback((state) => {
     setSelectedRows(state.selectedRows);
   }, []);
+
+  console.log("selectedRows:", selectedRows);
 
   const contextActions = React.useMemo(() => {
     const handleDelete = () => {
@@ -32,6 +36,9 @@ const DataTableBase = (props) => {
       ) {
         setToggleCleared(!toggleCleared);
         setData(_.difference(data, selectedRows));
+        selectedRows.forEach((p) => {
+          actions.delete_product(p.id);
+        });
       }
     };
 

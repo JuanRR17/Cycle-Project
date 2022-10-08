@@ -328,6 +328,43 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
+      clearmessage: () => {
+        setStore({ message: null });
+      },
+      //DELETE PRODUCT
+      delete_product: async (id) => {
+        const store = getStore();
+
+        const opts = {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/product/" + id,
+            opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error deleting the product");
+            const msg = await resp.json();
+            setStore({ message: msg.msg });
+            return false;
+          }
+
+          const user_data = await resp.json();
+          console.log("This is the product data", user_data);
+          sessionStorage.removeItem("token");
+          console.log("Product deleted");
+          setStore({ message: null });
+          return true;
+        } catch (error) {
+          console.error("There has been an error deleting the product:", error);
+        }
+      },
     },
   };
 };

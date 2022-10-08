@@ -188,3 +188,18 @@ def get_product(id):
     product = Product.query.filter_by(id=id).first()
 
     return jsonify(product.serialize()), 200
+
+# DELETE PRODUCT
+@api.route('/product/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_product(id):
+    try:
+        product = Product.query.filter_by(id=id).first()
+        if product == None:
+            raise Exception()
+    except Exception:
+        return jsonify({"msg":"This product doesn\'t exist"}),500
+    else:
+        db.session.delete(product)
+        db.session.commit()
+        return jsonify(product.serialize()),200
