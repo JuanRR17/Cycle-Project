@@ -74,6 +74,8 @@ def protected():
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
+    # print("user products")
+    # print(list(user.products))
 
     return jsonify(user.serialize()), 200
 
@@ -103,11 +105,6 @@ def update_user(id):
             unvalid_fields = []
             for f in request_body:
                 if f in fields:
-                    # if f == "id":
-                    #     return jsonify({"msg":"You cant modify id"}),400
-                    # elif f == "phone":
-                    #     setattr(user, f, int(request_body[f]))
-                    # else:
                     setattr(user, f, request_body[f])
                 else:
                     unvalid_fields.append(f)
@@ -150,8 +147,6 @@ def new_product():
 
     if 'name' not in request_keys or request_body['name']=="":
         return jsonify({"msg":'You need to specify the name'}),400
-    # elif Product.query.filter_by(name = request_body['name']).first() != None:
-    #     return jsonify({"msg":'This name is already in use'}),500
     else:
         print("before creating new product")
         new_product = Product()
@@ -170,8 +165,26 @@ def new_product():
 
 # GET ALL PRODUCTS
 @api.route("/products", methods=['GET'])
+
 def get_products():
-    all_products = Product.query.all()
-    all_products = list(map(lambda x: x.serialize(), all_products))
-    json_text = jsonify(all_products)
+    products = Product.query.all()
+    products = list(map(lambda x: x.serialize(), products))
+    json_text = jsonify(products)
     return json_text
+
+# GET USER PRODUCTS
+@api.route("/user_products/<int:id>", methods=['GET'])
+
+def get_user_products(id):
+    user_products = Product.query.filter_by(user_id=id)
+    user_products = list(map(lambda x: x.serialize(), user_products))
+    json_text = jsonify(user_products)
+    return json_text
+
+# GET ONE PRODUCT DATA
+@api.route("/product/<int:id>", methods=["GET"])
+def get_product(id):
+    # Access the identity of the current user with get_jwt_identity
+    product = Product.query.filter_by(id=id).first()
+
+    return jsonify(product.serialize()), 200

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import UserDataForm from "../component/user_profile/UserDataForm";
 import UserInfo from "../component/user_profile/UserInfo";
-import UserByProductsTable from "../component/user_profile/UserByProductsTable";
+import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
 
 const Profile = () => {
@@ -43,7 +43,7 @@ const Profile = () => {
           Log out
         </button>
       </div>
-      <UserByProductsTable />
+      <UserProductsTable />
       <div>
         {/* Button trigger modal */}
         <button
