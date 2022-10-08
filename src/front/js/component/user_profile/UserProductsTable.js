@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
 import DataTableBase from "./DataTableBase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const UserByProductsTable = (props) => {
+const UserProductsTable = (props) => {
+  const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+  console.log(store.data);
+  // const id = store.data.id;
+
+  useEffect(() => {
+    if (store.token == undefined) navigate("/");
+    if (store.data == undefined) actions.getUserData();
+    if (store.user_products == undefined && store.data != undefined)
+      actions.getUserProducts(store.data.id);
+  }, [store.token, store.data]);
+
+  console.log("store:", store);
+
   const columns = [
     {
       name: "Id",
@@ -70,6 +85,7 @@ const UserByProductsTable = (props) => {
       type: "Plastic",
     },
   ];
+  // console.log("store.data:", store.user_products);
   return (
     <>
       <button type="button" className="btn btn-success">
@@ -77,11 +93,17 @@ const UserByProductsTable = (props) => {
           Add new Byproduct
         </Link>
       </button>
-      <DataTableBase title="My Byproducts" columns={columns} data={data} />
+      {store.user_products ? (
+        <DataTableBase
+          title="My Byproducts"
+          columns={columns}
+          data={store.user_products}
+        />
+      ) : null}
     </>
   );
 };
 
-UserByProductsTable.propTypes = {};
+UserProductsTable.propTypes = {};
 
-export default UserByProductsTable;
+export default UserProductsTable;

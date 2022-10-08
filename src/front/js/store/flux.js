@@ -4,6 +4,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: null,
       data: null,
       message: null,
+      types: ["Select a type", "Organic", "Plastic", "Textile", "Metalic"],
+      units: ["kg", "g", "m", "m2", "m3", "L", "unit/s"],
+      user_products: null,
+      product: null,
     },
     actions: {
       // Use getActions to call a function within a function
@@ -36,12 +40,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/signup",
+            process.env.BACKEND_URL + "/api/signup",
             opts
           );
           if (resp.status !== 200) {
-            // console.log("There has been some error", resp.status);
-            // console.log("resp", resp);
+            console.log("There has been some error", resp.status);
             const data = await resp.json();
             setStore({ message: data.msg });
             return false;
@@ -69,7 +72,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/token",
+            process.env.BACKEND_URL + "/api/token",
             opts
           );
 
@@ -85,17 +88,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           sessionStorage.setItem("token", data.access_token);
           setStore({ token: data.access_token, message: null });
-          //return true;
         } catch (error) {
           console.error("There has been an error logging in:", error);
         }
       },
 
-      getData: async () => {
+      getUserData: async () => {
         // 2. Fetch to retrieve user data
 
         const store = getStore();
-        console.log("token in getData", store.token);
         const data_opts = {
           method: "GET",
           headers: {
@@ -105,7 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/user",
+            process.env.BACKEND_URL + "/api/user",
             data_opts
           );
 
@@ -124,6 +125,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       editprofile: async (
+        id,
         username,
         email,
         company,
@@ -150,7 +152,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/user/edit",
+            process.env.BACKEND_URL + "/api/user/" + id,
             opts
           );
 
@@ -174,7 +176,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ message: null });
       },
 
-      delete_profile: async () => {
+      delete_profile: async (id) => {
         const store = getStore();
 
         const opts = {
@@ -186,7 +188,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         try {
           const resp = await fetch(
-            "https://3001-juanrr17-cycleproject-u7g3sswfuqh.ws-eu70.gitpod.io/api/user/delete",
+            process.env.BACKEND_URL + "/api/user/" + id,
             opts
           );
 
@@ -205,6 +207,125 @@ const getState = ({ getStore, getActions, setStore }) => {
           return true;
         } catch (error) {
           console.error("There has been an error deleting the user:", error);
+        }
+      },
+      // CREATE NEW PRODUCT
+      new_product: async (
+        user_id,
+        name,
+        stock,
+        type,
+        price,
+        unit,
+        location,
+        description
+      ) => {
+        const store = getStore();
+
+        const opts = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify({
+            user_id: user_id,
+            name: name,
+            stock: Number(stock),
+            type: store.types[type],
+            price: Number(price),
+            unit: store.units[unit],
+            location: location,
+            description: description,
+          }),
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/product",
+            opts
+          );
+          if (resp.status !== 200) {
+            console.log(
+              "There has been some error creating the product",
+              resp.status
+            );
+            const data = await resp.json();
+            setStore({ message: data.msg });
+            return false;
+          }
+          const data = await resp.json();
+          setStore({ message: null });
+          console.log("Product created data:", data);
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error creating the product:",
+            resp.status
+          );
+        }
+      },
+      //GET SINGLE PRODUCT
+      getSingleProduct: async () => {
+        const data_opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/product/" + id,
+            data_opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error retrieving product data");
+            return false;
+          }
+
+          const product_data = await resp.json();
+          console.log("This is the product data", product_data);
+          setStore({ product: product_data, message: null });
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error retrieving product data:",
+            error
+          );
+        }
+      },
+      //GET USER PRODUCTS
+      getUserProducts: async (id) => {
+        // const store = getStore();
+        const opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/user_products/" + id,
+            opts
+          );
+
+          if (resp.status !== 200) {
+            console.log(
+              "There has been some error retrieving user products data"
+            );
+            return false;
+          }
+
+          const user_products = await resp.json();
+          console.log("This is the user products data", user_products);
+          setStore({ user_products: user_products, message: null });
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error retrieving user products data:",
+            error
+          );
         }
       },
     },

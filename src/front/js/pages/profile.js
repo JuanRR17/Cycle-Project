@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import UserDataForm from "../component/user_profile/UserDataForm";
 import UserInfo from "../component/user_profile/UserInfo";
-import UserByProductsTable from "../component/user_profile/UserByProductsTable";
+import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
 
 const Profile = () => {
@@ -18,7 +18,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (store.token == undefined) navigate("/");
-    if (store.data == undefined) actions.getData();
+    if (store.data == undefined) actions.getUserData();
   }, [store.token, store.data]);
 
   return (
@@ -43,7 +43,7 @@ const Profile = () => {
           Log out
         </button>
       </div>
-      <UserByProductsTable />
+      <UserProductsTable />
       <div>
         {/* Button trigger modal */}
         <button
@@ -91,7 +91,7 @@ const Profile = () => {
                   type="button"
                   className="btn btn-danger"
                   data-bs-dismiss="modal"
-                  onClick={() => actions.delete_profile()}
+                  onClick={() => actions.delete_profile(store.data.id)}
                 >
                   Yes, Remove my Profile
                 </button>

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User,Product
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -74,16 +74,17 @@ def protected():
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
+    # print("user products")
+    # print(list(user.products))
 
     return jsonify(user.serialize()), 200
 
 # UPDATE USER
-@api.route('/user/edit', methods=['PUT'])
+@api.route('/user/<int:id>', methods=['PUT'])
 @jwt_required()
-def update_user():
+def update_user(id):
     # Access the identity of the current user with get_jwt_identity
-    current_user = get_jwt_identity()
-    user = User.query.filter_by(email=current_user).first()
+    user = User.query.filter_by(id=id).first()
     if user != None:
         request_body = request.get_json(force=True)
         request_keys = list(request_body.keys())
@@ -104,11 +105,6 @@ def update_user():
             unvalid_fields = []
             for f in request_body:
                 if f in fields:
-                    # if f == "id":
-                    #     return jsonify({"msg":"You cant modify id"}),400
-                    # elif f == "phone":
-                    #     setattr(user, f, int(request_body[f]))
-                    # else:
                     setattr(user, f, request_body[f])
                 else:
                     unvalid_fields.append(f)
@@ -121,14 +117,11 @@ def update_user():
         return jsonify({"msg":"This user doesnt exist"}),500
     
 # DELETE USER
-@api.route('/user/delete', methods=['DELETE'])
+@api.route('/user/<int:id>', methods=['DELETE'])
 @jwt_required()
-def delete_user():
-    # Access the identity of the current user with get_jwt_identity
-    current_user = get_jwt_identity()
-
+def delete_user(id):
     try:
-        user = User.query.filter_by(email=current_user).first()
+        user = User.query.filter_by(id=id).first()
         if user == None:
             raise Exception()
     except Exception:
@@ -137,3 +130,61 @@ def delete_user():
         db.session.delete(user)
         db.session.commit()
         return jsonify(user.serialize()),200
+
+# CREATE NEW PRODUCT
+@api.route("/product", methods=['POST'])
+@jwt_required()
+
+def new_product():
+    request_body = request.get_json(force=True)
+    request_keys = list(request_body.keys())
+
+    print("new product request body")
+    print(request_body)
+
+    print("new product request keys")
+    print(request_keys)
+
+    if 'name' not in request_keys or request_body['name']=="":
+        return jsonify({"msg":'You need to specify the name'}),400
+    else:
+        print("before creating new product")
+        new_product = Product()
+        fields = list(new_product.serialize().keys())
+        fields.remove("id")
+
+        gen = (f for f in fields if f in request_keys)
+        for f in gen:
+            if request_body[f] != "":
+                setattr(new_product, f, request_body[f])
+        print("new product created")
+        print(new_product.serialize())
+        db.session.add(new_product)
+        db.session.commit()
+        return jsonify(new_product.serialize()), 200
+
+# GET ALL PRODUCTS
+@api.route("/products", methods=['GET'])
+
+def get_products():
+    products = Product.query.all()
+    products = list(map(lambda x: x.serialize(), products))
+    json_text = jsonify(products)
+    return json_text
+
+# GET USER PRODUCTS
+@api.route("/user_products/<int:id>", methods=['GET'])
+
+def get_user_products(id):
+    user_products = Product.query.filter_by(user_id=id)
+    user_products = list(map(lambda x: x.serialize(), user_products))
+    json_text = jsonify(user_products)
+    return json_text
+
+# GET ONE PRODUCT DATA
+@api.route("/product/<int:id>", methods=["GET"])
+def get_product(id):
+    # Access the identity of the current user with get_jwt_identity
+    product = Product.query.filter_by(id=id).first()
+
+    return jsonify(product.serialize()), 200
