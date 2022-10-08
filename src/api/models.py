@@ -31,58 +31,26 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-# class Type(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(120), unique=True, nullable=False)
-
-#     def __repr__(self):
-#         return f'<Type {self.name}>'
-
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "name": self.name,
-#         }
-
-# class Unit(db.Model): 
-#     id = db.Column(db.Integer, primary_key=True)
-#     unit = db.Column(db.String(120), unique=True, nullable=False)
-
-#     def __repr__(self):
-#         return f'<Unit {self.unit}>'
-
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "unit": self.unit,
-#         }
-
-class ByProduct(db.Model):
+class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    # type = db.Column(db.Integer, db.ForeignKey('type.id'))
-    # unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
     name = db.Column(db.String(120), nullable=False)
-    stock = db.Column(db.String(120))
+    stock = db.Column(db.Integer)
     type = db.Column(db.String(120))
     price = db.Column(db.Numeric(120))
     unit = db.Column(db.String(120))
-    location = db.Column(db.Numeric(120))
+    location = db.Column(db.String(120))
     description = db.Column(db.String(120))
 
-    user = db.relationship('User', backref='byproducts')
-    # type = db.relationship('Type', backref='byproducts')
-    # unit = db.relationship('Unit', backref='byproducts')
+    user = db.relationship('User', backref='products')
 
     def __repr__(self):
-        return f'<ByProduct {self.name}>'
+        return f'<Product {self.name}>'
 
     def serialize(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            # "type_id": self.type_id,
-            # "unit_id": self.unit_id,
             "name": self.name,
             "stock": self.stock,
             "type": self.type,
@@ -96,11 +64,11 @@ class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     img = db.Column(db.Text, unique=True, nullable=False)
     mimetype = db.Column(db.Text, nullable=False)
-    by_product_id = db.Column(db.Integer, db.ForeignKey('by_product.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     name = db.Column(db.String(120), nullable=False)
     is_default = db.Column(db.Boolean(), nullable=False)
 
-    by_product = db.relationship('ByProduct', backref='images')
+    product = db.relationship('Product', backref='images')
 
     def __repr__(self):
         return f'<Image {self.name}>'
@@ -110,7 +78,7 @@ class Image(db.Model):
             "id": self.id,
             "img": self.img,
             "mimetype": self.mimetype,
-            "by_product_id": self.byproduct_id,
+            "product_id": self.product_id,
             "name": self.name,
             "is_default": self.is_default
         }
@@ -161,12 +129,12 @@ class Order(db.Model):
 class OrderRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
-    by_product_id = db.Column(db.Integer, db.ForeignKey('by_product.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     quantity = db.Column(db.Numeric(120))
     subtotal = db.Column(db.Numeric(120))
 
     order = db.relationship('Order', backref='order_rows')
-    by_product = db.relationship('ByProduct', backref='order_rows')
+    product = db.relationship('Product', backref='order_rows')
 
     def __repr__(self):
         return f'<Order_Row {self.id}>'
@@ -175,7 +143,7 @@ class OrderRow(db.Model):
         return {
             "id": self.id,
             "order_id": self.order_id,
-            "by_product_id": self.by_product_id,
+            "product_id": self.product_id,
             "quantity": self.quantity,
             "subtotal": self.subtotal
         }
@@ -200,12 +168,12 @@ class Basket(db.Model):
 class BasketRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     basket_id = db.Column(db.Integer, db.ForeignKey('basket.id'))
-    by_product_id = db.Column(db.Integer, db.ForeignKey('by_product.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     quantity = db.Column(db.Numeric(120))
     subtotal = db.Column(db.Numeric(120))
 
     basket = db.relationship('Basket', backref='basket_rows')
-    by_product = db.relationship('ByProduct', backref='basket_rows')
+    product = db.relationship('Product', backref='basket_rows')
 
     def __repr__(self):
         return f'<BasketRow {self.id}>'
@@ -214,7 +182,7 @@ class BasketRow(db.Model):
         return {
             "id": self.id,
             "order_id": self.order_id,
-            "by_product_id": self.by_product_id,
+            "product_id": self.product_id,
             "quantity": self.quantity,
             "subtotal": self.subtotal
         }

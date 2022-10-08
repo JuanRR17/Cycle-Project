@@ -22,7 +22,7 @@ const ByProductForm = ({ handleSetEdit }) => {
 
   const handleConfirm = async () => {
     if (
-      await actions.new_byproduct(
+      await actions.new_product(
         user_id,
         name,
         stock,
@@ -42,16 +42,16 @@ const ByProductForm = ({ handleSetEdit }) => {
   };
 
   useEffect(() => {
-    if (store.byproducts != undefined) {
-      setName(store.byproducts.name);
-      setLocation(store.byproducts.location);
-      setPrice(store.byproducts.price);
-      setDescription(store.byproducts.description);
-      setType(store.byproducts.type);
-      setUnit(store.byproducts.unit);
-      setStock(store.byproducts.stock);
+    if (store.product != undefined) {
+      setName(store.product.name);
+      setLocation(store.product.location);
+      setPrice(store.product.price);
+      setDescription(store.product.description);
+      setType(store.product.type);
+      setUnit(store.product.unit);
+      setStock(store.product.stock);
     }
-  }, [store.byproducts]);
+  }, [store.product]);
 
   return (
     <div className="mt-5">

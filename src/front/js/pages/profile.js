@@ -18,7 +18,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (store.token == undefined) navigate("/");
-    if (store.data == undefined) actions.getData();
+    if (store.data == undefined) actions.getUserData();
   }, [store.token, store.data]);
 
   return (

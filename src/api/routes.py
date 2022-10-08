@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User,ByProduct
+from api.models import db, User,Product
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -134,29 +134,44 @@ def delete_user(id):
         db.session.commit()
         return jsonify(user.serialize()),200
 
-# CREATE NEW BYPRODUCT
-@api.route("/by_product", methods=['POST'])
+# CREATE NEW PRODUCT
+@api.route("/product", methods=['POST'])
 @jwt_required()
 
-def new_byproduct():
+def new_product():
     request_body = request.get_json(force=True)
     request_keys = list(request_body.keys())
 
+    print("new product request body")
+    print(request_body)
+
+    print("new product request keys")
+    print(request_keys)
+
     if 'name' not in request_keys or request_body['name']=="":
         return jsonify({"msg":'You need to specify the name'}),400
-    elif ByProduct.query.filter_by(name = request_body['name']).first() != None:
-        return jsonify({"msg":'This name is already in use'}),500
+    # elif Product.query.filter_by(name = request_body['name']).first() != None:
+    #     return jsonify({"msg":'This name is already in use'}),500
     else:
-
-        new_byproduct = ByProduct()
-        fields = list(new_byproduct.serialize().keys())
+        print("before creating new product")
+        new_product = Product()
+        fields = list(new_product.serialize().keys())
         fields.remove("id")
 
         gen = (f for f in fields if f in request_keys)
         for f in gen:
             if request_body[f] != "":
-                setattr(new_byproduct, f, request_body[f])
-
-        db.session.add(new_byproduct)
+                setattr(new_product, f, request_body[f])
+        print("new product created")
+        print(new_product.serialize())
+        db.session.add(new_product)
         db.session.commit()
-        return jsonify(new_byproduct.serialize()), 200
+        return jsonify(new_product.serialize()), 200
+
+# GET ALL PRODUCTS
+@api.route("/products", methods=['GET'])
+def get_products():
+    all_products = Product.query.all()
+    all_products = list(map(lambda x: x.serialize(), all_products))
+    json_text = jsonify(all_products)
+    return json_text

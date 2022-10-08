@@ -91,11 +91,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      getData: async () => {
+      getUserData: async () => {
         // 2. Fetch to retrieve user data
 
         const store = getStore();
-        console.log("token in getData", store.token);
+        console.log("token in getUserData", store.token);
         const data_opts = {
           method: "GET",
           headers: {
@@ -209,7 +209,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      new_byproduct: async (
+      new_product: async (
         user_id,
         name,
         stock,
@@ -230,22 +230,22 @@ const getState = ({ getStore, getActions, setStore }) => {
           body: JSON.stringify({
             user_id: user_id,
             name: name,
-            stock: stock,
-            type: type,
-            price: price,
-            unit: unit,
+            stock: Number(stock),
+            type: store.types[type],
+            price: Number(price),
+            unit: store.units[unit],
             location: location,
             description: description,
           }),
         };
         try {
           const resp = await fetch(
-            process.env.BACKEND_URL + "/api/by_product",
+            process.env.BACKEND_URL + "/api/product",
             opts
           );
           if (resp.status !== 200) {
             console.log(
-              "There has been some error creating the by-product",
+              "There has been some error creating the product",
               resp.status
             );
             const data = await resp.json();
@@ -254,11 +254,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
           const data = await resp.json();
           setStore({ message: null });
-          console.log("By-product created data:", data);
+          console.log("Product created data:", data);
           return true;
         } catch (error) {
           console.error(
-            "There has been an error creating the by-product:",
+            "There has been an error creating the product:",
             resp.status
           );
         }
