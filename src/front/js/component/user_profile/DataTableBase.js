@@ -23,8 +23,6 @@ const DataTableBase = (props) => {
     setSelectedRows(state.selectedRows);
   }, []);
 
-  console.log("selectedRows:", selectedRows);
-
   const contextActions = React.useMemo(() => {
     const handleDelete = () => {
       if (

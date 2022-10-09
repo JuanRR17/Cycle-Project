@@ -8,13 +8,19 @@ const getState = ({ getStore, getActions, setStore }) => {
       units: ["kg", "g", "m", "m2", "m3", "L", "unit/s"],
       user_products: null,
       product: null,
+      update: false,
     },
     actions: {
       // Use getActions to call a function within a function
       logout: () => {
         sessionStorage.removeItem("token");
         console.log("Login out");
-        setStore({ token: null, data: null, message: null });
+        setStore({
+          token: null,
+          data: null,
+          message: null,
+          user_products: null,
+        });
       },
 
       syncTokenFromSessionStore: () => {
@@ -256,6 +262,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await resp.json();
           setStore({ message: null });
           console.log("Product created data:", data);
+          setStore({ update: true });
           return true;
         } catch (error) {
           console.error(
@@ -359,11 +366,16 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("This is the product data", user_data);
           sessionStorage.removeItem("token");
           console.log("Product deleted");
-          setStore({ message: null });
+          setStore({ message: null, update: true });
           return true;
         } catch (error) {
           console.error("There has been an error deleting the product:", error);
         }
+      },
+      //SET NEW
+      toggle_update: () => {
+        const store = getStore();
+        setStore({ update: !store.update });
       },
     },
   };
