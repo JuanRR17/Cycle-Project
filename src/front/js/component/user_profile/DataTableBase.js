@@ -43,7 +43,6 @@ const DataTableBase = (props) => {
       }
     };
     const handleEdit = () => {
-      // console.log("selectedRows:", selectedRows);
       actions.toggle_update();
       actions.setSingleProduct(selectedRows[0]);
       navigate("/byproduct_form");

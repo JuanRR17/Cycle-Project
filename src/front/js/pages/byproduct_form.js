@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import PropTypes from "prop-types";
 
-const ByProductForm = ({ handleSetEdit }) => {
+const ByProductForm = (props) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-  console.log("store:", store);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState("");
@@ -52,7 +51,6 @@ const ByProductForm = ({ handleSetEdit }) => {
     actions.clearmessage();
     navigate("/profile");
   };
-  console.log("store.product:", store.product);
   useEffect(() => {
     if (store.product != undefined) {
       setName(store.product.name);
@@ -63,7 +61,7 @@ const ByProductForm = ({ handleSetEdit }) => {
       setUnit(store.units.indexOf(store.product.unit));
       setStock(store.product.stock);
     }
-  });
+  }, []);
 
   return (
     <div className="mt-5">

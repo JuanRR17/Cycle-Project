@@ -11,7 +11,6 @@ const Profile = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
-  console.log("store:", store);
 
   const handleEditProfile = () => {
     setEdit(true);
@@ -24,7 +23,6 @@ const Profile = () => {
     }
     if (store.data == undefined) actions.getUserData();
   });
-  // }, [store.token, store.data]);
 
   return (
     <div className="mt-5">
