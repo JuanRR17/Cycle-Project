@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       data: null,
       message: null,
       types: ["Select a type", "Organic", "Plastic", "Textile", "Metallic"],
-      units: ["kg", "g", "m", "m2", "m3", "L", "unit/s"],
+      units: ["Select an unit", "kg", "g", "m", "m2", "m3", "L", "unit/s"],
       user_products: null,
       product: null,
       update: false,
@@ -14,22 +14,26 @@ const getState = ({ getStore, getActions, setStore }) => {
       // Use getActions to call a function within a function
       logout: () => {
         sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
         console.log("Login out");
         setStore({
           token: null,
           data: null,
           message: null,
           user_products: null,
+          product: null,
+          update: false,
         });
       },
 
       syncTokenFromSessionStore: () => {
+        const store = getStore();
         const token = sessionStorage.getItem("token");
         console.log(
           "Application just loaded, synching the session storage token"
         );
         if (token && token != "" && token != undefined)
-          setStore({ token: token });
+          if (store.token == undefined) setStore({ token: token });
       },
 
       signup: async (username, email, password) => {
@@ -122,6 +126,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const user_data = await resp.json();
+          sessionStorage.setItem("user", user_data);
           console.log("This is the user data", user_data);
           setStore({ data: user_data, message: null });
           return true;
@@ -207,7 +212,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           const user_data = await resp.json();
           console.log("This is the user data", user_data);
-          sessionStorage.removeItem("token");
+          // sessionStorage.removeItem("token");
           console.log("User deleted");
           setStore({ token: null, data: null, message: null });
           return true;
@@ -272,34 +277,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //GET SINGLE PRODUCT
-      getSingleProduct: async () => {
-        const data_opts = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-        try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/product/" + id,
-            data_opts
-          );
-
-          if (resp.status !== 200) {
-            console.log("There has been some error retrieving product data");
-            return false;
-          }
-
-          const product_data = await resp.json();
-          console.log("This is the product data", product_data);
-          setStore({ product: product_data, message: null });
-          return true;
-        } catch (error) {
-          console.error(
-            "There has been an error retrieving product data:",
-            error
-          );
-        }
+      setSingleProduct: (id) => {
+        setStore({ product: id });
       },
       //GET USER PRODUCTS
       getUserProducts: async (id) => {
@@ -364,7 +343,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           const user_data = await resp.json();
           console.log("This is the product data", user_data);
-          sessionStorage.removeItem("token");
           console.log("Product deleted");
           setStore({ message: null, update: true });
           return true;

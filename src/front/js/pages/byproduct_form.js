@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 const ByProductForm = ({ handleSetEdit }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-
+  console.log("store:", store);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState("");
@@ -18,7 +18,19 @@ const ByProductForm = ({ handleSetEdit }) => {
 
   const types = store.types;
   const units = store.units;
-  const user_id = store.data.id;
+  let user_id;
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token") == undefined) {
+      navigate("/");
+      actions.logout();
+    }
+    if (store.data == undefined) {
+      actions.getUserData();
+    } else {
+      user_id = store.data.id;
+    }
+  });
 
   const handleConfirm = async () => {
     if (
@@ -40,24 +52,27 @@ const ByProductForm = ({ handleSetEdit }) => {
     actions.clearmessage();
     navigate("/profile");
   };
-
+  console.log("store.product:", store.product);
   useEffect(() => {
     if (store.product != undefined) {
       setName(store.product.name);
       setLocation(store.product.location);
       setPrice(store.product.price);
       setDescription(store.product.description);
-      setType(store.product.type);
-      setUnit(store.product.unit);
+      setType(store.types.indexOf(store.product.type));
+      setUnit(store.units.indexOf(store.product.unit));
       setStock(store.product.stock);
     }
-  }, [store.product]);
+  });
 
   return (
     <div className="mt-5">
       <div className="m-auto w-75 bg-warning p-3">
-        <h1>Add/Edit Byproduct</h1>
-        {/* {store.data ? ( */}
+        <h1>
+          {store.product ? "Edit " : "Add "}
+          {/* Add/Edit  */}
+          Byproduct
+        </h1>
         <div className="container">
           <div className="row">
             {/* Name field */}
@@ -193,9 +208,6 @@ const ByProductForm = ({ handleSetEdit }) => {
             Cancel
           </button>
         </div>
-        {/* ) : (
-          <div>Loading your data...</div>
-        )} */}
       </div>
     </div>
   );

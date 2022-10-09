@@ -11,6 +11,7 @@ const Profile = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
+  console.log("store:", store);
 
   const handleEditProfile = () => {
     setEdit(true);
