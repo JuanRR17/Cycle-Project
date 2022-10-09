@@ -10,17 +10,20 @@ const UserProductsTable = (props) => {
   console.log(store.data);
 
   useEffect(() => {
-    if (store.token == undefined) navigate("/");
+    if (sessionStorage.getItem("token") == undefined) navigate("/");
     if (store.data == undefined) actions.getUserData();
     if (store.user_products == undefined && store.data != undefined)
       actions.getUserProducts(store.data.id);
   }, [store.token, store.data]);
 
   useEffect(() => {
-    if (store.data != undefined) actions.getUserProducts(store.data.id);
-  }, []);
+    if (store.data != undefined && store.update) {
+      actions.getUserProducts(store.data.id);
+      actions.toggle_update();
+    }
+  });
 
-  console.log("store:", store);
+  // console.log("store:", store);
 
   const columns = [
     {

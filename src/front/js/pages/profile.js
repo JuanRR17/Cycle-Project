@@ -17,7 +17,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (store.token == undefined) {
+    if (sessionStorage.getItem("token") == undefined) {
       navigate("/");
       actions.logout();
     }
