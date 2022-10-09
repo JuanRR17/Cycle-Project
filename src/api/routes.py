@@ -148,7 +148,6 @@ def new_product():
     if 'name' not in request_keys or request_body['name']=="":
         return jsonify({"msg":'You need to specify the name'}),400
     else:
-        print("before creating new product")
         new_product = Product()
         fields = list(new_product.serialize().keys())
         fields.remove("id")
@@ -157,8 +156,7 @@ def new_product():
         for f in gen:
             if request_body[f] != "":
                 setattr(new_product, f, request_body[f])
-        print("new product created")
-        print(new_product.serialize())
+
         db.session.add(new_product)
         db.session.commit()
         return jsonify(new_product.serialize()), 200
@@ -203,3 +201,31 @@ def delete_product(id):
         db.session.delete(product)
         db.session.commit()
         return jsonify(product.serialize()),200
+
+# UPDATE PRODUCT
+@api.route('/product/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_product(id):
+    product = Product.query.filter_by(id=id).first()
+    if product != None:
+        request_body = request.get_json(force=True)
+        request_keys = list(request_body.keys())
+
+        if 'name' not in request_keys or request_body['name']=="":
+            return jsonify({"msg":'You need to specify the name'}),400
+        else:
+            fields = list(product.serialize().keys())
+            fields.remove("id")
+            unvalid_fields = []
+            for f in request_body:
+                if f in fields:
+                    setattr(product, f, request_body[f])
+                else:
+                    unvalid_fields.append(f)
+            if len(unvalid_fields)>0:
+                return jsonify({"msg":f"These fields are not valid: {unvalid_fields}"}),400
+            else:
+                db.session.commit()
+                return jsonify(product.serialize()),200
+    else:
+        return jsonify({"msg":"This product doesnt exist"}),500

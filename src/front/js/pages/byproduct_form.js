@@ -32,19 +32,36 @@ const ByProductForm = (props) => {
   });
 
   const handleConfirm = async () => {
-    if (
-      await actions.new_product(
-        user_id,
-        name,
-        stock,
-        type,
-        price,
-        unit,
-        location,
-        description
+    if (store.product == undefined) {
+      if (
+        await actions.new_product(
+          user_id,
+          name,
+          stock,
+          type,
+          price,
+          unit,
+          location,
+          description
+        )
       )
-    )
-      navigate("/profile");
+        navigate("/profile");
+    } else {
+      if (
+        await actions.edit_product(
+          store.product.id,
+          user_id,
+          name,
+          stock,
+          store.types[type],
+          price,
+          store.units[unit],
+          location,
+          description
+        )
+      )
+        navigate("/profile");
+    }
   };
 
   const handleCancel = () => {
