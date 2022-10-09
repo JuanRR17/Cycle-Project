@@ -7,7 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 const UserProductsTable = (props) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-  console.log(store.data);
 
   useEffect(() => {
     if (sessionStorage.getItem("token") == undefined) navigate("/");
@@ -22,8 +21,6 @@ const UserProductsTable = (props) => {
       actions.toggle_update();
     }
   });
-
-  // console.log("store:", store);
 
   const columns = [
     {

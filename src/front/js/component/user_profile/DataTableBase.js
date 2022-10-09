@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import { useNavigate } from "react-router-dom";
 
 const _ = require("lodash");
 const sortIcon = <ArrowDownward />;
@@ -18,6 +19,8 @@ const DataTableBase = (props) => {
   const [toggleCleared, setToggleCleared] = React.useState(false);
   const [data, setData] = React.useState(props.data);
   const { store, actions } = useContext(Context);
+
+  const navigate = useNavigate();
 
   const handleRowSelected = React.useCallback((state) => {
     setSelectedRows(state.selectedRows);
@@ -39,7 +42,11 @@ const DataTableBase = (props) => {
         });
       }
     };
-
+    const handleEdit = () => {
+      actions.toggle_update();
+      actions.setSingleProduct(selectedRows[0]);
+      navigate("/byproduct_form");
+    };
     return (
       <div>
         <Button
@@ -54,7 +61,7 @@ const DataTableBase = (props) => {
         {selectedRows.length == 1 ? (
           <Button
             key="edit"
-            onClick={handleDelete}
+            onClick={handleEdit}
             variant="contained"
             color="primary"
             startIcon={<EditIcon />}

@@ -1,13 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Context } from "../../store/appContext";
-import { useNavigate } from "react-router-dom";
-
+import React from "react";
 import PropTypes from "prop-types";
 
 const UserInfo = ({ data }) => {
-  const { store, actions } = useContext(Context);
-  const navigate = useNavigate();
-
   return (
     <div>
       <div>Username: {data?.username}</div>

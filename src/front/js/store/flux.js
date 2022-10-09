@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       data: null,
       message: null,
       types: ["Select a type", "Organic", "Plastic", "Textile", "Metallic"],
-      units: ["kg", "g", "m", "m2", "m3", "L", "unit/s"],
+      units: ["Select an unit", "kg", "g", "m", "m2", "m3", "L", "unit/s"],
       user_products: null,
       product: null,
       update: false,
@@ -14,24 +14,28 @@ const getState = ({ getStore, getActions, setStore }) => {
       // Use getActions to call a function within a function
       logout: () => {
         sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
         console.log("Login out");
         setStore({
           token: null,
           data: null,
           message: null,
           user_products: null,
+          product: null,
+          update: false,
         });
       },
-
+      //SYNCYNG TOKEN IN SESSION
       syncTokenFromSessionStore: () => {
+        const store = getStore();
         const token = sessionStorage.getItem("token");
         console.log(
           "Application just loaded, synching the session storage token"
         );
         if (token && token != "" && token != undefined)
-          setStore({ token: token });
+          if (store.token == undefined) setStore({ token: token });
       },
-
+      //SIGN UP
       signup: async (username, email, password) => {
         const opts = {
           method: "POST",
@@ -64,6 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      //LOGIN
       login: async (email, password) => {
         // 1. Fetch to generate token
         const opts = {
@@ -98,7 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There has been an error logging in:", error);
         }
       },
-
+      //GET USER DATA
       getUserData: async () => {
         // 2. Fetch to retrieve user data
 
@@ -122,6 +127,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const user_data = await resp.json();
+          sessionStorage.setItem("user", user_data);
           console.log("This is the user data", user_data);
           setStore({ data: user_data, message: null });
           return true;
@@ -129,7 +135,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There has been an error retrieving data:", error);
         }
       },
-
+      //EDIT USER PROFILE
       editprofile: async (
         id,
         username,
@@ -178,10 +184,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      // CLEAR MESSAGES
       clearmessage: () => {
         setStore({ message: null });
       },
-
+      //DELETE USER PROFILE
       delete_profile: async (id) => {
         const store = getStore();
 
@@ -207,7 +214,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           const user_data = await resp.json();
           console.log("This is the user data", user_data);
-          sessionStorage.removeItem("token");
           console.log("User deleted");
           setStore({ token: null, data: null, message: null });
           return true;
@@ -272,43 +278,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //GET SINGLE PRODUCT
-      getSingleProduct: async () => {
-        const data_opts = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-        try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/product/" + id,
-            data_opts
-          );
-
-          if (resp.status !== 200) {
-            console.log("There has been some error retrieving product data");
-            return false;
-          }
-
-          const product_data = await resp.json();
-          console.log("This is the product data", product_data);
-          setStore({ product: product_data, message: null });
-          return true;
-        } catch (error) {
-          console.error(
-            "There has been an error retrieving product data:",
-            error
-          );
-        }
+      setSingleProduct: (id) => {
+        setStore({ product: id });
       },
       //GET USER PRODUCTS
       getUserProducts: async (id) => {
-        // const store = getStore();
         const opts = {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: "Bearer " + store.token,
           },
         };
         try {
@@ -335,9 +313,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
-      clearmessage: () => {
-        setStore({ message: null });
-      },
+
       //DELETE PRODUCT
       delete_product: async (id) => {
         const store = getStore();
@@ -364,7 +340,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           const user_data = await resp.json();
           console.log("This is the product data", user_data);
-          sessionStorage.removeItem("token");
           console.log("Product deleted");
           setStore({ message: null, update: true });
           return true;
@@ -376,6 +351,60 @@ const getState = ({ getStore, getActions, setStore }) => {
       toggle_update: () => {
         const store = getStore();
         setStore({ update: !store.update });
+      },
+      //EDIT PRODUCT
+      edit_product: async (
+        id,
+        user_id,
+        name,
+        stock,
+        type,
+        price,
+        unit,
+        location,
+        description
+      ) => {
+        const store = getStore();
+
+        const opts = {
+          method: "PUT",
+          body: JSON.stringify({
+            user_id: user_id,
+            name: name,
+            stock: stock,
+            type: type,
+            price: price,
+            unit: unit,
+            location: location,
+            description: description,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/product/" + id,
+            opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error updating the product");
+            const msg = await resp.json();
+            setStore({ message: msg.msg });
+            return false;
+          }
+
+          const product_data = await resp.json();
+          console.log("This is the product data", product_data);
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error retrieving product data:",
+            error
+          );
+        }
       },
     },
   };

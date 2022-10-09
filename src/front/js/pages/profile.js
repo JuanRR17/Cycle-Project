@@ -23,7 +23,6 @@ const Profile = () => {
     }
     if (store.data == undefined) actions.getUserData();
   });
-  // }, [store.token, store.data]);
 
   return (
     <div className="mt-5">
