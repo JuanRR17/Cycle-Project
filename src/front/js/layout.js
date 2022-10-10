@@ -12,6 +12,7 @@ import Profile from "./pages/profile";
 import ByProductForm from "./pages/byproduct_form";
 import { List } from "./pages/prod_list";
 import { Product } from "./pages/product";
+import ConfirmOrder from "./pages/conf_order";
 import { Blog } from "./pages/blog";
 import { BlogEntryForm } from "./pages/blog_entry_form";
 
@@ -41,6 +42,7 @@ const Layout = () => {
             <Route element={<Blog />} path="/blog" />
             <Route element={<BlogEntryForm />} path="/blog_entry_form" />
             <Route element={<Product />} path="/product/:id" />
+            <Route element={<ConfirmOrder />} path="/confirm_order" />
 
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single/:theid" />
