@@ -9,9 +9,12 @@ const getState = ({ getStore, getActions, setStore }) => {
       user_products: null,
       product: null,
       update: false,
+      all_products: null,
     },
     actions: {
       // Use getActions to call a function within a function
+
+      //LOGOUT
       logout: () => {
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("user");
@@ -277,9 +280,36 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
-      //GET SINGLE PRODUCT
-      setSingleProduct: (id) => {
-        setStore({ product: id });
+      //SET SINGLE PRODUCT
+      setSingleProduct: (product) => {
+        setStore({ product: product });
+      },
+      //GET PRODUCT DATA
+      getProductData: async (id) => {
+        const data_opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/product/" + id,
+            data_opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error retrieving data");
+            return false;
+          }
+
+          const product_data = await resp.json();
+          console.log("This is the product data", product_data);
+          setStore({ product: product_data });
+          return true;
+        } catch (error) {
+          console.error("There has been an error retrieving data:", error);
+        }
       },
       //GET USER PRODUCTS
       getUserProducts: async (id) => {
@@ -309,6 +339,39 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.error(
             "There has been an error retrieving user products data:",
+            error
+          );
+        }
+      },
+
+      //GET ALL PRODUCTS
+      getAllProducts: async () => {
+        const opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/products/",
+            opts
+          );
+
+          if (resp.status !== 200) {
+            console.log(
+              "There has been some error retrieving all products data"
+            );
+            return false;
+          }
+
+          const all_products = await resp.json();
+          console.log("These are all products data", all_products);
+          setStore({ all_products: all_products });
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error retrieving all products data:",
             error
           );
         }

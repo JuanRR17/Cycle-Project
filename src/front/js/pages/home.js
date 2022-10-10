@@ -8,6 +8,9 @@ export const Home = () => {
 
   return (
     <div className="text-left mt-5">
+      <div>
+        <Link to="prod_list">Products List</Link>
+      </div>
       {store.token ? (
         <>
           <div>
