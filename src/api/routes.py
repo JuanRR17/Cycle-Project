@@ -182,10 +182,13 @@ def get_user_products(id):
 # GET ONE PRODUCT DATA
 @api.route("/product/<int:id>", methods=["GET"])
 def get_product(id):
-    # Access the identity of the current user with get_jwt_identity
+    # product = db.session.query(User, Product).filter(User.id == Product.user_id).filter(Product.id == id).first()
+    # data = db.session.query(Product, User).join(User).all()
     product = Product.query.filter_by(id=id).first()
-
+    print("product")
+    print(product)
     return jsonify(product.serialize()), 200
+    # return jsonify(data), 200
 
 # DELETE PRODUCT
 @api.route('/product/<int:id>', methods=['DELETE'])

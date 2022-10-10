@@ -26,8 +26,8 @@ class User(db.Model):
             "email": self.email,
             "phone": self.phone,
             "location": self.location,
-            "company":self.company,
-            "password":self.password
+            "company":self.company
+            # "password":self.password
             # do not serialize the password, its a security breach
         }
 
@@ -43,6 +43,7 @@ class Product(db.Model):
     description = db.Column(db.String(120))
 
     user = db.relationship('User', backref='products')
+    
 
     def __repr__(self):
         return f'<Product {self.name}>'
@@ -58,6 +59,7 @@ class Product(db.Model):
             "unit": self.unit,
             "location": self.location,
             "description":self.description,
+            "user":self.user.serialize()
         }
 
 class Image(db.Model):

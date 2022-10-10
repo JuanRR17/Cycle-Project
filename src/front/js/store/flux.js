@@ -280,9 +280,36 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
-      //GET SINGLE PRODUCT
-      setSingleProduct: (id) => {
-        setStore({ product: id });
+      //SET SINGLE PRODUCT
+      setSingleProduct: (product) => {
+        setStore({ product: product });
+      },
+      //GET PRODUCT DATA
+      getProductData: async (id) => {
+        const data_opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/product/" + id,
+            data_opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error retrieving data");
+            return false;
+          }
+
+          const product_data = await resp.json();
+          console.log("This is the product data", product_data);
+          setStore({ product: product_data });
+          return true;
+        } catch (error) {
+          console.error("There has been an error retrieving data:", error);
+        }
       },
       //GET USER PRODUCTS
       getUserProducts: async (id) => {

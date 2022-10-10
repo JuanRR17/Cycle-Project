@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { Link, useNavigate } from "react-router-dom";
+import { Context } from "../../store/appContext";
 
 const ProductCard = ({ details }) => {
+  const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+
+  const url = "/product/" + details.id;
+
+  const handleClick = () => {
+    actions.getProductData(details.id);
+    navigate(url);
+  };
+
   const style = {
     width: "18rem",
   };
@@ -17,9 +29,9 @@ const ProductCard = ({ details }) => {
           <span>{details.price}</span>
           <span>{details.location}</span>
         </div>
-        <a href="#" className="btn btn-primary">
+        <button type="button" onClick={handleClick} className="btn btn-primary">
           Details
-        </a>
+        </button>
       </div>
     </div>
   );
