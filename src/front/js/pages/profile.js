@@ -22,6 +22,7 @@ const Profile = () => {
       actions.logout();
     }
     if (store.data == undefined) actions.getUserData();
+    if (store.product != null) actions.setSingleProduct(null);
   });
 
   return (
