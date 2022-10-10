@@ -49,51 +49,43 @@ const DataTableBase = (props) => {
     };
     return (
       <div>
-        <Button
-          key="delete"
-          onClick={handleDelete}
-          variant="contained"
-          color="secondary"
-          startIcon={<DeleteIcon />}
-        >
+        <button key="delete" onClick={handleDelete} className="btn btn-danger">
+          <DeleteIcon />
           Delete
-        </Button>
+        </button>
         {selectedRows.length == 1 ? (
-          <Button
-            key="edit"
-            onClick={handleEdit}
-            variant="contained"
-            color="primary"
-            startIcon={<EditIcon />}
-          >
+          <button key="edit" onClick={handleEdit} className="btn btn-warning">
+            <EditIcon />
             Edit
-          </Button>
+          </button>
         ) : null}
       </div>
     );
   }, [data, selectedRows, toggleCleared]);
   return (
-    <DataTable
-      contextActions={contextActions}
-      onSelectedRowsChange={handleRowSelected}
-      clearSelectedRows={toggleCleared}
-      direction="auto"
-      highlightOnHover
-      pagination
-      responsive
-      selectableRows
-      selectableRowsComponent={Checkbox}
-      selectableRowsComponentProps={selectProps}
-      selectableRowsHighlight
-      selectableRowsNoSelectAll
-      selectableRowsRadio="radio"
-      //   selectableRowsSingle
-      sortIcon={sortIcon}
-      striped
-      subHeaderAlign="right"
-      subHeaderWrap
-      {...props}
-    />
+    <>
+      <DataTable
+        contextActions={contextActions}
+        onSelectedRowsChange={handleRowSelected}
+        clearSelectedRows={toggleCleared}
+        direction="auto"
+        highlightOnHover
+        pagination
+        responsive
+        selectableRows
+        selectableRowsComponent={Checkbox}
+        selectableRowsComponentProps={selectProps}
+        selectableRowsHighlight
+        selectableRowsNoSelectAll
+        selectableRowsRadio="radio"
+        //   selectableRowsSingle
+        sortIcon={sortIcon}
+        striped
+        subHeaderAlign="right"
+        subHeaderWrap
+        {...props}
+      />
+    </>
   );
 };
 

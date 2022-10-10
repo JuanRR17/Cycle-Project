@@ -45,7 +45,7 @@ const ByProductForm = (props) => {
           description
         )
       )
-        navigate("/profile");
+        navigate(-1);
     } else {
       if (
         await actions.edit_product(
@@ -60,7 +60,7 @@ const ByProductForm = (props) => {
           description
         )
       )
-        navigate("/profile");
+        navigate(-1);
     }
   };
 
