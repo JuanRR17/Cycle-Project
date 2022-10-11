@@ -147,7 +147,8 @@ class OrderRow(db.Model):
             "order_id": self.order_id,
             "product_id": self.product_id,
             "quantity": self.quantity,
-            "subtotal": self.subtotal
+            "subtotal": self.subtotal,
+            "product":self.product
         }
     
 class Basket(db.Model):

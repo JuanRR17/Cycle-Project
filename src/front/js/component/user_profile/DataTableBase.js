@@ -4,7 +4,6 @@ import DataTable from "react-data-table-component";
 import PropTypes from "prop-types";
 import Checkbox from "@material-ui/core/Checkbox";
 
-import Button from "@material-ui/core/Button";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";

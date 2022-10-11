@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import Quantity from "../component/orders/quantity";
+import { TiArrowBackOutline } from "react-icons/ti";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
@@ -26,6 +27,14 @@ export const Product = () => {
 
   return (
     <div className="mt-3">
+      <button
+        type="button"
+        class="btn btn-primary"
+        onClick={() => navigate(-1)}
+      >
+        <TiArrowBackOutline /> Back
+      </button>
+
       {store.product ? (
         <>
           <h1 className="text-center">{store.product.name}</h1>
