@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User,Product
+from api.models import db, User, Product, Favourite
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -232,3 +232,32 @@ def update_product(id):
                 return jsonify(product.serialize()),200
     else:
         return jsonify({"msg":"This product doesnt exist"}),500
+
+# ADD FAVOURITE
+@api.route("/favourite", methods=['POST'])
+@jwt_required()
+
+def add_favourite():
+    request_body = request.get_json(force=True)
+    user_id = request_body['user_id']
+    product_id = request_body['product_id']
+
+    new_favourite = Favourite(user_id, product_id)
+    db.session.add(new_favourite)
+    db.session.commit()
+    return jsonify(new_favourite.serialize()), 200
+
+# REMOVE FAVOURITE
+@api.route('/favourite/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_favourite(id):
+    try:
+        favourite = Favourite.query.filter_by(id=id).first()
+        if favourite == None:
+            raise Exception()
+    except Exception:
+        return jsonify({"msg":"This favourite doesn\'t exist"}),500
+    else:
+        db.session.delete(favourite)
+        db.session.commit()
+        return jsonify(favourite.serialize()),200

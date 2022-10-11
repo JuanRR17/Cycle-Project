@@ -102,6 +102,30 @@ class Status(db.Model):
             "usable_by_source": self.usable_by_source
         }
 
+class Favourite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+
+    user = db.relationship('User', backref='favourites')
+    product = db.relationship('Product', backref='favourites')
+    
+    def __init__(self, user_id, product_id):
+        self.user_id = user_id
+        self.product_id = product_id
+
+    def __repr__(self):
+        return f'<Favourite {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "product_id": self.product_id
+            # "product":self.product.serialize()
+        }
+
+
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
