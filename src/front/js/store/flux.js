@@ -471,20 +471,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //ADD FAVOURITE
-      // add_favourite: (product) => {
-      //   const store = getStore();
-      //   const newFavourites = [...store.favourites, product];
-      //   setStore({ favourites: newFavourites });
-      // },
-      // //DELETE FAVOURITE
-      // delete_favourite: (id) => {
-      //   const store = getStore();
-      //   const newFavourites = store.favourites.filter((fav) => {
-      //     return fav.id !== id;
-      //   });
-      //   setStore({ favourites: newFavourites });
-      // },
-      //ADD FAVOURITE
       add_favourite: async (user_id, product_id) => {
         const store = getStore();
 

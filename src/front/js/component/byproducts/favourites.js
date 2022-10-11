@@ -9,32 +9,38 @@ const Favourites = () => {
   };
 
   return (
-    <div className="dropdown">
-      <button
-        className="btn btn-primary dropdown-toggle"
-        type="button"
-        id="dropdownMenuButton1"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-        data-bs-auto-close="outside"
-      >
-        Favourites{" "}
-        <span className="badge bg-secondary">{store.favourites.length}</span>
-      </button>
-      <ul
-        className="dropdown-menu dropdown-menu-end"
-        aria-labelledby="dropdownMenuLink"
-        style={ulStyle}
-      >
-        {store.favourites.length > 0 ? (
-          store.favourites.map((fav) => {
-            return <FavouriteLI key={fav.id} fav={fav} />;
-          })
-        ) : (
-          <li className="text-center">(empty)</li>
-        )}
-      </ul>
-    </div>
+    <>
+      {store.token ? (
+        <div className="dropdown">
+          <button
+            className="btn btn-primary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            data-bs-auto-close="outside"
+          >
+            Favourites{" "}
+            <span className="badge bg-secondary">
+              {store.favourites.length}
+            </span>
+          </button>
+          <ul
+            className="dropdown-menu dropdown-menu-end"
+            aria-labelledby="dropdownMenuLink"
+            style={ulStyle}
+          >
+            {store.favourites.length > 0 ? (
+              store.favourites.map((fav) => {
+                return <FavouriteLI key={fav.id} fav={fav} />;
+              })
+            ) : (
+              <li className="text-center">(empty)</li>
+            )}
+          </ul>
+        </div>
+      ) : null}
+    </>
   );
 };
 

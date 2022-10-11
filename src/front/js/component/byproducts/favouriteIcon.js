@@ -6,8 +6,6 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 const FavouriteIcon = ({ product }) => {
   const { store, actions } = useContext(Context);
 
-  console.log("store.favourites:", store.favourites);
-
   const favs_prod_ids = store.favourites.map((f) => {
     return f.product_id;
   });
@@ -19,23 +17,26 @@ const FavouriteIcon = ({ product }) => {
       const getFav = store.favourites.filter((f) => {
         return f.product_id == elem.id;
       });
-      console.log("getFav:", getFav);
       actions.delete_favourite(getFav[0].id);
     }
   };
 
   return (
-    <button
-      type="button"
-      onClick={() => handleItemInFavourites(product)}
-      className="float-end btn btn-outline-warning"
-    >
-      {favs_prod_ids.includes(product.id) ? (
-        <AiFillHeart />
-      ) : (
-        <AiOutlineHeart />
-      )}
-    </button>
+    <>
+      {store.token ? (
+        <button
+          type="button"
+          onClick={() => handleItemInFavourites(product)}
+          className="float-end btn btn-outline-warning"
+        >
+          {favs_prod_ids.includes(product.id) ? (
+            <AiFillHeart />
+          ) : (
+            <AiOutlineHeart />
+          )}
+        </button>
+      ) : null}
+    </>
   );
 };
 

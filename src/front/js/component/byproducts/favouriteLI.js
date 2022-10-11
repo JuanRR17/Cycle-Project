@@ -6,13 +6,26 @@ import { Context } from "../../store/appContext";
 
 const FavouriteLI = ({ fav }) => {
   const { store, actions } = useContext(Context);
+  let product;
+  useEffect(() => {
+    if (store.user_products == undefined) {
+      actions.getUserProducts();
+    } else {
+      product = store.user_products.filter((up) => {
+        return up.id == fav.product_id;
+      })[0];
+    }
+  }, [store.user_products]);
+  console.log("store.user_products :", store.user_products);
 
-  useEffect(() => {}, [fav]);
+  //   const product = store.user_products.filter((up) => {
+  //     return up.id == fav.product_id;
+  //   })[0];
 
   return (
     <li className="dropdown-item ">
       <Link className="text-decoration-none" to={"/product/" + fav.product_id}>
-        {fav.product_id}
+        {product ? product.name : null}
       </Link>
       <span
         className="float-end ms-2"
