@@ -33,9 +33,9 @@ const Favourites = () => {
               <li key={fav.id} className="dropdown-item ">
                 <Link
                   className="text-decoration-none"
-                  to={"/product/" + fav.id}
+                  to={"/product/" + fav.product_id}
                 >
-                  {fav.name}
+                  {fav.product_id}
                 </Link>
                 <span
                   className="float-end ms-2"

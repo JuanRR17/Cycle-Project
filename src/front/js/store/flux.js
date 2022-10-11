@@ -471,18 +471,97 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //ADD FAVOURITE
-      add_favourite: (product) => {
+      // add_favourite: (product) => {
+      //   const store = getStore();
+      //   const newFavourites = [...store.favourites, product];
+      //   setStore({ favourites: newFavourites });
+      // },
+      // //DELETE FAVOURITE
+      // delete_favourite: (id) => {
+      //   const store = getStore();
+      //   const newFavourites = store.favourites.filter((fav) => {
+      //     return fav.id !== id;
+      //   });
+      //   setStore({ favourites: newFavourites });
+      // },
+      //ADD FAVOURITE
+      add_favourite: async (user_id, product_id) => {
         const store = getStore();
-        const newFavourites = [...store.favourites, product];
-        setStore({ favourites: newFavourites });
+
+        const opts = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify({
+            user_id: user_id,
+            product_id: product_id,
+          }),
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/favourite",
+            opts
+          );
+          if (resp.status !== 200) {
+            console.log(
+              "There has been some error adding the favourite",
+              resp.status
+            );
+            const data = await resp.json();
+            setStore({ message: data.msg });
+            return false;
+          }
+          const favourites = await resp.json();
+          const newFavourites = [...store.favourites, favourites];
+          setStore({ favourites: newFavourites });
+          console.log("new favourites:", store.favourites);
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error adding the favourite:",
+            resp.status
+          );
+        }
       },
       //DELETE FAVOURITE
-      delete_favourite: (id) => {
+      delete_favourite: async (id) => {
         const store = getStore();
-        const newFavourites = store.favourites.filter((fav) => {
-          return fav.id !== id;
-        });
-        setStore({ favourites: newFavourites });
+
+        const opts = {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/favourite/" + id,
+            opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error deleting the favourite");
+            return false;
+          }
+
+          const favourite = await resp.json();
+          const newFavourites = store.favourites.filter((fav) => {
+            return fav.id !== favourite.id;
+          });
+          console.log("Favourite deleted");
+          setStore({ favourites: newFavourites });
+          console.log("These are the remaining favourites", store.favourites);
+
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error deleting the favourite:",
+            error
+          );
+        }
       },
     },
   };

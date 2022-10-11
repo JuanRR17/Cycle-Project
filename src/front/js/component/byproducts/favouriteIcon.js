@@ -7,7 +7,7 @@ const FavouriteIcon = ({ product, url }) => {
   const { store, actions } = useContext(Context);
   const handleItemInFavourites = (elem) => {
     if (!store.favourites.includes(elem)) {
-      actions.add_favourite(elem);
+      actions.add_favourite(elem.user_id, elem.id);
     } else {
       actions.delete_favourite(elem.id);
     }
