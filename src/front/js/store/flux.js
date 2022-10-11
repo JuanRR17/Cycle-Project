@@ -108,7 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //GET USER DATA
-      getUserData: async () => {
+      getCurrentUserData: async () => {
         // 2. Fetch to retrieve user data
 
         const store = getStore();

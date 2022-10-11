@@ -8,10 +8,12 @@ import FavouriteIcon from "../component/byproducts/favouriteIcon";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const id = location.pathname.split("/").slice(-1);
   const [quantity, setQuantity] = useState(0);
+  const [user, setUser] = useState();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const id = location.pathname.split("/").slice(-1);
 
   useEffect(() => {
     if (store.product == undefined) {
@@ -22,6 +24,7 @@ export const Product = () => {
   const handleBuy = () => {
     navigate("/confirm_order");
   };
+  console.log("store.data:", store.data);
 
   return (
     <div className="mt-3">

@@ -10,7 +10,7 @@ const UserProductsTable = (props) => {
 
   useEffect(() => {
     if (sessionStorage.getItem("token") == undefined) navigate("/");
-    if (store.data == undefined) actions.getUserData();
+    if (store.data == undefined) actions.getCurrentUserData();
     if (store.user_products == undefined && store.data != undefined)
       actions.getUserProducts(store.data.id);
   }, [store.token, store.data]);
