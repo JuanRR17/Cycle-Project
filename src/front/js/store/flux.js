@@ -10,6 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       product: null,
       update: false,
       all_products: null,
+      favourites: [],
     },
     actions: {
       // Use getActions to call a function within a function
@@ -468,6 +469,22 @@ const getState = ({ getStore, getActions, setStore }) => {
             error
           );
         }
+      },
+      //ADD FAVOURITE
+      add_favourite: (product) => {
+        const store = getStore();
+        console.log("product:", product);
+        const newFavourites = [...store.favourites, product];
+        console.log("newFavourites:", newFavourites);
+        setStore({ favourites: newFavourites });
+      },
+      //DELETE FAVOURITE
+      delete_favourite: (id) => {
+        const store = getStore();
+        const newFavourites = store.favourites.filter((fav) => {
+          return fav.id !== id;
+        });
+        setStore({ favourites: newFavourites });
       },
     },
   };

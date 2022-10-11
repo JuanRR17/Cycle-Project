@@ -4,18 +4,17 @@ import "../../styles/home.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import Quantity from "../component/orders/quantity";
 import { TiArrowBackOutline } from "react-icons/ti";
+import FavouriteIcon from "../component/byproducts/favouriteIcon";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
   const location = useLocation();
   const navigate = useNavigate();
   const id = location.pathname.split("/").slice(-1);
-
   const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
     if (store.product == undefined) {
-      console.log("store.product1", store.product);
       actions.getProductData(id);
     }
   }, []);
@@ -23,13 +22,12 @@ export const Product = () => {
   const handleBuy = () => {
     navigate("/confirm_order");
   };
-  console.log("store.product2", store.product);
 
   return (
     <div className="mt-3">
       <button
         type="button"
-        class="btn btn-primary"
+        className="btn btn-primary"
         onClick={() => navigate(-1)}
       >
         <TiArrowBackOutline /> Back
@@ -59,6 +57,7 @@ export const Product = () => {
                   handleSetQuantity={(value) => setQuantity(value)}
                 />
                 <div>
+                  <FavouriteIcon product={store.product} url={location} />
                   <button
                     type="button"
                     className="btn btn-success"

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../store/appContext";
+import FavouriteIcon from "./favouriteIcon";
 
 const ProductCard = ({ details }) => {
   const { store, actions } = useContext(Context);
@@ -32,6 +33,7 @@ const ProductCard = ({ details }) => {
         <button type="button" onClick={handleClick} className="btn btn-primary">
           Details
         </button>
+        <FavouriteIcon product={details} url={url} />
       </div>
     </div>
   );
