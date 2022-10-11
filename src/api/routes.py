@@ -251,12 +251,8 @@ def add_favourite():
 @api.route('/favourite/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_favourite(id):
-    print("id")
-    print(id)
     try:
         favourite = Favourite.query.filter_by(id=id).first()
-        print("favourite")
-        print(favourite)
         if favourite == None:
             raise Exception()
     except Exception:

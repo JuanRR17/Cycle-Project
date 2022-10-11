@@ -3,24 +3,34 @@ import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
-const FavouriteIcon = ({ product, url }) => {
+const FavouriteIcon = ({ product }) => {
   const { store, actions } = useContext(Context);
+
+  console.log("store.favourites:", store.favourites);
+
+  const favs_prod_ids = store.favourites.map((f) => {
+    return f.product_id;
+  });
+
   const handleItemInFavourites = (elem) => {
-    if (!store.favourites.includes(elem)) {
+    if (!favs_prod_ids.includes(elem.id)) {
       actions.add_favourite(elem.user_id, elem.id);
     } else {
-      actions.delete_favourite(elem.id);
+      const getFav = store.favourites.filter((f) => {
+        return f.product_id == elem.id;
+      });
+      console.log("getFav:", getFav);
+      actions.delete_favourite(getFav[0].id);
     }
   };
-  console.log("favourites:", store.favourites);
-  console.log("product:", product);
+
   return (
     <button
       type="button"
       onClick={() => handleItemInFavourites(product)}
       className="float-end btn btn-outline-warning"
     >
-      {store.favourites.includes(product) ? (
+      {favs_prod_ids.includes(product.id) ? (
         <AiFillHeart />
       ) : (
         <AiOutlineHeart />

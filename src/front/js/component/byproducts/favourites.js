@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { MdDelete } from "react-icons/md";
 import { Context } from "../../store/appContext";
+import FavouriteLI from "./favouriteLI";
 
 const Favourites = () => {
   const { store, actions } = useContext(Context);
@@ -29,23 +28,7 @@ const Favourites = () => {
       >
         {store.favourites.length > 0 ? (
           store.favourites.map((fav) => {
-            return (
-              <li key={fav.id} className="dropdown-item ">
-                <Link
-                  className="text-decoration-none"
-                  to={"/product/" + fav.product_id}
-                >
-                  {fav.product_id}
-                </Link>
-                <span
-                  className="float-end ms-2"
-                  type="button"
-                  onClick={() => actions.delete_favourite(fav.id)}
-                >
-                  <MdDelete />
-                </span>
-              </li>
-            );
+            return <FavouriteLI key={fav.id} fav={fav} />;
           })
         ) : (
           <li className="text-center">(empty)</li>
