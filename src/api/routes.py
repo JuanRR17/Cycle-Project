@@ -185,8 +185,8 @@ def get_product(id):
     # product = db.session.query(User, Product).filter(User.id == Product.user_id).filter(Product.id == id).first()
     # data = db.session.query(Product, User).join(User).all()
     product = Product.query.filter_by(id=id).first()
-    print("product")
-    print(product)
+    # print("product")
+    # print(product)
     return jsonify(product.serialize()), 200
     # return jsonify(data), 200
 
