@@ -8,7 +8,7 @@ const Favourites = () => {
   const ulStyle = {
     width: "max-content",
   };
-  console.log("favourites:", store.favourites);
+
   return (
     <div className="dropdown">
       <button
@@ -31,7 +31,10 @@ const Favourites = () => {
           store.favourites.map((fav) => {
             return (
               <li key={fav.id} className="dropdown-item ">
-                <Link className="text-decoration-none" to={fav.url}>
+                <Link
+                  className="text-decoration-none"
+                  to={"/product/" + fav.id}
+                >
                   {fav.name}
                 </Link>
                 <span

@@ -473,9 +473,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       //ADD FAVOURITE
       add_favourite: (product) => {
         const store = getStore();
-        console.log("product:", product);
         const newFavourites = [...store.favourites, product];
-        console.log("newFavourites:", newFavourites);
         setStore({ favourites: newFavourites });
       },
       //DELETE FAVOURITE
