@@ -7,8 +7,9 @@ export const List = () => {
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
-    if (store.all_products == undefined) actions.getAllProducts();
+    actions.getAllProducts();
   }, []);
+
   return (
     <div className="text-center mt-5">
       <h1>By-Products List</h1>

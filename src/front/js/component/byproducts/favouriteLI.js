@@ -10,6 +10,7 @@ const FavouriteLI = ({ fav }) => {
 
   useEffect(() => {
     if (store.data == undefined) {
+      console.log("favouriteLI");
       actions.getCurrentUserData();
     } else {
       if (store.user_products == undefined) {
