@@ -190,11 +190,16 @@ def get_user_products(id):
 def get_product(id):
     # product = Product.query.filter_by(id=id).first()
     # return jsonify(product.serialize()), 200
-    product = db.session.query(User, Product).filter(User.id == Product.user_id).filter(Product.id == id).first()
+    search = db.session.query(Product, User).filter(User.id == Product.user_id).filter(Product.id == id).first()
+    product_and_user = list(map(lambda x: x.serialize(), search))
+    product = dict(product_and_user[0])
+    user = dict(product_and_user[1])
+    product['user'] = user
+
     # data = db.session.query(Product, User).join(User).all()
     # print("product")
     # print(product)
-    return jsonify(list(map(lambda x: x.serialize(), product))), 200
+    return jsonify(product), 200
 
 # DELETE PRODUCT
 @api.route('/product/<int:id>', methods=['DELETE'])

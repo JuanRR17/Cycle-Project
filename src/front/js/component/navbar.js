@@ -1,10 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Favourites from "./byproducts/favourites";
 import { Context } from "../store/appContext";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
+
+  useEffect(() => {
+    if (store.data == undefined) {
+      actions.getCurrentUserData();
+    }
+  }, [store.data]);
 
   return (
     <nav
@@ -37,11 +43,11 @@ export const Navbar = () => {
           <Link to="/blog">
             <span className="nav-item nav-link">Blog</span>
           </Link>
-          {store.token ? (
+          {store.token && store.data ? (
             <>
               <Favourites />
               <Link to="profile">
-                <span className="nav-item nav-link">Profile</span>
+                <span className="nav-item nav-link">{store.data.username}</span>
               </Link>
               <button
                 onClick={() => actions.logout()}
