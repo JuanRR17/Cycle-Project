@@ -25,6 +25,7 @@ const ByProductForm = (props) => {
       actions.logout();
     }
     if (store.data == undefined) {
+      console.log("byproduct form");
       actions.getCurrentUserData();
     } else {
       user_id = store.data.id;

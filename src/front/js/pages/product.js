@@ -17,12 +17,10 @@ export const Product = () => {
   useEffect(() => {
     if (store.product == undefined || store.product.id != id) {
       actions.getProductData(id);
-    } else {
-      if (store.user == undefined || store.product.user_id != store.user.id) {
-        actions.getUserData(store.product.user_id);
-      }
     }
   });
+
+  const product = store.product;
 
   const handleBuy = () => {
     navigate("/confirm_order");
@@ -40,33 +38,29 @@ export const Product = () => {
 
       {store.product ? (
         <>
-          <h1 className="text-center">{store.product.name}</h1>
+          <h1 className="text-center">{product.name}</h1>
           <div className="container">
             <div className="row">
               <div className="col-6">
                 <img src="..." alt="..." />
                 <div className="card-title d-flex justify-content-between">
-                  <span>{store.product.price}</span>
-                  <span>{store.product.location}</span>
+                  <span>{product.price}</span>
+                  <span>{product.location}</span>
                 </div>
               </div>
               <div className="col-6">
-                <div>Type: {store.product.type}</div>
-                <div>Stock: {store.product.stock}</div>
-                <div>Description: {store.product.description}</div>
-                {store.user ? (
-                  <>
-                    <div>Created By: {store.user.username}</div>
-                    <div>Phone: {store.user.phone}</div>
-                    <div>Email: {store.user.email}</div>
-                  </>
-                ) : null}
+                <div>Type: {product.type}</div>
+                <div>Stock: {product.stock}</div>
+                <div>Description: {product.description}</div>
+                <div>Created By: {product.user.username}</div>
+                <div>Phone: {product.user.phone}</div>
+                <div>Email: {product.user.email}</div>
                 <Quantity
                   quantity={quantity}
                   handleSetQuantity={(value) => setQuantity(value)}
                 />
                 <div>
-                  <FavouriteIcon product={store.product} url={location} />
+                  <FavouriteIcon product={product} url={location} />
                   <button
                     type="button"
                     className="btn btn-success"

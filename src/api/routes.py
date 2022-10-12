@@ -70,6 +70,7 @@ def create_token():
 @api.route("/user", methods=["GET"])
 @jwt_required()
 def protected():
+    print("get current user data")
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
@@ -171,9 +172,13 @@ def new_product():
 
 def get_products():
     products = Product.query.all()
-    products = list(map(lambda x: x.serialize(), products))
-    json_text = jsonify(products)
-    return json_text
+    all_products=[]
+    for p in products:
+        product = dict(p.serialize())
+        product['user']=p.user.serialize()
+        all_products.append(product)
+    return jsonify(all_products)
+
 
 # GET USER PRODUCTS
 @api.route("/user_products/<int:id>", methods=['GET'])
@@ -183,17 +188,17 @@ def get_user_products(id):
     user_products = list(map(lambda x: x.serialize(), user_products))
     json_text = jsonify(user_products)
     return json_text
+    
 
 # GET ONE PRODUCT DATA
 @api.route("/product/<int:id>", methods=["GET"])
 def get_product(id):
-    # product = db.session.query(User, Product).filter(User.id == Product.user_id).filter(Product.id == id).first()
-    # data = db.session.query(Product, User).join(User).all()
-    product = Product.query.filter_by(id=id).first()
-    # print("product")
-    # print(product)
-    return jsonify(product.serialize()), 200
-    # return jsonify(data), 200
+    search = db.session.query(Product, User).filter(User.id == Product.user_id).filter(Product.id == id).first()
+    product_and_user = list(map(lambda x: x.serialize(), search))
+    product = dict(product_and_user[0])
+    user = dict(product_and_user[1])
+    product['user'] = user
+    return jsonify(product), 200
 
 # DELETE PRODUCT
 @api.route('/product/<int:id>', methods=['DELETE'])
@@ -248,9 +253,13 @@ def add_favourite():
     product_id = request_body['product_id']
 
     new_favourite = Favourite(user_id, product_id)
+
     db.session.add(new_favourite)
     db.session.commit()
-    return jsonify(new_favourite.serialize()), 200
+
+    favorite = new_favourite.serialize()
+    favorite['product']=new_favourite.product.serialize()
+    return jsonify(favorite), 200
 
 # REMOVE FAVOURITE
 @api.route('/favourite/<int:id>', methods=['DELETE'])
@@ -266,3 +275,23 @@ def delete_favourite(id):
         db.session.delete(favourite)
         db.session.commit()
         return jsonify(favourite.serialize()),200
+
+# GET USER FAVOURITES
+@api.route("/favourites", methods=['GET'])
+@jwt_required()
+def get_user_favourites():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email=current_user).first()
+    
+    all_favourites = []
+    user_favourites = Favourite.query.filter_by(user_id=user.id)
+    for f in user_favourites:
+        favourite = dict(f.serialize())
+        favourite['product']=f.product.serialize()
+        all_favourites.append(favourite)
+
+    # user_favourites = list(map(lambda x: x.serialize(), user_favourites))
+
+    json_text = jsonify(all_favourites)
+    return json_text

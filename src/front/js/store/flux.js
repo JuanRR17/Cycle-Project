@@ -28,6 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           user_products: null,
           product: null,
           update: false,
+          favourites: [],
         });
       },
       //SYNCYNG TOKEN IN SESSION
@@ -214,7 +215,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There has been an error retrieving data:", error);
         }
       },
-
       // CLEAR MESSAGES
       clearmessage: () => {
         setStore({ message: null });
@@ -371,7 +371,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
-
       //GET ALL PRODUCTS
       getAllProducts: async () => {
         const opts = {
@@ -404,7 +403,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
-
       //DELETE PRODUCT
       delete_product: async (id) => {
         const store = getStore();
@@ -493,6 +491,39 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.error(
             "There has been an error retrieving product data:",
+            error
+          );
+        }
+      },
+      //GET USER FAVOURITES
+      get_user_favourites: async () => {
+        const store = getStore();
+        const data_opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/favourites",
+            data_opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error retrieving favourites data");
+            return false;
+          }
+
+          const favourites = await resp.json();
+          // sessionStorage.setItem("user", user_data);
+          console.log("These are the user favourites", favourites);
+          setStore({ favourites: favourites });
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error retrieving favourites data:",
             error
           );
         }
