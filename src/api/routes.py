@@ -253,9 +253,13 @@ def add_favourite():
     product_id = request_body['product_id']
 
     new_favourite = Favourite(user_id, product_id)
+
     db.session.add(new_favourite)
     db.session.commit()
-    return jsonify(new_favourite.serialize()), 200
+
+    favorite = new_favourite.serialize()
+    favorite['product']=new_favourite.product.serialize()
+    return jsonify(favorite), 200
 
 # REMOVE FAVOURITE
 @api.route('/favourite/<int:id>', methods=['DELETE'])
@@ -279,9 +283,15 @@ def get_user_favourites():
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
-
+    
+    all_favourites = []
     user_favourites = Favourite.query.filter_by(user_id=user.id)
-    user_favourites = list(map(lambda x: x.serialize(), user_favourites))
+    for f in user_favourites:
+        favourite = dict(f.serialize())
+        favourite['product']=f.product.serialize()
+        all_favourites.append(favourite)
 
-    json_text = jsonify(user_favourites)
+    # user_favourites = list(map(lambda x: x.serialize(), user_favourites))
+
+    json_text = jsonify(all_favourites)
     return json_text
