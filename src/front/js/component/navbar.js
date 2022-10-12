@@ -7,10 +7,10 @@ export const Navbar = () => {
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
-    if (store.data == undefined) {
+    if (store.data == undefined && store.token != undefined) {
       actions.getCurrentUserData();
     }
-  }, [store.data]);
+  });
 
   return (
     <nav

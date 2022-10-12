@@ -519,7 +519,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const favourites = await resp.json();
           // sessionStorage.setItem("user", user_data);
           console.log("These are the user favourites", favourites);
-          setStore({ favourites: favourites, message: null });
+          setStore({ favourites: favourites });
           return true;
         } catch (error) {
           console.error(

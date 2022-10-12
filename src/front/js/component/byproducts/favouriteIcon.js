@@ -12,7 +12,7 @@ const FavouriteIcon = ({ product }) => {
 
   const handleItemInFavourites = (elem) => {
     if (!favs_prod_ids.includes(elem.id)) {
-      actions.add_favourite(elem.user_id, elem.id);
+      actions.add_favourite(store.data.id, elem.id);
     } else {
       const getFav = store.favourites.filter((f) => {
         return f.product_id == elem.id;

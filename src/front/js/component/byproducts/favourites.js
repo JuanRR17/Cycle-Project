@@ -9,8 +9,10 @@ const Favourites = () => {
   };
 
   useEffect(() => {
-    actions.get_user_favourites();
-  }, []);
+    if (store.favourites == undefined) {
+      actions.get_user_favourites();
+    }
+  });
 
   return (
     <>

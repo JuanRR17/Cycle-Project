@@ -172,9 +172,13 @@ def new_product():
 
 def get_products():
     products = Product.query.all()
-    products = list(map(lambda x: x.serialize(), products))
-    json_text = jsonify(products)
-    return json_text
+    all_products=[]
+    for p in products:
+        product = dict(p.serialize())
+        product['user']=p.user.serialize()
+        all_products.append(product)
+    return jsonify(all_products)
+
 
 # GET USER PRODUCTS
 @api.route("/user_products/<int:id>", methods=['GET'])
@@ -184,21 +188,16 @@ def get_user_products(id):
     user_products = list(map(lambda x: x.serialize(), user_products))
     json_text = jsonify(user_products)
     return json_text
+    
 
 # GET ONE PRODUCT DATA
 @api.route("/product/<int:id>", methods=["GET"])
 def get_product(id):
-    # product = Product.query.filter_by(id=id).first()
-    # return jsonify(product.serialize()), 200
     search = db.session.query(Product, User).filter(User.id == Product.user_id).filter(Product.id == id).first()
     product_and_user = list(map(lambda x: x.serialize(), search))
     product = dict(product_and_user[0])
     user = dict(product_and_user[1])
     product['user'] = user
-
-    # data = db.session.query(Product, User).join(User).all()
-    # print("product")
-    # print(product)
     return jsonify(product), 200
 
 # DELETE PRODUCT
