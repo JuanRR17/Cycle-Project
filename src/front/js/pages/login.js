@@ -14,7 +14,6 @@ export const Login = () => {
   };
 
   const handleCancel = () => {
-    actions.clearmessage();
     navigate("/");
   };
 
@@ -22,6 +21,10 @@ export const Login = () => {
     if (store.token && store.token != "" && store.token != undefined)
       navigate("/profile");
   }, [store.token]);
+
+  useEffect(() => {
+    actions.clearmessage();
+  }, []);
 
   return (
     <div className="m-auto w-50">

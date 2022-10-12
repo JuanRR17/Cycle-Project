@@ -1,17 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
+  const { store, actions } = useContext(Context);
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
-  const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    actions.clearmessage();
+  }, []);
 
   const handleSubmit = async () => {
     if (await actions.signup(username, email, password)) {

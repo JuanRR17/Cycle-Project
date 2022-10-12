@@ -21,7 +21,7 @@ const Profile = () => {
       navigate("/");
       actions.logout();
     }
-    if (store.data == undefined) actions.getUserData();
+    if (store.data == undefined) actions.getCurrentUserData();
     if (store.product != null) actions.setSingleProduct(null);
   });
 

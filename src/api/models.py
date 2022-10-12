@@ -58,8 +58,7 @@ class Product(db.Model):
             "price": self.price,
             "unit": self.unit,
             "location": self.location,
-            "description":self.description,
-            "user":self.user.serialize()
+            "description":self.description
         }
 
 class Image(db.Model):

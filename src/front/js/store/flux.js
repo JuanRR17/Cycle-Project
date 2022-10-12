@@ -11,6 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       update: false,
       all_products: null,
       favourites: [],
+      user: null,
     },
     actions: {
       // Use getActions to call a function within a function
@@ -71,7 +72,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There has been an error signing up:", resp.status);
         }
       },
-
       //LOGIN
       login: async (email, password) => {
         // 1. Fetch to generate token
@@ -107,8 +107,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There has been an error logging in:", error);
         }
       },
-      //GET USER DATA
-      getUserData: async () => {
+      //GET CURRENT USER DATA
+      getCurrentUserData: async () => {
         // 2. Fetch to retrieve user data
 
         const store = getStore();
@@ -134,6 +134,33 @@ const getState = ({ getStore, getActions, setStore }) => {
           sessionStorage.setItem("user", user_data);
           console.log("This is the user data", user_data);
           setStore({ data: user_data, message: null });
+          return true;
+        } catch (error) {
+          console.error("There has been an error retrieving data:", error);
+        }
+      },
+      //GET AN USER DATA
+      getUserData: async (id) => {
+        const data_opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/user/" + id,
+            data_opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error retrieving data");
+            return false;
+          }
+
+          const user_data = await resp.json();
+          console.log("This is the user data", user_data);
+          setStore({ user: user_data, message: null });
           return true;
         } catch (error) {
           console.error("There has been an error retrieving data:", error);
