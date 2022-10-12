@@ -22,7 +22,6 @@ const Profile = () => {
       actions.logout();
     }
     if (store.data == undefined) {
-      console.log("profile");
       actions.getCurrentUserData();
     }
     if (store.product != null) actions.setSingleProduct(null);
