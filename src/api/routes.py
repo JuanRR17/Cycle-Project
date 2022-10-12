@@ -76,6 +76,13 @@ def protected():
 
     return jsonify(user.serialize()), 200
 
+# GET ONE USER DATA
+@api.route("/user/<int:id>", methods=["GET"])
+def get_user(id):
+    user = User.query.filter_by(id=id).first()
+
+    return jsonify(user.serialize()), 200
+
 # UPDATE USER
 @api.route('/user/<int:id>', methods=['PUT'])
 @jwt_required()
