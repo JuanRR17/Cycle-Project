@@ -11,7 +11,6 @@ export const Navbar = () => {
       actions.getCurrentUserData();
     }
   });
-
   return (
     <nav
       className="navbar nav-tabs navbar-expand-lg navbar-light bg-warning px-5"
