@@ -131,6 +131,7 @@ const UserDataForm = ({ handleSetEdit }) => {
                   type="password"
                   className="form-control"
                   id="inputPassword"
+                  placeholder="You can change your password here"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />

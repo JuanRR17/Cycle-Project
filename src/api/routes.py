@@ -31,8 +31,7 @@ def sign_up():
     else:
 
         new_user = User()
-        fields = list(new_user.serialize().keys())
-        fields.remove("id")
+        fields = ["username","email","password","phone","location","company"]
 
         gen = (f for f in fields if f in request_keys)
         for f in gen:
@@ -67,15 +66,13 @@ def create_token():
             access_token = create_access_token(identity=email)
             return jsonify(access_token=access_token), 200
 
-# GET ONE USER DATA
+# GET CURRENT USER DATA
 @api.route("/user", methods=["GET"])
 @jwt_required()
 def protected():
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
-    # print("user products")
-    # print(list(user.products))
 
     return jsonify(user.serialize()), 200
 
@@ -93,19 +90,20 @@ def update_user(id):
             return jsonify({"msg":'You need to specify the username'}),400
         elif 'email' not in request_keys or request_body['email']=="":
             return jsonify({"msg":'You need to specify the email'}), 400
-        elif 'password' not in request_keys or request_body['password']=="":
-            return jsonify({"msg":'You need to specify the password'}), 400
         elif User.query.filter_by(email = request_body['email']).first() != None and request_body['email']!=user.email:
             return jsonify({"msg":'This email is already in use'}),500
         elif User.query.filter_by(username = request_body['username']).first() != None and request_body['username']!=user.username:
             return jsonify({"msg":'This username is already in use'}),500
         else:
-            fields = list(user.serialize().keys())
-            fields.remove("id")
+            fields = ["username","email","password","phone","location","company"]
+
             unvalid_fields = []
             for f in request_body:
                 if f in fields:
-                    setattr(user, f, request_body[f])
+                    if f!="password":
+                        setattr(user, f, request_body[f])
+                    elif request_body[f]!="":
+                        setattr(user, f, request_body[f])
                 else:
                     unvalid_fields.append(f)
             if len(unvalid_fields)>0:
