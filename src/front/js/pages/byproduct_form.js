@@ -124,7 +124,7 @@ const ByProductForm = (props) => {
                 type="text"
                 className="form-control"
                 id="inputLocation"
-                value={location}
+                value={location ?? ""}
                 onChange={(e) => setLocation(e.target.value)}
               />
             </div>
@@ -139,7 +139,7 @@ const ByProductForm = (props) => {
                 className="form-control"
                 placeholder="€"
                 id="inputPrice"
-                value={price}
+                value={price ?? 0}
                 min="0"
                 onChange={(e) => setPrice(e.target.value)}
               />
@@ -176,7 +176,7 @@ const ByProductForm = (props) => {
                 className="form-control"
                 placeholder={unit}
                 id="inputStock"
-                value={stock}
+                value={stock ?? 0}
                 min="0"
                 onChange={(e) => setStock(e.target.value)}
               />
@@ -211,7 +211,7 @@ const ByProductForm = (props) => {
                 type="text"
                 className="form-control"
                 id="inputDescription"
-                value={description}
+                value={description ?? ""}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
