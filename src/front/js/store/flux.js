@@ -134,7 +134,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           const user_data = await resp.json();
           sessionStorage.setItem("user", user_data);
           console.log("This is the user data", user_data);
-          setStore({ data: user_data, message: null });
+          setStore({
+            data: user_data,
+            message: null,
+            favourites: user_data.favourites,
+          });
           return true;
         } catch (error) {
           console.error("There has been an error retrieving data:", error);
@@ -496,38 +500,38 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //GET USER FAVOURITES
-      get_user_favourites: async () => {
-        const store = getStore();
-        const data_opts = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + store.token,
-          },
-        };
-        try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/favourites",
-            data_opts
-          );
+      // get_user_favourites: async () => {
+      //   const store = getStore();
+      //   const data_opts = {
+      //     method: "GET",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: "Bearer " + store.token,
+      //     },
+      //   };
+      //   try {
+      //     const resp = await fetch(
+      //       process.env.BACKEND_URL + "/api/favourites",
+      //       data_opts
+      //     );
 
-          if (resp.status !== 200) {
-            console.log("There has been some error retrieving favourites data");
-            return false;
-          }
+      //     if (resp.status !== 200) {
+      //       console.log("There has been some error retrieving favourites data");
+      //       return false;
+      //     }
 
-          const favourites = await resp.json();
-          // sessionStorage.setItem("user", user_data);
-          console.log("These are the user favourites", favourites);
-          setStore({ favourites: favourites });
-          return true;
-        } catch (error) {
-          console.error(
-            "There has been an error retrieving favourites data:",
-            error
-          );
-        }
-      },
+      //     const favourites = await resp.json();
+      //     // sessionStorage.setItem("user", user_data);
+      //     console.log("These are the user favourites", favourites);
+      //     setStore({ favourites: favourites });
+      //     return true;
+      //   } catch (error) {
+      //     console.error(
+      //       "There has been an error retrieving favourites data:",
+      //       error
+      //     );
+      //   }
+      // },
       //ADD FAVOURITE
       add_favourite: async (user_id, product_id) => {
         const store = getStore();

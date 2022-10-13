@@ -9,7 +9,7 @@ const Favourites = () => {
   };
 
   useEffect(() => {
-    actions.get_user_favourites();
+    actions.getCurrentUserData();
   }, []);
 
   return (
