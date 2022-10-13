@@ -9,11 +9,11 @@ const UserProductsTable = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (store.token == undefined) {
-    if (sessionStorage.getItem("token") == undefined) {
-      navigate("/");
+    actions.syncTokenFromSessionStore();
+    if (!sessionStorage.getItem("token") || !store.token) {
       actions.logout();
-    } else if (store.data == undefined) {
+      navigate("/");
+    } else if (!store.data) {
       actions.getCurrentUserData();
     }
 

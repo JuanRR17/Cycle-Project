@@ -23,7 +23,7 @@ const ProductCard = ({ details }) => {
           <span>{details.name}</span>
           <span>{details.type}</span>
         </div>
-        <img src="..." className="card-img-top" alt="..." />
+        <img className="card-img-top" alt={details.name} />
         <div className="card-title d-flex justify-content-between">
           <span>{details.price}</span>
           <span>{details.location}</span>
