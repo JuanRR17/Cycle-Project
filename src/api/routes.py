@@ -73,9 +73,26 @@ def protected():
     print("get current user data")
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
-    user = User.query.filter_by(email=current_user).first()
+    search = User.query.filter_by(email=current_user).first()
 
-    return jsonify(user.serialize()), 200
+    all_favourites = []
+    user_favourites = Favourite.query.filter_by(user_id=search.id)
+    for f in user_favourites:
+        favourite = dict(f.serialize())
+        favourite['product']=f.product.serialize()
+        all_favourites.append(favourite)
+    
+    user_products = Product.query.filter_by(user_id=search.id)
+    user_products = list(map(lambda x: x.serialize(), user_products))
+
+    user = search.serialize()
+    user['favourites'] = all_favourites
+    user['products'] = user_products
+
+    # json_text = jsonify(all_favourites)
+    # return json_text
+
+    return jsonify(user), 200
 
 # GET ONE USER DATA
 @api.route("/user/<int:id>", methods=["GET"])
@@ -145,12 +162,6 @@ def new_product():
     request_body = request.get_json(force=True)
     request_keys = list(request_body.keys())
 
-    print("new product request body")
-    print(request_body)
-
-    print("new product request keys")
-    print(request_keys)
-
     if 'name' not in request_keys or request_body['name']=="":
         return jsonify({"msg":'You need to specify the name'}),400
     else:
@@ -180,14 +191,14 @@ def get_products():
     return jsonify(all_products)
 
 
-# GET USER PRODUCTS
-@api.route("/user_products/<int:id>", methods=['GET'])
+# # GET USER PRODUCTS
+# @api.route("/user_products/<int:id>", methods=['GET'])
 
-def get_user_products(id):
-    user_products = Product.query.filter_by(user_id=id)
-    user_products = list(map(lambda x: x.serialize(), user_products))
-    json_text = jsonify(user_products)
-    return json_text
+# def get_user_products(id):
+#     user_products = Product.query.filter_by(user_id=id)
+#     user_products = list(map(lambda x: x.serialize(), user_products))
+#     json_text = jsonify(user_products)
+#     return json_text
     
 
 # GET ONE PRODUCT DATA
@@ -290,8 +301,6 @@ def get_user_favourites():
         favourite = dict(f.serialize())
         favourite['product']=f.product.serialize()
         all_favourites.append(favourite)
-
-    # user_favourites = list(map(lambda x: x.serialize(), user_favourites))
 
     json_text = jsonify(all_favourites)
     return json_text

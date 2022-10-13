@@ -8,19 +8,16 @@ const UserProductsTable = (props) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
+  console.log("user products table:", store.data);
+
   useEffect(() => {
     if (sessionStorage.getItem("token") == undefined) navigate("/");
     if (store.data == undefined) {
-      console.log("user products table");
       actions.getCurrentUserData();
     }
-    if (store.user_products == undefined && store.data != undefined)
-      actions.getUserProducts(store.data.id);
-  }, [store.token, store.data]);
 
-  useEffect(() => {
-    if (store.data != undefined && store.update) {
-      actions.getUserProducts(store.data.id);
+    if (store.update) {
+      actions.getCurrentUserData();
       actions.toggle_update();
     }
   });
@@ -76,11 +73,11 @@ const UserProductsTable = (props) => {
           Add New By-Product
         </Link>
       </button>
-      {store.user_products ? (
+      {store.data ? (
         <DataTableBase
           title="My By-Products"
           columns={columns}
-          data={store.user_products}
+          data={store.data.products}
         />
       ) : null}
     </>
