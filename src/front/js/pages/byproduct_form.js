@@ -1,12 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import PropTypes from "prop-types";
 
 const ByProductForm = (props) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const url = useLocation();
+  const id = url.pathname.split("/").slice(-1);
+  const [product, setProduct] = useState({});
+
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState("");
@@ -23,16 +27,47 @@ const ByProductForm = (props) => {
     if (sessionStorage.getItem("token") == undefined) {
       navigate("/");
       actions.logout();
-    }
-    if (store.data == undefined) {
+    } else if (store.data == undefined) {
       actions.getCurrentUserData();
     } else {
       user_id = store.data.id;
     }
+    if (!isNaN(id)) {
+      if (store.all_products != undefined) {
+        const edit_product = store.all_products.filter((p) => {
+          return p.id == id;
+        });
+        if (edit_product) {
+          setProduct(edit_product);
+        } else {
+          alert("The product with id " + id + " doesn't exist");
+        }
+      } else if (store.product == undefined) {
+        actions.getProductData(id);
+      } else {
+        setProduct(store.product);
+      }
+    }
   });
 
+  useEffect(() => {
+    // if (store.product != undefined) {
+    if (!isNaN(id) && product != undefined) {
+      // await actions.getProductData(id);
+
+      setName(product.name);
+      setLocation(product.location);
+      setPrice(product.price);
+      setDescription(product.description);
+      setType(store.types.indexOf(product.type));
+      setUnit(store.units.indexOf(product.unit));
+      setStock(product.stock);
+    }
+  }, [product]);
+
   const handleConfirm = async () => {
-    if (store.product == undefined) {
+    // if (store.product == undefined) {
+    if (isNaN(id)) {
       if (
         await actions.new_product(
           user_id,
@@ -45,7 +80,7 @@ const ByProductForm = (props) => {
           description
         )
       )
-        navigate(-1);
+        navigate("profile");
     } else {
       if (
         await actions.edit_product(
@@ -60,7 +95,7 @@ const ByProductForm = (props) => {
           description
         )
       )
-        navigate(-1);
+        navigate("profile");
     }
   };
 
@@ -68,17 +103,6 @@ const ByProductForm = (props) => {
     actions.clearmessage();
     navigate("/profile");
   };
-  useEffect(() => {
-    if (store.product != undefined) {
-      setName(store.product.name);
-      setLocation(store.product.location);
-      setPrice(store.product.price);
-      setDescription(store.product.description);
-      setType(store.types.indexOf(store.product.type));
-      setUnit(store.units.indexOf(store.product.unit));
-      setStock(store.product.stock);
-    }
-  }, []);
 
   return (
     <div className="mt-5">

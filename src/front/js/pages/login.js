@@ -11,7 +11,6 @@ export const Login = () => {
 
   const handleLogin = async () => {
     await actions.login(email, password);
-    // await actions.get_user_favourites();
   };
 
   const handleCancel = () => {
