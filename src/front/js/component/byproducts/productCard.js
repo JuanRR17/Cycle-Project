@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import FavouriteIcon from "./favouriteIcon";
+import BasketIcon from "./basketIcon";
 
 const ProductCard = ({ details }) => {
   const navigate = useNavigate();
@@ -30,7 +31,8 @@ const ProductCard = ({ details }) => {
         <button type="button" onClick={handleClick} className="btn btn-primary">
           Details
         </button>
-        <FavouriteIcon product={details} url={url} />
+        <FavouriteIcon product={details} />
+        <BasketIcon product={details} />
       </div>
     </div>
   );
