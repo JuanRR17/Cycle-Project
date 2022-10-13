@@ -43,7 +43,7 @@ export const Product = () => {
           <div className="container">
             <div className="row">
               <div className="col-6">
-                <img src="..." alt="..." />
+                <img alt={product.name} />
                 <div className="card-title d-flex justify-content-between">
                   <span>{product.price}</span>
                   <span>{product.location}</span>

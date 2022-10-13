@@ -17,15 +17,14 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    // if (store.token == undefined) {
-    if (sessionStorage.getItem("token") == undefined) {
-      navigate("/");
+    actions.syncTokenFromSessionStore();
+    if (!sessionStorage.getItem("token") || !store.token) {
       actions.logout();
+      navigate("/");
     }
-    if (store.data == undefined) {
+    if (!store.data) {
       actions.getCurrentUserData();
     }
-    // if (store.product != null) actions.setSingleProduct(null);
   });
 
   return (

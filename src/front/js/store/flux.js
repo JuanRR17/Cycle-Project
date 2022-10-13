@@ -28,6 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           product: null,
           update: false,
           favourites: [],
+          basket: [],
         });
       },
       //SYNCYNG TOKEN IN SESSION
@@ -136,6 +137,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             data: user_data,
             message: null,
             favourites: user_data.favourites,
+            basket: user_data.basket,
           });
           return true;
         } catch (error) {
@@ -343,18 +345,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       //GET ALL PRODUCTS
       getAllProducts: async () => {
-        const opts = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
+        const url = process.env.BACKEND_URL + "/api/products/";
+        console.log("testing", url);
         try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/products/",
-            opts
-          );
-
+          const resp = await fetch(url);
+          console.log("testing after");
           if (resp.status !== 200) {
             console.log(
               "There has been some error retrieving all products data"
