@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Quantity from "../component/orders/quantity";
 import { TiArrowBackOutline } from "react-icons/ti";
 import FavouriteIcon from "../component/byproducts/favouriteIcon";
-import AddToBasket from "../component/byproducts/addToBasket";
+import BasketIcon from "../component/byproducts/basketIcon";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
@@ -32,7 +32,7 @@ export const Product = () => {
       <button
         type="button"
         className="btn btn-primary"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/prod_list")}
       >
         <TiArrowBackOutline /> Back
       </button>
@@ -62,7 +62,7 @@ export const Product = () => {
                 />
                 <div>
                   <FavouriteIcon product={product} />
-                  <AddToBasket product={product} />
+                  <BasketIcon product={product} />
                   {store.token ? (
                     <button
                       type="button"

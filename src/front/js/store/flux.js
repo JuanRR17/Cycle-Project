@@ -11,6 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       all_products: null,
       favourites: [],
       user: null,
+      basket: [],
     },
     actions: {
       // Use getActions to call a function within a function
@@ -539,6 +540,85 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.error(
             "There has been an error deleting the favourite:",
+            error
+          );
+        }
+      },
+      //ADD BASKET ITEM
+      add_to_basket: async (user_id, product_id) => {
+        const store = getStore();
+
+        const opts = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify({
+            user_id: user_id,
+            product_id: product_id,
+          }),
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/basket",
+            opts
+          );
+          if (resp.status !== 200) {
+            console.log(
+              "There has been some error adding the basket item",
+              resp.status
+            );
+            const data = await resp.json();
+            setStore({ message: data.msg });
+            return false;
+          }
+          const basket_item = await resp.json();
+          const newBasket = [...store.basket, basket_item];
+          setStore({ basket: newBasket });
+          console.log("new basket:", store.basket);
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error adding the basket item:",
+            resp.status
+          );
+        }
+      },
+      //DELETE BASKET ITEM
+      delete_from_basket: async (id) => {
+        const store = getStore();
+
+        const opts = {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/basket/" + id,
+            opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error deleting the basket item");
+            return false;
+          }
+
+          const basket_item = await resp.json();
+          const newBasket = store.basket.filter((bi) => {
+            return bi.id !== basket_item.id;
+          });
+          console.log("Basket item deleted");
+          setStore({ basket: newBasket });
+          console.log("This is the remaining basket", store.basket);
+
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error deleting the basket item:",
             error
           );
         }

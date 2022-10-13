@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Favourites from "./byproducts/favourites";
 import { Context } from "../store/appContext";
+import Basket from "./byproducts/basket";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -11,6 +12,7 @@ export const Navbar = () => {
       actions.getCurrentUserData();
     }
   });
+
   return (
     <nav
       className="navbar nav-tabs navbar-expand-lg navbar-light bg-warning px-5"
@@ -45,6 +47,7 @@ export const Navbar = () => {
           {store.token && store.data ? (
             <>
               <Favourites />
+              <Basket />
               <Link to="profile">
                 <span className="nav-item nav-link">{store.data.username}</span>
               </Link>

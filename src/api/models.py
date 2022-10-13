@@ -14,8 +14,6 @@ class User(db.Model):
     location = db.Column(db.String(120), default="")
     company = db.Column(db.String(120), default="")
 
-    basket = relationship("Basket", back_populates="user", uselist=False)
-
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -27,7 +25,7 @@ class User(db.Model):
             "phone": self.phone,
             "location": self.location,
             "company":self.company,
-            "password":self.password
+            # "password":self.password
             # do not serialize the password, its a security breach
         }
 
@@ -121,7 +119,6 @@ class Favourite(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "product_id": self.product_id
-            # "product":self.product.serialize()
         }
 
 
@@ -173,36 +170,25 @@ class OrderRow(db.Model):
             "subtotal": self.subtotal,
             "product":self.product
         }
-    
-class Basket(db.Model):
+
+class BasketItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    user = db.relationship('User', back_populates='basket')
+    product = db.relationship('Product', backref='basket_items')
+    user = db.relationship('User', backref='basket_items')
+
+    def __init__(self, user_id, product_id):
+        self.user_id = user_id
+        self.product_id = product_id
 
     def __repr__(self):
-        return f'<Basket {self.id}>'
+        return f'<BasketItem {self.id}>'
 
     def serialize(self):
         return {
             "id": self.id,
+            "product_id": self.product_id,
             "user_id": self.user_id
-        }
-
-class BasketRow(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    basket_id = db.Column(db.Integer, db.ForeignKey('basket.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-
-    basket = db.relationship('Basket', backref='basket_rows')
-    product = db.relationship('Product', backref='basket_rows')
-
-    def __repr__(self):
-        return f'<BasketRow {self.id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "order_id": self.order_id,
-            "product_id": self.product_id
         }

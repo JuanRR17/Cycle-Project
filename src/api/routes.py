@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Product, Favourite
+from api.models import db, User, Product, Favourite, BasketItem
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -83,12 +83,21 @@ def protected():
             favourite['product']=f.product.serialize()
             all_favourites.append(favourite)
     
+    basket = []
+    user_basket = BasketItem.query.filter_by(user_id=search.id)
+    for b in user_basket:
+        if b.product != None:
+            basket_item = dict(b.serialize())
+            basket_item['product']=b.product.serialize()
+            basket.append(basket_item)
+    
     user_products = Product.query.filter_by(user_id=search.id)
     user_products = list(map(lambda x: x.serialize(), user_products))
 
     user = search.serialize()
     user['favourites'] = all_favourites
     user['products'] = user_products
+    user['basket'] = basket
 
     return jsonify(user), 200
 
@@ -274,3 +283,36 @@ def delete_favourite(id):
         db.session.delete(favourite)
         db.session.commit()
         return jsonify(favourite.serialize()),200
+
+# ADD BASKET ITEM
+@api.route("/basket", methods=['POST'])
+@jwt_required()
+
+def add_basket_prod():
+    request_body = request.get_json(force=True)
+    user_id = request_body['user_id']
+    product_id = request_body['product_id']
+
+    new_basket_item = BasketItem(user_id, product_id)
+
+    db.session.add(new_basket_item)
+    db.session.commit()
+
+    basket_item = new_basket_item.serialize()
+    basket_item['product']=new_basket_item.product.serialize()
+    return jsonify(basket_item), 200
+
+# REMOVE BASKET ITEM
+@api.route('/basket/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_basket_prod(id):
+    try:
+        basket_item = BasketItem.query.filter_by(id=id).first()
+        if basket_item == None:
+            raise Exception()
+    except Exception:
+        return jsonify({"msg":"This basket item doesn\'t exist"}),500
+    else:
+        db.session.delete(basket_item)
+        db.session.commit()
+        return jsonify(basket_item.serialize()),200

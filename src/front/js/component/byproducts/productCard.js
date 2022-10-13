@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import FavouriteIcon from "./favouriteIcon";
-import AddToBasket from "./addToBasket";
+import BasketIcon from "./basketIcon";
 
 const ProductCard = ({ details }) => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const ProductCard = ({ details }) => {
           Details
         </button>
         <FavouriteIcon product={details} />
-        <AddToBasket product={details} />
+        <BasketIcon product={details} />
       </div>
     </div>
   );
