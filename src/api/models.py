@@ -177,7 +177,6 @@ class OrderRow(db.Model):
 class Basket(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    total = db.Column(db.Numeric(120))
 
     user = db.relationship('User', back_populates='basket')
 
@@ -187,16 +186,13 @@ class Basket(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
-            "total": self.total
+            "user_id": self.user_id
         }
 
 class BasketRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     basket_id = db.Column(db.Integer, db.ForeignKey('basket.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-    quantity = db.Column(db.Numeric(120))
-    subtotal = db.Column(db.Numeric(120))
 
     basket = db.relationship('Basket', backref='basket_rows')
     product = db.relationship('Product', backref='basket_rows')
@@ -208,7 +204,5 @@ class BasketRow(db.Model):
         return {
             "id": self.id,
             "order_id": self.order_id,
-            "product_id": self.product_id,
-            "quantity": self.quantity,
-            "subtotal": self.subtotal
+            "product_id": self.product_id
         }

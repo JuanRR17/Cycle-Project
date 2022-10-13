@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Quantity from "../component/orders/quantity";
 import { TiArrowBackOutline } from "react-icons/ti";
 import FavouriteIcon from "../component/byproducts/favouriteIcon";
+import AddToBasket from "../component/byproducts/addToBasket";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
@@ -60,14 +61,17 @@ export const Product = () => {
                   handleSetQuantity={(value) => setQuantity(value)}
                 />
                 <div>
-                  <FavouriteIcon product={product} url={location} />
-                  <button
-                    type="button"
-                    className="btn btn-success"
-                    onClick={handleBuy}
-                  >
-                    Buy
-                  </button>
+                  <FavouriteIcon product={product} />
+                  <AddToBasket product={product} />
+                  {store.token ? (
+                    <button
+                      type="button"
+                      className="btn btn-success"
+                      onClick={handleBuy}
+                    >
+                      Buy
+                    </button>
+                  ) : null}
                 </div>
               </div>
             </div>

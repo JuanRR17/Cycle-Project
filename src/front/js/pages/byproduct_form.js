@@ -24,6 +24,7 @@ const ByProductForm = (props) => {
   let user_id;
 
   useEffect(() => {
+    // if (store.token == undefined) {
     if (sessionStorage.getItem("token") == undefined) {
       navigate("/");
       actions.logout();
