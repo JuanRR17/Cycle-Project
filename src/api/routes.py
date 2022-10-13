@@ -78,9 +78,11 @@ def protected():
     all_favourites = []
     user_favourites = Favourite.query.filter_by(user_id=search.id)
     for f in user_favourites:
-        favourite = dict(f.serialize())
-        favourite['product']=f.product.serialize()
-        all_favourites.append(favourite)
+        print(f)
+        if f.product != None:
+            favourite = dict(f.serialize())
+            favourite['product']=f.product.serialize()
+            all_favourites.append(favourite)
     
     user_products = Product.query.filter_by(user_id=search.id)
     user_products = list(map(lambda x: x.serialize(), user_products))
@@ -88,9 +90,6 @@ def protected():
     user = search.serialize()
     user['favourites'] = all_favourites
     user['products'] = user_products
-
-    # json_text = jsonify(all_favourites)
-    # return json_text
 
     return jsonify(user), 200
 
@@ -185,9 +184,10 @@ def get_products():
     products = Product.query.all()
     all_products=[]
     for p in products:
-        product = dict(p.serialize())
-        product['user']=p.user.serialize()
-        all_products.append(product)
+        if p.user != None:
+            product = dict(p.serialize())
+            product['user']=p.user.serialize()
+            all_products.append(product)
     return jsonify(all_products)
 
 # GET ONE PRODUCT DATA
