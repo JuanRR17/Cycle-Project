@@ -31,13 +31,9 @@ const Basket = () => {
             aria-expanded="false"
             data-bs-auto-close="outside"
           >
-            <Link
-              to="/confirm_order"
-              className="text-light text-decoration-none"
-            >
-              Basket
-            </Link>
+            Basket
             <span className="badge bg-secondary">{store.basket.length}</span>
+            <span className=""></span>
           </button>
           <ul
             className="dropdown-menu dropdown-menu-end"
@@ -45,9 +41,16 @@ const Basket = () => {
             style={ulStyle}
           >
             {store.basket.length > 0 ? (
-              store.basket.map((item) => {
-                return <BasketLI key={item.id} item={item} />;
-              })
+              <>
+                <li className="text-center">
+                  <Link to="/confirm_order" className="text-decoration-none">
+                    Basket
+                  </Link>
+                </li>
+                {store.basket.map((item) => {
+                  return <BasketLI key={item.id} item={item} />;
+                })}
+              </>
             ) : (
               <li className="text-center">(empty)</li>
             )}

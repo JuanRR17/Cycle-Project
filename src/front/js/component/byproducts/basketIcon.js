@@ -29,7 +29,6 @@ const BasketIcon = ({ product }) => {
           onClick={() => handleItemInBasket(product)}
           className="float-end btn btn-outline-danger"
         >
-          {/* <BsBasket2 /> */}
           {basket_prod_ids.includes(product.id) ? (
             <BsBasket2Fill />
           ) : (
