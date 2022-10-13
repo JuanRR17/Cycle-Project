@@ -42,7 +42,7 @@ const ByProductForm = (props) => {
         } else {
           alert("The product with id " + id + " doesn't exist");
         }
-      } else if (store.product == undefined) {
+      } else if (store.product == undefined || store.product.id != id) {
         actions.getProductData(id);
       } else {
         setProduct(store.product);
@@ -51,10 +51,7 @@ const ByProductForm = (props) => {
   });
 
   useEffect(() => {
-    // if (store.product != undefined) {
     if (!isNaN(id) && product != undefined) {
-      // await actions.getProductData(id);
-
       setName(product.name);
       setLocation(product.location);
       setPrice(product.price);
@@ -66,7 +63,6 @@ const ByProductForm = (props) => {
   }, [product]);
 
   const handleConfirm = async () => {
-    // if (store.product == undefined) {
     if (isNaN(id)) {
       if (
         await actions.new_product(
@@ -80,7 +76,7 @@ const ByProductForm = (props) => {
           description
         )
       )
-        navigate("profile");
+        navigate("/profile");
     } else {
       if (
         await actions.edit_product(
@@ -95,7 +91,7 @@ const ByProductForm = (props) => {
           description
         )
       )
-        navigate("profile");
+        navigate("/profile");
     }
   };
 

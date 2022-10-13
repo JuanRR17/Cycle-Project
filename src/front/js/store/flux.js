@@ -294,7 +294,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               resp.status
             );
             const data = await resp.json();
-            setStore({ message: data.msg });
+            setStore({ message: data.msg, product: null });
             return false;
           }
           const data = await resp.json();
@@ -308,10 +308,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             resp.status
           );
         }
-      },
-      //SET SINGLE PRODUCT
-      setSingleProduct: (product) => {
-        setStore({ product: product });
       },
       //GET PRODUCT DATA
       getProductData: async (id) => {
@@ -450,7 +446,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (resp.status !== 200) {
             console.log("There has been some error updating the product");
             const msg = await resp.json();
-            setStore({ message: msg.msg });
+            setStore({ message: msg.msg, product: null });
             return false;
           }
 
