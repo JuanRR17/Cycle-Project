@@ -6,7 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       message: null,
       types: ["Select a type", "Organic", "Plastic", "Textile", "Metallic"],
       units: ["Select an unit", "kg", "g", "m", "m2", "m3", "L", "unit/s"],
-      user_products: null,
+      // user_products: null,
       product: null,
       update: false,
       all_products: null,
@@ -25,7 +25,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           token: null,
           data: null,
           message: null,
-          user_products: null,
+          // user_products: null,
           product: null,
           update: false,
           favourites: [],
@@ -340,37 +340,37 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //GET USER PRODUCTS
-      getUserProducts: async (id) => {
-        const opts = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-        try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/user_products/" + id,
-            opts
-          );
+      // getUserProducts: async (id) => {
+      //   const opts = {
+      //     method: "GET",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   };
+      //   try {
+      //     const resp = await fetch(
+      //       process.env.BACKEND_URL + "/api/user_products/" + id,
+      //       opts
+      //     );
 
-          if (resp.status !== 200) {
-            console.log(
-              "There has been some error retrieving user products data"
-            );
-            return false;
-          }
+      //     if (resp.status !== 200) {
+      //       console.log(
+      //         "There has been some error retrieving user products data"
+      //       );
+      //       return false;
+      //     }
 
-          const user_products = await resp.json();
-          console.log("This is the user products data", user_products);
-          setStore({ user_products: user_products, message: null });
-          return true;
-        } catch (error) {
-          console.error(
-            "There has been an error retrieving user products data:",
-            error
-          );
-        }
-      },
+      //     const user_products = await resp.json();
+      //     console.log("This is the user products data", user_products);
+      //     setStore({ user_products: user_products, message: null });
+      //     return true;
+      //   } catch (error) {
+      //     console.error(
+      //       "There has been an error retrieving user products data:",
+      //       error
+      //     );
+      //   }
+      // },
       //GET ALL PRODUCTS
       getAllProducts: async () => {
         const opts = {

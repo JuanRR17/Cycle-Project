@@ -191,14 +191,14 @@ def get_products():
     return jsonify(all_products)
 
 
-# GET USER PRODUCTS
-@api.route("/user_products/<int:id>", methods=['GET'])
+# # GET USER PRODUCTS
+# @api.route("/user_products/<int:id>", methods=['GET'])
 
-def get_user_products(id):
-    user_products = Product.query.filter_by(user_id=id)
-    user_products = list(map(lambda x: x.serialize(), user_products))
-    json_text = jsonify(user_products)
-    return json_text
+# def get_user_products(id):
+#     user_products = Product.query.filter_by(user_id=id)
+#     user_products = list(map(lambda x: x.serialize(), user_products))
+#     json_text = jsonify(user_products)
+#     return json_text
     
 
 # GET ONE PRODUCT DATA

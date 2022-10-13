@@ -10,25 +10,15 @@ const UserProductsTable = (props) => {
 
   console.log("user products table:", store.data);
 
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("token") == undefined) navigate("/");
-  //   if (store.data == undefined) {
-  //     console.log("user products table");
-  //     actions.getCurrentUserData();
-  //   }
-  //   if (store.user_products == undefined && store.data != undefined)
-  //     actions.getUserProducts(store.data.id);
-  // }, [store.token, store.data]);
-
   useEffect(() => {
     if (sessionStorage.getItem("token") == undefined) navigate("/");
     if (store.data == undefined) {
       actions.getCurrentUserData();
-    } else {
-      if (store.update) {
-        // actions.getUserProducts(store.data.id);
-        actions.toggle_update();
-      }
+    }
+
+    if (store.update) {
+      actions.getCurrentUserData();
+      actions.toggle_update();
     }
   });
 

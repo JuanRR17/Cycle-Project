@@ -25,7 +25,6 @@ const ByProductForm = (props) => {
       actions.logout();
     }
     if (store.data == undefined) {
-      console.log("byproduct form");
       actions.getCurrentUserData();
     } else {
       user_id = store.data.id;
@@ -94,7 +93,7 @@ const ByProductForm = (props) => {
             {/* Name field */}
             <div className="mb-3 col col-lg-6">
               <label htmlFor="inputUser" className="form-label">
-                Name
+                Name*
               </label>
               <input
                 required
@@ -108,7 +107,7 @@ const ByProductForm = (props) => {
             {/* Location field */}
             <div className="mb-3 col-md-6">
               <label htmlFor="inputLocation" className="form-label">
-                Location
+                Location*
               </label>
               <input
                 required
@@ -122,7 +121,7 @@ const ByProductForm = (props) => {
             {/* Price field */}
             <div className="mb-3 col-md-6">
               <label htmlFor="inputPrice" className="form-label">
-                Price
+                Price*
               </label>
               <input
                 required
@@ -138,7 +137,7 @@ const ByProductForm = (props) => {
             {/* Unit field */}
             <div className="mb-3 col-md-6">
               <label htmlFor="inputUnit" className="form-label">
-                Units
+                Units*
               </label>
               <select
                 name="select"
@@ -159,7 +158,7 @@ const ByProductForm = (props) => {
             {/* Stock field */}
             <div className="mb-3 col-md-6">
               <label htmlFor="inputStock" className="form-label">
-                Stock
+                Stock*
               </label>
               <input
                 required
@@ -175,7 +174,7 @@ const ByProductForm = (props) => {
             {/* Type field */}
             <div className="mb-3 col-md-6">
               <label htmlFor="inputType" className="form-label">
-                Type
+                Type*
               </label>
               <select
                 name="select"
