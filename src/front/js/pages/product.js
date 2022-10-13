@@ -18,7 +18,7 @@ export const Product = () => {
     if (store.product == undefined || store.product.id != id) {
       actions.getProductData(id);
     }
-  });
+  }, []);
 
   const product = store.product;
 

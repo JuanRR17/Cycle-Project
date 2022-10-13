@@ -1,12 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import PropTypes from "prop-types";
 
 const ByProductForm = (props) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const url = useLocation();
+  const id = url.pathname.split("/").slice(-1);
+  const [product, setProduct] = useState();
+
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState("");
@@ -23,16 +27,33 @@ const ByProductForm = (props) => {
     if (sessionStorage.getItem("token") == undefined) {
       navigate("/");
       actions.logout();
-    }
-    if (store.data == undefined) {
+    } else if (store.data == undefined) {
       actions.getCurrentUserData();
     } else {
       user_id = store.data.id;
     }
+    if (!isNaN(id)) {
+      if (store.product == undefined || store.product.id != id) {
+        actions.getProductData(id);
+      }
+    }
   });
 
+  console.log("store.product:", store.product);
+  useEffect(() => {
+    if (!isNaN(id) && store.product != undefined) {
+      setName(store.product.name);
+      setLocation(store.product.location);
+      setPrice(store.product.price);
+      setDescription(store.product.description);
+      setType(store.types.indexOf(store.product.type));
+      setUnit(store.units.indexOf(store.product.unit));
+      setStock(store.product.stock);
+    }
+  }, [store.product]);
+
   const handleConfirm = async () => {
-    if (store.product == undefined) {
+    if (isNaN(id)) {
       if (
         await actions.new_product(
           user_id,
@@ -45,7 +66,7 @@ const ByProductForm = (props) => {
           description
         )
       )
-        navigate(-1);
+        navigate("/profile");
     } else {
       if (
         await actions.edit_product(
@@ -60,7 +81,7 @@ const ByProductForm = (props) => {
           description
         )
       )
-        navigate(-1);
+        navigate("/profile");
     }
   };
 
@@ -68,17 +89,6 @@ const ByProductForm = (props) => {
     actions.clearmessage();
     navigate("/profile");
   };
-  useEffect(() => {
-    if (store.product != undefined) {
-      setName(store.product.name);
-      setLocation(store.product.location);
-      setPrice(store.product.price);
-      setDescription(store.product.description);
-      setType(store.types.indexOf(store.product.type));
-      setUnit(store.units.indexOf(store.product.unit));
-      setStock(store.product.stock);
-    }
-  }, []);
 
   return (
     <div className="mt-5">
@@ -114,7 +124,7 @@ const ByProductForm = (props) => {
                 type="text"
                 className="form-control"
                 id="inputLocation"
-                value={location}
+                value={location ?? ""}
                 onChange={(e) => setLocation(e.target.value)}
               />
             </div>
@@ -129,7 +139,7 @@ const ByProductForm = (props) => {
                 className="form-control"
                 placeholder="€"
                 id="inputPrice"
-                value={price}
+                value={price ?? 0}
                 min="0"
                 onChange={(e) => setPrice(e.target.value)}
               />
@@ -166,7 +176,7 @@ const ByProductForm = (props) => {
                 className="form-control"
                 placeholder={unit}
                 id="inputStock"
-                value={stock}
+                value={stock ?? 0}
                 min="0"
                 onChange={(e) => setStock(e.target.value)}
               />
@@ -201,7 +211,7 @@ const ByProductForm = (props) => {
                 type="text"
                 className="form-control"
                 id="inputDescription"
-                value={description}
+                value={description ?? ""}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>

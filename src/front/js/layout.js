@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
 
 import { SignUp } from "./pages/signup";
 import { Login } from "./pages/login";
@@ -37,7 +35,8 @@ const Layout = () => {
             <Route element={<SignUp />} path="/signup" />
             <Route element={<Login />} path="/login" />
             <Route element={<Profile />} path="/profile" />
-            <Route element={<ByProductForm />} path="/byproduct_form" />
+            <Route element={<ByProductForm />} path="/byproduct_form/:id" />
+            <Route element={<ByProductForm />} path="/byproduct_form/" />
             <Route element={<List />} path="/prod_list" />
             <Route element={<Blog />} path="/blog" />
             <Route element={<BlogEntryForm />} path="/blog_entry_form" />
