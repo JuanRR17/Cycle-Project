@@ -8,8 +8,6 @@ const UserProductsTable = (props) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
-  console.log("user products table:", store.data);
-
   useEffect(() => {
     // if (store.token == undefined) {
     if (sessionStorage.getItem("token") == undefined) {

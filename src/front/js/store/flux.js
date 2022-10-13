@@ -28,6 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           product: null,
           update: false,
           favourites: [],
+          basket: [],
         });
       },
       //SYNCYNG TOKEN IN SESSION
@@ -136,6 +137,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             data: user_data,
             message: null,
             favourites: user_data.favourites,
+            basket: user_data.basket,
           });
           return true;
         } catch (error) {

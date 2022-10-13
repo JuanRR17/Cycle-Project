@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Context } from "../../store/appContext";
 import BasketLI from "./basketLI";
 
 const Basket = () => {
   const { store, actions } = useContext(Context);
-  const navigate = useNavigate();
 
   const ulStyle = {
     width: "max-content",
@@ -14,10 +13,6 @@ const Basket = () => {
   useEffect(() => {
     actions.getCurrentUserData();
   }, []);
-
-  const handleBuy = () => {
-    navigate("/confirm_order");
-  };
 
   return (
     <>
@@ -44,7 +39,7 @@ const Basket = () => {
               <>
                 <li className="text-center">
                   <Link to="/confirm_order" className="text-decoration-none">
-                    Basket
+                    Go To Basket
                   </Link>
                 </li>
                 {store.basket.map((item) => {
