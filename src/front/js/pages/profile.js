@@ -24,6 +24,7 @@ const Profile = () => {
     if (store.data == undefined) {
       actions.getCurrentUserData();
     }
+    if (store.product != null) actions.setSingleProduct(null);
   });
 
   return (

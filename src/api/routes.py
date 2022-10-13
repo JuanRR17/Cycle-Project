@@ -78,7 +78,6 @@ def protected():
     all_favourites = []
     user_favourites = Favourite.query.filter_by(user_id=search.id)
     for f in user_favourites:
-        print(f)
         if f.product != None:
             favourite = dict(f.serialize())
             favourite['product']=f.product.serialize()

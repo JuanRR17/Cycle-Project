@@ -9,7 +9,7 @@ const ByProductForm = (props) => {
   const navigate = useNavigate();
   const url = useLocation();
   const id = url.pathname.split("/").slice(-1);
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState();
 
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
@@ -33,34 +33,24 @@ const ByProductForm = (props) => {
       user_id = store.data.id;
     }
     if (!isNaN(id)) {
-      if (store.all_products != undefined) {
-        const edit_product = store.all_products.filter((p) => {
-          return p.id == id;
-        });
-        if (edit_product) {
-          setProduct(edit_product);
-        } else {
-          alert("The product with id " + id + " doesn't exist");
-        }
-      } else if (store.product == undefined || store.product.id != id) {
+      if (store.product == undefined || store.product.id != id) {
         actions.getProductData(id);
-      } else {
-        setProduct(store.product);
       }
     }
   });
 
+  console.log("store.product:", store.product);
   useEffect(() => {
-    if (!isNaN(id) && product != undefined) {
-      setName(product.name);
-      setLocation(product.location);
-      setPrice(product.price);
-      setDescription(product.description);
-      setType(store.types.indexOf(product.type));
-      setUnit(store.units.indexOf(product.unit));
-      setStock(product.stock);
+    if (!isNaN(id) && store.product != undefined) {
+      setName(store.product.name);
+      setLocation(store.product.location);
+      setPrice(store.product.price);
+      setDescription(store.product.description);
+      setType(store.types.indexOf(store.product.type));
+      setUnit(store.units.indexOf(store.product.unit));
+      setStock(store.product.stock);
     }
-  }, [product]);
+  }, [store.product]);
 
   const handleConfirm = async () => {
     if (isNaN(id)) {

@@ -309,6 +309,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
+      //SET SINGLE PRODUCT
+      setSingleProduct: (product) => {
+        setStore({ product: product });
+      },
       //GET PRODUCT DATA
       getProductData: async (id) => {
         const data_opts = {
