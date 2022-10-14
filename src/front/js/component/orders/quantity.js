@@ -13,8 +13,8 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
   };
   return (
     <>
-      {stock === 0 ? (
-        <div>Out of Stock</div>
+      {stock == 0 ? (
+        <div className="text-danger">Out of Stock</div>
       ) : (
         <div
           className="btn-group "
