@@ -20,7 +20,7 @@ const ConfirmOrder = (props) => {
     }
   });
 
-  console.log("confirm order basket:", store.basket);
+  // console.log("confirm order basket:", store.basket);
   return (
     <div>
       <div>Confirm Order</div>
