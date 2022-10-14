@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
+import BasketIcon from "./basketIcon";
 
 const FavouriteLI = ({ fav }) => {
   const { store, actions } = useContext(Context);
-
+  console.log("fav:", fav);
   return (
     <li className="dropdown-item ">
       <Link className="text-decoration-none" to={"/product/" + fav.product_id}>
@@ -19,6 +20,7 @@ const FavouriteLI = ({ fav }) => {
       >
         <MdDelete />
       </span>
+      <BasketIcon product={fav.product} />
     </li>
   );
 };

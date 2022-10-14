@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import Quantity from "../component/orders/quantity";
 
 const ConfirmOrder = (props) => {
+  const { store, actions } = useContext(Context);
+  const [quantity, setQuantity] = useState(0);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    actions.syncTokenFromSessionStore();
+    if (!sessionStorage.getItem("token") || !store.token) {
+      actions.logout();
+      navigate("/");
+    }
+    if (!store.data) {
+      actions.getCurrentUserData();
+    }
+  });
+
+  console.log("confirm order basket:", store.basket);
   return (
     <div>
       <div>Confirm Order</div>
@@ -19,30 +37,25 @@ const ConfirmOrder = (props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>Mark</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>Mark</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
+          {store.basket
+            ? store.basket.map((item, idx) => {
+                return (
+                  <tr key={idx}>
+                    <td>{item.product.name}</td>
+                    <td>{item.product.price}</td>
+                    <td>{item.product.type}</td>
+                    <td>{item.product.location}</td>
+                    <td>
+                      <Quantity
+                        quantity={quantity}
+                        handleSetQuantity={(value) => setQuantity(value)}
+                      />
+                    </td>
+                    <td>{quantity * item.product.price}</td>
+                  </tr>
+                );
+              })
+            : "No Items in Basket"}
         </tbody>
         <tfoot>
           <tr>

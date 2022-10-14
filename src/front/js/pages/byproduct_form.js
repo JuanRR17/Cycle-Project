@@ -9,7 +9,6 @@ const ByProductForm = (props) => {
   const navigate = useNavigate();
   const url = useLocation();
   const id = url.pathname.split("/").slice(-1);
-  const [product, setProduct] = useState();
 
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
@@ -24,7 +23,6 @@ const ByProductForm = (props) => {
   let user_id;
 
   useEffect(() => {
-    // if (store.token == undefined) {
     actions.syncTokenFromSessionStore();
     if (!sessionStorage.getItem("token") || !store.token) {
       actions.logout();

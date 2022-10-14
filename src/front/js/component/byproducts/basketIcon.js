@@ -24,17 +24,17 @@ const BasketIcon = ({ product }) => {
   return (
     <>
       {store.token ? (
-        <button
+        <span
           type="button"
           onClick={() => handleItemInBasket(product)}
-          className="float-end btn btn-outline-danger"
+          className="float-end text-danger"
         >
           {basket_prod_ids.includes(product.id) ? (
             <BsBasket2Fill />
           ) : (
             <BsBasket2 />
           )}
-        </button>
+        </span>
       ) : null}
     </>
   );

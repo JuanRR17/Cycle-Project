@@ -56,8 +56,10 @@ export const Product = () => {
                 <div>Created By: {product.user.username}</div>
                 <div>Phone: {product.user.phone}</div>
                 <div>Email: {product.user.email}</div>
+                Quantiy:{" "}
                 <Quantity
                   quantity={quantity}
+                  stock={product.stock}
                   handleSetQuantity={(value) => setQuantity(value)}
                 />
                 <div>

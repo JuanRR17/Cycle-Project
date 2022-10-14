@@ -70,7 +70,6 @@ def create_token():
 @api.route("/user", methods=["GET"])
 @jwt_required()
 def protected():
-    print("get current user data")
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
     search = User.query.filter_by(email=current_user).first()

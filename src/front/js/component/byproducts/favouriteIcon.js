@@ -24,17 +24,17 @@ const FavouriteIcon = ({ product }) => {
   return (
     <>
       {store.token ? (
-        <button
+        <span
           type="button"
           onClick={() => handleItemInFavourites(product)}
-          className="float-end btn btn-outline-warning"
+          className="float-end text-warning"
         >
           {favs_prod_ids.includes(product.id) ? (
             <AiFillHeart />
           ) : (
             <AiOutlineHeart />
           )}
-        </button>
+        </span>
       ) : null}
     </>
   );

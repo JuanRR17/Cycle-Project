@@ -11,7 +11,7 @@ const Basket = () => {
   };
 
   useEffect(() => {
-    actions.getCurrentUserData();
+    if (!store.basket) actions.getCurrentUserData();
   }, []);
 
   return (
