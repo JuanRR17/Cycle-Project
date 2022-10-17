@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Quantity from "./quantity";
 import DeleteIcon from "../icons/DeleteIcon";
 import { Context } from "../../store/appContext";
+import { Link } from "react-router-dom";
 
 const BasketItem = ({ item }) => {
   const { store, actions } = useContext(Context);
@@ -17,7 +18,16 @@ const BasketItem = ({ item }) => {
           />
         </span>
       </td>
-      <td>{item.product.name}</td>
+
+      <td>
+        {" "}
+        <Link
+          className="text-decoration-none"
+          to={"/product/" + item.product_id}
+        >
+          {item.product.name}
+        </Link>
+      </td>
       <td>{item.product.type}</td>
       <td>{item.product.location}</td>
       <td className="pe-5 text-end">{item.product.stock}</td>
@@ -25,9 +35,7 @@ const BasketItem = ({ item }) => {
         <Quantity
           quantity={item.quantity}
           stock={item.product.stock}
-          handleSetQuantity={(value) =>
-            actions.bi_quantity(item.id, value, value * item.product.price)
-          }
+          handleSetQuantity={(value) => actions.bi_quantity(item.id, value)}
         />
       </td>
       <td className="pe-5 text-end">

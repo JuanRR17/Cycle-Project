@@ -4,12 +4,13 @@ import "../../styles/home.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import Quantity from "../component/orders/quantity";
 import { TiArrowBackOutline } from "react-icons/ti";
-import FavouriteIcon from "../component/byproducts/favouriteIcon";
-import BasketIcon from "../component/byproducts/basketIcon";
+import FavouriteIcon from "../component/icons/favouriteIcon";
+import BasketIcon from "../component/icons/basketIcon";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [errors, setErrors] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,9 +23,26 @@ export const Product = () => {
   }, []);
 
   const product = store.product;
+  const basket_prods_ids = store.basket.map((item) => {
+    return item.product.id;
+  });
 
   const handleBuy = () => {
-    navigate("/confirm_order");
+    if (quantity === 0) {
+      setErrors("Please select a quantity bigger than 0");
+    } else {
+      if (basket_prods_ids.includes(product.id)) {
+        const basket_item = store.basket.filter((bi) => {
+          return bi.product.id === product.id;
+        })[0];
+        const id = basket_item.id;
+        const total_qty = basket_item.quantity + quantity;
+        actions.bi_quantity(id, total_qty);
+      } else {
+        actions.add_to_basket(store.data.id, product.id, quantity);
+      }
+      navigate("/confirm_order");
+    }
   };
 
   return (
@@ -77,6 +95,7 @@ export const Product = () => {
                       Buy
                     </button>
                   ) : null}
+                  <div className="text-danger">{errors}</div>
                 </div>
               </div>
             </div>

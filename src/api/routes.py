@@ -288,17 +288,28 @@ def delete_favourite(id):
 @jwt_required()
 
 def add_basket_prod():
+    # Get values from request body
     request_body = request.get_json(force=True)
     user_id = request_body['user_id']
     product_id = request_body['product_id']
+    quantity = request_body['quantity']
 
-    new_basket_item = BasketItem(user_id, product_id)
+    # Get Product
+    bi_product = Product.query.filter_by(id=product_id).first().serialize()
+    # Get price
+    price = bi_product["price"]
+    #Calculate subtotal 
+    subtotal = quantity*price
+
+    # Create basket item
+    new_basket_item = BasketItem(user_id, product_id, quantity, subtotal)
+    # setattr(new_basket_item, 'subtotal',subtotal)
 
     db.session.add(new_basket_item)
     db.session.commit()
 
     basket_item = new_basket_item.serialize()
-    basket_item['product']=new_basket_item.product.serialize()
+    basket_item['product']=bi_product
     return jsonify(basket_item), 200
 
 # REMOVE BASKET ITEM
@@ -322,19 +333,21 @@ def delete_basket_prod(id):
 @jwt_required()
 def update_basket_item(id):
     request_body = request.get_json(force=True)
-    print("request body")
-    print(request_body)
-    quantity = request_body['quantity']
-    subtotal = request_body['subtotal']
+    quantity = int(request_body['quantity'])
+    # subtotal = request_body['subtotal']
 
     basket_item = BasketItem.query.filter_by(id=id).first()
+
+    # Get Product
+    bi_product = Product.query.filter_by(id=basket_item.product_id).first().serialize()
+    # Get price
+    price = bi_product["price"]
+    #Calculate subtotal 
+    subtotal = quantity*price
+
     setattr(basket_item, 'quantity',quantity)
     setattr(basket_item, 'subtotal',subtotal)
 
-    # basket_item['quantity'] = quantity
-    # basket_item['subtotal'] = subtotal
-    print("basket_item")
-    print(basket_item)
     db.session.commit()
     basket_item_product = basket_item.serialize()
     basket_item_product['product']=basket_item.product.serialize()

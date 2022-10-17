@@ -22,9 +22,16 @@ const ConfirmOrder = (props) => {
   useEffect(() => {
     let new_total = 0;
     store.basket.forEach((item) => {
-      new_total += item.subtotal;
-      setTotal(new_total);
+      if (item.quantity === 0) {
+        actions.delete_from_basket(item.id);
+      } else {
+        new_total += item.subtotal;
+        setTotal(new_total);
+      }
     });
+    if (store.basket.length === 0) {
+      setTotal(0);
+    }
   });
 
   return (

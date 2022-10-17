@@ -180,15 +180,17 @@ class BasketItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    quantity = db.Column(db.FLOAT(), default=0)
-    subtotal = db.Column(db.FLOAT(), default=0)
+    quantity = db.Column(db.FLOAT())
+    subtotal = db.Column(db.FLOAT())
 
     product = db.relationship('Product', backref='basket_items')
     user = db.relationship('User', backref='basket_items')
 
-    def __init__(self, user_id, product_id):
+    def __init__(self, user_id, product_id, quantity=1, subtotal=0):
         self.user_id = user_id
         self.product_id = product_id
+        self.quantity = quantity
+        self.subtotal = subtotal
 
     def __repr__(self):
         return f'<BasketItem {self.id}>'

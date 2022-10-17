@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
-import BasketIcon from "./basketIcon";
+import BasketIcon from "../icons/basketIcon";
 import DeleteIcon from "../icons/DeleteIcon";
 
 const FavouriteLI = ({ fav }) => {

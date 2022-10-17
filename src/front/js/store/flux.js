@@ -538,7 +538,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //ADD BASKET ITEM
-      add_to_basket: async (user_id, product_id) => {
+      add_to_basket: async (user_id, product_id, quantity = 1) => {
         const store = getStore();
 
         const opts = {
@@ -550,6 +550,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           body: JSON.stringify({
             user_id: user_id,
             product_id: product_id,
+            quantity: quantity,
           }),
         };
         try {
@@ -617,14 +618,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //UPDATE BASKET ITEM QUANTITY
-      bi_quantity: async (id, quantity, subtotal) => {
+      bi_quantity: async (id, quantity) => {
         const store = getStore();
-        console.log("subtotal", subtotal);
         const opts = {
           method: "PUT",
           body: JSON.stringify({
             quantity: quantity,
-            subtotal: subtotal,
           }),
           headers: {
             "Content-Type": "application/json",
