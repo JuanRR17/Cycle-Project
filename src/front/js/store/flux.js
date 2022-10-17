@@ -716,6 +716,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           return item.product.user_id;
         })[0];
 
+        console.log("store.user", store.user);
+
         if (user.id === store.data.id) {
           setStore({ message: "You can't add your own items to the basket" });
         } else if (
@@ -725,7 +727,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({
             message:
               "Basket can only contain by-products from a single user. By-products in the basket are from the user: " +
-              user.username,
+              store.user.username,
           });
         } else {
           return true;

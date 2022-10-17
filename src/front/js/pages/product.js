@@ -19,19 +19,22 @@ export const Product = () => {
     actions.syncTokenFromSessionStore();
     if (!store.data) {
       actions.getCurrentUserData();
+    } else if (!store.user) {
+      const items_user = store.basket.map((item) => {
+        return item.product.user_id;
+      })[0];
+      actions.getUserData(items_user);
     }
     if (!store.product || store.product.id != id) {
       actions.getProductData(id);
     }
-    actions.clearmessage();
     if (store.basket.length === 0) {
       actions.clearProductData();
     }
+    actions.clearmessage();
   }, []);
 
   const product = store.product;
-
-  console.log("store.data", store.data);
 
   const handleBuy = () => {
     if (actions.check_user(product.user) && actions.check_qty(quantity)) {
@@ -50,7 +53,7 @@ export const Product = () => {
         <TiArrowBackOutline /> Back
       </button>
 
-      {store.product && store.data ? (
+      {store.product ? (
         <>
           <h1 className="text-center">{product.name}</h1>
           <div className="container">
@@ -66,22 +69,26 @@ export const Product = () => {
               </div>
               <div className="col-6">
                 <div>Type: {product.type}</div>
-                <div>Stock: {product.stock}</div>
-                <div>Description: {product.description}</div>
-                <div>
-                  Created By:{" "}
-                  {product.user_id === store.data.id
-                    ? "You"
-                    : product.user.username}
-                </div>
-                <div>Phone: {product.user.phone}</div>
-                <div>Email: {product.user.email}</div>
-                Quantiy:{" "}
-                <Quantity
-                  quantity={quantity}
-                  stock={product.stock}
-                  handleSetQuantity={(value) => setQuantity(value)}
-                />{" "}
+                {store.data ? (
+                  <>
+                    <div>Stock: {product.stock}</div>
+                    <div>Description: {product.description}</div>
+                    <div>
+                      Created By:{" "}
+                      {product.user_id === store.data.id
+                        ? "You"
+                        : product.user.username}{" "}
+                    </div>
+                    <div>Phone: {product.user.phone}</div>
+                    <div>Email: {product.user.email}</div>
+                    Quantiy:{" "}
+                    <Quantity
+                      quantity={quantity}
+                      stock={product.stock}
+                      handleSetQuantity={(value) => setQuantity(value)}
+                    />{" "}
+                  </>
+                ) : null}
                 {product.unit}
                 <div>
                   <FavouriteIcon product={product} />
