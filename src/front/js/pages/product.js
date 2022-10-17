@@ -23,12 +23,29 @@ export const Product = () => {
   }, []);
 
   const product = store.product;
+  console.log("basket", store.basket);
+  const basket_prods_ids = store.basket.map((item) => {
+    return item.product.id;
+  });
+  console.log("basket_prods_ids", basket_prods_ids);
+  console.log("product", product);
 
   const handleBuy = () => {
     if (quantity === 0) {
       setErrors("Please select a quantity bigger than 0");
     } else {
-      actions.add_to_basket(store.data.id, product.id, quantity);
+      if (basket_prods_ids.includes(product.id)) {
+        const basket_item = store.basket.filter((bi) => {
+          return bi.product.id === product.id;
+        })[0];
+        console.log("basket_item", basket_item.id);
+        const id = basket_item.id;
+        const total_qty = basket_item.quantity + quantity;
+        const total_subtotal = basket_item.subtotal + quantity * product.price;
+        actions.bi_quantity(id, total_qty, total_subtotal);
+      } else {
+        actions.add_to_basket(store.data.id, product.id, quantity);
+      }
       navigate("/confirm_order");
     }
   };
