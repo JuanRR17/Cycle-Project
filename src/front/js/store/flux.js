@@ -618,14 +618,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //UPDATE BASKET ITEM QUANTITY
-      bi_quantity: async (id, quantity, subtotal) => {
+      bi_quantity: async (id, quantity) => {
+        console.log("quantity in flux", quantity);
         const store = getStore();
-        console.log("subtotal", subtotal);
         const opts = {
           method: "PUT",
           body: JSON.stringify({
             quantity: quantity,
-            subtotal: subtotal,
           }),
           headers: {
             "Content-Type": "application/json",

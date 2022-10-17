@@ -7,12 +7,12 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
       if (e.target.value > stock) {
         handleSetQuantity(stock);
       } else if (e.target.value < 0) {
-        handleSetQuantity(0);
+        handleSetQuantity(1);
       } else {
-        handleSetQuantity(e.target.value);
+        handleSetQuantity(+e.target.value);
       }
     } else {
-      handleSetQuantity(0);
+      handleSetQuantity(1);
     }
   };
   return (

@@ -333,10 +333,18 @@ def delete_basket_prod(id):
 @jwt_required()
 def update_basket_item(id):
     request_body = request.get_json(force=True)
-    quantity = request_body['quantity']
-    subtotal = request_body['subtotal']
+    quantity = int(request_body['quantity'])
+    # subtotal = request_body['subtotal']
 
     basket_item = BasketItem.query.filter_by(id=id).first()
+
+    # Get Product
+    bi_product = Product.query.filter_by(id=basket_item.product_id).first().serialize()
+    # Get price
+    price = bi_product["price"]
+    #Calculate subtotal 
+    subtotal = quantity*price
+
     setattr(basket_item, 'quantity',quantity)
     setattr(basket_item, 'subtotal',subtotal)
 

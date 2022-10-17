@@ -25,9 +25,7 @@ const BasketItem = ({ item }) => {
         <Quantity
           quantity={item.quantity}
           stock={item.product.stock}
-          handleSetQuantity={(value) =>
-            actions.bi_quantity(item.id, value, value * item.product.price)
-          }
+          handleSetQuantity={(value) => actions.bi_quantity(item.id, value)}
         />
       </td>
       <td className="pe-5 text-end">
