@@ -6,17 +6,6 @@ import { Context } from "../../store/appContext";
 
 const BasketItem = ({ item }) => {
   const { store, actions } = useContext(Context);
-  const [quantity, setQuantity] = useState(0);
-  // const [subtotal, setSubtotal] = useState(0);
-
-  // const subtotal = quantity * item.product.price;
-  // console.log("item:", item);
-  // item.subtotal = subtotal;
-
-  // useEffect(() => {
-  //   if (quantity !== item.quantity)
-  //     actions.bi_quantity(item.id, item.quantity, item.quantity * item.product.price);
-  // }, [quantity]);
 
   console.log("basketItem", item);
   return (
@@ -32,7 +21,7 @@ const BasketItem = ({ item }) => {
       <td>{item.product.name}</td>
       <td>{item.product.type}</td>
       <td>{item.product.location}</td>
-      <td>{item.product.stock}</td>
+      <td className="pe-5 text-end">{item.product.stock}</td>
       <td>
         <Quantity
           quantity={item.quantity}
@@ -42,7 +31,6 @@ const BasketItem = ({ item }) => {
           }
         />
       </td>
-      {/* <td>{item.product.unit}</td> */}
       <td className="pe-5 text-end">
         {item.product.price} €/{item.product.unit}
       </td>

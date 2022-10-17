@@ -28,7 +28,6 @@ const ConfirmOrder = (props) => {
     });
   });
 
-  // console.log("confirm order basket:", store.basket);
   return (
     <div>
       <div>Confirm Order</div>
@@ -41,7 +40,6 @@ const ConfirmOrder = (props) => {
             <th scope="col">Location</th>
             <th scope="col">Stock</th>
             <th scope="col">Quantity</th>
-            {/* <th scope="col">Unit</th> */}
             <th scope="col">Price</th>
             <th scope="col">Subtotal</th>
           </tr>
