@@ -666,8 +666,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
-      //CHECK QUANTITY AND ADD
-      check_qty: (quantity) => {
+      //CHECK BY-PRODUCT EXISTS IN THE BASKET BEFORE ADDING IT
+      check_basket_add: (quantity) => {
         const actions = getActions();
         const store = getStore();
 
@@ -675,23 +675,55 @@ const getState = ({ getStore, getActions, setStore }) => {
         const basket_prods_ids = store.basket.map((item) => {
           return item.product.id;
         });
+        if (basket_prods_ids.includes(product.id)) {
+          const basket_item = store.basket.filter((bi) => {
+            return bi.product.id === product.id;
+          })[0];
+          const id = basket_item.id;
+          const total_qty = basket_item.quantity + quantity;
+          actions.bi_quantity(id, total_qty);
+        } else {
+          actions.add_to_basket(store.data.id, product.id, quantity);
+        }
+        actions.clearmessage();
+        // navigate("/confirm_order");
+        return true;
+      },
+      //CHECK QUANTITY AND ADD
+      check_qty: (quantity) => {
+        const actions = getActions();
+        // const store = getStore();
+
+        // const product = store.product;
+        // const basket_prods_ids = store.basket.map((item) => {
+        //   return item.product.id;
+        // });
         if (quantity === 0) {
           setStore({ message: "Please select a quantity bigger than 0" });
           // setErrors("Please select a quantity bigger than 0");
         } else {
-          if (basket_prods_ids.includes(product.id)) {
-            const basket_item = store.basket.filter((bi) => {
-              return bi.product.id === product.id;
-            })[0];
-            const id = basket_item.id;
-            const total_qty = basket_item.quantity + quantity;
-            actions.bi_quantity(id, total_qty);
-          } else {
-            actions.add_to_basket(store.data.id, product.id, quantity);
-          }
-          actions.clearmessage();
-          // navigate("/confirm_order");
           return true;
+          // actions.check_basket_add(quantity);
+        }
+      },
+      //CHECK BASKET PRODUCTS USER
+      check_user: (user) => {
+        const actions = getActions();
+        const store = getStore();
+
+        const product = store.product;
+        const basket_items_userid = store.basket.map((item) => {
+          return item.product.user_id;
+        })[0];
+        if (basket_items_userid != user.id) {
+          setStore({
+            message:
+              "Basket can only contain by-products from a single user. By-products in the basket are from the user: " +
+              user.username,
+          });
+        } else {
+          return true;
+          // actions.check_basket_add(quantity);
         }
       },
     },

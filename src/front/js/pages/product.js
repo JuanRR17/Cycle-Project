@@ -20,6 +20,7 @@ export const Product = () => {
     if (store.product == undefined || store.product.id != id) {
       actions.getProductData(id);
     }
+    actions.clearmessage();
   }, []);
 
   const product = store.product;
@@ -30,7 +31,8 @@ export const Product = () => {
   console.log("product user", product?.user.id);
 
   const handleBuy = () => {
-    if (actions.check_qty(quantity)) {
+    if (actions.check_user(product.user) && actions.check_qty(quantity)) {
+      actions.check_basket_add(quantity);
       navigate("/confirm_order");
     }
   };
