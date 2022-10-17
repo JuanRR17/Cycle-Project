@@ -666,6 +666,34 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
+      //CHECK QUANTITY AND ADD
+      check_qty: (quantity) => {
+        const actions = getActions();
+        const store = getStore();
+
+        const product = store.product;
+        const basket_prods_ids = store.basket.map((item) => {
+          return item.product.id;
+        });
+        if (quantity === 0) {
+          setStore({ message: "Please select a quantity bigger than 0" });
+          // setErrors("Please select a quantity bigger than 0");
+        } else {
+          if (basket_prods_ids.includes(product.id)) {
+            const basket_item = store.basket.filter((bi) => {
+              return bi.product.id === product.id;
+            })[0];
+            const id = basket_item.id;
+            const total_qty = basket_item.quantity + quantity;
+            actions.bi_quantity(id, total_qty);
+          } else {
+            actions.add_to_basket(store.data.id, product.id, quantity);
+          }
+          actions.clearmessage();
+          // navigate("/confirm_order");
+          return true;
+        }
+      },
     },
   };
 };

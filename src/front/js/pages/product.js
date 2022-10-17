@@ -23,24 +23,14 @@ export const Product = () => {
   }, []);
 
   const product = store.product;
-  const basket_prods_ids = store.basket.map((item) => {
-    return item.product.id;
-  });
+  // const basket_prods_ids = store.basket.map((item) => {
+  //   return item.product.id;
+  // });
+
+  console.log("product user", product?.user.id);
 
   const handleBuy = () => {
-    if (quantity === 0) {
-      setErrors("Please select a quantity bigger than 0");
-    } else {
-      if (basket_prods_ids.includes(product.id)) {
-        const basket_item = store.basket.filter((bi) => {
-          return bi.product.id === product.id;
-        })[0];
-        const id = basket_item.id;
-        const total_qty = basket_item.quantity + quantity;
-        actions.bi_quantity(id, total_qty);
-      } else {
-        actions.add_to_basket(store.data.id, product.id, quantity);
-      }
+    if (actions.check_qty(quantity)) {
       navigate("/confirm_order");
     }
   };
@@ -95,7 +85,9 @@ export const Product = () => {
                       Buy
                     </button>
                   ) : null}
-                  <div className="text-danger">{errors}</div>
+                  <div className="text-danger">
+                    {store.message ? store.message : ""}
+                  </div>
                 </div>
               </div>
             </div>
