@@ -9,7 +9,7 @@ import BasketIcon from "../component/byproducts/basketIcon";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,6 +24,7 @@ export const Product = () => {
   const product = store.product;
 
   const handleBuy = () => {
+    actions.add_to_basket(store.data.id, product.id, quantity);
     navigate("/confirm_order");
   };
 
