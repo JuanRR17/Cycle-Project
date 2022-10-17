@@ -35,9 +35,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       syncTokenFromSessionStore: () => {
         const store = getStore();
         const token = sessionStorage.getItem("token");
-        console.log(
-          "Application just loaded, synching the session storage token"
-        );
+        // console.log(
+        //   "Application just loaded, synching the session storage token"
+        // );
         if (token && token != "" && token != undefined)
           if (store.token == undefined) setStore({ token: token });
       },
@@ -132,7 +132,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const user_data = await resp.json();
-          console.log("This is the user data", user_data);
+          // console.log("This is the user data", user_data);
           setStore({
             data: user_data,
             message: null,
@@ -346,10 +346,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       //GET ALL PRODUCTS
       getAllProducts: async () => {
         const url = process.env.BACKEND_URL + "/api/products/";
-        console.log("testing", url);
         try {
           const resp = await fetch(url);
-          console.log("testing after");
           if (resp.status !== 200) {
             console.log(
               "There has been some error retrieving all products data"
@@ -358,7 +356,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const all_products = await resp.json();
-          console.log("These are all products data", all_products);
+          // console.log("These are all products data", all_products);
           setStore({ all_products: all_products });
           return true;
         } catch (error) {
@@ -614,6 +612,57 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.error(
             "There has been an error deleting the basket item:",
+            error
+          );
+        }
+      },
+      //UPDATE BASKET ITEM QUANTITY
+      bi_quantity: async (id, quantity, subtotal) => {
+        const store = getStore();
+        console.log("subtotal", subtotal);
+        const opts = {
+          method: "PUT",
+          body: JSON.stringify({
+            quantity: quantity,
+            subtotal: subtotal,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/basket/" + id,
+            opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error updating the quantity");
+
+            return false;
+          }
+
+          const basket_item = await resp.json();
+          console.log("This is the product data", basket_item);
+
+          //Replace value of quantity inside the store.basket
+          let basket = store.basket;
+
+          //Find index of specific basket-item using findIndex method.
+          const objIndex = basket.findIndex((obj) => obj.id == basket_item.id);
+
+          //Update object's quantity property.
+          basket[objIndex].quantity = basket_item.quantity;
+          basket[objIndex].subtotal = basket_item.subtotal;
+
+          setStore({ basket: basket });
+
+          console.log("new basket:", store.basket);
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error retrieving basket item data:",
             error
           );
         }

@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
+from sqlalchemy import Float
 
 db = SQLAlchemy()
 
@@ -152,14 +153,17 @@ class OrderRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-    quantity = db.Column(db.Numeric(120))
-    subtotal = db.Column(db.Numeric(120))
+    quantity = db.Column(db.FLOAT(), default=0)
+    subtotal = db.Column(db.FLOAT(), default=0)
 
     order = db.relationship('Order', backref='order_rows')
     product = db.relationship('Product', backref='order_rows')
 
     def __repr__(self):
         return f'<Order_Row {self.id}>'
+
+    def calculate_subtotal(self):
+        return self.quantity*self.product.price
 
     def serialize(self):
         return {
@@ -168,6 +172,7 @@ class OrderRow(db.Model):
             "product_id": self.product_id,
             "quantity": self.quantity,
             "subtotal": self.subtotal,
+            # "subtotal": self.calculate_subtotal(),
             "product":self.product
         }
 
@@ -175,6 +180,8 @@ class BasketItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    quantity = db.Column(db.FLOAT(), default=0)
+    subtotal = db.Column(db.FLOAT(), default=0)
 
     product = db.relationship('Product', backref='basket_items')
     user = db.relationship('User', backref='basket_items')
@@ -186,9 +193,15 @@ class BasketItem(db.Model):
     def __repr__(self):
         return f'<BasketItem {self.id}>'
 
+    def calculate_subtotal(self):
+        return self.quantity*self.product.price
+
     def serialize(self):
         return {
             "id": self.id,
             "product_id": self.product_id,
-            "user_id": self.user_id
+            "user_id": self.user_id,
+            "quantity":self.quantity,
+            "subtotal": self.subtotal,
+            # "subtotal": self.calculate_subtotal()
         }
