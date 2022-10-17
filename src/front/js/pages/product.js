@@ -4,8 +4,8 @@ import "../../styles/home.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import Quantity from "../component/orders/quantity";
 import { TiArrowBackOutline } from "react-icons/ti";
-import FavouriteIcon from "../component/byproducts/favouriteIcon";
-import BasketIcon from "../component/byproducts/basketIcon";
+import FavouriteIcon from "../component/icons/favouriteIcon";
+import BasketIcon from "../component/icons/basketIcon";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);

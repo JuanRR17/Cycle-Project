@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import FavouriteIcon from "./favouriteIcon";
-import BasketIcon from "./basketIcon";
+import FavouriteIcon from "../icons/favouriteIcon";
+import BasketIcon from "../icons/basketIcon";
 
 const ProductCard = ({ details }) => {
   const navigate = useNavigate();

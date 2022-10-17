@@ -619,7 +619,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       //UPDATE BASKET ITEM QUANTITY
       bi_quantity: async (id, quantity) => {
-        console.log("quantity in flux", quantity);
         const store = getStore();
         const opts = {
           method: "PUT",
