@@ -45,7 +45,9 @@ export const Product = () => {
               <div className="col-6">
                 <img alt={product.name} />
                 <div className="card-title d-flex justify-content-between">
-                  <span>{product.price}</span>
+                  <span>
+                    {product.price}/{product.unit}
+                  </span>
                   <span>{product.location}</span>
                 </div>
               </div>
@@ -61,7 +63,8 @@ export const Product = () => {
                   quantity={quantity}
                   stock={product.stock}
                   handleSetQuantity={(value) => setQuantity(value)}
-                />
+                />{" "}
+                {product.unit}
                 <div>
                   <FavouriteIcon product={product} />
                   <BasketIcon product={product} />

@@ -26,7 +26,7 @@ const ConfirmOrder = (props) => {
       new_total += item.subtotal;
       setTotal(new_total);
     });
-  }, [store.basket]);
+  });
 
   // console.log("confirm order basket:", store.basket);
   return (
@@ -41,6 +41,7 @@ const ConfirmOrder = (props) => {
             <th scope="col">Location</th>
             <th scope="col">Stock</th>
             <th scope="col">Quantity</th>
+            {/* <th scope="col">Unit</th> */}
             <th scope="col">Price</th>
             <th scope="col">Subtotal</th>
           </tr>
@@ -54,10 +55,10 @@ const ConfirmOrder = (props) => {
         </tbody>
         <tfoot>
           <tr>
-            <td className="text-end" colSpan="7">
+            <td className="pe-5 text-end" colSpan="7">
               Total
             </td>
-            <td>{store.order_total}</td>
+            <td className="pe-5 text-end">{total} €</td>
           </tr>
         </tfoot>
       </table>

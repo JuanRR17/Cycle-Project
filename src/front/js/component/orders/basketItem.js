@@ -42,8 +42,11 @@ const BasketItem = ({ item }) => {
           }
         />
       </td>
-      <td>{item.product.price}</td>
-      <td>{item.subtotal}</td>
+      {/* <td>{item.product.unit}</td> */}
+      <td className="pe-5 text-end">
+        {item.product.price} €/{item.product.unit}
+      </td>
+      <td className="pe-5 text-end">{item.subtotal} €</td>
     </tr>
   );
 };
