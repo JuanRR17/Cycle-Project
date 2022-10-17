@@ -39,7 +39,6 @@ const ByProductForm = (props) => {
     }
   });
 
-  console.log("store.product:", store.product);
   useEffect(() => {
     if (!isNaN(id) && store.product != undefined) {
       setName(store.product.name);
@@ -95,7 +94,6 @@ const ByProductForm = (props) => {
       <div className="m-auto w-75 bg-warning p-3">
         <h1>
           {store.product ? "Edit " : "Add "}
-          {/* Add/Edit  */}
           Byproduct
         </h1>
         <div className="container">

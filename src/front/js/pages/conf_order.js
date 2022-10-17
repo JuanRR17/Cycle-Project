@@ -7,19 +7,21 @@ import BasketItem from "../component/orders/basketItem";
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
   const [total, setTotal] = useState(0);
+  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
+    //Check token
     actions.syncTokenFromSessionStore();
     if (!sessionStorage.getItem("token") || !store.token) {
       actions.logout();
       navigate("/");
     }
+    //Get user data
     if (!store.data) {
       actions.getCurrentUserData();
     }
-  });
-  useEffect(() => {
+    //Calculate Order Total
     let new_total = 0;
     store.basket.forEach((item) => {
       if (item.quantity === 0) {
@@ -31,17 +33,25 @@ const ConfirmOrder = (props) => {
     });
     if (store.basket.length === 0) {
       setTotal(0);
+    } else {
+      if (!store.user) {
+        const items_user = store.basket.map((item) => {
+          return item.product.user_id;
+        })[0];
+        actions.getUserData(items_user);
+      }
     }
   });
 
   return (
     <div>
       <div>Confirm Order</div>
+      <div>Items from user: {store.user?.username}</div>
       <table className="table table-hover">
         <thead>
           <tr>
             <th scope="col">Actions</th>
-            <th scope="col">Name</th>
+            <th scope="col">By-Product</th>
             <th scope="col">Type</th>
             <th scope="col">Location</th>
             <th scope="col">Stock</th>

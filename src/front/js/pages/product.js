@@ -10,37 +10,35 @@ import BasketIcon from "../component/icons/basketIcon";
 export const Product = () => {
   const { store, actions } = useContext(Context);
   const [quantity, setQuantity] = useState(1);
-  const [errors, setErrors] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
   const id = location.pathname.split("/").slice(-1);
 
   useEffect(() => {
-    if (store.product == undefined || store.product.id != id) {
+    actions.syncTokenFromSessionStore();
+    if (!store.data) {
+      actions.getCurrentUserData();
+    } else if (!store.user) {
+      const items_user = store.basket.map((item) => {
+        return item.product.user_id;
+      })[0];
+      actions.getUserData(items_user);
+    }
+    if (!store.product || store.product.id != id) {
       actions.getProductData(id);
     }
+    if (store.basket.length === 0) {
+      actions.clearProductData();
+    }
+    actions.clearmessage();
   }, []);
 
   const product = store.product;
-  const basket_prods_ids = store.basket.map((item) => {
-    return item.product.id;
-  });
 
   const handleBuy = () => {
-    if (quantity === 0) {
-      setErrors("Please select a quantity bigger than 0");
-    } else {
-      if (basket_prods_ids.includes(product.id)) {
-        const basket_item = store.basket.filter((bi) => {
-          return bi.product.id === product.id;
-        })[0];
-        const id = basket_item.id;
-        const total_qty = basket_item.quantity + quantity;
-        actions.bi_quantity(id, total_qty);
-      } else {
-        actions.add_to_basket(store.data.id, product.id, quantity);
-      }
+    if (actions.check_user(product.user) && actions.check_qty(quantity)) {
+      actions.check_basket_add(quantity);
       navigate("/confirm_order");
     }
   };
@@ -71,22 +69,31 @@ export const Product = () => {
               </div>
               <div className="col-6">
                 <div>Type: {product.type}</div>
-                <div>Stock: {product.stock}</div>
-                <div>Description: {product.description}</div>
-                <div>Created By: {product.user.username}</div>
-                <div>Phone: {product.user.phone}</div>
-                <div>Email: {product.user.email}</div>
-                Quantiy:{" "}
-                <Quantity
-                  quantity={quantity}
-                  stock={product.stock}
-                  handleSetQuantity={(value) => setQuantity(value)}
-                />{" "}
+                {store.data ? (
+                  <>
+                    <div>Stock: {product.stock}</div>
+                    <div>Description: {product.description}</div>
+                    <div>
+                      Created By:{" "}
+                      {product.user_id === store.data.id
+                        ? "You"
+                        : product.user.username}{" "}
+                    </div>
+                    <div>Phone: {product.user.phone}</div>
+                    <div>Email: {product.user.email}</div>
+                    Quantiy:{" "}
+                    <Quantity
+                      quantity={quantity}
+                      stock={product.stock}
+                      handleSetQuantity={(value) => setQuantity(value)}
+                    />{" "}
+                  </>
+                ) : null}
                 {product.unit}
                 <div>
                   <FavouriteIcon product={product} />
                   <BasketIcon product={product} />
-                  {store.token ? (
+                  {store.token && product.user_id !== store.data.id ? (
                     <button
                       type="button"
                       className="btn btn-success"
@@ -95,7 +102,9 @@ export const Product = () => {
                       Buy
                     </button>
                   ) : null}
-                  <div className="text-danger">{errors}</div>
+                  <div className="text-danger">
+                    {store.message ? store.message : ""}
+                  </div>
                 </div>
               </div>
             </div>
