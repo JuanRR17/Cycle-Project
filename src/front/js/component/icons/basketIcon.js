@@ -23,7 +23,7 @@ const BasketIcon = ({ product }) => {
 
   return (
     <>
-      {store.token ? (
+      {store.token && product.user_id !== store.data.id ? (
         <span
           type="button"
           onClick={() => handleItemInBasket(product)}

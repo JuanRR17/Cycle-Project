@@ -16,6 +16,10 @@ export const Product = () => {
   const id = location.pathname.split("/").slice(-1);
 
   useEffect(() => {
+    actions.syncTokenFromSessionStore();
+    if (!store.data) {
+      actions.getCurrentUserData();
+    }
     if (!store.product || store.product.id != id) {
       actions.getProductData(id);
     }
@@ -27,7 +31,7 @@ export const Product = () => {
 
   const product = store.product;
 
-  console.log("product user", product?.user.id);
+  console.log("store.data", store.data);
 
   const handleBuy = () => {
     if (actions.check_user(product.user) && actions.check_qty(quantity)) {
@@ -46,7 +50,7 @@ export const Product = () => {
         <TiArrowBackOutline /> Back
       </button>
 
-      {store.product ? (
+      {store.product && store.data ? (
         <>
           <h1 className="text-center">{product.name}</h1>
           <div className="container">
@@ -64,7 +68,12 @@ export const Product = () => {
                 <div>Type: {product.type}</div>
                 <div>Stock: {product.stock}</div>
                 <div>Description: {product.description}</div>
-                <div>Created By: {product.user.username}</div>
+                <div>
+                  Created By:{" "}
+                  {product.user_id === store.data.id
+                    ? "You"
+                    : product.user.username}
+                </div>
                 <div>Phone: {product.user.phone}</div>
                 <div>Email: {product.user.email}</div>
                 Quantiy:{" "}
@@ -77,7 +86,7 @@ export const Product = () => {
                 <div>
                   <FavouriteIcon product={product} />
                   <BasketIcon product={product} />
-                  {store.token ? (
+                  {store.token && product.user_id !== store.data.id ? (
                     <button
                       type="button"
                       className="btn btn-success"

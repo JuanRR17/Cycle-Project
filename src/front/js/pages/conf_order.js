@@ -33,9 +33,6 @@ const ConfirmOrder = (props) => {
     });
     if (store.basket.length === 0) {
       setTotal(0);
-      // if (store.user) {
-      //   actions.clearUserData();
-      // }
     } else {
       if (!store.user) {
         const items_user = store.basket.map((item) => {
@@ -45,14 +42,6 @@ const ConfirmOrder = (props) => {
       }
     }
   });
-
-  // useEffect(() => {
-  //   actions.getUserData(user);
-  // }, [user]);
-
-  console.log("store.basket", store.basket);
-
-  // console.log("user", user);
 
   return (
     <div>
