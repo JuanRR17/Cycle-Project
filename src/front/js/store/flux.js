@@ -171,6 +171,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There has been an error retrieving data:", error);
         }
       },
+      //CLEAR USER DATA
+      clearUserData: () => {
+        setStore({ user: null });
+      },
       //EDIT USER PROFILE
       editprofile: async (
         id,
@@ -342,6 +346,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.error("There has been an error retrieving data:", error);
         }
+      },
+      //CLEAR PRODUCT DATA
+      clearProductData: () => {
+        setStore({ product: null });
       },
       //GET ALL PRODUCTS
       getAllProducts: async () => {
@@ -582,7 +590,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       //DELETE BASKET ITEM
       delete_from_basket: async (id) => {
         const store = getStore();
-
+        const actions = getActions();
         const opts = {
           method: "DELETE",
           headers: {
@@ -607,6 +615,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
           console.log("Basket item deleted");
           setStore({ basket: newBasket });
+          if (store.basket.length === 0) {
+            actions.clearProductData();
+            actions.clearUserData();
+          }
           console.log("This is the remaining basket", store.basket);
 
           return true;
@@ -686,36 +698,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           actions.add_to_basket(store.data.id, product.id, quantity);
         }
         actions.clearmessage();
-        // navigate("/confirm_order");
         return true;
       },
       //CHECK QUANTITY AND ADD
       check_qty: (quantity) => {
-        const actions = getActions();
-        // const store = getStore();
-
-        // const product = store.product;
-        // const basket_prods_ids = store.basket.map((item) => {
-        //   return item.product.id;
-        // });
         if (quantity === 0) {
           setStore({ message: "Please select a quantity bigger than 0" });
-          // setErrors("Please select a quantity bigger than 0");
         } else {
           return true;
-          // actions.check_basket_add(quantity);
         }
       },
       //CHECK BASKET PRODUCTS USER
       check_user: (user) => {
-        const actions = getActions();
         const store = getStore();
 
-        const product = store.product;
         const basket_items_userid = store.basket.map((item) => {
           return item.product.user_id;
         })[0];
-        if (basket_items_userid != user.id) {
+        if (store.basket.length !== 0 && basket_items_userid !== user.id) {
           setStore({
             message:
               "Basket can only contain by-products from a single user. By-products in the basket are from the user: " +
@@ -723,7 +723,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
         } else {
           return true;
-          // actions.check_basket_add(quantity);
         }
       },
     },

@@ -10,23 +10,22 @@ import BasketIcon from "../component/icons/basketIcon";
 export const Product = () => {
   const { store, actions } = useContext(Context);
   const [quantity, setQuantity] = useState(1);
-  const [errors, setErrors] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
   const id = location.pathname.split("/").slice(-1);
 
   useEffect(() => {
-    if (store.product == undefined || store.product.id != id) {
+    if (!store.product || store.product.id != id) {
       actions.getProductData(id);
     }
     actions.clearmessage();
+    if (store.basket.length === 0) {
+      actions.clearProductData();
+    }
   }, []);
 
   const product = store.product;
-  // const basket_prods_ids = store.basket.map((item) => {
-  //   return item.product.id;
-  // });
 
   console.log("product user", product?.user.id);
 

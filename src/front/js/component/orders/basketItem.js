@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Quantity from "./quantity";
-import DeleteIcon from "../icons/DeleteIcon";
+import DeleteIcon from "../icons/deleteIcon";
 import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
 
