@@ -10,9 +10,15 @@ const BasketIcon = ({ product }) => {
     return b.product_id;
   });
 
+  const basket_items_userid = store.basket.map((item) => {
+    return item.product.user_id;
+  })[0];
+
   const handleItemInBasket = (elem) => {
     if (!basket_prod_ids.includes(elem.id)) {
-      actions.add_to_basket(store.data.id, elem.id);
+      if (!basket_items_userid || basket_items_userid === elem.user_id) {
+        actions.add_to_basket(store.data.id, elem.id);
+      }
     } else {
       const getBasketProd = store.basket.filter((b) => {
         return b.product_id == elem.id;
