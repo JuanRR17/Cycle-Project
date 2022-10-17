@@ -6,7 +6,7 @@ import BasketItem from "../component/orders/basketItem";
 
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
-
+  const [total, setTotal] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +19,14 @@ const ConfirmOrder = (props) => {
       actions.getCurrentUserData();
     }
   });
+  useEffect(() => {
+    let new_total = 0;
+    store.basket.forEach((item) => {
+      console.log("item foreach", item);
+      new_total += item.subtotal;
+      setTotal(new_total);
+    });
+  }, [store.basket]);
 
   // console.log("confirm order basket:", store.basket);
   return (
@@ -46,10 +54,10 @@ const ConfirmOrder = (props) => {
         </tbody>
         <tfoot>
           <tr>
-            <td className="text-end" colSpan="6">
+            <td className="text-end" colSpan="7">
               Total
             </td>
-            <td>@mdo</td>
+            <td>{store.order_total}</td>
           </tr>
         </tfoot>
       </table>

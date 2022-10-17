@@ -3,14 +3,19 @@ import PropTypes from "prop-types";
 
 const Quantity = ({ quantity, stock, handleSetQuantity }) => {
   const handleChange = (e) => {
-    if (e.target.value > stock) {
-      handleSetQuantity(stock);
-    } else if (e.target.value < 0) {
-      handleSetQuantity(0);
+    if (e.target.value && !isNaN(e.target.value)) {
+      if (e.target.value > stock) {
+        handleSetQuantity(stock);
+      } else if (e.target.value < 0) {
+        handleSetQuantity(0);
+      } else {
+        handleSetQuantity(e.target.value);
+      }
     } else {
-      handleSetQuantity(e.target.value);
+      handleSetQuantity(0);
     }
   };
+  console.log("quantity", quantity);
   return (
     <>
       {stock == 0 ? (

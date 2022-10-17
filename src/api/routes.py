@@ -312,6 +312,30 @@ def delete_basket_prod(id):
     except Exception:
         return jsonify({"msg":"This basket item doesn\'t exist"}),500
     else:
+        print("inside remove basket item")
         db.session.delete(basket_item)
         db.session.commit()
         return jsonify(basket_item.serialize()),200
+
+# UPDATE BASKET ITEM
+@api.route('/basket/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_basket_item(id):
+    request_body = request.get_json(force=True)
+    print("request body")
+    print(request_body)
+    quantity = request_body['quantity']
+    subtotal = request_body['subtotal']
+
+    basket_item = BasketItem.query.filter_by(id=id).first()
+    setattr(basket_item, 'quantity',quantity)
+    setattr(basket_item, 'subtotal',subtotal)
+
+    # basket_item['quantity'] = quantity
+    # basket_item['subtotal'] = subtotal
+    print("basket_item")
+    print(basket_item)
+    db.session.commit()
+    basket_item_product = basket_item.serialize()
+    basket_item_product['product']=basket_item.product.serialize()
+    return jsonify(basket_item_product),200

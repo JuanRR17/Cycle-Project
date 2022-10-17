@@ -12,6 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       favourites: [],
       user: null,
       basket: [],
+      order_total: 0,
     },
     actions: {
       // Use getActions to call a function within a function
@@ -612,6 +613,62 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.error(
             "There has been an error deleting the basket item:",
+            error
+          );
+        }
+      },
+      //UPDATE BASKET ITEM QUANTITY
+      bi_quantity: async (id, quantity, subtotal) => {
+        const store = getStore();
+        console.log("subtotal", subtotal);
+        const opts = {
+          method: "PUT",
+          body: JSON.stringify({
+            quantity: quantity,
+            subtotal: subtotal,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/basket/" + id,
+            opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error updating the quantity");
+            const msg = await resp.json();
+
+            return false;
+          }
+
+          const basket_item = await resp.json();
+          console.log("This is the product data", basket_item);
+
+          //Replace value of quantity inside the store.basket
+          let basket = store.basket;
+
+          //Find index of specific basket-item using findIndex method.
+          const objIndex = basket.findIndex((obj) => obj.id == basket_item.id);
+
+          //Log object to Console.
+          console.log("Before update: ", basket[objIndex]);
+
+          //Update object's quantity property.
+          basket[objIndex].quantity = basket_item.quantity;
+          basket[objIndex].subtotal = basket_item.subtotal;
+
+          setStore({ basket: basket });
+          console.log("Basket item quantity updated");
+
+          console.log("new basket:", store.basket);
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error retrieving basket item data:",
             error
           );
         }
