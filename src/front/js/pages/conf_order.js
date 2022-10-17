@@ -22,7 +22,6 @@ const ConfirmOrder = (props) => {
   useEffect(() => {
     let new_total = 0;
     store.basket.forEach((item) => {
-      console.log("item foreach", item);
       new_total += item.subtotal;
       setTotal(new_total);
     });

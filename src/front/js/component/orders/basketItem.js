@@ -7,14 +7,13 @@ import { Context } from "../../store/appContext";
 const BasketItem = ({ item }) => {
   const { store, actions } = useContext(Context);
 
-  console.log("basketItem", item);
   return (
     <tr>
       <td>
         <span className="text-center">
           <DeleteIcon
             id={item.id}
-            handleRemove={(value) => actions.delete_favourite(value)}
+            handleRemove={(value) => actions.delete_from_basket(value)}
           />
         </span>
       </td>

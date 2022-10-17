@@ -15,7 +15,6 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
       handleSetQuantity(0);
     }
   };
-  console.log("quantity", quantity);
   return (
     <>
       {stock == 0 ? (
