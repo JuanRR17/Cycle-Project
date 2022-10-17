@@ -333,8 +333,6 @@ def delete_basket_prod(id):
 @jwt_required()
 def update_basket_item(id):
     request_body = request.get_json(force=True)
-    print("request body")
-    print(request_body)
     quantity = request_body['quantity']
     subtotal = request_body['subtotal']
 
@@ -342,8 +340,6 @@ def update_basket_item(id):
     setattr(basket_item, 'quantity',quantity)
     setattr(basket_item, 'subtotal',subtotal)
 
-    print("basket_item")
-    print(basket_item)
     db.session.commit()
     basket_item_product = basket_item.serialize()
     basket_item_product['product']=basket_item.product.serialize()
