@@ -69,11 +69,6 @@ const UserProductsTable = (props) => {
 
   return (
     <>
-      <button type="button" className="btn btn-success">
-        <Link to="/byproduct_form" className="text-decoration-none text-light">
-          Add New By-Product
-        </Link>
-      </button>
       {store.data ? (
         <ProductsTableBase
           title="My By-Products"

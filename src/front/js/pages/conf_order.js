@@ -94,23 +94,22 @@ const ConfirmOrder = (props) => {
       <div className="accordion" id="accordionExample">
         {/* ITEMS TABLE */}
         <div className="accordion-item">
-          <h2 className="accordion-header" id="headingOne">
+          <h2 className="accordion-header" id="panelsStayOpen-headingOne">
             <button
               className="accordion-button"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
+              data-bs-target="#panelsStayOpen-collapseOne"
               aria-expanded="true"
-              aria-controls="collapseOne"
+              aria-controls="panelsStayOpen-collapseOne"
             >
               Items table
             </button>
           </h2>
           <div
-            id="collapseOne"
+            id="panelsStayOpen-collapseOne"
             className="accordion-collapse collapse show"
-            aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample"
+            aria-labelledby="panelsStayOpen-headingOne"
           >
             <div className="accordion-body">
               <ItemsTable total={total} />
@@ -119,23 +118,22 @@ const ConfirmOrder = (props) => {
         </div>
         {/* DELIVERY ADDRESS */}
         <div className="accordion-item">
-          <h2 className="accordion-header" id="headingTwo">
+          <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
             <button
               className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo"
+              data-bs-target="#panelsStayOpen-collapseTwo"
               aria-expanded="false"
-              aria-controls="collapseTwo"
+              aria-controls="panelsStayOpen-collapseTwo"
             >
               Delivery address
             </button>
           </h2>
           <div
-            id="collapseTwo"
+            id="panelsStayOpen-collapseTwo"
             className="accordion-collapse collapse"
-            aria-labelledby="headingTwo"
-            data-bs-parent="#accordionExample"
+            aria-labelledby="panelsStayOpen-headingTwo"
           >
             <div className="accordion-body">
               <DeliveryForm
@@ -148,23 +146,22 @@ const ConfirmOrder = (props) => {
         </div>
         {/* PAYMENT */}
         <div className="accordion-item">
-          <h2 className="accordion-header" id="headingThree">
+          <h2 className="accordion-header" id="panelsStayOpen-headingThree">
             <button
               className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseThree"
+              data-bs-target="#panelsStayOpen-collapseThree"
               aria-expanded="false"
-              aria-controls="collapseThree"
+              aria-controls="panelsStayOpen-collapseThree"
             >
               Payment
             </button>
           </h2>
           <div
-            id="collapseThree"
+            id="panelsStayOpen-collapseThree"
             className="accordion-collapse collapse"
-            aria-labelledby="headingThree"
-            data-bs-parent="#accordionExample"
+            aria-labelledby="panelsStayOpen-headingThree"
           >
             <div className="accordion-body">
               <div className="text-center"> Total: {total} €</div>

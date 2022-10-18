@@ -60,7 +60,7 @@ const MyOrdersTable = (props) => {
     <>
       {store.orders_made ? (
         <OrdersTableBase
-          title="My Made Orders"
+          // title="My Made Orders"
           columns={columns}
           data={store.orders_made}
         />
