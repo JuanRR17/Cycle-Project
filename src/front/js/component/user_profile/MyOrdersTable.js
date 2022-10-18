@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import OrdersTableBase from "./OrdersTableBase";
 import { Link, useNavigate } from "react-router-dom";
 
-const OrdersTable = (props) => {
+const MyOrdersTable = (props) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
@@ -15,17 +15,13 @@ const OrdersTable = (props) => {
       navigate("/");
     } else {
       if (!store.data) {
-        console.log("1");
         actions.getCurrentUserData();
       }
       if (!store.orders_made && store.data) {
-        console.log("2");
         actions.getMadeOrders(store.data.id);
       }
     }
   });
-  console.log("store", store);
-  console.log("orders_made:", store.orders_made);
 
   const columns = [
     {
@@ -64,7 +60,7 @@ const OrdersTable = (props) => {
     <>
       {store.orders_made ? (
         <OrdersTableBase
-          title="My Made Orders"
+          // title="My Made Orders"
           columns={columns}
           data={store.orders_made}
         />
@@ -73,6 +69,6 @@ const OrdersTable = (props) => {
   );
 };
 
-OrdersTable.propTypes = {};
+MyOrdersTable.propTypes = {};
 
-export default OrdersTable;
+export default MyOrdersTable;

@@ -1,12 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import UserDataForm from "../component/user_profile/UserDataForm";
 import UserInfo from "../component/user_profile/UserInfo";
 import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
-import OrdersTable from "../component/user_profile/OrdersTable";
+import MyOrdersTable from "../component/user_profile/MyOrdersTable";
+import SoldOrdersTable from "../component/user_profile/SoldOrdersTable";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -50,8 +51,82 @@ const Profile = () => {
           Log out
         </button>
       </div>
-      <UserProductsTable />
-      <OrdersTable />
+      <button type="button" className="btn btn-success">
+        <Link to="/byproduct_form" className="text-decoration-none text-light">
+          Add New By-Product
+        </Link>
+      </button>
+      <div className="accordion" id="accordionPanelsStayOpenExample">
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="panelsStayOpen-headingOne">
+            <button
+              className="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#panelsStayOpen-collapseOne"
+              aria-expanded="true"
+              aria-controls="panelsStayOpen-collapseOne"
+            >
+              My By-Products
+            </button>
+          </h2>
+          <div
+            id="panelsStayOpen-collapseOne"
+            className="accordion-collapse collapse show"
+            aria-labelledby="panelsStayOpen-headingOne"
+          >
+            <div className="accordion-body">
+              <UserProductsTable />
+            </div>
+          </div>
+        </div>
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#panelsStayOpen-collapseTwo"
+              aria-expanded="false"
+              aria-controls="panelsStayOpen-collapseTwo"
+            >
+              My Made Orders
+            </button>
+          </h2>
+          <div
+            id="panelsStayOpen-collapseTwo"
+            className="accordion-collapse collapse"
+            aria-labelledby="panelsStayOpen-headingTwo"
+          >
+            <div className="accordion-body">
+              <MyOrdersTable />
+            </div>
+          </div>
+        </div>
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="panelsStayOpen-headingThree">
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#panelsStayOpen-collapseThree"
+              aria-expanded="false"
+              aria-controls="panelsStayOpen-collapseThree"
+            >
+              My Sold Orders
+            </button>
+          </h2>
+          <div
+            id="panelsStayOpen-collapseThree"
+            className="accordion-collapse collapse"
+            aria-labelledby="panelsStayOpen-headingThree"
+          >
+            <div className="accordion-body">
+              <SoldOrdersTable />
+            </div>
+          </div>
+        </div>
+      </div>
       <div>
         {/* Button trigger modal */}
         <button
