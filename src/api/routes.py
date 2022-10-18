@@ -365,10 +365,22 @@ def new_order():
     total = request_body['total']
     user_id = request_body['user_id']
 
+    #Get seller 
+    #1. Get product id
+    productId = items[0]['product_id']
+    #2. Get product
+    product = Product.query.filter_by(id=productId).first()
+    #3. Get user id from product
+    seller_id = product.serialize()['user_id']
+    #4. Get seller username
+    seller = User.query.filter_by(id=seller_id).first()
+    seller_username = seller.serialize()['username']
+
     #Create new order
     new_order = Order()
     setattr(new_order, "user_id", user_id)
     setattr(new_order, "total", total)
+    setattr(new_order, "seller", seller_username)
 
     #Add delivery details
     for f in delivery:
@@ -407,3 +419,25 @@ def get_order(id):
     order_with_rows['order_rows']=order_rows
 
     return jsonify(order_with_rows),200
+
+# DELETE ORDER
+@api.route("/order/<int:id>", methods=["DELETE"])
+def delete_order(id):
+    order = Order.query.filter_by(id=id).first()
+
+    db.session.delete(order)
+    db.session.commit()
+
+    return jsonify(order.serialize()),200
+
+# GET ORDERS MADE BY USER
+@api.route("/user_made_orders/<int:id>", methods=["GET"])
+@jwt_required()
+def made_orders(id):
+
+    # user = User.query.filter_by(user_id=id)
+    orders = Order.query.filter_by(user_id=id)
+
+    orders = list(map(lambda x: x.serialize(), orders))
+    json_text = jsonify(orders),200
+    return json_text

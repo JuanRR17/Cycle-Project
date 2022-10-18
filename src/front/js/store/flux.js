@@ -12,6 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       favourites: [],
       user: null,
       basket: [],
+      orders_made: null,
     },
     actions: {
       // Use getActions to call a function within a function
@@ -733,6 +734,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       //CREATE NEW ORDER
       create_order: async (delivery, total, user_id) => {
         const store = getStore();
+        const actions = getActions();
         const items = store.basket;
         const opts = {
           method: "POST",
@@ -763,12 +765,49 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
           const order = await resp.json();
           console.log("new order:", order);
+          console.log("store.basket", store.basket);
+          for (const item in store.basket) {
+            console.log("item:", store.basket[item]);
+            actions.delete_from_basket(store.basket[item].id);
+          }
+          // setStore({ basket: null });
           return true;
         } catch (error) {
           console.error(
             "There has been an error creating the order:",
             resp.status
           );
+        }
+      },
+      //GET ORDERS MADE BY THE USER
+      getMadeOrders: async (id) => {
+        const store = getStore();
+        const data_opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/user_made_orders/" + id,
+            data_opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error retrieving data");
+            return false;
+          }
+
+          const orders_made = await resp.json();
+          // console.log("This is the user data", user_data);
+          setStore({
+            orders_made: orders_made,
+          });
+          return true;
+        } catch (error) {
+          console.error("There has been an error retrieving data:", error);
         }
       },
     },
