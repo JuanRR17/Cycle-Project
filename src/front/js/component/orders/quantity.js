@@ -60,6 +60,10 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
   );
 };
 
-Quantity.propTypes = {};
+Quantity.propTypes = {
+  quantity: PropTypes.number,
+  stock: PropTypes.number,
+  handleSetQuantity: PropTypes.func,
+};
 
 export default Quantity;

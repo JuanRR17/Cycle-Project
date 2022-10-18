@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 const BasketItem = ({ item }) => {
   const { store, actions } = useContext(Context);
-
   return (
     <tr>
       <td>
@@ -46,6 +45,8 @@ const BasketItem = ({ item }) => {
   );
 };
 
-BasketItem.propTypes = {};
+BasketItem.propTypes = {
+  item: PropTypes.object,
+};
 
 export default BasketItem;

@@ -42,6 +42,8 @@ const ItemsTable = ({ total }) => {
   );
 };
 
-ItemsTable.propTypes = {};
+ItemsTable.propTypes = {
+  total: PropTypes.number,
+};
 
 export default ItemsTable;

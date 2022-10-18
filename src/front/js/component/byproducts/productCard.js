@@ -38,6 +38,6 @@ const ProductCard = ({ details }) => {
   );
 };
 
-ProductCard.propTypes = {};
+ProductCard.propTypes = { details: PropTypes.object };
 
 export default ProductCard;

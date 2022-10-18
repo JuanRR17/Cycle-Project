@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { MdDelete } from "react-icons/md";
 
@@ -10,6 +10,6 @@ const DeleteIcon = ({ id, handleRemove }) => {
   );
 };
 
-DeleteIcon.propTypes = {};
+DeleteIcon.propTypes = { id: PropTypes.number, handleRemove: PropTypes.func };
 
 export default DeleteIcon;

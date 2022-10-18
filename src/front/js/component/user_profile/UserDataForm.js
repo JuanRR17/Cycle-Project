@@ -1,12 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../store/appContext";
-import { useNavigate } from "react-router-dom";
 import "../../../styles/home.css";
 import PropTypes from "prop-types";
 
 const UserDataForm = ({ handleSetEdit }) => {
   const { store, actions } = useContext(Context);
-  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -153,6 +151,8 @@ const UserDataForm = ({ handleSetEdit }) => {
   );
 };
 
-UserDataForm.propTypes = {};
+UserDataForm.propTypes = {
+  handleSetEdit: PropTypes.func,
+};
 
 export default UserDataForm;

@@ -13,6 +13,8 @@ const UserInfo = ({ data }) => {
   );
 };
 
-UserInfo.propTypes = {};
+UserInfo.propTypes = {
+  data: PropTypes.object,
+};
 
 export default UserInfo;

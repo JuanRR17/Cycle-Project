@@ -46,6 +46,6 @@ const BasketIcon = ({ product }) => {
   );
 };
 
-BasketIcon.propTypes = {};
+BasketIcon.propTypes = { product: PropTypes.object };
 
 export default BasketIcon;
