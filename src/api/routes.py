@@ -407,3 +407,25 @@ def get_order(id):
     order_with_rows['order_rows']=order_rows
 
     return jsonify(order_with_rows),200
+
+# DELETE ORDER
+@api.route("/order/<int:id>", methods=["DELETE"])
+def delete_order(id):
+    order = Order.query.filter_by(id=id).first()
+
+    db.session.delete(order)
+    db.session.commit()
+
+    return jsonify(order.serialize()),200
+
+# GET ORDERS MADE BY USER
+@api.route("/user_made_orders/<int:id>", methods=["GET"])
+@jwt_required()
+def made_orders(id):
+
+    # user = User.query.filter_by(user_id=id)
+    orders = Order.query.filter_by(user_id=id)
+
+    orders = list(map(lambda x: x.serialize(), orders))
+    json_text = jsonify(orders),200
+    return json_text

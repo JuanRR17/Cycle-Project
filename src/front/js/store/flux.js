@@ -733,6 +733,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       //CREATE NEW ORDER
       create_order: async (delivery, total, user_id) => {
         const store = getStore();
+        const actions = getActions();
         const items = store.basket;
         const opts = {
           method: "POST",
@@ -763,6 +764,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
           const order = await resp.json();
           console.log("new order:", order);
+          console.log("store.basket", store.basket);
+          for (const item in store.basket) {
+            console.log("item:", store.basket[item]);
+            actions.delete_from_basket(store.basket[item].id);
+          }
+          // setStore({ basket: null });
           return true;
         } catch (error) {
           console.error(
