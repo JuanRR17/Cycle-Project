@@ -9,7 +9,7 @@ const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
   const [total, setTotal] = useState(0);
   const [delivery, setDelivery] = useState({});
-  const [errors, setErrors] = useState(0);
+  const [errors, setErrors] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,29 +60,31 @@ const ConfirmOrder = (props) => {
   }, [store.data]);
 
   const handleConfirm = () => {
-    let errors = 0;
+    let errorsFirstCheck;
     if (total === 0) {
-      errors = 1;
-      // setErrors((errors) => ({
-      //   ...errors,
-      //   total: "There are no items to order!",
-      // }));
+      errorsFirstCheck = {
+        ...errorsFirstCheck,
+        total: "There are no items to order!",
+      };
     }
     for (const field in delivery) {
-      if (!delivery[field]) {
-        errors = 1;
-        // setErrors((errors) => ({
-        //   ...errors,
-        //   [field]: delivery[field],
-        // }));
+      if (!delivery[field] && field !== "company") {
+        errorsFirstCheck = {
+          ...errorsFirstCheck,
+          [field]: "Please enter a " + field.toUpperCase(),
+        };
       }
-      console.log(`${field}: ${delivery[field]}`);
+      // console.log(`${field}: ${delivery[field]}`);
     }
-    if (errors === 1) console.log("errors:", errors);
-    else {
+    if (errorsFirstCheck) {
+      console.log("errorsFirstCheck:", errorsFirstCheck);
+      setErrors(errorsFirstCheck);
+    } else {
       actions.create_order(delivery, total, store.data.id);
     }
   };
+
+  console.log("errors:", errors);
 
   return (
     <div>
@@ -136,6 +138,7 @@ const ConfirmOrder = (props) => {
             <div className="accordion-body">
               <DeliveryForm
                 delivery={delivery}
+                errors={errors}
                 handleSetDelivery={(value) => setDelivery(value)}
               />
             </div>
@@ -178,6 +181,11 @@ const ConfirmOrder = (props) => {
       >
         Cancel
       </button>
+      {errors?.total && store.basket.length === 0 ? (
+        <div>{errors?.total}</div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
