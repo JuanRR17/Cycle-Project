@@ -8,6 +8,7 @@ import DeliveryForm from "../component/orders/delivery_form";
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
   const [total, setTotal] = useState(0);
+  const [delivery, setDelivery] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,6 +44,21 @@ const ConfirmOrder = (props) => {
     }
   });
 
+  useEffect(() => {
+    if (store.data) {
+      setDelivery({
+        address: store.data.address,
+        location: store.data.location,
+        cp: store.data.cp,
+        province: store.data.province,
+        country: store.data.country,
+        phone: store.data.phone,
+        company: store.data.company,
+      });
+    }
+  }, [store.data]);
+
+  console.log("delivery:", delivery);
   return (
     <div>
       <div>Confirm Order</div>
@@ -83,7 +99,7 @@ const ConfirmOrder = (props) => {
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              Form
+              Delivery address
             </button>
           </h2>
           <div
@@ -93,10 +109,14 @@ const ConfirmOrder = (props) => {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body">
-              <DeliveryForm />
+              <DeliveryForm
+                delivery={delivery}
+                handleSetDelivery={(value) => setDelivery(value)}
+              />
             </div>
           </div>
         </div>
+        {/* PAYMENT */}
         <div className="accordion-item">
           <h2 className="accordion-header" id="headingThree">
             <button

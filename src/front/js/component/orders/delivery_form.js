@@ -1,48 +1,29 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../store/appContext";
-import { useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const DeliveryForm = (props) => {
+const DeliveryForm = ({ delivery, handleSetDelivery }) => {
   const { store, actions } = useContext(Context);
-  const navigate = useNavigate();
-  const url = useLocation();
-  const id = url.pathname.split("/").slice(-1);
 
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
   const [province, setProvince] = useState("");
   const [cp, setCp] = useState("");
   const [country, setCountry] = useState("");
-
-  let user_id;
-
-  useEffect(() => {
-    actions.syncTokenFromSessionStore();
-    if (!sessionStorage.getItem("token") || !store.token) {
-      actions.logout();
-      navigate("/");
-    } else if (!store.data) {
-      actions.getCurrentUserData();
-    } else {
-      user_id = store.data.id;
-    }
-    if (!isNaN(id)) {
-      if (!store.product || store.product.id != id) {
-        actions.getProductData(id);
-      }
-    }
-  });
+  const [phone, setPhone] = useState("");
+  const [company, setCompany] = useState("");
 
   useEffect(() => {
-    if (!isNaN(id) && store.product) {
-      setAddress(store.product.address);
-      setLocation(store.product.location);
-      setCp(store.product.cp);
-      setProvince(store.product.province);
-      setCountry(store.product.country);
+    if (delivery) {
+      setAddress(delivery.address);
+      setLocation(delivery.location);
+      setCp(delivery.cp);
+      setProvince(delivery.province);
+      setCountry(delivery.country);
+      setPhone(delivery.phone);
+      setCompany(delivery.company);
     }
-  }, [store.product]);
+  }, [delivery]);
 
   return (
     <div className="mt-5">
@@ -59,8 +40,10 @@ const DeliveryForm = (props) => {
                 type="text"
                 className="form-control"
                 id="inputAddress"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                value={address ?? ""}
+                onChange={(e) =>
+                  handleSetDelivery({ ...delivery, address: e.target.value })
+                }
               />
             </div>
             {/* Location field */}
@@ -74,7 +57,9 @@ const DeliveryForm = (props) => {
                 className="form-control"
                 id="inputLocation"
                 value={location ?? ""}
-                onChange={(e) => setLocation(e.target.value)}
+                onChange={(e) =>
+                  handleSetDelivery({ ...delivery, location: e.target.value })
+                }
               />
             </div>
             {/* CP field */}
@@ -87,9 +72,11 @@ const DeliveryForm = (props) => {
                 type="text"
                 className="form-control"
                 id="inputCp"
-                value={cp ?? 0}
+                value={cp ?? ""}
                 min="0"
-                onChange={(e) => setCp(e.target.value)}
+                onChange={(e) =>
+                  handleSetDelivery({ ...delivery, cp: e.target.value })
+                }
               />
             </div>
             {/* Province field */}
@@ -102,8 +89,10 @@ const DeliveryForm = (props) => {
                 type="text"
                 className="form-control"
                 id="inputProvince"
-                value={province}
-                onChange={(e) => setProvince(e.target.value)}
+                value={province ?? ""}
+                onChange={(e) =>
+                  handleSetDelivery({ ...delivery, province: e.target.value })
+                }
               />
             </div>
             {/* Country field */}
@@ -116,8 +105,42 @@ const DeliveryForm = (props) => {
                 type="text"
                 className="form-control"
                 id="inputCountry"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
+                value={country ?? ""}
+                onChange={(e) =>
+                  handleSetDelivery({ ...delivery, country: e.target.value })
+                }
+              />
+            </div>
+            {/* Phone field */}
+            <div className="mb-3 col col-lg-6">
+              <label htmlFor="inputPhone" className="form-label">
+                Phone*
+              </label>
+              <input
+                required
+                type="text"
+                className="form-control"
+                id="inputPhone"
+                value={phone ?? ""}
+                onChange={(e) =>
+                  handleSetDelivery({ ...delivery, phone: e.target.value })
+                }
+              />
+            </div>
+            {/* Company field */}
+            <div className="mb-3 col col-lg-6">
+              <label htmlFor="inputCompany" className="form-label">
+                Company
+              </label>
+              <input
+                required
+                type="text"
+                className="form-control"
+                id="inputCompany"
+                value={company ?? ""}
+                onChange={(e) =>
+                  handleSetDelivery({ ...delivery, company: e.target.value })
+                }
               />
             </div>
           </div>
