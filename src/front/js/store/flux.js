@@ -730,6 +730,47 @@ const getState = ({ getStore, getActions, setStore }) => {
           return true;
         }
       },
+      //CREATE NEW ORDER
+      create_order: async (delivery, total, user_id) => {
+        const store = getStore();
+        const items = store.basket;
+        const opts = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify({
+            items: items,
+            delivery: delivery,
+            total: total,
+            user_id: user_id,
+          }),
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/order",
+            opts
+          );
+          if (resp.status !== 200) {
+            console.log(
+              "There has been some error creating the order",
+              resp.status
+            );
+            const data = await resp.json();
+            setStore({ message: data.msg });
+            return false;
+          }
+          const order = await resp.json();
+          console.log("new order:", order);
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error creating the order:",
+            resp.status
+          );
+        }
+      },
     },
   };
 };

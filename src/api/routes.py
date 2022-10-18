@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Product, Favourite, BasketItem
+from api.models import db, User, Product, Favourite, BasketItem,Order,OrderRow
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
@@ -354,11 +354,56 @@ def update_basket_item(id):
     return jsonify(basket_item_product),200
 
 # CREATE ORDER
-# @api.route('/order', methods=['POST'])
-# @jwt_required()
-# def new_order():
-#     request_body = request.get_json(force=True)
-#     items = request['items']
-#     delivery = request['delivery']
+@api.route('/order', methods=['POST'])
+@jwt_required()
+def new_order():
+    request_body = request.get_json(force=True)
+    print("request_body")
+    print(request_body)
+    items = request_body['items']
+    delivery = request_body['delivery']
+    total = request_body['total']
+    user_id = request_body['user_id']
 
+    #Create new order
+    new_order = Order()
+    setattr(new_order, "user_id", user_id)
+    setattr(new_order, "total", total)
 
+    #Add delivery details
+    for f in delivery:
+        setattr(new_order, f, delivery[f])
+
+    #Commit the new order so I can use the order_id in the order rows
+    db.session.add(new_order)
+    db.session.commit()
+
+    order = new_order.serialize()
+    order_id = order['id']
+    print("order_id")
+    print(order_id)
+    for item in items:
+        product_id = item['product_id']
+        quantity = item['quantity']
+        subtotal = item['subtotal'] 
+        new_order_row = OrderRow(order_id, product_id, quantity, subtotal)
+
+        db.session.add(new_order_row)
+        db.session.commit()
+    
+    return jsonify(new_order.serialize()),200
+
+# GET ONE ORDER DATA
+@api.route("/order/<int:id>", methods=["GET"])
+def get_order(id):
+    order = Order.query.filter_by(id=id).first()
+
+    search = OrderRow.query.filter_by(order_id=order.id)
+    order_rows = []
+    for orw in search:
+        order_row = dict(orw.serialize())
+        order_rows.append(order_row)
+    order_with_rows = order.serialize()
+    order_with_rows['order_rows']=order_rows
+
+    return jsonify(order_with_rows),200
