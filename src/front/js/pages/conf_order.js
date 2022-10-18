@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import ItemsTable from "../component/orders/itemsTable";
+import DeliveryForm from "../component/orders/delivery_form";
 
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
@@ -82,7 +83,7 @@ const ConfirmOrder = (props) => {
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              Delivery Address
+              Form
             </button>
           </h2>
           <div
@@ -91,7 +92,9 @@ const ConfirmOrder = (props) => {
             aria-labelledby="headingTwo"
             data-bs-parent="#accordionExample"
           >
-            <div className="accordion-body">Form</div>
+            <div className="accordion-body">
+              <DeliveryForm />
+            </div>
           </div>
         </div>
         <div className="accordion-item">
@@ -113,7 +116,9 @@ const ConfirmOrder = (props) => {
             aria-labelledby="headingThree"
             data-bs-parent="#accordionExample"
           >
-            <div className="accordion-body">Payment</div>
+            <div className="accordion-body">
+              <div className="text-center"> Total: {total} €</div>
+            </div>
           </div>
         </div>
       </div>

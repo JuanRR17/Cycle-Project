@@ -38,7 +38,7 @@ const UserDataForm = ({ handleSetEdit }) => {
   };
 
   useEffect(() => {
-    if (store.data != undefined) {
+    if (store.data) {
       setUsername(store.data.username);
       setEmail(store.data.email);
       setCompany(store.data.company ? store.data.company : "");
