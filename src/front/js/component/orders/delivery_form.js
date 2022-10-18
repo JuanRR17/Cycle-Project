@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
 
-const DeliveryForm = ({ delivery, handleSetDelivery }) => {
+const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
   const { store, actions } = useContext(Context);
 
   const [address, setAddress] = useState("");
@@ -45,6 +45,9 @@ const DeliveryForm = ({ delivery, handleSetDelivery }) => {
                   handleSetDelivery({ ...delivery, address: e.target.value })
                 }
               />
+              {errors?.address ? (
+                <div className="text-danger">{errors?.address}</div>
+              ) : null}
             </div>
             {/* Location field */}
             <div className="mb-3 col-md-6">
@@ -61,6 +64,9 @@ const DeliveryForm = ({ delivery, handleSetDelivery }) => {
                   handleSetDelivery({ ...delivery, location: e.target.value })
                 }
               />
+              {errors?.location ? (
+                <div className="text-danger">{errors?.location}</div>
+              ) : null}
             </div>
             {/* CP field */}
             <div className="mb-3 col-md-6">
@@ -78,6 +84,9 @@ const DeliveryForm = ({ delivery, handleSetDelivery }) => {
                   handleSetDelivery({ ...delivery, cp: e.target.value })
                 }
               />
+              {errors?.cp ? (
+                <div className="text-danger">{errors?.cp}</div>
+              ) : null}
             </div>
             {/* Province field */}
             <div className="mb-3 col col-lg-6">
@@ -94,6 +103,9 @@ const DeliveryForm = ({ delivery, handleSetDelivery }) => {
                   handleSetDelivery({ ...delivery, province: e.target.value })
                 }
               />
+              {errors?.province ? (
+                <div className="text-danger">{errors?.province}</div>
+              ) : null}
             </div>
             {/* Country field */}
             <div className="mb-3 col col-lg-6">
@@ -110,6 +122,9 @@ const DeliveryForm = ({ delivery, handleSetDelivery }) => {
                   handleSetDelivery({ ...delivery, country: e.target.value })
                 }
               />
+              {errors?.country ? (
+                <div className="text-danger">{errors?.country}</div>
+              ) : null}
             </div>
             {/* Phone field */}
             <div className="mb-3 col col-lg-6">
@@ -126,6 +141,9 @@ const DeliveryForm = ({ delivery, handleSetDelivery }) => {
                   handleSetDelivery({ ...delivery, phone: e.target.value })
                 }
               />
+              {errors?.phone ? (
+                <div className="text-danger">{errors?.phone}</div>
+              ) : null}
             </div>
             {/* Company field */}
             <div className="mb-3 col col-lg-6">
@@ -133,7 +151,6 @@ const DeliveryForm = ({ delivery, handleSetDelivery }) => {
                 Company
               </label>
               <input
-                required
                 type="text"
                 className="form-control"
                 id="inputCompany"
