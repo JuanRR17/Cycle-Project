@@ -13,7 +13,7 @@ const _ = require("lodash");
 const sortIcon = <ArrowDownward />;
 const selectProps = { indeterminate: (isIndeterminate) => isIndeterminate };
 
-const DataTableBase = (props) => {
+const ProductsTableBase = (props) => {
   const [selectedRows, setSelectedRows] = React.useState([]);
   const [toggleCleared, setToggleCleared] = React.useState(false);
   const [data, setData] = React.useState(props.data);
@@ -87,6 +87,6 @@ const DataTableBase = (props) => {
   );
 };
 
-DataTableBase.propTypes = {};
+ProductsTableBase.propTypes = {};
 
-export default DataTableBase;
+export default ProductsTableBase;

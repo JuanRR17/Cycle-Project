@@ -109,6 +109,7 @@ class Favourite(db.Model):
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    seller = db.Column(db.String(120))
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     total = db.Column(db.Numeric(120))
     address = db.Column(db.String(120))
@@ -127,6 +128,7 @@ class Order(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "seller": self.seller,
             "created_at": self.created_at,
             "total": self.total,
             "address": self.address,

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
-import DataTableBase from "./DataTableBase";
+import ProductsTableBase from "./ProductsTableBase";
 import { Link, useNavigate } from "react-router-dom";
 
 const UserProductsTable = (props) => {
@@ -22,6 +22,8 @@ const UserProductsTable = (props) => {
       actions.toggle_update();
     }
   });
+
+  console.log("store.data.products", store.data?.products);
 
   const columns = [
     {
@@ -75,7 +77,7 @@ const UserProductsTable = (props) => {
         </Link>
       </button>
       {store.data ? (
-        <DataTableBase
+        <ProductsTableBase
           title="My By-Products"
           columns={columns}
           data={store.data.products}
