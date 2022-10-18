@@ -435,8 +435,20 @@ def delete_order(id):
 @jwt_required()
 def made_orders(id):
 
-    # user = User.query.filter_by(user_id=id)
     orders = Order.query.filter_by(user_id=id)
+
+    orders = list(map(lambda x: x.serialize(), orders))
+    json_text = jsonify(orders),200
+    return json_text
+
+# GET ORDERS SOLD BY USER
+@api.route("/user_sold_orders/<int:id>", methods=["GET"])
+@jwt_required()
+def sold_orders(id):
+    user = User.query.filter_by(id=id).first()
+    username = user.serialize()['username']
+
+    orders = Order.query.filter_by(seller=username)
 
     orders = list(map(lambda x: x.serialize(), orders))
     json_text = jsonify(orders),200

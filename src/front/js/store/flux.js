@@ -13,6 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: null,
       basket: [],
       orders_made: null,
+      orders_sold: null,
     },
     actions: {
       // Use getActions to call a function within a function
@@ -804,6 +805,37 @@ const getState = ({ getStore, getActions, setStore }) => {
           // console.log("This is the user data", user_data);
           setStore({
             orders_made: orders_made,
+          });
+          return true;
+        } catch (error) {
+          console.error("There has been an error retrieving data:", error);
+        }
+      },
+      //GET ORDERS SOLD BY THE USER
+      getSoldOrders: async (id) => {
+        const store = getStore();
+        const data_opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/user_sold_orders/" + id,
+            data_opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error retrieving data");
+            return false;
+          }
+
+          const orders_sold = await resp.json();
+          // console.log("This is the user data", user_data);
+          setStore({
+            orders_sold: orders_sold,
           });
           return true;
         } catch (error) {

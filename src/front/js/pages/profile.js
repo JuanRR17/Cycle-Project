@@ -6,7 +6,8 @@ import UserDataForm from "../component/user_profile/UserDataForm";
 import UserInfo from "../component/user_profile/UserInfo";
 import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
-import OrdersTable from "../component/user_profile/OrdersTable";
+import MyOrdersTable from "../component/user_profile/MyOrdersTable";
+import SoldOrdersTable from "../component/user_profile/SoldOrdersTable";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -51,7 +52,8 @@ const Profile = () => {
         </button>
       </div>
       <UserProductsTable />
-      <OrdersTable />
+      <MyOrdersTable />
+      <SoldOrdersTable />
       <div>
         {/* Button trigger modal */}
         <button
