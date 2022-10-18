@@ -2,12 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import BasketItem from "../component/orders/basketItem";
+import ItemsTable from "../component/orders/itemsTable";
 
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
   const [total, setTotal] = useState(0);
-  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,36 +45,78 @@ const ConfirmOrder = (props) => {
   return (
     <div>
       <div>Confirm Order</div>
-      <div>Items from user: {store.user?.username}</div>
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Actions</th>
-            <th scope="col">By-Product</th>
-            <th scope="col">Type</th>
-            <th scope="col">Location</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-          {store.basket
-            ? store.basket.map((part, idx) => {
-                return <BasketItem key={idx} item={part} />;
-              })
-            : "No Items in Basket"}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td className="pe-5 text-end" colSpan="7">
-              Total
-            </td>
-            <td className="pe-5 text-end">{total} €</td>
-          </tr>
-        </tfoot>
-      </table>
+      <div className="accordion" id="accordionExample">
+        {/* ITEMS TABLE */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingOne">
+            <button
+              className="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Items table
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            className="accordion-collapse collapse show"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <div className="accordion-body">
+              <ItemsTable total={total} />
+            </div>
+          </div>
+        </div>
+        {/* DELIVERY ADDRESS */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingTwo">
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              Delivery Address
+            </button>
+          </h2>
+          <div
+            id="collapseTwo"
+            className="accordion-collapse collapse"
+            aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample"
+          >
+            <div className="accordion-body">Form</div>
+          </div>
+        </div>
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingThree">
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree"
+            >
+              Payment
+            </button>
+          </h2>
+          <div
+            id="collapseThree"
+            className="accordion-collapse collapse"
+            aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample"
+          >
+            <div className="accordion-body">Payment</div>
+          </div>
+        </div>
+      </div>
       <button className="btn btn-success">Confirm</button>
       <button
         onClick={() => {
