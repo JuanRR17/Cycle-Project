@@ -15,17 +15,13 @@ const MyOrdersTable = (props) => {
       navigate("/");
     } else {
       if (!store.data) {
-        console.log("1");
         actions.getCurrentUserData();
       }
       if (!store.orders_made && store.data) {
-        console.log("2");
         actions.getMadeOrders(store.data.id);
       }
     }
   });
-  console.log("store", store);
-  console.log("orders_made:", store.orders_made);
 
   const columns = [
     {

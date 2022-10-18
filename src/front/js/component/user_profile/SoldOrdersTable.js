@@ -15,22 +15,23 @@ const SoldOrdersTable = (props) => {
       navigate("/");
     } else {
       if (!store.data) {
-        console.log("1");
         actions.getCurrentUserData();
       }
       if (!store.orders_sold && store.data) {
-        console.log("2");
         actions.getSoldOrders(store.data.id);
       }
     }
   });
-  console.log("store", store);
-  console.log("orders_sold:", store.orders_sold);
 
   const columns = [
     {
       name: "Id",
       selector: (row) => row.id,
+      sortable: true,
+    },
+    {
+      name: "Buyer Id",
+      selector: (row) => row.user_id,
       sortable: true,
     },
     {

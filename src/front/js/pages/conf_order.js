@@ -59,7 +59,7 @@ const ConfirmOrder = (props) => {
     }
   }, [store.data]);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     let errorsFirstCheck;
     if (total === 0) {
       errorsFirstCheck = {
@@ -80,7 +80,9 @@ const ConfirmOrder = (props) => {
       console.log("errorsFirstCheck:", errorsFirstCheck);
       setErrors(errorsFirstCheck);
     } else {
-      actions.create_order(delivery, total, store.data.id);
+      await actions.create_order(delivery, total, store.data.id);
+      await actions.getMadeOrders(store.data.id);
+      navigate("/profile");
     }
   };
 

@@ -23,8 +23,6 @@ const UserProductsTable = (props) => {
     }
   });
 
-  console.log("store.data.products", store.data?.products);
-
   const columns = [
     {
       name: "Id",
