@@ -18,8 +18,7 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    if (store.token && store.token != "" && store.token != undefined)
-      navigate("/profile");
+    if (store.token && store.token != "" && store.token) navigate("/profile");
   }, [store.token]);
 
   useEffect(() => {

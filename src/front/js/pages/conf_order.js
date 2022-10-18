@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import BasketItem from "../component/orders/basketItem";
+import ItemsTable from "../component/orders/itemsTable";
+import DeliveryForm from "../component/orders/delivery_form";
 
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
   const [total, setTotal] = useState(0);
-  const [user, setUser] = useState("");
+  const [delivery, setDelivery] = useState({});
+  const [errors, setErrors] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,40 +45,130 @@ const ConfirmOrder = (props) => {
     }
   });
 
+  useEffect(() => {
+    if (store.data) {
+      setDelivery({
+        address: store.data.address,
+        location: store.data.location,
+        cp: store.data.cp,
+        province: store.data.province,
+        country: store.data.country,
+        phone: store.data.phone,
+        company: store.data.company,
+      });
+    }
+  }, [store.data]);
+
+  const handleConfirm = () => {
+    let errors = 0;
+    if (total === 0) {
+      errors = 1;
+      // setErrors((errors) => ({
+      //   ...errors,
+      //   total: "There are no items to order!",
+      // }));
+    }
+    for (const field in delivery) {
+      if (!delivery[field]) {
+        errors = 1;
+        // setErrors((errors) => ({
+        //   ...errors,
+        //   [field]: delivery[field],
+        // }));
+      }
+      console.log(`${field}: ${delivery[field]}`);
+    }
+    if (errors === 1) console.log("errors:", errors);
+    else actions.createOrder(delivery);
+  };
+
+  console.log("delivery:", delivery);
   return (
     <div>
       <div>Confirm Order</div>
-      <div>Items from user: {store.user?.username}</div>
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Actions</th>
-            <th scope="col">By-Product</th>
-            <th scope="col">Type</th>
-            <th scope="col">Location</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-          {store.basket
-            ? store.basket.map((part, idx) => {
-                return <BasketItem key={idx} item={part} />;
-              })
-            : "No Items in Basket"}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td className="pe-5 text-end" colSpan="7">
-              Total
-            </td>
-            <td className="pe-5 text-end">{total} €</td>
-          </tr>
-        </tfoot>
-      </table>
-      <button className="btn btn-success">Confirm</button>
+      <div className="accordion" id="accordionExample">
+        {/* ITEMS TABLE */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingOne">
+            <button
+              className="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Items table
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            className="accordion-collapse collapse show"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <div className="accordion-body">
+              <ItemsTable total={total} />
+            </div>
+          </div>
+        </div>
+        {/* DELIVERY ADDRESS */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingTwo">
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              Delivery address
+            </button>
+          </h2>
+          <div
+            id="collapseTwo"
+            className="accordion-collapse collapse"
+            aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample"
+          >
+            <div className="accordion-body">
+              <DeliveryForm
+                delivery={delivery}
+                handleSetDelivery={(value) => setDelivery(value)}
+              />
+            </div>
+          </div>
+        </div>
+        {/* PAYMENT */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingThree">
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree"
+            >
+              Payment
+            </button>
+          </h2>
+          <div
+            id="collapseThree"
+            className="accordion-collapse collapse"
+            aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample"
+          >
+            <div className="accordion-body">
+              <div className="text-center"> Total: {total} €</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button className="btn btn-success" onClick={handleConfirm}>
+        Confirm
+      </button>
       <button
         onClick={() => {
           navigate(-1);

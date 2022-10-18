@@ -27,20 +27,20 @@ const ByProductForm = (props) => {
     if (!sessionStorage.getItem("token") || !store.token) {
       actions.logout();
       navigate("/");
-    } else if (store.data == undefined) {
+    } else if (!store.data) {
       actions.getCurrentUserData();
     } else {
       user_id = store.data.id;
     }
     if (!isNaN(id)) {
-      if (store.product == undefined || store.product.id != id) {
+      if (!store.product || store.product.id != id) {
         actions.getProductData(id);
       }
     }
   });
 
   useEffect(() => {
-    if (!isNaN(id) && store.product != undefined) {
+    if (!isNaN(id) && store.product) {
       setName(store.product.name);
       setLocation(store.product.location);
       setPrice(store.product.price);

@@ -8,10 +8,11 @@ export const Navbar = () => {
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
-    if (store.data == undefined && store.token != undefined) {
+    if (!store.data && store.token) {
       actions.getCurrentUserData();
     }
   });
+  console.log("store:", store);
 
   return (
     <nav

@@ -352,3 +352,13 @@ def update_basket_item(id):
     basket_item_product = basket_item.serialize()
     basket_item_product['product']=basket_item.product.serialize()
     return jsonify(basket_item_product),200
+
+# CREATE ORDER
+# @api.route('/order', methods=['POST'])
+# @jwt_required()
+# def new_order():
+#     request_body = request.get_json(force=True)
+#     items = request['items']
+#     delivery = request['delivery']
+
+
