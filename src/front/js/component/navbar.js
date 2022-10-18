@@ -12,7 +12,6 @@ export const Navbar = () => {
       actions.getCurrentUserData();
     }
   });
-  console.log("store:", store);
 
   return (
     <nav

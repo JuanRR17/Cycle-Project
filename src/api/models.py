@@ -83,23 +83,6 @@ class Image(db.Model):
             "is_default": self.is_default
         }
 
-class Status(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
-    usable_by_buyer = db.Column(db.Boolean())
-    usable_by_source = db.Column(db.Boolean())
-
-    def __repr__(self):
-        return f'<Status {self.name}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "usable_by_buyer": self.usable_by_buyer,
-            "usable_by_source": self.usable_by_source
-        }
-
 class Favourite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -127,13 +110,15 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
-    status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
     total = db.Column(db.Numeric(120))
     address = db.Column(db.String(120))
     location = db.Column(db.String(120))
+    cp = db.Column(db.String(120))
+    country = db.Column(db.String(120))
+    phone = db.Column(db.String(120))
+    company = db.Column(db.String(120))
 
     user = db.relationship('User', backref='orders')
-    status = db.relationship('Status', backref='orders')
 
     def __repr__(self):
         return f'<Order {self.id}>'
@@ -143,10 +128,13 @@ class Order(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "created_at": self.created_at,
-            "status_id": self.status_id,
             "total": self.total,
             "address": self.address,
-            "location": self.location
+            "location": self.location,
+            "cp": self.cp,
+            "country": self.country,
+            "phone": self.phone,
+            "company": self.company,
         }
 
 class OrderRow(db.Model):
@@ -162,8 +150,11 @@ class OrderRow(db.Model):
     def __repr__(self):
         return f'<Order_Row {self.id}>'
 
-    def calculate_subtotal(self):
-        return self.quantity*self.product.price
+    def __init__(self, order_id, product_id, quantity, subtotal):
+        self.order_id = order_id
+        self.product_id = product_id
+        self.quantity = quantity
+        self.subtotal = subtotal
 
     def serialize(self):
         return {
@@ -173,7 +164,7 @@ class OrderRow(db.Model):
             "quantity": self.quantity,
             "subtotal": self.subtotal,
             # "subtotal": self.calculate_subtotal(),
-            "product":self.product
+            # "product":self.product
         }
 
 class BasketItem(db.Model):

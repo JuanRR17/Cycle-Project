@@ -79,10 +79,9 @@ const ConfirmOrder = (props) => {
       console.log(`${field}: ${delivery[field]}`);
     }
     if (errors === 1) console.log("errors:", errors);
-    else actions.createOrder(delivery);
+    else actions.create_order(delivery, total, store.data.id);
   };
 
-  console.log("delivery:", delivery);
   return (
     <div>
       <div>Confirm Order</div>
