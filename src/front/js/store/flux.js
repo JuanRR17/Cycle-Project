@@ -31,6 +31,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           update: false,
           favourites: [],
           basket: [],
+          orders_made: null,
+          orders_sold: null,
         });
       },
       //SYNCYNG TOKEN IN SESSION

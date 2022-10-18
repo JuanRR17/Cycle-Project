@@ -57,7 +57,7 @@ const SoldOrdersTable = (props) => {
 
   return (
     <>
-      {store.orders_made ? (
+      {store.orders_sold ? (
         <OrdersTableBase
           title="My Sold Orders"
           columns={columns}
