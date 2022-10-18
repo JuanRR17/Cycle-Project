@@ -9,6 +9,7 @@ const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
   const [total, setTotal] = useState(0);
   const [delivery, setDelivery] = useState({});
+  const [errors, setErrors] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,6 +58,29 @@ const ConfirmOrder = (props) => {
       });
     }
   }, [store.data]);
+
+  const handleConfirm = () => {
+    let errors = 0;
+    if (total === 0) {
+      errors = 1;
+      // setErrors((errors) => ({
+      //   ...errors,
+      //   total: "There are no items to order!",
+      // }));
+    }
+    for (const field in delivery) {
+      if (!delivery[field]) {
+        errors = 1;
+        // setErrors((errors) => ({
+        //   ...errors,
+        //   [field]: delivery[field],
+        // }));
+      }
+      console.log(`${field}: ${delivery[field]}`);
+    }
+    if (errors === 1) console.log("errors:", errors);
+    else actions.createOrder(delivery);
+  };
 
   console.log("delivery:", delivery);
   return (
@@ -142,7 +166,9 @@ const ConfirmOrder = (props) => {
           </div>
         </div>
       </div>
-      <button className="btn btn-success">Confirm</button>
+      <button className="btn btn-success" onClick={handleConfirm}>
+        Confirm
+      </button>
       <button
         onClick={() => {
           navigate(-1);
