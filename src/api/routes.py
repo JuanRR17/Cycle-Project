@@ -389,9 +389,21 @@ def new_order():
         new_order_row = OrderRow(order_id, product_id, quantity, subtotal)
 
         db.session.add(new_order_row)
+        db.session.commit()
     
     return jsonify(new_order.serialize()),200
 
+# GET ONE ORDER DATA
+@api.route("/order/<int:id>", methods=["GET"])
+def get_order(id):
+    order = Order.query.filter_by(id=id).first()
 
+    search = OrderRow.query.filter_by(order_id=order.id)
+    order_rows = []
+    for orw in search:
+        order_row = dict(orw.serialize())
+        order_rows.append(order_row)
+    order_with_rows = order.serialize()
+    order_with_rows['order_rows']=order_rows
 
-
+    return jsonify(order_with_rows),200
