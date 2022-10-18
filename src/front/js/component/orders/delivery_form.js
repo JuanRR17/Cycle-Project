@@ -1,10 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
 
 const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
-  const { store, actions } = useContext(Context);
-
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
   const [province, setProvince] = useState("");
@@ -167,6 +164,10 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
   );
 };
 
-DeliveryForm.propTypes = {};
+DeliveryForm.propTypes = {
+  delivery: PropTypes.object,
+  errors: PropTypes.object,
+  handleSetDelivery: PropTypes.func,
+};
 
 export default DeliveryForm;

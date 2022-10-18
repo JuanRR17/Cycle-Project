@@ -74,10 +74,8 @@ const ConfirmOrder = (props) => {
           [field]: "Please enter a " + field.toUpperCase(),
         };
       }
-      // console.log(`${field}: ${delivery[field]}`);
     }
     if (errorsFirstCheck) {
-      console.log("errorsFirstCheck:", errorsFirstCheck);
       setErrors(errorsFirstCheck);
     } else {
       await actions.create_order(delivery, total, store.data.id);
@@ -85,8 +83,6 @@ const ConfirmOrder = (props) => {
       navigate("/profile");
     }
   };
-
-  console.log("errors:", errors);
 
   return (
     <div>

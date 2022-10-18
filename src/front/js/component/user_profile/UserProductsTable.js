@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
 import ProductsTableBase from "./ProductsTableBase";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UserProductsTable = (props) => {
   const { store, actions } = useContext(Context);

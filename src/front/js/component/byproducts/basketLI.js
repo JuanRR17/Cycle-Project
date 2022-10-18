@@ -22,6 +22,6 @@ const BasketLI = ({ item }) => {
   );
 };
 
-BasketLI.propTypes = {};
+BasketLI.propTypes = { item: PropTypes.object };
 
 export default BasketLI;

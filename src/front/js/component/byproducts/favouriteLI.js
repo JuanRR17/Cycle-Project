@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
@@ -23,6 +23,8 @@ const FavouriteLI = ({ fav }) => {
   );
 };
 
-FavouriteLI.propTypes = {};
+FavouriteLI.propTypes = {
+  fav: PropTypes.object,
+};
 
 export default FavouriteLI;

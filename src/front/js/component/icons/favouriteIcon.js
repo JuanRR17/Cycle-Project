@@ -40,6 +40,8 @@ const FavouriteIcon = ({ product }) => {
   );
 };
 
-FavouriteIcon.propTypes = {};
+FavouriteIcon.propTypes = {
+  product: PropTypes.object,
+};
 
 export default FavouriteIcon;
