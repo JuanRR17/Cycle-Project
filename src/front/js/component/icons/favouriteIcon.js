@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 const FavouriteIcon = ({ product }) => {
   const { store, actions } = useContext(Context);
@@ -30,9 +30,9 @@ const FavouriteIcon = ({ product }) => {
           className="float-end text-warning"
         >
           {favs_prod_ids.includes(product.id) ? (
-            <AiFillHeart />
+            <AiFillStar />
           ) : (
-            <AiOutlineHeart />
+            <AiOutlineStar />
           )}
         </span>
       ) : null}
