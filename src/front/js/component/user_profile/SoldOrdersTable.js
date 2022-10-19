@@ -27,32 +27,41 @@ const SoldOrdersTable = (props) => {
     {
       name: "Id",
       selector: (row) => row.id,
+      center: true,
       sortable: true,
     },
     {
       name: "Buyer Id",
       selector: (row) => row.user_id,
+      center: true,
       sortable: true,
     },
     {
       name: "Created",
       selector: (row) => row.created_at,
+      center: true,
       sortable: true,
     },
     {
       name: "Phone",
       selector: (row) => row.phone,
+      center: true,
       sortable: false,
     },
     {
       name: "Location",
       selector: (row) => row.location,
+      center: true,
       sortable: true,
     },
     {
       name: "Total",
-      selector: (row) => row.total,
+      selector: (row) => `${row.total} €`,
+      right: true,
       sortable: true,
+      sortFunction: (a, b) => {
+        return a.total - b.total;
+      },
     },
   ];
 
@@ -60,7 +69,7 @@ const SoldOrdersTable = (props) => {
     <>
       {store.orders_sold ? (
         <OrdersTableBase
-          // title="My Sold Orders"
+          title="My Sold Orders"
           columns={columns}
           data={store.orders_sold}
         />

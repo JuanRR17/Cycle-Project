@@ -111,7 +111,7 @@ class Order(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     seller = db.Column(db.String(120))
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
-    total = db.Column(db.Numeric(120))
+    total = db.Column(db.FLOAT())
     address = db.Column(db.String(120))
     location = db.Column(db.String(120))
     cp = db.Column(db.String(120))

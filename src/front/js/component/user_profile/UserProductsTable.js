@@ -27,42 +27,53 @@ const UserProductsTable = (props) => {
     {
       name: "Id",
       selector: (row) => row.id,
+      center: true,
       sortable: true,
     },
     {
       name: "Name",
       selector: (row) => row.name,
+      center: true,
       sortable: true,
     },
     {
       name: "Description",
       selector: (row) => row.description,
+      center: true,
       sortable: false,
     },
     {
       name: "Location",
       selector: (row) => row.location,
+      center: true,
       sortable: true,
     },
     {
-      name: "Price ",
-      selector: (row) => row.price,
+      name: "Price",
+      selector: (row) => `${row.price} €`,
+      right: true,
       sortable: true,
+      sortFunction: (a, b) => {
+        return a.price - b.price;
+      },
     },
     {
       name: "Stock",
       selector: (row) => row.stock,
+      right: true,
       sortable: true,
     },
 
     {
       name: "Unit",
       selector: (row) => row.unit,
+      center: true,
       sortable: true,
     },
     {
       name: "Type",
       selector: (row) => row.type,
+      center: true,
       sortable: true,
     },
   ];
