@@ -1,17 +1,57 @@
 import React from "react";
-import PropTypes from "prop-types";
 import DataTable from "react-data-table-component";
-import ArrowDownward from "@material-ui/icons/ArrowDownward";
-const sortIcon = <ArrowDownward />;
+import PropTypes from "prop-types";
+import Checkbox from "@material-ui/core/Checkbox";
 
-const OrdersTableBase = (props) => {
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
+import { useNavigate } from "react-router-dom";
+
+const _ = require("lodash");
+const sortIcon = <ArrowDownward />;
+const selectProps = { indeterminate: (isIndeterminate) => isIndeterminate };
+
+const ProductsTableBase = (props) => {
+  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [data, setData] = React.useState(props.data);
+
+  const navigate = useNavigate();
+
+  const handleRowSelected = React.useCallback((state) => {
+    setSelectedRows(state.selectedRows);
+  }, []);
+
+  const contextActions = React.useMemo(() => {
+    const handleSee = () => {
+      navigate("/order/" + selectedRows[0].id);
+    };
+    return (
+      <div>
+        {selectedRows.length == 1 ? (
+          <button key="see" onClick={handleSee} className="btn btn-success">
+            <VisibilityOutlinedIcon />
+            See
+          </button>
+        ) : null}
+      </div>
+    );
+  }, [data, selectedRows]);
   return (
     <>
       <DataTable
+        contextActions={contextActions}
+        onSelectedRowsChange={handleRowSelected}
         direction="auto"
         highlightOnHover
         pagination
         responsive
+        selectableRows
+        selectableRowsComponent={Checkbox}
+        selectableRowsComponentProps={selectProps}
+        selectableRowsHighlight
+        selectableRowsNoSelectAll
+        selectableRowsRadio="radio"
+        selectableRowsSingle
         sortIcon={sortIcon}
         striped
         subHeaderAlign="right"
@@ -22,8 +62,6 @@ const OrdersTableBase = (props) => {
   );
 };
 
-OrdersTableBase.propTypes = {
-  props: PropTypes.object,
-};
+ProductsTableBase.propTypes = {};
 
-export default OrdersTableBase;
+export default ProductsTableBase;

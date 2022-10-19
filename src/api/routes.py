@@ -407,6 +407,7 @@ def new_order():
 
 # GET ONE ORDER DATA
 @api.route("/order/<int:id>", methods=["GET"])
+@jwt_required()
 def get_order(id):
     order = Order.query.filter_by(id=id).first()
 
