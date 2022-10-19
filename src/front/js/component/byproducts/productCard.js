@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import FavouriteIcon from "../icons/favouriteIcon";
 import BasketIcon from "../icons/basketIcon";
+import { IconContext } from "react-icons";
 
 const ProductCard = ({ details }) => {
   const navigate = useNavigate();
@@ -31,8 +32,12 @@ const ProductCard = ({ details }) => {
         <button type="button" onClick={handleClick} className="btn btn-primary">
           Details
         </button>
-        <FavouriteIcon product={details} />
-        <BasketIcon product={details} />
+        <IconContext.Provider value={{ className: "shared-class", size: 25 }}>
+          <>
+            <FavouriteIcon product={details} />
+            <BasketIcon product={details} />
+          </>
+        </IconContext.Provider>
       </div>
     </div>
   );
