@@ -103,7 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const data = await resp.json();
-          console.log("This came from the backend", data);
+          // console.log("This came from the backend", data);
 
           sessionStorage.setItem("token", data.access_token);
           setStore({ token: data.access_token, message: null });
@@ -142,6 +142,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             favourites: user_data.favourites,
             basket: user_data.basket,
           });
+          // sessionStorage.setItem("user", user_data);
           return true;
         } catch (error) {
           console.error("There has been an error retrieving data:", error);

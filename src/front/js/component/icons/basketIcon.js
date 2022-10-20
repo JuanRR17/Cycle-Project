@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
 import { BsCart, BsFillCartFill } from "react-icons/bs";
@@ -29,7 +29,7 @@ const BasketIcon = ({ product }) => {
 
   return (
     <>
-      {store.token && product.user_id !== store.data.id ? (
+      {store.token && product.user_id !== store.data?.id ? (
         <span
           type="button"
           onClick={() => handleItemInBasket(product)}

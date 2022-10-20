@@ -10,10 +10,17 @@ export const List = () => {
     actions.getAllProducts();
   }, []);
 
+  useEffect(() => {
+    actions.syncTokenFromSessionStore();
+    if (!store.data && store.token) {
+      actions.logout();
+    }
+  });
+
   return (
     <div className="text-center mt-5">
       <h1>By-Products List</h1>
-      <div className="d-flex">
+      <div className="d-flex flex-wrap justify-content-center">
         {store.all_products
           ? store.all_products.map((p, idx) => {
               return <ProductCard key={idx} details={p} />;

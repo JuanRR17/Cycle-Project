@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const BasketItem = ({ item }) => {
   const { store, actions } = useContext(Context);
   return (
-    <tr>
+    <tr className="align-middle">
       <td>
         <span className="text-center">
           <DeleteIcon
