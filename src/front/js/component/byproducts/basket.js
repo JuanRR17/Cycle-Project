@@ -31,7 +31,7 @@ const Basket = () => {
               {store.basket.length === 0 ? <BsCart /> : <BsFillCartFill />}
             </span>
 
-            <span className="badge">{store.basket.length}</span>
+            <span className="badge p-1">{store.basket.length}</span>
             <span className=""></span>
           </button>
           <ul

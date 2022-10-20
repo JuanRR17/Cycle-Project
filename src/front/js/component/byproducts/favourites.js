@@ -26,7 +26,7 @@ const Favourites = () => {
             data-bs-auto-close="outside"
           >
             {store.favourites.length === 0 ? <AiOutlineStar /> : <AiFillStar />}{" "}
-            <span className="badge">{store.favourites.length}</span>
+            <span className="badge p-1">{store.favourites.length}</span>
           </button>
           <ul
             className="dropdown-menu dropdown-menu-end"

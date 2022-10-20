@@ -20,7 +20,7 @@ const Profile = () => {
 
   useEffect(() => {
     actions.syncTokenFromSessionStore();
-    if (!sessionStorage.getItem("token") || !store.token) {
+    if (!sessionStorage.getItem("token")) {
       actions.logout();
       navigate("/");
     }
