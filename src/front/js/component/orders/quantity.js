@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
+import { IconContext } from "react-icons";
 
 const Quantity = ({ quantity, stock, handleSetQuantity }) => {
   const handleChange = (e) => {
@@ -17,7 +19,7 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
   };
   return (
     <>
-      {stock == 0 ? (
+      {stock === 0 ? (
         <div className="text-danger">Out of Stock</div>
       ) : (
         <div
@@ -25,35 +27,34 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
           role="group"
           aria-label="Basic mixed styles example"
         >
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => {
-              if (quantity < stock) handleSetQuantity(quantity + 1);
-            }}
+          <IconContext.Provider
+            value={{ className: "text-secondary", size: 30 }}
           >
-            +
-          </button>
-          <input
-            value={quantity}
-            onChange={handleChange}
-            type="text"
-            className="btn border"
-            id="btncheck2"
-            // autoComplete="off"
-            placeholder="0"
-            max={stock}
-            min="0"
-          />
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => {
-              if (quantity > 0) handleSetQuantity(quantity - 1);
-            }}
-          >
-            -
-          </button>
+            <MdAddCircle
+              type="button"
+              onClick={() => {
+                if (quantity < stock) handleSetQuantity(quantity + 1);
+              }}
+            />
+            <input
+              value={quantity}
+              onChange={handleChange}
+              type="text"
+              className="btn border p-0 mx-1 rounded-3"
+              id="btncheck2"
+              size={quantity.toString().length}
+              placeholder="0"
+              max={stock}
+              min="0"
+            />
+            <MdRemoveCircle
+              type="button"
+              className="text-secondary"
+              onClick={() => {
+                if (quantity > 0) handleSetQuantity(quantity - 1);
+              }}
+            />
+          </IconContext.Provider>
         </div>
       )}
     </>

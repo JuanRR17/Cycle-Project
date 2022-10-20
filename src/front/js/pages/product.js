@@ -97,7 +97,7 @@ export const Product = () => {
                     )}
                     <div>Description:</div>
                     <div>{product.description}</div>
-                    Quantiy:{" "}
+                    Quantity:{" "}
                     <Quantity
                       quantity={quantity}
                       stock={product.stock}
@@ -107,28 +107,27 @@ export const Product = () => {
                   </>
                 ) : null}
 
-                <div>
-                  <IconContext.Provider
-                    value={{ className: "shared-class", size: 25 }}
-                  >
-                    <>
-                      <FavouriteIcon product={product} />
-                      <BasketIcon product={product} />
-                    </>
-                  </IconContext.Provider>
-
+                <div className="mt-2">
                   {store.token && product.user_id !== store.data?.id ? (
                     <button
                       type="button"
-                      className="btn btn-warning"
+                      className="btn btn-warning lh-sm px-4 py-2"
                       onClick={handleBuy}
                     >
                       Buy
                     </button>
                   ) : null}
-                  <div className="text-danger">
+                  <span className="ms-4">
                     {store.message ? store.message : ""}
-                  </div>
+                    <IconContext.Provider
+                      value={{ className: "mx-2", size: 25 }}
+                    >
+                      <>
+                        <FavouriteIcon product={product} />
+                        <BasketIcon product={product} />
+                      </>
+                    </IconContext.Provider>
+                  </span>
                 </div>
               </div>
             </div>
