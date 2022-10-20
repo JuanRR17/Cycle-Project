@@ -27,7 +27,7 @@ const FavouriteIcon = ({ product }) => {
         <span
           type="button"
           onClick={() => handleItemInFavourites(product)}
-          className="float-end text-warning"
+          className="float-end text-primary"
         >
           {favs_prod_ids.includes(product.id) ? (
             <AiFillStar />

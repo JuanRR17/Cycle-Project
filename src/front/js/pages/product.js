@@ -36,6 +36,12 @@ export const Product = () => {
     actions.clearmessage();
   }, []);
 
+  useEffect(() => {
+    if (!store.product || store.product.id != id) {
+      actions.getProductData(id);
+    }
+  }, [store.token]);
+
   const product = store.product;
 
   const handleBuy = () => {
@@ -63,10 +69,14 @@ export const Product = () => {
               <div className="col-6">
                 <img alt={product.name} />
                 <div className="card-title d-flex justify-content-between">
-                  <span>
-                    {product.price}/{product.unit}
-                  </span>
                   <span>{product.location}</span>
+                  {store.token ? (
+                    <span>
+                      {product.price} €/{product.unit}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="col-6">
@@ -89,9 +99,10 @@ export const Product = () => {
                       stock={product.stock}
                       handleSetQuantity={(value) => setQuantity(value)}
                     />{" "}
+                    {product.unit}
                   </>
                 ) : null}
-                {product.unit}
+
                 <div>
                   <IconContext.Provider
                     value={{ className: "shared-class", size: 25 }}
@@ -105,7 +116,7 @@ export const Product = () => {
                   {store.token && product.user_id !== store.data?.id ? (
                     <button
                       type="button"
-                      className="btn btn-success"
+                      className="btn btn-warning"
                       onClick={handleBuy}
                     >
                       Buy
