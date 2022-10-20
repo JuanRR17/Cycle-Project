@@ -52,6 +52,8 @@ const ByProductForm = (props) => {
   }, [store.product]);
 
   const handleConfirm = async () => {
+    const inputImage = document.getElementById("inputImage").files[0];
+    console.log("inputImage:", inputImage);
     if (isNaN(id)) {
       if (
         await actions.new_product(
@@ -62,7 +64,8 @@ const ByProductForm = (props) => {
           price,
           unit,
           location,
-          description
+          description,
+          inputImage
         )
       )
         navigate("/profile");
@@ -77,7 +80,8 @@ const ByProductForm = (props) => {
           price,
           store.units[unit],
           location,
-          description
+          description,
+          inputImage
         )
       )
         navigate("/profile");

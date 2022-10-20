@@ -273,26 +273,39 @@ const getState = ({ getStore, getActions, setStore }) => {
         price,
         unit,
         location,
-        description
+        description,
+        inputImage
       ) => {
         const store = getStore();
+        const prod_data = new FormData();
+        prod_data.append("pic", inputImage);
+        // prod_data.append("picname", inputImage.name);
+        prod_data.append("user_id", user_id);
+        prod_data.append("name", name);
+        prod_data.append("stock", Number(stock));
+        prod_data.append("type", store.types[type]);
+        prod_data.append("price", Number(price));
+        prod_data.append("unit", store.units[unit]);
+        prod_data.append("location", location);
+        prod_data.append("description", description);
 
         const opts = {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             Authorization: "Bearer " + store.token,
           },
-          body: JSON.stringify({
-            user_id: user_id,
-            name: name,
-            stock: Number(stock),
-            type: store.types[type],
-            price: Number(price),
-            unit: store.units[unit],
-            location: location,
-            description: description,
-          }),
+          body: prod_data,
+          // body: JSON.stringify({
+          //   user_id: user_id,
+          //   name: name,
+          //   stock: Number(stock),
+          //   type: store.types[type],
+          //   price: Number(price),
+          //   unit: store.units[unit],
+          //   location: location,
+          //   description: description,
+          // })
         };
         try {
           const resp = await fetch(
