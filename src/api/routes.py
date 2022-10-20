@@ -2,12 +2,14 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Product, Favourite, BasketItem,Order,OrderRow
+from api.models import db, User, Product, Favourite, BasketItem,Order,OrderRow,Image
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+
+from werkzeug.utils import secure_filename
 
 # Create Flask app
 api = Blueprint('api', __name__)
@@ -182,6 +184,13 @@ def new_product():
 
         db.session.add(new_product)
         db.session.commit()
+        pic = request.files['pic']
+        if pic:
+            filename = secure_filename(pic.filename)
+            mimetype = pic.mimetype
+            product_id = new_product.id
+            img = Image(img=pic.read(), mimetype=mimetype, name=filename, product_id=product_id)
+
         return jsonify(new_product.serialize()), 200
 
 # GET ALL PRODUCTS

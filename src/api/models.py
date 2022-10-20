@@ -66,7 +66,7 @@ class Image(db.Model):
     mimetype = db.Column(db.Text, nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     name = db.Column(db.String(120), nullable=False)
-    is_default = db.Column(db.Boolean(), nullable=False)
+    # is_default = db.Column(db.Boolean(), nullable=False)
 
     product = db.relationship('Product', backref='images')
 
@@ -80,7 +80,7 @@ class Image(db.Model):
             "mimetype": self.mimetype,
             "product_id": self.product_id,
             "name": self.name,
-            "is_default": self.is_default
+            # "is_default": self.is_default
         }
 
 class Favourite(db.Model):
