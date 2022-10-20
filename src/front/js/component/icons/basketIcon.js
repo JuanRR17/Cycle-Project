@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
-import { BsBasket2, BsBasket2Fill } from "react-icons/bs";
+import { BsCart, BsFillCartFill } from "react-icons/bs";
 
 const BasketIcon = ({ product }) => {
   const { store, actions } = useContext(Context);
@@ -36,9 +36,9 @@ const BasketIcon = ({ product }) => {
           className="float-end text-danger"
         >
           {basket_prod_ids.includes(product.id) ? (
-            <BsBasket2Fill />
+            <BsFillCartFill />
           ) : (
-            <BsBasket2 />
+            <BsCart />
           )}
         </span>
       ) : null}

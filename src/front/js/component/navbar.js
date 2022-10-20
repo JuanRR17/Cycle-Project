@@ -36,24 +36,26 @@ export const Navbar = () => {
       >
         <ul className="navbar-nav">
           <Link to="/">
-            <span className="nav-item nav-link">Home</span>
+            <span className="nav-item nav-link text-center">Home</span>
           </Link>
           <Link to="/prod_list">
-            <span className="nav-item nav-link">Products</span>
+            <span className="nav-item nav-link text-center">Products</span>
           </Link>
           <Link to="/blog">
-            <span className="nav-item nav-link">Blog</span>
+            <span className="nav-item nav-link text-center">Blog</span>
           </Link>
           {store.token && store.data ? (
             <>
+              <Link to="profile">
+                <span className="nav-item nav-link text-center">
+                  {store.data.username}
+                </span>
+              </Link>
               <Favourites />
               <Basket />
-              <Link to="profile">
-                <span className="nav-item nav-link">{store.data.username}</span>
-              </Link>
               <button
                 onClick={() => actions.logout()}
-                className="btn btn-danger"
+                className="btn btn-danger p-1 m-1"
               >
                 Log out
               </button>

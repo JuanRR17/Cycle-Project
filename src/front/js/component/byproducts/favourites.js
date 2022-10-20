@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
 import FavouriteLI from "./favouriteLI";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 const Favourites = () => {
   const { store, actions } = useContext(Context);
@@ -17,17 +18,15 @@ const Favourites = () => {
       {store.token ? (
         <div className="dropdown">
           <button
-            className="btn btn-primary dropdown-toggle"
+            className="btn btn-primary dropdown-toggle p-1 m-1"
             type="button"
             id="dropdownMenuButton1"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             data-bs-auto-close="outside"
           >
-            Favourites{" "}
-            <span className="badge bg-secondary">
-              {store.favourites.length}
-            </span>
+            {store.favourites.length === 0 ? <AiOutlineStar /> : <AiFillStar />}{" "}
+            <span className="badge p-1">{store.favourites.length}</span>
           </button>
           <ul
             className="dropdown-menu dropdown-menu-end"

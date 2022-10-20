@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../store/appContext";
 import BasketLI from "./basketLI";
+import { BsCart, BsFillCartFill } from "react-icons/bs";
 
 const Basket = () => {
   const { store, actions } = useContext(Context);
@@ -19,15 +20,18 @@ const Basket = () => {
       {store.token ? (
         <div className="dropdown">
           <button
-            className="btn btn-primary dropdown-toggle"
+            className="btn btn-success dropdown-toggle p-1 m-1"
             type="button"
             id="dropdownMenuButton1"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             data-bs-auto-close="outside"
           >
-            Basket
-            <span className="badge bg-secondary">{store.basket.length}</span>
+            <span className="pe-1">
+              {store.basket.length === 0 ? <BsCart /> : <BsFillCartFill />}
+            </span>
+
+            <span className="badge p-1">{store.basket.length}</span>
             <span className=""></span>
           </button>
           <ul

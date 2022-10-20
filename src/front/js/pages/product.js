@@ -6,6 +6,7 @@ import Quantity from "../component/orders/quantity";
 import { TiArrowBackOutline } from "react-icons/ti";
 import FavouriteIcon from "../component/icons/favouriteIcon";
 import BasketIcon from "../component/icons/basketIcon";
+import { IconContext } from "react-icons";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
@@ -91,8 +92,15 @@ export const Product = () => {
                 ) : null}
                 {product.unit}
                 <div>
-                  <FavouriteIcon product={product} />
-                  <BasketIcon product={product} />
+                  <IconContext.Provider
+                    value={{ className: "shared-class", size: 25 }}
+                  >
+                    <>
+                      <FavouriteIcon product={product} />
+                      <BasketIcon product={product} />
+                    </>
+                  </IconContext.Provider>
+
                   {store.token && product.user_id !== store.data.id ? (
                     <button
                       type="button"
