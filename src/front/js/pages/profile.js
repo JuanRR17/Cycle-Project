@@ -24,8 +24,8 @@ const Profile = () => {
   useEffect(() => {
     actions.syncTokenFromSessionStore();
 
-    // if (!sessionStorage.getItem("token") || !store.token) {
-    if (!store.data && store.token) {
+    if (!sessionStorage.getItem("token") || !store.token) {
+      // if (!store.data && store.token) {
       actions.logout();
       navigate("/");
     }
