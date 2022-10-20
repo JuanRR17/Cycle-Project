@@ -7,7 +7,7 @@ import DeleteIcon from "../icons/deleteIcon";
 
 const FavouriteLI = ({ fav }) => {
   const { store, actions } = useContext(Context);
-  console.log("fav:", fav);
+  // console.log("fav:", fav);
   return (
     <li className="dropdown-item ">
       <Link className="text-decoration-none" to={"/product/" + fav.product_id}>

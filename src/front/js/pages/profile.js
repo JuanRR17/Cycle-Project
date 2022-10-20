@@ -8,6 +8,8 @@ import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
 import MyOrdersTable from "../component/user_profile/MyOrdersTable";
 import SoldOrdersTable from "../component/user_profile/SoldOrdersTable";
+import { IconContext } from "react-icons";
+import { BsJournalPlus } from "react-icons/bs";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -49,14 +51,16 @@ const Profile = () => {
           </>
         )}
       </div>
-      <div>
+      {/* <div>
         <button onClick={() => actions.logout()} className="btn btn-danger">
           Log out
         </button>
-      </div>
+      </div> */}
       <button type="button" className="btn btn-success">
         <Link to="/byproduct_form" className="text-decoration-none text-light">
-          Add New By-Product
+          <IconContext.Provider value={{ className: "", size: 35 }}>
+            <BsJournalPlus />
+          </IconContext.Provider>
         </Link>
       </button>
       <div className="accordion" id="accordionPanelsStayOpenExample">
