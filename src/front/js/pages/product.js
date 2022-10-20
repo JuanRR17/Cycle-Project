@@ -83,16 +83,20 @@ export const Product = () => {
                 <div>Type: {product.type}</div>
                 {store.data ? (
                   <>
-                    <div>Stock: {product.stock}</div>
-                    <div>Description: {product.description}</div>
                     <div>
-                      Created By:{" "}
-                      {product.user_id === store.data.id
-                        ? "You"
-                        : product.user.username}{" "}
+                      Stock: {product.stock} {product.unit}
                     </div>
-                    <div>Phone: {product.user.phone}</div>
-                    <div>Email: {product.user.email}</div>
+                    {product.user_id === store.data.id ? (
+                      <div>Created By You</div>
+                    ) : (
+                      <>
+                        <div>Created By {product.user.username}</div>
+                        {/* <div>Phone: {product.user.phone}</div>
+                        <div>Email: {product.user.email}</div> */}
+                      </>
+                    )}
+                    <div>Description:</div>
+                    <div>{product.description}</div>
                     Quantiy:{" "}
                     <Quantity
                       quantity={quantity}
