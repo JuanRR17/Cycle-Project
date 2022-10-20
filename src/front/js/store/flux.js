@@ -893,6 +893,39 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
         }
       },
+      //GET AN IMAGE
+      getImage: async (id) => {
+        // const store = getStore();
+
+        const data_opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/image/" + id,
+            data_opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error retrieving image data");
+            return false;
+          }
+
+          const image = await resp.json();
+          console.log("This is the image data", image);
+          // setStore({ order: order });
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error retrieving image data:",
+            error
+          );
+        }
+      },
     },
   };
 };

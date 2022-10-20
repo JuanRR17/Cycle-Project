@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, Request
 from api.models import db, User, Product, Favourite, BasketItem,Order,OrderRow,Image
 from api.utils import generate_sitemap, APIException
 
@@ -223,15 +223,25 @@ def new_product():
         new_prod = new_product.serialize()
         product_id = new_prod['id']
         pic = request.files['pic']
-        # file = request.files['file'] 
-        # filename = secure_filename(file.filename)
+        print("pic")
+        print(pic)
+
         if pic:
             picname = secure_filename(pic.name)
+            print("picname")
+            print(picname)
             mimetype = pic.mimetype
+            print("mimetype")
+            print(mimetype)
+            # print("img")
+            # print(pic.read())
             new_prod = new_product.serialize()
             product_id = new_prod['id']
+            print("product_id")
+            print(product_id)
             img = Image(img=pic.read(), mimetype=mimetype, name=picname, product_id=product_id)
-
+            db.session.add(img)
+            db.session.commit()
         return jsonify(new_product.serialize()), 200
 
 # GET ALL PRODUCTS
@@ -503,4 +513,20 @@ def sold_orders(id):
 
     orders = list(map(lambda x: x.serialize(), orders))
     json_text = jsonify(orders),200
+    return json_text
+
+# GET IMAGE
+@api.route("/image/<int:id>", methods=['GET'])
+def image(id):
+    img = Image.query.filter_by(id=id).first()
+    if not img:
+        return jsonify({"msg":"This image doesn\'t exist"}),400
+    return Response(img.img, mimetype=img.mimetype)
+
+# GET ALL IMAGES
+@api.route("/images", methods=['GET'])
+def get_images():
+    all_images = Image.query.all()
+    all_images = list(map(lambda x: x.serialize()['id'], all_images))
+    json_text = jsonify(all_images)
     return json_text
