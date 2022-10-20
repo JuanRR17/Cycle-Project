@@ -36,6 +36,12 @@ export const Product = () => {
     actions.clearmessage();
   }, []);
 
+  useEffect(() => {
+    if (!store.product || store.product.id != id) {
+      actions.getProductData(id);
+    }
+  }, [store.token]);
+
   const product = store.product;
 
   const handleBuy = () => {
@@ -63,57 +69,65 @@ export const Product = () => {
               <div className="col-6">
                 <img alt={product.name} />
                 <div className="card-title d-flex justify-content-between">
-                  <span>
-                    {product.price}/{product.unit}
-                  </span>
                   <span>{product.location}</span>
+                  {store.token ? (
+                    <span>
+                      {product.price} €/{product.unit}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="col-6">
                 <div>Type: {product.type}</div>
                 {store.data ? (
                   <>
-                    <div>Stock: {product.stock}</div>
-                    <div>Description: {product.description}</div>
                     <div>
-                      Created By:{" "}
-                      {product.user_id === store.data.id
-                        ? "You"
-                        : product.user.username}{" "}
+                      Stock: {product.stock} {product.unit}
                     </div>
-                    <div>Phone: {product.user.phone}</div>
-                    <div>Email: {product.user.email}</div>
-                    Quantiy:{" "}
+                    {product.user_id === store.data.id ? (
+                      <div>Created By You</div>
+                    ) : (
+                      <>
+                        <div>Created By {product.user.username}</div>
+                        {/* <div>Phone: {product.user.phone}</div>
+                        <div>Email: {product.user.email}</div> */}
+                      </>
+                    )}
+                    <div>Description:</div>
+                    <div>{product.description}</div>
+                    Quantity:{" "}
                     <Quantity
                       quantity={quantity}
                       stock={product.stock}
                       handleSetQuantity={(value) => setQuantity(value)}
                     />{" "}
+                    {product.unit}
                   </>
                 ) : null}
-                {product.unit}
-                <div>
-                  <IconContext.Provider
-                    value={{ className: "shared-class", size: 25 }}
-                  >
-                    <>
-                      <FavouriteIcon product={product} />
-                      <BasketIcon product={product} />
-                    </>
-                  </IconContext.Provider>
 
+                <div className="mt-2">
                   {store.token && product.user_id !== store.data?.id ? (
                     <button
                       type="button"
-                      className="btn btn-success"
+                      className="btn btn-warning lh-sm px-4 py-2"
                       onClick={handleBuy}
                     >
                       Buy
                     </button>
                   ) : null}
-                  <div className="text-danger">
+                  <span className="ms-4">
                     {store.message ? store.message : ""}
-                  </div>
+                    <IconContext.Provider
+                      value={{ className: "mx-2", size: 25 }}
+                    >
+                      <>
+                        <FavouriteIcon product={product} />
+                        <BasketIcon product={product} />
+                      </>
+                    </IconContext.Provider>
+                  </span>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
 import { BsCart, BsFillCartFill } from "react-icons/bs";
@@ -33,7 +33,7 @@ const BasketIcon = ({ product }) => {
         <span
           type="button"
           onClick={() => handleItemInBasket(product)}
-          className="float-end text-danger"
+          className="text-success"
         >
           {basket_prod_ids.includes(product.id) ? (
             <BsFillCartFill />

@@ -15,7 +15,7 @@ const ConfirmOrder = (props) => {
   useEffect(() => {
     //Check token
     actions.syncTokenFromSessionStore();
-    if (!sessionStorage.getItem("token") || !store.token) {
+    if (!store.data || !store.token) {
       actions.logout();
       navigate("/");
     }
