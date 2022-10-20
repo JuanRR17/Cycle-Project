@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useMemo } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -14,7 +14,9 @@ export const Product = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const id = location.pathname.split("/").slice(-1);
+  const id = useMemo(() => location.pathname.split("/").slice(-1), [location]);
+
+  // const id = location.pathname.split("/").slice(-1);
 
   useEffect(() => {
     actions.syncTokenFromSessionStore();
@@ -34,7 +36,7 @@ export const Product = () => {
       actions.clearProductData();
     }
     actions.clearmessage();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (!store.product || store.product.id != id) {
