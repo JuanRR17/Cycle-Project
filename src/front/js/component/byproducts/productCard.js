@@ -15,10 +15,10 @@ const ProductCard = ({ details }) => {
   };
 
   const style = {
-    width: "18rem",
+    width: "350px",
   };
   return (
-    <div className="card p-1 m-1" style={style}>
+    <div className="card p-1 m-2" style={style}>
       <div className="card-body">
         <div className="card-title d-flex justify-content-between">
           <span>{details.name}</span>

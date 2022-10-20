@@ -11,6 +11,7 @@ import SoldOrdersTable from "../component/user_profile/SoldOrdersTable";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
+
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
 
@@ -20,6 +21,7 @@ const Profile = () => {
 
   useEffect(() => {
     actions.syncTokenFromSessionStore();
+
     if (!sessionStorage.getItem("token")) {
       actions.logout();
       navigate("/");

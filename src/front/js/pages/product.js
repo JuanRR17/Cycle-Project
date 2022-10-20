@@ -18,6 +18,7 @@ export const Product = () => {
 
   useEffect(() => {
     actions.syncTokenFromSessionStore();
+    console.log("store:", store);
     if (!store.data) {
       actions.getCurrentUserData();
     } else if (!store.user) {
@@ -101,7 +102,7 @@ export const Product = () => {
                     </>
                   </IconContext.Provider>
 
-                  {store.token && product.user_id !== store.data.id ? (
+                  {store.token && product.user_id !== store.data?.id ? (
                     <button
                       type="button"
                       className="btn btn-success"

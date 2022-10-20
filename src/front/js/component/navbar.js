@@ -15,12 +15,12 @@ export const Navbar = () => {
 
   return (
     <nav
-      className="navbar nav-tabs navbar-expand-lg navbar-light bg-warning px-5"
+      className="navbar nav-tabs navbar-expand-sm navbar-light bg-warning px-5"
       style={{ background: "linear-gradient(to left, orange, yellow)" }}
     >
       <Link to="/">Logo</Link>
       <button
-        className="navbar-toggler"
+        className="navbar-toggler "
         type="button"
         data-toggle="collapse"
         data-target="#navbarNav"
