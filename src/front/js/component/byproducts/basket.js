@@ -20,7 +20,7 @@ const Basket = () => {
       {store.token ? (
         <div className="dropdown">
           <button
-            className="btn btn-success dropdown-toggle p-1 m-1"
+            className="btn btn-success p-1 m-1"
             type="button"
             id="dropdownMenuButton1"
             data-bs-toggle="dropdown"

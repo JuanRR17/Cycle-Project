@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Favourites from "./byproducts/favourites";
 import { Context } from "../store/appContext";
 import Basket from "./byproducts/basket";
+import { IconContext } from "react-icons";
+import { FaPowerOff } from "react-icons/fa";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -15,7 +17,7 @@ export const Navbar = () => {
 
   return (
     <nav
-      className="navbar nav-tabs navbar-expand-sm navbar-light bg-warning px-5"
+      className="navbar nav-tabs navbar-expand-sm navbar-light bg-warning px-5 sticky-top"
       style={{ background: "linear-gradient(to left, orange, yellow)" }}
     >
       <Link to="/">Logo</Link>
@@ -31,34 +33,40 @@ export const Navbar = () => {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div
-        className="collapse navbar-collapse d-flex flex-row-reverse"
+        className="collapse navbar-collapse d-flex flex-row-reverse text-center"
         id="navbarNav"
       >
         <ul className="navbar-nav">
           <Link to="/">
-            <span className="nav-item nav-link text-center">Home</span>
+            <span className="nav-item nav-link">Home</span>
           </Link>
           <Link to="/prod_list">
-            <span className="nav-item nav-link text-center">Products</span>
+            <span className="nav-item nav-link">Products</span>
           </Link>
           <Link to="/blog">
-            <span className="nav-item nav-link text-center">Blog</span>
+            <span className="nav-item nav-link">Blog</span>
           </Link>
           {store.token && store.data ? (
             <>
               <Link to="profile">
-                <span className="nav-item nav-link text-center">
-                  {store.data.username}
-                </span>
+                <span className="nav-item nav-link">{store.data.username}</span>
               </Link>
               <Favourites />
               <Basket />
-              <button
+              {/* <button
                 onClick={() => actions.logout()}
                 className="btn btn-danger p-1 m-1"
-              >
-                Log out
-              </button>
+              > */}
+              <IconContext.Provider value={{ className: "", size: 35 }}>
+                <div>
+                  <FaPowerOff
+                    onClick={() => actions.logout()}
+                    className="btn btn-danger p-2 m-1"
+                  />
+                </div>
+              </IconContext.Provider>
+
+              {/* </button> */}
             </>
           ) : (
             <>
