@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import ItemsTable from "../component/orders/itemsTable";
-import DeliveryForm from "../component/orders/delivery_form";
+import ItemsTable from "../component/orders/ItemsTable";
+import DeliveryForm from "../component/orders/DeliveryForm";
 
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);

@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import FavouriteIcon from "../icons/favouriteIcon";
-import BasketIcon from "../icons/basketIcon";
+import FavouriteIcon from "../icons/FavouriteIcon";
+import BasketIcon from "../icons/BasketIcon";
 import { IconContext } from "react-icons";
 
 const ProductCard = ({ details }) => {

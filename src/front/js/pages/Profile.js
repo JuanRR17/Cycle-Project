@@ -35,8 +35,8 @@ const Profile = () => {
   });
 
   return (
-    <div className="mt-5">
-      <h1>User Profile</h1>
+    <div className="mt-5 container">
+      <h1 className="text-center">User Profile</h1>
       <div className="m-auto w-75 bg-warning p-3">
         {edit ? (
           <div>
@@ -44,10 +44,10 @@ const Profile = () => {
           </div>
         ) : (
           <>
+            <UserInfo data={store.data} />
             <button onClick={handleEditProfile} className="btn btn-primary">
               Edit Profile
             </button>
-            <UserInfo data={store.data} />
           </>
         )}
       </div>

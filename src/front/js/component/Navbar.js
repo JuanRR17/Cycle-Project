@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Favourites from "./byproducts/favourites";
+import Favourites from "./byproducts/Favourites";
 import { Context } from "../store/appContext";
-import Basket from "./byproducts/basket";
+import Basket from "./byproducts/Basket";
 import { IconContext } from "react-icons";
 import { FaPowerOff } from "react-icons/fa";
 
-export const Navbar = () => {
+const Navbar = () => {
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
@@ -84,3 +84,7 @@ export const Navbar = () => {
     </nav>
   );
 };
+
+Navbar.propTypes = {};
+
+export default Navbar;

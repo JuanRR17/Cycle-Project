@@ -29,9 +29,6 @@ const Order = (props) => {
       if (!store.order || store.order.id != id) {
         actions.getOrderData(id);
       }
-      // else if(){
-
-      // }
     }
   });
   return (

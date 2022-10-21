@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
-export const Login = () => {
+const Login = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,3 +71,7 @@ export const Login = () => {
     </div>
   );
 };
+
+Login.propTypes = {};
+
+export default Login;

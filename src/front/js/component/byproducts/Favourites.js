@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
-import FavouriteLI from "./favouriteLI";
+import FavouriteLI from "./FavouriteLI";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 const Favourites = () => {
