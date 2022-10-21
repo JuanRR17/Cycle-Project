@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
-import DeleteIcon from "../icons/deleteIcon";
+import DeleteIcon from "../icons/DeleteIcon";
 
 const BasketLI = ({ item }) => {
   const { store, actions } = useContext(Context);

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import PropTypes from "prop-types";
 import "../../styles/home.css";
-import ProductCard from "../component/byproducts/productCard";
+import ProductCard from "../component/byproducts/ProductCard";
 
-export const List = () => {
+const ProductsList = () => {
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
@@ -31,3 +32,7 @@ export const List = () => {
     </div>
   );
 };
+
+ProductsList.propTypes = {};
+
+export default ProductsList;
