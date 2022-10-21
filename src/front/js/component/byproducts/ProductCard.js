@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import FavouriteIcon from "../icons/FavouriteIcon";
 import BasketIcon from "../icons/BasketIcon";
 import { IconContext } from "react-icons";
+import thinkay from "../../../img/thinkay.jpg";
 
 const ProductCard = ({ details }) => {
   const { store, actions } = useContext(Context);
@@ -27,7 +28,7 @@ const ProductCard = ({ details }) => {
           <span>{details.name}</span>
           <span>{details.type}</span>
         </div>
-        <img className="card-img-top" alt={details.name} />
+        <img src={thinkay} className="card-img-top" alt={details.name} />
         <div className="card-title d-flex justify-content-between">
           <span>{details.location}</span>
           {store.token ? (

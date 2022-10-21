@@ -7,6 +7,7 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import FavouriteIcon from "../component/icons/FavouriteIcon";
 import BasketIcon from "../component/icons/BasketIcon";
 import { IconContext } from "react-icons";
+import thinkay from "../../img/thinkay.jpg";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
@@ -69,7 +70,7 @@ export const Product = () => {
           <div className="container">
             <div className="row">
               <div className="col-6">
-                <img alt={product.name} />
+                <img src={thinkay} alt={product.name} />
                 <div className="card-title d-flex justify-content-between">
                   <span>{product.location}</span>
                   {store.token ? (
