@@ -52,8 +52,8 @@ const ByProductForm = (props) => {
   }, [store.product]);
 
   const handleConfirm = async () => {
-    const inputImage = document.getElementById("inputImage").files[0];
-    console.log("inputImage:", inputImage);
+    // const inputImage = document.getElementById("inputImage").files[0];
+    // console.log("inputImage:", inputImage);
     if (isNaN(id)) {
       if (
         await actions.new_product(
@@ -64,8 +64,8 @@ const ByProductForm = (props) => {
           price,
           unit,
           location,
-          description,
-          inputImage
+          description
+          // inputImage
         )
       )
         navigate("/profile");
@@ -80,8 +80,8 @@ const ByProductForm = (props) => {
           price,
           store.units[unit],
           location,
-          description,
-          inputImage
+          description
+          // inputImage
         )
       )
         navigate("/profile");
@@ -217,15 +217,15 @@ const ByProductForm = (props) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            <div className="row">
-              {/* Image field */}
+            {/* Image field */}
+            {/* <div className="row">
               <div className="mb-3 col-lg-6">
                 <label htmlFor="inputImage" className="form-label">
                   Insert image
                 </label>
                 <input type="file" className="form-control" id="inputImage" />
               </div>
-            </div>
+            </div> */}
           </div>
           {store.message ? <div>{store.message}</div> : null}
           <button onClick={handleConfirm} className="btn btn-success">

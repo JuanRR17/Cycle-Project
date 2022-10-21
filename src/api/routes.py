@@ -1,6 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import os
 from flask import Flask, request, jsonify, url_for, Blueprint, Request
 from api.models import db, User, Product, Favourite, BasketItem,Order,OrderRow,Image
 from api.utils import generate_sitemap, APIException
@@ -13,6 +14,12 @@ from werkzeug.utils import secure_filename
 
 # Create Flask app
 api = Blueprint('api', __name__)
+
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # SIGN UP
 @api.route("/signup", methods=['POST'])
@@ -171,40 +178,35 @@ def delete_user(id):
 @jwt_required()
 
 def new_product():
-    # request_body = request.get_json(force=True)
-    request_body = {}
-    # check = request.form
-    # print("check")
-    # print(check)
+    request_body = request.get_json(force=True)
+    # request_body = {}
 
-    user_id = request.form.get('user_id')
-    request_body['user_id'] = user_id
+    # user_id = request.form.get('user_id')
+    # request_body['user_id'] = user_id
 
-    name = request.form.get('name')
-    request_body['name'] = name
+    # name = request.form.get('name')
+    # request_body['name'] = name
 
-    stock = request.form.get('stock')
-    request_body['stock'] = stock
+    # stock = request.form.get('stock')
+    # request_body['stock'] = stock
 
-    type = request.form.get('type')
-    request_body['type'] = type
+    # type = request.form.get('type')
+    # request_body['type'] = type
 
-    price = request.form.get('price')
-    request_body['price'] = price
+    # price = request.form.get('price')
+    # request_body['price'] = price
 
-    unit = request.form.get('unit')
-    request_body['unit'] = unit
+    # unit = request.form.get('unit')
+    # request_body['unit'] = unit
 
-    location = request.form.get('location')
-    request_body['location'] = location
+    # location = request.form.get('location')
+    # request_body['location'] = location
 
-    description = request.form.get('description')
-    request_body['description'] = description
+    # description = request.form.get('description')
+    # request_body['description'] = description
 
     request_keys = list(request_body.keys())
-    # request_keys = ["user_id","name","stock","type","price","unit","location","description"]
-    print("request_keys")
-    print(request_keys)
+
     if 'name' not in request_keys or request_body['name']=="":
         return jsonify({"msg":'You need to specify the name'}),400
     else:
@@ -220,28 +222,44 @@ def new_product():
         db.session.add(new_product)
         db.session.commit()
 
-        new_prod = new_product.serialize()
-        product_id = new_prod['id']
-        pic = request.files['pic']
-        print("pic")
-        print(pic)
+        # new_prod = new_product.serialize()
+        # product_id = new_prod['id']
+        # pic = request.files['pic']
 
-        if pic:
-            picname = secure_filename(pic.name)
-            print("picname")
-            print(picname)
-            mimetype = pic.mimetype
-            print("mimetype")
-            print(mimetype)
-            # print("img")
-            # print(pic.read())
-            new_prod = new_product.serialize()
-            product_id = new_prod['id']
-            print("product_id")
-            print(product_id)
-            img = Image(img=pic.read(), mimetype=mimetype, name=picname, product_id=product_id)
-            db.session.add(img)
-            db.session.commit()
+        # print("pic")
+        # print(pic)
+
+        # if pic:
+        #     picname = request.form.get('picname')
+        #     if allowed_file(picname):
+        #         picname_secure = secure_filename(picname)
+        #         print("picname_secure")
+        #         print(picname_secure)
+        #         print("os.path")
+        #         print(os.path)
+        #         target=os.path.join(os.path.sep,'static','pictures','test_docs')
+        #         print("target")
+        #         print(target)
+        #         if not os.path.isdir(target):
+        #             os.mkdir(target)
+        #         destination="/".join(target, picname_secure)
+        #         file.save(destination)
+
+
+        #         mimetype = pic.mimetype
+        #         print("mimetype")
+        #         print(mimetype)
+        #         new_prod = new_product.serialize()
+        #         product_id = new_prod['id']
+        #         print("product_id")
+        #         print(product_id)
+        #         img = Image(path=destination, mimetype=mimetype, name=picname, product_id=product_id)
+        #         db.session.add(img)
+        #         db.session.commit()
+
+        #         new_prod.append(img.serialize)
+        #         return jsonify(new_prod),200
+
         return jsonify(new_product.serialize()), 200
 
 # GET ALL PRODUCTS
