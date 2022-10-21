@@ -18,68 +18,63 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar nav-tabs navbar-expand-sm navbar-light bg-warning px-5 sticky-top"
+      className="navbar navbar-expand-sm navbar-light bg-light nav-tabs sticky-top"
       style={{ background: "linear-gradient(to left, orange, yellow)" }}
     >
-      <Link to="/">Logo</Link>
-      <button
-        className="navbar-toggler "
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div
-        className="collapse navbar-collapse d-flex flex-row-reverse text-center"
-        id="navbarNav"
-      >
-        <ul className="navbar-nav">
-          <Link to="/">
-            <span className="nav-item nav-link">Home</span>
-          </Link>
-          <Link to="/prod_list">
-            <span className="nav-item nav-link">Products</span>
-          </Link>
-          <Link to="/blog">
-            <span className="nav-item nav-link">Blog</span>
-          </Link>
-          {store.token && store.data ? (
-            <>
-              <Link to="profile">
-                <span className="nav-item nav-link">{store.data.username}</span>
-              </Link>
-              <Favourites />
-              <Basket />
-              {/* <button
-                onClick={() => actions.logout()}
-                className="btn btn-danger p-1 m-1"
-              > */}
-              <IconContext.Provider value={{ className: "", size: 35 }}>
-                <div>
-                  <FaPowerOff
-                    onClick={() => actions.logout()}
-                    className="btn btn-danger p-2 m-1"
-                  />
-                </div>
-              </IconContext.Provider>
-
-              {/* </button> */}
-            </>
-          ) : (
-            <>
-              <Link to="signup">
-                <span className="nav-item nav-link">Sign Up</span>
-              </Link>
-              <Link to="login">
-                <span className="nav-item nav-link">Login</span>
-              </Link>
-            </>
-          )}
-        </ul>
+      <div className="container">
+        <Link className="nav-item nav-link" to="/">
+          Logo
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            <Link className="nav-item nav-link" to="/">
+              <span>Home</span>
+            </Link>
+            <Link className="nav-item nav-link" to="/prod_list">
+              <span>Products</span>
+            </Link>
+            <Link className="nav-item nav-link" to="/blog">
+              <span>Blog</span>
+            </Link>
+            {store.token && store.data ? (
+              <>
+                <Link className="nav-item nav-link" to="profile">
+                  <span>{store.data.username}</span>
+                </Link>
+                <Favourites />
+                <Basket />
+                <IconContext.Provider value={{ className: "", size: 35 }}>
+                  <div>
+                    <FaPowerOff
+                      onClick={() => actions.logout()}
+                      className="btn btn-danger p-2 m-1"
+                    />
+                  </div>
+                </IconContext.Provider>
+              </>
+            ) : (
+              <>
+                <Link className="nav-item nav-link" to="signup">
+                  <span>Sign Up</span>
+                </Link>
+                <Link className="nav-item nav-link" to="login">
+                  <span>Login</span>
+                </Link>
+              </>
+            )}
+          </ul>
+        </div>
       </div>
     </nav>
   );
