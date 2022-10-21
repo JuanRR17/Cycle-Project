@@ -274,8 +274,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         unit,
         location,
         description
+        // inputImage
       ) => {
         const store = getStore();
+        // const prod_data = new FormData();
+        // prod_data.append("pic", inputImage);
+        // prod_data.append("picname", inputImage.name);
+        // prod_data.append("user_id", user_id);
+        // prod_data.append("name", name);
+        // prod_data.append("stock", Number(stock));
+        // prod_data.append("type", store.types[type]);
+        // prod_data.append("price", Number(price));
+        // prod_data.append("unit", store.units[unit]);
+        // prod_data.append("location", location);
+        // prod_data.append("description", description);
 
         const opts = {
           method: "POST",
@@ -283,6 +295,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
             Authorization: "Bearer " + store.token,
           },
+          // body: prod_data,
           body: JSON.stringify({
             user_id: user_id,
             name: name,
@@ -876,6 +889,39 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.error(
             "There has been an error retrieving order data:",
+            error
+          );
+        }
+      },
+      //GET AN IMAGE
+      getImage: async (id) => {
+        // const store = getStore();
+
+        const data_opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: "Bearer " + store.token,
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/image/" + id,
+            data_opts
+          );
+
+          if (resp.status !== 200) {
+            console.log("There has been some error retrieving image data");
+            return false;
+          }
+
+          const image = await resp.json();
+          console.log("This is the image data", image);
+          // setStore({ order: order });
+          return true;
+        } catch (error) {
+          console.error(
+            "There has been an error retrieving image data:",
             error
           );
         }

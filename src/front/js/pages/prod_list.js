@@ -16,7 +16,7 @@ export const List = () => {
       // if (!store.data && store.token) {
       actions.logout();
     }
-  });
+  }, [store.token]);
 
   return (
     <div className="text-center mt-5">
