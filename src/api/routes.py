@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
-from flask import Flask, request, jsonify, url_for, Blueprint, Request
+from flask import Flask, request, jsonify, url_for, Blueprint, Request, render_template
 from api.models import db, User, Product, Favourite, BasketItem,Order,OrderRow,Image
 from api.utils import generate_sitemap, APIException
 
@@ -551,11 +551,10 @@ def sold_orders(id):
 
 # GET IMAGE
 @api.route("/image/<int:id>", methods=['GET'])
-def image(id):
-    img = Image.query.filter_by(id=id).first()
-    if not img:
-        return jsonify({"msg":"This image doesn\'t exist"}),400
-    return Response(img.img, mimetype=img.mimetype)
+def show_image(id):
+    image = Image.query.filter_by(id=id).first()
+    full_filename=image.path
+    return render_template("template.html", user_image = full_filename)
 
 # GET ALL IMAGES
 @api.route("/images", methods=['GET'])

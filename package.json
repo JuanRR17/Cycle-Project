@@ -84,6 +84,7 @@
 		"react-jwt": "^1.1.7",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
+		"request": "^2.88.2",
 		"styled-components": "^5.3.6"
 	}
 }

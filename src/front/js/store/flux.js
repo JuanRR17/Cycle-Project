@@ -915,8 +915,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             return false;
           }
 
-          const image = await resp.json();
-          console.log("This is the image data", image);
+          // const image = await resp.json();
+          console.log("getImage(id) has run succesfully");
           // setStore({ order: order });
           return true;
         } catch (error) {

@@ -32,6 +32,8 @@ export const Product = () => {
     }
     if (!store.product || store.product.id != id) {
       actions.getProductData(id);
+    } else {
+      actions.getImage(store.product.image?.id);
     }
     if (store.basket.length === 0) {
       actions.clearProductData();
@@ -71,8 +73,8 @@ export const Product = () => {
             <div className="row">
               <div className="col-sm-8">
                 <img
-                  // src={require(store.product.image?.path).default}
-                  src={require("../../img/thinkay.jpg").default}
+                  src={{ user_image }}
+                  // src={require("../../img/thinkay.jpg").default}
                   // src={thinkay}
                   alt={product.name}
                   className="img-fluid img-thumbnail"
