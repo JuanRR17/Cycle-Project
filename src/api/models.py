@@ -42,7 +42,7 @@ class Product(db.Model):
     description = db.Column(db.String(120))
 
     user = db.relationship('User', backref='products')
-    
+    image = relationship("Image", back_populates="product", uselist=False)
 
     def __repr__(self):
         return f'<Product {self.name}>'
@@ -69,7 +69,8 @@ class Image(db.Model):
     path = db.Column(db.Text, unique=True, nullable=False)
     # is_default = db.Column(db.Boolean(), nullable=False)
 
-    product = db.relationship('Product', backref='images')
+    # product = db.relationship('Product', backref='images')
+    product = relationship("Product", back_populates="image", uselist=False)
 
     def __repr__(self):
         return f'<Image {self.name}>'

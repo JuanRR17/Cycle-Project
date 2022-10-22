@@ -276,14 +276,15 @@ def get_products():
     products = Product.query.all()
     all_products=[]
     for p in products:
-        if p.user != None:
+        if p.user:
             product = dict(p.serialize())
             product['user']=p.user.serialize()
+            # all_products.append(product)
+        if p.image:
+            product = dict(p.serialize())
+            product['image']=p.image.serialize()
+        if p.user or p.image:
             all_products.append(product)
-        # if p.image != None:
-        #     product = dict(p.serialize())
-        #     product['image']=p.image.serialize()
-        #     all_products.append(product)
     return jsonify(all_products)
 
 # GET ONE PRODUCT DATA
@@ -295,7 +296,6 @@ def get_product(id):
     user = dict(product_and_user[1])
     product['user'] = user
     #Add image data
-    # user = User.query.filter_by(id=id).first()
     image = Image.query.filter_by(product_id =id).first()
     if image:
         product['image'] = image.serialize()
