@@ -56,18 +56,25 @@ const ByProductForm = (props) => {
   const handleConfirm = async () => {
     // const inputImage = document.getElementById("inputImage").files[0];
     // console.log("inputImage:", inputImage);
-    console.log("handleConfirm", select_errors);
-    setErrors("");
+    console.log("type", type);
+    console.log("unit", unit);
+
     let select_errors;
-    if (type === 0) {
+    if (+type === 0) {
       select_errors = { ...select_errors, type: "Select a type" };
     }
-    if (unit === 0) {
+    if (+unit === 0) {
       select_errors = { ...select_errors, unit: "Select a unit" };
     }
+    console.log("select_errors", select_errors);
     if (select_errors) {
       setErrors(select_errors);
-    } else if (isNaN(id)) {
+      return;
+    } else if (errors) {
+      setErrors("");
+    }
+
+    if (isNaN(id)) {
       if (
         await actions.new_product(
           user_id,
