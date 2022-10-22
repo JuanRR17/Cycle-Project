@@ -242,7 +242,7 @@ def new_product():
                 print(os.path)
                 print ("os.getcwd()")
                 print (os.getcwd())
-                BPpath= "BP"+product_id
+                BPpath= "BP"+str(product_id)
                 # join(os.getcwd(), static, pictures)
                 # target=os.path.join(os.path.sep,'static','pictures','test_docs')
                 target=os.path.join(os.getcwd(), "static", "pictures",BPpath)
@@ -264,7 +264,7 @@ def new_product():
                 db.session.add(img)
                 db.session.commit()
 
-                new_prod.append(img.serialize)
+                new_prod['img'] = img.serialize()
                 return jsonify(new_prod),200
 
         return jsonify(new_product.serialize()), 200
@@ -280,6 +280,10 @@ def get_products():
             product = dict(p.serialize())
             product['user']=p.user.serialize()
             all_products.append(product)
+        # if p.image != None:
+        #     product = dict(p.serialize())
+        #     product['image']=p.image.serialize()
+        #     all_products.append(product)
     return jsonify(all_products)
 
 # GET ONE PRODUCT DATA
@@ -290,6 +294,11 @@ def get_product(id):
     product = dict(product_and_user[0])
     user = dict(product_and_user[1])
     product['user'] = user
+    #Add image data
+    # user = User.query.filter_by(id=id).first()
+    image = Image.query.filter_by(product_id =id).first()
+    if image:
+        product['image'] = image.serialize()
     return jsonify(product), 200
 
 # DELETE PRODUCT
