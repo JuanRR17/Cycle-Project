@@ -71,7 +71,9 @@ export const Product = () => {
             <div className="row">
               <div className="col-sm-8">
                 <img
-                  src={thinkay}
+                  // src={require(store.product.image?.path).default}
+                  src={require("../../img/thinkay.jpg").default}
+                  // src={thinkay}
                   alt={product.name}
                   className="img-fluid img-thumbnail"
                 />
