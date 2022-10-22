@@ -7,6 +7,7 @@ import UserInfo from "../component/user_profile/UserInfo";
 import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
 
+
 const Profile = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
@@ -28,29 +29,18 @@ const Profile = () => {
   });
 
   return (
-    <div className="mt-5">
-      <h1>User Profile</h1>
-      <div className="m-auto w-75 bg-warning p-3">
-        {edit ? (
-          <div>
-            <UserDataForm handleSetEdit={(value) => setEdit(value)} />
+    <div className="container mt-5 ">
+      {/* <h1 className="bg-light">User Profile</h1> */}
+      <div className="row d-flex justify-content-center bg-dark bg-opacity-75">
+        <div className="col-5">
+          <div className="" style={{width: "12rem"}}>
+            <img src="https://media.glassdoor.com/sqll/1818874/4geeks-academy-squarelogo-1507911028237.png" className="card-img-top" alt="..."/>
           </div>
-        ) : (
-          <>
-            <button onClick={handleEditProfile} className="btn btn-primary">
-              Edit Profile
-            </button>
-            <UserInfo data={store.data} />
-          </>
-        )}
-      </div>
-      <div>
-        <button onClick={() => actions.logout()} className="btn btn-danger">
-          Log out
-        </button>
-      </div>
-      <UserProductsTable />
-      <div>
+          <div className="">
+          <UserProductsTable />
+          </div>
+      <div className="d-flex aligns-items-center"> 
+      
         {/* Button trigger modal */}
         <button
           type="button"
@@ -60,7 +50,11 @@ const Profile = () => {
         >
           Delete Profile
         </button>
-
+        <div>
+        <button onClick={() => actions.logout()} className="btn btn-danger">
+          Log out
+        </button>
+        </div>
         {/* <Modal> */}
         <div
           className="modal fade"
@@ -105,6 +99,21 @@ const Profile = () => {
             </div>
           </div>
         </div>
+      </div>
+      </div>
+    
+      <div className="col-7 bg-warning p-3 bg-opacity-50">
+        {edit ? (
+            <UserDataForm handleSetEdit={(value) => setEdit(value)} />
+        ) : (
+          <>
+            <button onClick={handleEditProfile} className="btn btn-primary">
+              Edit Profile
+            </button>
+            <UserInfo data={store.data} />
+          </>
+        )}
+      </div>
       </div>
     </div>
   );
