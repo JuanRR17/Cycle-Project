@@ -308,10 +308,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           // }),
         };
         try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/product",
-            opts
-          );
+          const resp = await fetch(process.env.BACKEND_URL + "/product", opts);
           if (resp.status !== 200) {
             console.log(
               "There has been some error creating the product",
