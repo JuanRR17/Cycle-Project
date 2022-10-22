@@ -18,10 +18,10 @@ export const Product = () => {
   const id = useMemo(() => location.pathname.split("/").slice(-1), [location]);
 
   // const id = location.pathname.split("/").slice(-1);
+  console.log("store:", store);
 
   useEffect(() => {
     actions.syncTokenFromSessionStore();
-    console.log("store:", store);
     if (!store.data) {
       actions.getCurrentUserData();
     } else if (!store.user) {
@@ -38,6 +38,12 @@ export const Product = () => {
     }
     actions.clearmessage();
   }, [id]);
+
+  useEffect(() => {
+    if (!store.product || store.product.id != id) {
+      actions.getProductData(id);
+    }
+  }, [store.product]);
 
   useEffect(() => {
     if (!store.product || store.product.id != id) {
@@ -75,21 +81,20 @@ export const Product = () => {
                   alt={product.name}
                   className="img-fluid img-thumbnail"
                 />
-                <div className="card-title d-flex justify-content-between">
-                  <span>{product.location}</span>
-                  {store.token ? (
-                    <span>
-                      {product.price} €/{product.unit}
-                    </span>
-                  ) : (
-                    ""
-                  )}
-                </div>
               </div>
               <div className="col-sm-4">
                 <div>Type: {product.type}</div>
                 {store.data ? (
                   <>
+                    <div>Location: {product.location}</div>
+                    {store.token ? (
+                      <div>
+                        Price:
+                        {product.price} €/{product.unit}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                     <div>
                       Stock: {product.stock} {product.unit}
                     </div>
@@ -104,25 +109,31 @@ export const Product = () => {
                     )}
                     <div>Description:</div>
                     <div>{product.description}</div>
-                    Quantity:{" "}
-                    <Quantity
-                      quantity={quantity}
-                      stock={product.stock}
-                      handleSetQuantity={(value) => setQuantity(value)}
-                    />{" "}
-                    {product.unit}
+                    {store.token && product.user_id !== store.data.id ? (
+                      <>
+                        <div>Quantity:</div>
+                        <Quantity
+                          quantity={quantity}
+                          stock={product.stock}
+                          handleSetQuantity={(value) => setQuantity(value)}
+                        />
+                        <span className="ms-1">{product.unit}</span>
+                      </>
+                    ) : null}
                   </>
                 ) : null}
 
-                <div className="mt-2">
+                <div className="d-flex mt-2">
                   {store.token && product.user_id !== store.data?.id ? (
-                    <button
-                      type="button"
-                      className="btn btn-warning lh-sm px-4 py-2"
-                      onClick={handleBuy}
-                    >
-                      Buy
-                    </button>
+                    <div>
+                      <button
+                        type="button"
+                        className="btn btn-warning lh-sm px-4 py-2"
+                        onClick={handleBuy}
+                      >
+                        Buy
+                      </button>
+                    </div>
                   ) : null}
                   <span className="ms-4">
                     {store.message ? store.message : ""}

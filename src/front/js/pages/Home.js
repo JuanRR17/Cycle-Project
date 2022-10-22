@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Home = () => {
+  const { store, actions } = useContext(Context);
+
   return (
     <div className="text-center mt-5">
       <div id="body">
@@ -40,10 +43,16 @@ export const Home = () => {
         <button className="btn btn-primary">See by-products</button>
       </Link>
       <p></p>
-      <p>Interested in joining Thinkay?</p>
-      <Link to="/signup">
-        <button className="btn btn-primary">Sign up</button>
-      </Link>
+      {!store.token ? (
+        <>
+          <p>Interested in joining Thinkay?</p>
+          <Link to="/signup">
+            <button className="btn btn-primary">Sign up</button>
+          </Link>
+        </>
+      ) : (
+        ""
+      )}
       <p></p>
       <p>Need inspiration? Check out our Blog to get inspired!</p>
       <Link to="/blog">

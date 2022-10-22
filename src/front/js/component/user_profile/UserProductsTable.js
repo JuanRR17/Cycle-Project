@@ -37,12 +37,6 @@ const UserProductsTable = (props) => {
       sortable: true,
     },
     {
-      name: "Description",
-      selector: (row) => row.description,
-      center: true,
-      sortable: false,
-    },
-    {
       name: "Location",
       selector: (row) => row.location,
       center: true,

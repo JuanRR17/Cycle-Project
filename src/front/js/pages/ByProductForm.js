@@ -18,6 +18,8 @@ const ByProductForm = (props) => {
   const [unit, setUnit] = useState(0);
   const [stock, setStock] = useState("");
 
+  const [errors, setErrors] = useState();
+
   const types = store.types;
   const units = store.units;
   let user_id;
@@ -54,7 +56,18 @@ const ByProductForm = (props) => {
   const handleConfirm = async () => {
     // const inputImage = document.getElementById("inputImage").files[0];
     // console.log("inputImage:", inputImage);
-    if (isNaN(id)) {
+    console.log("handleConfirm", select_errors);
+    setErrors("");
+    let select_errors;
+    if (type === 0) {
+      select_errors = { ...select_errors, type: "Select a type" };
+    }
+    if (unit === 0) {
+      select_errors = { ...select_errors, unit: "Select a unit" };
+    }
+    if (select_errors) {
+      setErrors(select_errors);
+    } else if (isNaN(id)) {
       if (
         await actions.new_product(
           user_id,
@@ -166,6 +179,9 @@ const ByProductForm = (props) => {
                   );
                 })}
               </select>
+              {errors?.unit ? (
+                <div className="text-danger">{errors?.unit}</div>
+              ) : null}
             </div>
             {/* Stock field */}
             <div className="mb-3 col-md-6">
@@ -203,6 +219,9 @@ const ByProductForm = (props) => {
                   );
                 })}
               </select>
+              {errors?.type ? (
+                <div className="text-danger">{errors?.type}</div>
+              ) : null}
             </div>
             {/* Description field */}
             <div className="mb-3 col-12">
