@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Prof from "./Prof";
 
 const UserInfo = ({ data }) => {
   return (
@@ -10,6 +11,7 @@ const UserInfo = ({ data }) => {
       <div>Phone: {data?.phone}</div>
       <div>Location: {data?.location}</div>
     </div>
+    // <Prof />
   );
 };
 

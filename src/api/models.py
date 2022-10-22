@@ -77,10 +77,11 @@ class Image(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "img": self.img,
+            # "img": self.img,
             "mimetype": self.mimetype,
             "product_id": self.product_id,
             "name": self.name,
+            "path":self.path,
             # "is_default": self.is_default
         }
 

@@ -178,32 +178,35 @@ def delete_user(id):
 @jwt_required()
 
 def new_product():
-    request_body = request.get_json(force=True)
-    # request_body = {}
+    # request_body = request.get_json(force=True)
+    request_body = {}
 
-    # user_id = request.form.get('user_id')
-    # request_body['user_id'] = user_id
+    user_id = request.form.get('user_id')
+    request_body['user_id'] = user_id
 
-    # name = request.form.get('name')
-    # request_body['name'] = name
+    name = request.form.get('name')
+    request_body['name'] = name
 
-    # stock = request.form.get('stock')
-    # request_body['stock'] = stock
+    stock = request.form.get('stock')
+    request_body['stock'] = stock
 
-    # type = request.form.get('type')
-    # request_body['type'] = type
+    type = request.form.get('type')
+    request_body['type'] = type
 
-    # price = request.form.get('price')
-    # request_body['price'] = price
+    price = request.form.get('price')
+    request_body['price'] = price
 
-    # unit = request.form.get('unit')
-    # request_body['unit'] = unit
+    unit = request.form.get('unit')
+    request_body['unit'] = unit
 
-    # location = request.form.get('location')
-    # request_body['location'] = location
+    location = request.form.get('location')
+    request_body['location'] = location
 
-    # description = request.form.get('description')
-    # request_body['description'] = description
+    description = request.form.get('description')
+    request_body['description'] = description
+
+    print("request_body")
+    print(request_body)
 
     request_keys = list(request_body.keys())
 
@@ -222,43 +225,47 @@ def new_product():
         db.session.add(new_product)
         db.session.commit()
 
-        # new_prod = new_product.serialize()
-        # product_id = new_prod['id']
-        # pic = request.files['pic']
+        new_prod = new_product.serialize()
+        product_id = new_prod['id']
+        pic = request.files['pic']
 
-        # print("pic")
-        # print(pic)
+        print("pic")
+        print(pic)
 
-        # if pic:
-        #     picname = request.form.get('picname')
-        #     if allowed_file(picname):
-        #         picname_secure = secure_filename(picname)
-        #         print("picname_secure")
-        #         print(picname_secure)
-        #         print("os.path")
-        #         print(os.path)
-        #         target=os.path.join(os.path.sep,'static','pictures','test_docs')
-        #         print("target")
-        #         print(target)
-        #         if not os.path.isdir(target):
-        #             os.mkdir(target)
-        #         destination="/".join(target, picname_secure)
-        #         file.save(destination)
+        if pic:
+            picname = request.form.get('picname')
+            if allowed_file(picname):
+                picname_secure = secure_filename(picname)
+                print("picname_secure")
+                print(picname_secure)
+                print("os.path")
+                print(os.path)
+                print ("os.getcwd()")
+                print (os.getcwd())
+                BPpath= "BP"+product_id
+                # join(os.getcwd(), static, pictures)
+                # target=os.path.join(os.path.sep,'static','pictures','test_docs')
+                target=os.path.join(os.getcwd(), "static", "pictures",BPpath)
+                print("target")
+                print(target)
+                if not os.path.isdir(target):
+                    os.makedirs(target)
+                destination="/".join([target, picname_secure])
+                pic.save(destination)
 
+                mimetype = pic.mimetype
+                print("mimetype")
+                print(mimetype)
+                new_prod = new_product.serialize()
+                product_id = new_prod['id']
+                print("product_id")
+                print(product_id)
+                img = Image(path=destination, mimetype=mimetype, name=picname, product_id=product_id)
+                db.session.add(img)
+                db.session.commit()
 
-        #         mimetype = pic.mimetype
-        #         print("mimetype")
-        #         print(mimetype)
-        #         new_prod = new_product.serialize()
-        #         product_id = new_prod['id']
-        #         print("product_id")
-        #         print(product_id)
-        #         img = Image(path=destination, mimetype=mimetype, name=picname, product_id=product_id)
-        #         db.session.add(img)
-        #         db.session.commit()
-
-        #         new_prod.append(img.serialize)
-        #         return jsonify(new_prod),200
+                new_prod.append(img.serialize)
+                return jsonify(new_prod),200
 
         return jsonify(new_product.serialize()), 200
 
@@ -545,6 +552,6 @@ def image(id):
 @api.route("/images", methods=['GET'])
 def get_images():
     all_images = Image.query.all()
-    all_images = list(map(lambda x: x.serialize()['id'], all_images))
+    all_images = list(map(lambda x: x.serialize(), all_images))
     json_text = jsonify(all_images)
     return json_text
