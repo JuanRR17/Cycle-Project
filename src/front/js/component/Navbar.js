@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Favourites from "./byproducts/Favourites";
 import { Context } from "../store/appContext";
@@ -9,13 +9,20 @@ import { FaPowerOff } from "react-icons/fa";
 const Navbar = () => {
   const { store, actions } = useContext(Context);
 
+  const token = useMemo(() => store.token, [store.token]);
+  const data = useMemo(() => {
+    console.log("data use memo", store.data);
+    store.data;
+  }, [store.data?.id]);
+
   useEffect(() => {
     // if (!sessionStorage.getItem("token") || !store.token) {
-    if (!store.data && store.token) {
+
+    if (!data && token) {
       actions.getCurrentUserData();
     }
-  });
-
+  }, [token, data]);
+  console.log("navbar");
   return (
     <nav
       className="navbar navbar-expand-sm navbar-light bg-light nav-tabs sticky-top"

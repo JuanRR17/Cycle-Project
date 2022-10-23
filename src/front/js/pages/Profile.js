@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
@@ -16,23 +16,30 @@ const Profile = () => {
 
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
+  const token = useMemo(() => store.token, [store.token]);
+  const data = useMemo(() => {
+    console.log("data use memo", store.data);
+    store.data;
+  }, [store.data?.id]);
 
   const handleEditProfile = () => {
     setEdit(true);
   };
-
+  console.log("profile store", store);
   useEffect(() => {
     actions.syncTokenFromSessionStore();
+    console.log("useEffect");
 
-    if (!sessionStorage.getItem("token") || !store.token) {
+    if (!sessionStorage.getItem("token")) {
       // if (!store.data && store.token) {
       actions.logout();
       navigate("/");
     }
-    if (!store.data) {
+    if (!data) {
+      console.log("store.data:", data);
       actions.getCurrentUserData();
     }
-  });
+  }, [token, data]);
 
   return (
     <div className="mt-5 container">
