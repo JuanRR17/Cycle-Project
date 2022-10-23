@@ -17,7 +17,7 @@ const Navbar = () => {
 
   useEffect(() => {
     // if (!sessionStorage.getItem("token") || !store.token) {
-
+    console.log("useEffect");
     if (!data && token) {
       actions.getCurrentUserData();
     }

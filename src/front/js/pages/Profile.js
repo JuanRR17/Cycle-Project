@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useMemo } from "react";
+import React, { useContext, useState, useEffect, useMemo, useRef } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
@@ -21,6 +21,11 @@ const Profile = () => {
     console.log("data use memo", store.data);
     store.data;
   }, [store.data?.id]);
+  // const orders_made = useMemo(() => {
+  //   console.log("orders use memo", store.orders_made);
+  //   store.orders_made;
+  // }, [store.orders_made]);
+  // const orders_made = useRef(store.orders_made);
 
   const handleEditProfile = () => {
     setEdit(true);
@@ -28,18 +33,27 @@ const Profile = () => {
   console.log("profile store", store);
   useEffect(() => {
     actions.syncTokenFromSessionStore();
-    console.log("useEffect");
+    console.log("useEffect token", token);
 
     if (!sessionStorage.getItem("token")) {
       // if (!store.data && store.token) {
       actions.logout();
       navigate("/");
     }
+    console.log("store.data:", data);
+    // console.log("orders_made:", orders_made);
     if (!data) {
-      console.log("store.data:", data);
       actions.getCurrentUserData();
     }
-  }, [token, data]);
+    // if (!orders_made && data) {
+    //   console.log("orders_made");
+    //   actions.getMadeOrders(data.id);
+    // }
+  }, [
+    token,
+    data,
+    // , orders_made
+  ]);
 
   return (
     <div className="mt-5 container">
@@ -90,7 +104,7 @@ const Profile = () => {
             aria-labelledby="panelsStayOpen-headingOne"
           >
             <div className="accordion-body">
-              <UserProductsTable />
+              <UserProductsTable products={store.data?.products} />
             </div>
           </div>
         </div>
@@ -113,7 +127,7 @@ const Profile = () => {
             aria-labelledby="panelsStayOpen-headingTwo"
           >
             <div className="accordion-body">
-              <MyOrdersTable />
+              <MyOrdersTable orders={store.orders_made} />
             </div>
           </div>
         </div>

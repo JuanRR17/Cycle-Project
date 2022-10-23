@@ -8,6 +8,12 @@ const MyOrdersTable = (props) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
+  // const token = useMemo(() => store.token, [store.token]);
+  // const data = useMemo(() => {
+  //   console.log("data use memo", store.data);
+  //   store.data;
+  // }, [store.data?.id]);
+
   useEffect(() => {
     actions.syncTokenFromSessionStore();
     if (!sessionStorage.getItem("token") || !store.token) {
