@@ -35,14 +35,17 @@ const Basket = () => {
             <span className=""></span>
           </button>
           <ul
-            className="dropdown-menu dropdown-menu-end"
+            className="dropdown-menu dropdown-menu-end p-0 border-0"
             aria-labelledby="dropdownMenuLink"
             style={ulStyle}
           >
             {store.basket.length > 0 ? (
               <>
-                <li className="text-center">
-                  <Link to="/confirm_order" className="text-decoration-none">
+                <li className="text-center p-1 bg-success bg-gradient">
+                  <Link
+                    to="/confirm_order"
+                    className="text-decoration-none text-light"
+                  >
                     Go To Basket
                   </Link>
                 </li>

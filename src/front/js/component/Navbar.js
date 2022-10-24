@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Favourites from "./byproducts/Favourites";
-import { Context } from "../store/appContext";
 import Basket from "./byproducts/Basket";
+import { Context } from "../store/appContext";
 import { IconContext } from "react-icons";
 import { FaPowerOff } from "react-icons/fa";
 
