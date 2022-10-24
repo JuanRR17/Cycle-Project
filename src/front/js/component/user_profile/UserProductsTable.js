@@ -1,27 +1,19 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
 import ProductsTableBase from "./ProductsTableBase";
-import { useNavigate } from "react-router-dom";
 
-const UserProductsTable = (props) => {
+const UserProductsTable = ({ products }) => {
   const { store, actions } = useContext(Context);
-  const navigate = useNavigate();
+
+  const update = useMemo(() => store.update, [store.update]);
 
   useEffect(() => {
-    actions.syncTokenFromSessionStore();
-    if (!sessionStorage.getItem("token") || !store.token) {
-      actions.logout();
-      navigate("/");
-    } else if (!store.data) {
-      actions.getCurrentUserData();
-    }
-
-    if (store.update) {
+    if (update) {
       actions.getCurrentUserData();
       actions.toggle_update();
     }
-  });
+  }, [update]);
 
   const columns = [
     {
@@ -35,12 +27,6 @@ const UserProductsTable = (props) => {
       selector: (row) => row.name,
       center: true,
       sortable: true,
-    },
-    {
-      name: "Description",
-      selector: (row) => row.description,
-      center: true,
-      sortable: false,
     },
     {
       name: "Location",
@@ -84,7 +70,7 @@ const UserProductsTable = (props) => {
         <ProductsTableBase
           title="My By-Products"
           columns={columns}
-          data={store.data.products}
+          data={products}
         />
       ) : null}
     </>

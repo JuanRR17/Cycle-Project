@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       data: null,
       message: null,
       types: ["Select a type", "Organic", "Plastic", "Textile", "Metallic"],
-      units: ["Select an unit", "kg", "g", "m", "m2", "m3", "L", "unit/s"],
+      units: ["Select an unit", "kg", "g", "m", "㎡", "L", "unit/s"],
       product: null,
       update: false,
       all_products: null,
@@ -41,8 +41,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       syncTokenFromSessionStore: () => {
         const store = getStore();
         const token = sessionStorage.getItem("token");
-        if (token && token != "" && token)
-          if (!store.token) setStore({ token: token });
+        if (token && !store.token) {
+          console.log("syncTokenFromSessionStore");
+          setStore({ token: token });
+        }
       },
       //SIGN UP
       signup: async (username, email, password) => {

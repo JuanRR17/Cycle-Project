@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo, useRef } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/home.css";
 import PropTypes from "prop-types";
@@ -14,6 +14,7 @@ const UserDataForm = ({ handleSetEdit }) => {
   const [password, setPassword] = useState("");
 
   const id = store.data.id;
+  const data = useRef(store.data);
 
   const handleConfirm = async () => {
     if (
@@ -36,19 +37,20 @@ const UserDataForm = ({ handleSetEdit }) => {
   };
 
   useEffect(() => {
+    console.log("UserDataForm:", data);
     if (store.data) {
-      setUsername(store.data.username);
-      setEmail(store.data.email);
-      setCompany(store.data.company ? store.data.company : "");
-      setPhone(store.data.phone ? store.data.phone : "");
-      setLocation(store.data.location ? store.data.location : "");
-      setPassword(store.data.password ? store.data.password : "");
+      setUsername(data.current.username);
+      setEmail(data.current.email);
+      setCompany(data.current.company ? data.current.company : "");
+      setPhone(data.current.phone ? data.current.phone : "");
+      setLocation(data.current.location ? data.current.location : "");
+      setPassword(data.current.password ? data.current.password : "");
     }
-  }, [store.data]);
+  }, [data.current]);
 
   return (
     <>
-      {store.data ? (
+      {data.current ? (
         <div className="container">
           <div className="row">
             {/* username field */}

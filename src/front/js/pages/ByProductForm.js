@@ -16,7 +16,9 @@ const ByProductForm = (props) => {
   const [description, setDescription] = useState("");
   const [type, setType] = useState(0);
   const [unit, setUnit] = useState(0);
-  const [stock, setStock] = useState("");
+  const [stock, setStock] = useState(0);
+
+  const [errors, setErrors] = useState();
 
   const types = store.types;
   const units = store.units;
@@ -54,6 +56,38 @@ const ByProductForm = (props) => {
   const handleConfirm = async () => {
     // const inputImage = document.getElementById("inputImage").files[0];
     // console.log("inputImage:", inputImage);
+
+    //Gather errors
+    let select_errors;
+    if (+type === 0) {
+      select_errors = { ...select_errors, type: "Select a type" };
+    }
+    if (+unit === 0) {
+      select_errors = { ...select_errors, unit: "Select a unit" };
+    }
+    if (!name) {
+      select_errors = { ...select_errors, name: "Enter a name" };
+    }
+    if (!location) {
+      select_errors = { ...select_errors, location: "Enter a location" };
+    }
+    if (isNaN(price) || price <= 0) {
+      select_errors = {
+        ...select_errors,
+        price: "Enter a price",
+      };
+    }
+
+    //Check if any error exists
+    // console.log("select_errors", select_errors);
+    if (select_errors) {
+      setErrors(select_errors);
+      return;
+    } else if (errors) {
+      setErrors("");
+    }
+
+    //Create product if there are no errors
     if (isNaN(id)) {
       if (
         await actions.new_product(
@@ -115,6 +149,9 @@ const ByProductForm = (props) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
+              {errors?.name ? (
+                <div className="text-danger">{errors?.name}</div>
+              ) : null}
             </div>
             {/* Location field */}
             <div className="mb-3 col-md-6">
@@ -129,6 +166,9 @@ const ByProductForm = (props) => {
                 value={location ?? ""}
                 onChange={(e) => setLocation(e.target.value)}
               />
+              {errors?.location ? (
+                <div className="text-danger">{errors?.location}</div>
+              ) : null}
             </div>
             {/* Price field */}
             <div className="mb-3 col-md-6">
@@ -145,6 +185,9 @@ const ByProductForm = (props) => {
                 min="0"
                 onChange={(e) => setPrice(e.target.value)}
               />
+              {errors?.price ? (
+                <div className="text-danger">{errors?.price}</div>
+              ) : null}
             </div>
             {/* Unit field */}
             <div className="mb-3 col-md-6">
@@ -166,6 +209,9 @@ const ByProductForm = (props) => {
                   );
                 })}
               </select>
+              {errors?.unit ? (
+                <div className="text-danger">{errors?.unit}</div>
+              ) : null}
             </div>
             {/* Stock field */}
             <div className="mb-3 col-md-6">
@@ -203,6 +249,9 @@ const ByProductForm = (props) => {
                   );
                 })}
               </select>
+              {errors?.type ? (
+                <div className="text-danger">{errors?.type}</div>
+              ) : null}
             </div>
             {/* Description field */}
             <div className="mb-3 col-12">
