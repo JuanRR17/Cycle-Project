@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import OrdersTableBase from "./OrdersTableBase";
 import { useNavigate } from "react-router-dom";
 
-const MyOrdersTable = (props) => {
+const MyOrdersTable = ({ orders }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 

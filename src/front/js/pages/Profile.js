@@ -127,7 +127,9 @@ const Profile = () => {
             aria-labelledby="panelsStayOpen-headingTwo"
           >
             <div className="accordion-body">
-              <MyOrdersTable orders={store.orders_made} />
+              <MyOrdersTable
+              // orders={store.orders_made}
+              />
             </div>
           </div>
         </div>
