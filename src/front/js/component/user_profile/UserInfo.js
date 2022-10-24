@@ -2,20 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { IconContext } from "react-icons";
 import { BsJournalPlus } from "react-icons/bs";
-import { FaEdit } from "react-icons/fa";
+import { FaUserEdit, FaUserSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const UserInfo = ({ data, handleEdit }) => {
   return (
-    // <div>
-    //   <div>Username: {data?.username}</div>
-    //   <div>Email: {data?.email}</div>
-    //   <div>Company: {data?.company}</div>
-    //   <div>Phone: {data?.phone}</div>
-    //   <div>Location: {data?.location}</div>
-    // </div>
     <div class="page-content page-container" id="page-content">
-      {/* <div class="padding"> */}
       <div class="row container d-flex justify-content-center">
         <div class="col-md-12">
           <div class="card user-card-full">
@@ -30,11 +22,10 @@ const UserInfo = ({ data, handleEdit }) => {
                     />
                   </div>
                   <h6 class="f-w-600">{data?.username}</h6>
-                  {/* <p>{data?.location}</p> */}
                   <IconContext.Provider value={{ className: "", size: 35 }}>
                     <div>
                       <button onClick={handleEdit} className="btn btn-primary">
-                        <FaEdit />
+                        <FaUserEdit />
                       </button>
                       <button type="button" className="btn btn-success ms-2">
                         <Link

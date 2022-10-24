@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import MyOrdersTable from "../component/user_profile/MyOrdersTable";
 import SoldOrdersTable from "../component/user_profile/SoldOrdersTable";
 import { IconContext } from "react-icons";
-import { BsJournalPlus } from "react-icons/bs";
+import { FaUserSlash } from "react-icons/fa";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -58,163 +58,142 @@ const Profile = () => {
   return (
     <div className="mt-5 container">
       <div className="row m-auto bg-warning bg-opacity-75 p-3 justify-content-center">
-        {/* <h1 className="text-center text-light">User Profile</h1> */}
-        {/* <div className="row col-md-10 justify-content-center">
-          <div className="row z-depth-3 justify-content-center"> */}
-        {/* <div className="col-sm-8 rounded-left justify-content-center">
-              <div className="card-block text-center text-black"> */}
-        {/* <i className="fas fa-user-tie fa-7x"></i> */}
         {edit ? (
           <div>
             <UserDataForm handleSetEdit={(value) => setEdit(value)} />
           </div>
         ) : (
-          <>
-            <UserInfo data={store.data} handleEdit={handleEditProfile} />
-            {/* <div>
-              <button onClick={handleEditProfile} className="btn btn-primary">
-                Edit Profile
-              </button>
-            </div> */}
-          </>
+          <UserInfo data={store.data} handleEdit={handleEditProfile} />
         )}
-        {/* </div>
-            </div> */}
-        {/* </div>
-        </div> */}
-      </div>
 
-      {/* <button type="button" className="btn btn-success">
-        <Link to="/byproduct_form" className="text-decoration-none text-light">
-          <IconContext.Provider value={{ className: "", size: 35 }}>
-            <BsJournalPlus />
-          </IconContext.Provider>
-        </Link>
-      </button> */}
-      <div className="accordion" id="accordionPanelsStayOpenExample">
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="panelsStayOpen-headingOne">
-            <button
-              className="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#panelsStayOpen-collapseOne"
-              aria-expanded="true"
-              aria-controls="panelsStayOpen-collapseOne"
+        <div className="accordion" id="accordionPanelsStayOpenExample">
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="panelsStayOpen-headingOne">
+              <button
+                className="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseOne"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseOne"
+              >
+                My By-Products
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapseOne"
+              className="accordion-collapse collapse show"
+              aria-labelledby="panelsStayOpen-headingOne"
             >
-              My By-Products
-            </button>
-          </h2>
-          <div
-            id="panelsStayOpen-collapseOne"
-            className="accordion-collapse collapse show"
-            aria-labelledby="panelsStayOpen-headingOne"
-          >
-            <div className="accordion-body">
-              <UserProductsTable products={store.data?.products} />
+              <div className="accordion-body">
+                <UserProductsTable products={store.data?.products} />
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseTwo"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseTwo"
+              >
+                My Made Orders
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapseTwo"
+              className="accordion-collapse collapse"
+              aria-labelledby="panelsStayOpen-headingTwo"
+            >
+              <div className="accordion-body">
+                <MyOrdersTable
+                // orders={store.orders_made}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="panelsStayOpen-headingThree">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseThree"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseThree"
+              >
+                My Sold Orders
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapseThree"
+              className="accordion-collapse collapse"
+              aria-labelledby="panelsStayOpen-headingThree"
+            >
+              <div className="accordion-body">
+                <SoldOrdersTable />
+              </div>
             </div>
           </div>
         </div>
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
-            <button
-              className="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#panelsStayOpen-collapseTwo"
-              aria-expanded="false"
-              aria-controls="panelsStayOpen-collapseTwo"
-            >
-              My Made Orders
-            </button>
-          </h2>
-          <div
-            id="panelsStayOpen-collapseTwo"
-            className="accordion-collapse collapse"
-            aria-labelledby="panelsStayOpen-headingTwo"
-          >
-            <div className="accordion-body">
-              <MyOrdersTable
-              // orders={store.orders_made}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="panelsStayOpen-headingThree">
-            <button
-              className="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#panelsStayOpen-collapseThree"
-              aria-expanded="false"
-              aria-controls="panelsStayOpen-collapseThree"
-            >
-              My Sold Orders
-            </button>
-          </h2>
-          <div
-            id="panelsStayOpen-collapseThree"
-            className="accordion-collapse collapse"
-            aria-labelledby="panelsStayOpen-headingThree"
-          >
-            <div className="accordion-body">
-              <SoldOrdersTable />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        {/* Button trigger modal */}
-        <button
-          type="button"
-          className="btn btn-danger"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-          Delete Profile
-        </button>
+        <div className="text-center">
+          {/* Button trigger modal */}
 
-        {/* <Modal> */}
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  Delete Profile
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                Are you sure you want to delete your Profile?
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  data-bs-dismiss="modal"
-                  onClick={() => actions.delete_profile(store.data.id)}
-                >
-                  Yes, Remove my Profile
-                </button>
+          <button
+            type="button"
+            className="btn btn-danger m-2"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <IconContext.Provider value={{ className: "", size: 35 }}>
+              <FaUserSlash />
+            </IconContext.Provider>
+          </button>
+
+          {/* <Modal> */}
+          <div
+            className="modal fade"
+            id="exampleModal"
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">
+                    Delete Profile
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  Are you sure you want to delete your Profile?
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    data-bs-dismiss="modal"
+                    onClick={() => actions.delete_profile(store.data.id)}
+                  >
+                    Yes, Remove my Profile
+                  </button>
+                </div>
               </div>
             </div>
           </div>
