@@ -9,7 +9,7 @@ const FavouriteLI = ({ fav }) => {
   const { store, actions } = useContext(Context);
   // console.log("fav:", fav);
   return (
-    <li className="dropdown-item ">
+    <li className="dropdown-item list-group-item">
       <Link className="text-decoration-none" to={"/product/" + fav.product_id}>
         {fav.product.name}
       </Link>

@@ -29,7 +29,7 @@ const Favourites = () => {
             <span className="badge p-1">{store.favourites.length}</span>
           </button>
           <ul
-            className="dropdown-menu dropdown-menu-end"
+            className="dropdown-menu dropdown-menu-end p-0 border-0"
             aria-labelledby="dropdownMenuLink"
             style={ulStyle}
           >

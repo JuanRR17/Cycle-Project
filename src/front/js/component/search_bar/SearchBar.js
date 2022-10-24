@@ -4,6 +4,7 @@ import { ImSearch } from "react-icons/im";
 import { Link } from "react-router-dom";
 
 const SearchBar = ({ placeholder, data }) => {
+  const LIstyle = {};
   return (
     <div className="dropdown">
       <div className="form-control me-2 d-flex">
@@ -17,10 +18,16 @@ const SearchBar = ({ placeholder, data }) => {
           id="dropdownMenuButton1"
           data-bs-toggle="dropdown"
         />
-        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul
+          className="dropdown-menu p-0 border-0"
+          aria-labelledby="dropdownMenuButton1"
+        >
           {data.map((product) => {
             return (
-              <li key={product.id} className="p-1">
+              <li
+                key={product.id}
+                className="list-group-item list-group-item-action p-1"
+              >
                 <Link
                   className="text-decoration-none"
                   to={`/product/${product.id}`}

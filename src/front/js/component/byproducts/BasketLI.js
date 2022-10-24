@@ -8,7 +8,7 @@ const BasketLI = ({ item }) => {
   const { store, actions } = useContext(Context);
 
   return (
-    <li className="dropdown-item ">
+    <li className="dropdown-item list-group-item">
       <Link className="text-decoration-none" to={"/product/" + item.product_id}>
         {item.product.name}
       </Link>
