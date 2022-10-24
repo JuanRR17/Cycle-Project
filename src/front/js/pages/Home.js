@@ -7,8 +7,8 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
 
   return (
-    <div className="text-center mt-5">
-      <div id="body">
+    <div className="row m-auto bg-warning bg-opacity-75 p-3 justify-content-center">
+      <div className="container col-md-8">
         <h1>Think before throwing away</h1>
         <h2>
           Sustainability made simple. The platform that unites industry and
@@ -38,26 +38,32 @@ export const Home = () => {
           lost. Ideas are not lacking, but action is, and now is the time.
         </p>
       </div>
-      <p>Do you want to see the by-products available?</p>
-      <Link to="/prod_list">
-        <button className="btn btn-primary">See by-products</button>
-      </Link>
-      <p></p>
-      {!store.token ? (
-        <>
-          <p>Interested in joining Thinkay?</p>
-          <Link to="/signup">
-            <button className="btn btn-primary">Sign up</button>
-          </Link>
-        </>
-      ) : (
-        ""
-      )}
-      <p></p>
-      <p>Need inspiration? Check out our Blog to get inspired!</p>
-      <Link to="/blog">
-        <button className="btn btn-primary">Blog</button>
-      </Link>
+      <div className="container col-md-8">
+        <div className="row">
+          <div className="col-md-4">
+            <p>Do you want to see the by-products available?</p>
+            <Link to="/prod_list">
+              <button className="btn btn-primary">See by-products</button>
+            </Link>
+          </div>
+
+          {!store.token && (
+            <div className="col-md-4">
+              <p>Interested in joining Thinkay?</p>
+              <Link to="/signup">
+                <button className="btn btn-primary">Sign up</button>
+              </Link>
+            </div>
+          )}
+          {/* 
+          <div className="col-md-4">
+            <p>Need inspiration? Check out our Blog to get inspired!</p>
+            <Link to="/blog">
+              <button className="btn btn-primary">Blog</button>
+            </Link>
+          </div> */}
+        </div>
+      </div>
     </div>
   );
 };
