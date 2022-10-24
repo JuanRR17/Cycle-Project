@@ -1,42 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { ImSearch } from "react-icons/im";
 import { Link } from "react-router-dom";
 
 const SearchBar = ({ placeholder, data }) => {
-  const LIstyle = {};
+  const [filteredData, setFilteredData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
+
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = data.filter((value) => {
+      return value.name.toLowerCase().includes(searchWord.toLowerCase());
+    });
+    if (searchWord === "") {
+      setFilteredData([]);
+    } else setFilteredData(newFilter);
+  };
+
+  const clearInput = () => {
+    setFilteredData([]);
+    setWordEntered("");
+  };
+
   return (
     <div className="dropdown">
-      <div className="form-control me-2 d-flex">
-        <div>
-          <ImSearch />
-        </div>
+      <div className="d-flex align-items-center form-control p-0">
         <input
-          className="border-0 flex-grow-1"
+          className="flex-grow-1 border-0 form-control"
           type="text"
           placeholder={placeholder}
           id="dropdownMenuButton1"
           data-bs-toggle="dropdown"
+          onChange={handleFilter}
+          value={wordEntered}
         />
+        <div className="p-2">
+          {wordEntered ? (
+            <button
+              type="button"
+              className="btn-close"
+              aria-label="Close"
+              onClick={clearInput}
+            ></button>
+          ) : (
+            <ImSearch />
+          )}
+        </div>
+
         <ul
           className="dropdown-menu p-0 border-0"
           aria-labelledby="dropdownMenuButton1"
         >
-          {data.map((product) => {
-            return (
-              <li
-                key={product.id}
-                className="list-group-item list-group-item-action p-1"
-              >
-                <Link
-                  className="text-decoration-none"
-                  to={`/product/${product.id}`}
+          {filteredData.length > 0 ? (
+            filteredData.map((product) => {
+              return (
+                <li
+                  key={product.id}
+                  className="list-group-item list-group-item-action p-1"
                 >
-                  {product.name}
-                </Link>
-              </li>
-            );
-          })}
+                  <Link
+                    className="text-decoration-none"
+                    to={`/product/${product.id}`}
+                  >
+                    {product.name}
+                  </Link>
+                </li>
+              );
+            })
+          ) : (
+            <li className="list-group-item list-group-item-action p-1">
+              No Results{" "}
+            </li>
+          )}
         </ul>
       </div>
     </div>
