@@ -53,21 +53,29 @@ const SearchBar = ({ placeholder, data }) => {
           aria-labelledby="dropdownMenuButton1"
         >
           {filteredData.length > 0 ? (
-            filteredData.map((product) => {
-              return (
-                <li
-                  key={product.id}
-                  className="list-group-item list-group-item-action p-1"
-                >
-                  <Link
-                    className="text-decoration-none"
-                    to={`/product/${product.id}`}
+            <>
+              <li className="list-group-item list-group-item-action p-1">
+                <span>Name</span> <span className="ps-2 float-end">Price</span>
+              </li>
+              {filteredData.map((product) => {
+                return (
+                  <li
+                    key={product.id}
+                    className="list-group-item list-group-item-action p-1"
                   >
-                    {product.name}
-                  </Link>
-                </li>
-              );
-            })
+                    <Link
+                      className="text-decoration-none"
+                      to={`/product/${product.id}`}
+                    >
+                      <span>{product.name}</span>{" "}
+                      <span className="ps-4 float-end">
+                        {product.price}€/{product.unit}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </>
           ) : (
             <li className="list-group-item list-group-item-action p-1">
               No Results{" "}
