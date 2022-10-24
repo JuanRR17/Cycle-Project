@@ -18,7 +18,7 @@ import { BlogEntryForm } from "./pages/BlogEntryForm";
 import injectContext from "./store/appContext";
 
 import Navbar from "./component/Navbar";
-import { Footer } from "./component/footer";
+import Footer from "./component/Footer";
 
 //create your first component
 const Layout = () => {
@@ -27,7 +27,7 @@ const Layout = () => {
   const basename = process.env.BASENAME || "";
 
   return (
-    <div>
+    <div className="d-flex flex-column h-100">
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           <Navbar />
