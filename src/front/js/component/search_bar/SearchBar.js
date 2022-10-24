@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { ImSearch } from "react-icons/im";
 
 const SearchBar = ({ placeholder, data }) => {
-  const test = [1, 2, 3];
   return (
     <div className="dropdown">
       <div className="form-control me-2 d-flex">
