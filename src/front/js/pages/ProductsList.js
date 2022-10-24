@@ -25,14 +25,14 @@ const ProductsList = () => {
 
   useEffect(() => {
     if (+filter !== 0) {
-      const newFilteredList = store.all_products.filter((product) => {
+      const newFilteredList = all_Products.filter((product) => {
         return product.type === store.types[filter];
       });
       setFilteredList(newFilteredList);
     } else {
-      setFilteredList(store.all_products);
+      setFilteredList(all_Products);
     }
-  }, [filter]);
+  }, [filter, all_Products]);
 
   useEffect(() => {
     actions.syncTokenFromSessionStore();
@@ -49,14 +49,14 @@ const ProductsList = () => {
       {store.all_products ? (
         <>
           <div className="container-fluid">
-            <div className="row">
-              <div className="col-3 m-auto">
+            <div className="row d-flex justify-content-center m-auto">
+              <div className="col-sm-4 ms-auto">
                 <SearchBar
                   placeholder="Search By-Products"
                   data={store.all_products}
                 />
               </div>
-              <div className="col-3 m-auto">
+              <div className="col-sm-4 me-auto">
                 <Filter
                   label="Type"
                   fields={store.types}

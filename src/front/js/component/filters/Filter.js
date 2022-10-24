@@ -11,10 +11,10 @@ const Filter = ({ label, fields, handleSetFilter }) => {
 
   return (
     <div className="d-flex">
-      <span>Filter by {label}</span>
+      <span className="m-1">{label}</span>
       <select
         name="select"
-        className="form-select"
+        className="form-select w-auto"
         id="inputType"
         value={value}
         onChange={handleChange}
@@ -23,7 +23,7 @@ const Filter = ({ label, fields, handleSetFilter }) => {
           if (idx === 0) {
             return (
               <option key={idx} value={idx}>
-                No Filter
+                All
               </option>
             );
           } else {
