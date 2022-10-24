@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ImSearch } from "react-icons/im";
+import { Link } from "react-router-dom";
 
 const SearchBar = ({ placeholder, data }) => {
   return (
@@ -16,22 +17,19 @@ const SearchBar = ({ placeholder, data }) => {
           id="dropdownMenuButton1"
           data-bs-toggle="dropdown"
         />
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li>
-            <a class="dropdown-item" href="#">
-              Action
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">
-              Another action
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">
-              Something else here
-            </a>
-          </li>
+        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          {data.map((product) => {
+            return (
+              <li key={product.id} className="p-1">
+                <Link
+                  className="text-decoration-none"
+                  to={`/product/${product.id}`}
+                >
+                  {product.name}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
