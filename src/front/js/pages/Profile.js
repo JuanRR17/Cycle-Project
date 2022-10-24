@@ -57,8 +57,14 @@ const Profile = () => {
 
   return (
     <div className="mt-5 container">
-      <h1 className="text-center">User Profile</h1>
-      <div className="m-auto w-75 bg-warning p-3">
+      <h1 className="text-center text-light">User Profile</h1>
+      <div className="row m-auto w-75 bg-warning bg-opacity-75 p-3 justify-content-center">
+        <div className="row col-md-10 justify-content-center">
+          <div className="row z-depth-3 justify-content-center">
+            <div className="col-sm-8 rounded-left justify-content-center">
+              <div className="card-block text-center text-black">
+                <i className="fas fa-user-tie fa-7x">
+                </i>
         {edit ? (
           <div>
             <UserDataForm handleSetEdit={(value) => setEdit(value)} />
@@ -71,12 +77,18 @@ const Profile = () => {
             </button>
           </>
         )}
+                
+              </div>
+             </div>
+          </div>
+        </div>
       </div>
-      {/* <div>
+      
+      <div>
         <button onClick={() => actions.logout()} className="btn btn-danger">
           Log out
         </button>
-      </div> */}
+      </div>
       <button type="button" className="btn btn-success">
         <Link to="/byproduct_form" className="text-decoration-none text-light">
           <IconContext.Provider value={{ className: "", size: 35 }}>
