@@ -50,13 +50,13 @@ const ProductsList = () => {
         <>
           <div className="container-fluid">
             <div className="row d-flex justify-content-center m-auto">
-              <div className="col-sm-4 ms-auto">
+              <div className="col-md-4 ms-auto">
                 <SearchBar
                   placeholder="Search By-Products"
                   data={store.all_products}
                 />
               </div>
-              <div className="col-sm-4 me-auto">
+              <div className="col-md-4 me-auto">
                 <Filter
                   label="Type"
                   fields={store.types}

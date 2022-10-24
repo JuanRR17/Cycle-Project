@@ -23,6 +23,10 @@ const SearchBar = ({ placeholder, data }) => {
     setWordEntered("");
   };
 
+  const ULstyle = {
+    minWidth: "max-content",
+  };
+
   return (
     <div className="dropdown">
       <div className="d-flex align-items-center form-control p-0">
@@ -49,8 +53,9 @@ const SearchBar = ({ placeholder, data }) => {
         </div>
 
         <ul
-          className="dropdown-menu p-0 border-0"
+          className="dropdown-menu p-0 border-0 w-50"
           aria-labelledby="dropdownMenuButton1"
+          style={ULstyle}
         >
           {filteredData.length > 0 ? (
             <>
