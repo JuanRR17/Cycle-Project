@@ -28,7 +28,7 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
           aria-label="Basic mixed styles example"
         >
           <IconContext.Provider
-            value={{ className: "text-secondary py-1", size: 30 }}
+            value={{ className: "text-success py-1", size: 30 }}
           >
             <MdAddCircle
               type="button"
@@ -40,7 +40,7 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
               value={quantity}
               onChange={handleChange}
               type="text"
-              className="btn border p-0 mx-0 rounded-3"
+              className="btn border p-0 mx-0 rounded-3 text-light"
               id="btncheck2"
               size={quantity.toString().length}
               placeholder="0"

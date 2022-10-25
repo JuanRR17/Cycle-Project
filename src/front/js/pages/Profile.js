@@ -58,7 +58,7 @@ const Profile = () => {
 
   return (
     <div className="mt-5 container">
-      <div className="row bg-warning bg-opacity-75 p-5 justify-content-center">
+      <div className="row bg-custom p-5 justify-content-center">
         {edit ? (
           <UserForm edit={true} handleSetEdit={(value) => setEdit(value)} />
         ) : (

@@ -31,7 +31,7 @@ const SearchBar = ({ placeholder, data }) => {
     <div className="dropdown">
       <div className="d-flex align-items-center form-control p-0">
         <input
-          className="flex-grow-1 border-0 form-control"
+          className="flex-grow-1 border-0 form-control  m-0 shadow-none"
           type="text"
           placeholder={placeholder}
           id="dropdownMenuButton1"

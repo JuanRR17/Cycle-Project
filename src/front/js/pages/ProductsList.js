@@ -43,13 +43,13 @@ const ProductsList = () => {
   }, [token]);
 
   return (
-    <div className="text-center mt-5">
-      <h1>By-Products List</h1>
+    <div className="text-center m-5 bg-custom  py-5">
+      <h1 className="fw-bolder text-light">By-Products</h1>
 
       {store.all_products ? (
         <>
           <div className="container-fluid">
-            <div className="row d-flex justify-content-center m-auto">
+            <div className="row d-flex justify-content-center mx-5 my-3">
               <div className="col-md-4 ms-auto">
                 <SearchBar
                   placeholder="Search By-Products"

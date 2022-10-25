@@ -79,8 +79,12 @@ const UserForm = ({ edit, handleSetEdit }) => {
 
   const handleCancel = () => {
     actions.clearmessage();
-    if (edit) handleSetEdit(false);
-    navigate("/");
+    if (edit) {
+      handleSetEdit(false);
+      navigate("/profile");
+    } else {
+      navigate("/");
+    }
   };
 
   return (

@@ -17,9 +17,6 @@ export const Product = () => {
   const location = useLocation();
   const id = useMemo(() => location.pathname.split("/").slice(-1), [location]);
 
-  // const id = location.pathname.split("/").slice(-1);
-  console.log("store:", store);
-
   useEffect(() => {
     actions.syncTokenFromSessionStore();
     if (!store.data) {
@@ -62,11 +59,13 @@ export const Product = () => {
 
   return (
     <div className="mt-3">
-      <div className="m-auto w-75  bg-warning p-5">
+      <div className="m-auto w-75 bg-custom p-5">
         {store.product ? (
           <>
-            <h1 className="text-center fw-bolder mb-4">{product.name}</h1>
-            <div className="container-fluid mx-0 text-success">
+            <h1 className="text-center text-light fw-bolder mb-4">
+              {product.name}
+            </h1>
+            <div className="container-fluid mx-0 text-light">
               <div className="row gap-3">
                 <div className="col-lg-7">
                   <img
