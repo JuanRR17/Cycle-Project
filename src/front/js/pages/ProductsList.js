@@ -43,9 +43,7 @@ const ProductsList = () => {
   }, [token]);
 
   return (
-    <div className="text-center m-5 bg-custom  py-5">
-      <h1 className="fw-bolder text-light">By-Products</h1>
-
+    <div className="text-center m-5 bg-light bg-opacity-50 py-5">
       {store.all_products ? (
         <>
           <div className="container-fluid">

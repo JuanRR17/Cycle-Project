@@ -20,10 +20,13 @@ const ProductCard = ({ details }) => {
 
   const style = {
     width: "350px",
-    backgroundColor: "#ce9140",
+    backgroundColor: "#e2e0ce",
   };
   return (
-    <div className="card p-1 m-2 bg-gradient" style={style}>
+    <div
+      className="card p-1 m-2 bg-gradient  border border-success border-5"
+      style={style}
+    >
       <div className="card-body">
         <div className="card-title d-flex justify-content-between">
           <span>{details.name}</span>
