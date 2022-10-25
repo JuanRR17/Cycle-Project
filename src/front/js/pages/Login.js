@@ -29,11 +29,11 @@ const Login = () => {
 
   return (
     <div className="m-auto bg-custom px-5 py-4 shadow rounded-3">
-      <h1 className="text-light fw-bolder text-center">Login</h1>
+      <h1 className="text-on-bg text-center">Login</h1>
 
       <div>
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="text-on-bg form-label">
             Email address
           </label>
           <input
@@ -46,7 +46,10 @@ const Login = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
+          <label
+            htmlFor="exampleInputPassword1"
+            className="text-on-bg form-label"
+          >
             Password
           </label>
           <input

@@ -35,7 +35,6 @@ const Basket = () => {
             </IconContext.Provider>
 
             <span className="p-1 fw-bolder">{store.basket.length}</span>
-            <span className=""></span>
           </button>
           <ul
             className="dropdown-menu dropdown-menu-end p-1 border-0 bg-success btn-custom"
@@ -57,7 +56,7 @@ const Basket = () => {
                 })}
               </>
             ) : (
-              <li className="text-center">(empty)</li>
+              <li className="text-center text-light">(empty)</li>
             )}
           </ul>
         </div>

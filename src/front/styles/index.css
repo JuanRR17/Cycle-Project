@@ -29,9 +29,16 @@ input[type] {
 }
 
 label {
-  color: rgb(219, 226, 223);
   font-weight: bold;
   margin-bottom: 0.5rem;
+}
+
+.text-on-bg {
+  color: rgb(219, 226, 223);
+}
+
+h1 {
+  font-weight: bold;
 }
 
 .bg-custom {

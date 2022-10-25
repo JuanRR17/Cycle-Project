@@ -1,8 +1,7 @@
 import React, { useContext, useState, useEffect, useMemo, useRef } from "react";
 import { Context } from "../store/appContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
-import EditUserDataForm from "../component/user_profile/EditUserDataForm";
 import UserInfo from "../component/user_profile/UserInfo";
 import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
