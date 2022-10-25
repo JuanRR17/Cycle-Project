@@ -65,7 +65,7 @@ const Navbar = () => {
                   <div>
                     <FaPowerOff
                       onClick={() => actions.logout()}
-                      className="btn btn-danger p-2 m-1"
+                      className="btn btn-danger p-2 m-1 btn-custom"
                     />
                   </div>
                 </IconContext.Provider>

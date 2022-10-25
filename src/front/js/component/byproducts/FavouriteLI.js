@@ -10,7 +10,10 @@ const FavouriteLI = ({ fav }) => {
   // console.log("fav:", fav);
   return (
     <li className="dropdown-item list-group-item">
-      <Link className="text-decoration-none" to={"/product/" + fav.product_id}>
+      <Link
+        className="text-decoration-none pe-2 text-danger"
+        to={"/product/" + fav.product_id}
+      >
         {fav.product.name}
       </Link>
       <span className="float-end">

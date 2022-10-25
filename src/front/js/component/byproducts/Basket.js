@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../../store/appContext";
 import BasketLI from "./BasketLI";
 import { BsCart, BsFillCartFill } from "react-icons/bs";
+import { IconContext } from "react-icons";
 
 const Basket = () => {
   const { store, actions } = useContext(Context);
@@ -20,28 +21,30 @@ const Basket = () => {
       {store.token ? (
         <div className="dropdown">
           <button
-            className="btn btn-success p-1 m-1"
+            className="btn btn-success p-1 m-1 btn-custom"
             type="button"
             id="dropdownMenuButton1"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             data-bs-auto-close="outside"
           >
-            <span className="pe-1">
-              {store.basket.length === 0 ? <BsCart /> : <BsFillCartFill />}
-            </span>
+            <IconContext.Provider value={{ className: "px-1", size: 25 }}>
+              <span>
+                {store.basket.length === 0 ? <BsCart /> : <BsFillCartFill />}
+              </span>
+            </IconContext.Provider>
 
-            <span className="badge p-1">{store.basket.length}</span>
+            <span className="p-1 fw-bolder">{store.basket.length}</span>
             <span className=""></span>
           </button>
           <ul
-            className="dropdown-menu dropdown-menu-end p-0 border-0"
+            className="dropdown-menu dropdown-menu-end p-1 border-0 bg-success btn-custom"
             aria-labelledby="dropdownMenuLink"
             style={ulStyle}
           >
             {store.basket.length > 0 ? (
               <>
-                <li className="text-center p-1 bg-success bg-gradient">
+                <li className="text-center p-1 bg-transparent">
                   <Link
                     to="/confirm_order"
                     className="text-decoration-none text-light"

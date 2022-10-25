@@ -28,16 +28,22 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="m-auto w-50">
-      <h1>Login</h1>
+    <div className="m-auto bg-warning px-5 py-4 shadow rounded-3 bg-gradient">
+      {/* <div className="text-center pb-2 text-dark fw-bolder">
+        <h2>Login</h2>
+      </div> */}
+
       <div>
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
+          <label
+            htmlFor="exampleInputEmail1"
+            className="form-label text-success fw-bolder "
+          >
             Email address
           </label>
           <input
             type="email"
-            className="form-control"
+            className="form-control shadow"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             value={email}
@@ -45,28 +51,35 @@ const Login = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
+          <label
+            htmlFor="exampleInputPassword1"
+            className="form-label text-success fw-bolder"
+          >
             Password
           </label>
           <input
             type="password"
-            className="form-control"
+            className="form-control shadow"
             id="exampleInputPassword1"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        {store.message && <div>{store.message}</div>}
-        <button
-          // type="submit"
-          className="btn btn-success"
-          onClick={handleLogin}
-        >
-          Login
-        </button>
-        <button onClick={handleCancel} className="btn btn-danger">
-          Cancel
-        </button>
+        {store.message && (
+          <span className="text-danger fw-bolder">{store.message}</span>
+        )}
+        <div className="py-2 d-flex gap-2">
+          <button
+            // type="submit"
+            className="btn btn-success btn-custom"
+            onClick={handleLogin}
+          >
+            Login
+          </button>
+          <button onClick={handleCancel} className="btn btn-danger btn-custom ">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
