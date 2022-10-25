@@ -15,9 +15,7 @@ export const SignUp = () => {
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState();
-  const [message, setMessage] = useState(store.message);
 
-  // const message = useMemo(() => store.message, [store.message]);
   useEffect(() => {
     actions.clearmessage();
   }, []);
@@ -35,7 +33,6 @@ export const SignUp = () => {
     }
 
     //Check if any error exists
-    // console.log("select_errors", select_errors);
     if (select_errors) {
       setErrors(select_errors);
       actions.clearmessage();
@@ -56,12 +53,12 @@ export const SignUp = () => {
 
   return (
     <div className="m-auto w-75 bg-warning p-3">
-      <h1>Create Profile</h1>
+      <h1 className="text-light fw-bolder text-center">Create Profile</h1>
       {/* <form className="container"> */}
       <div className="container">
         <div className="row">
           {/* username field */}
-          <div className="mb-3 col col-lg-6">
+          <div className="mb-3 col-md-6">
             <label htmlFor="inputUser" className="form-label">
               Username *
             </label>
@@ -101,7 +98,7 @@ export const SignUp = () => {
             ) : null}
           </div>
           {/* Company field */}
-          <div className="mb-3 col-md-6">
+          <div className="mb-3 col-sm-6 col-md-4">
             <label htmlFor="inputCompany" className="form-label">
               Company
             </label>
@@ -114,7 +111,7 @@ export const SignUp = () => {
             />
           </div>
           {/* Phone field */}
-          <div className="mb-3 col-md-6">
+          <div className="mb-3 col-sm-6 col-md-4">
             <label htmlFor="inputPhone" className="form-label">
               Phone
             </label>
@@ -127,7 +124,7 @@ export const SignUp = () => {
             />
           </div>
           {/* Location field */}
-          <div className="mb-3 col-md-6">
+          <div className="mb-3 col-sm-6 col-md-4">
             <label htmlFor="inputLocation" className="form-label">
               Location
             </label>
@@ -142,7 +139,7 @@ export const SignUp = () => {
         </div>
         <div className="row">
           {/* password field */}
-          <div className="mb-3 col-lg-6">
+          <div className="mb-3 col-sm-6">
             <label htmlFor="inputPassword" className="form-label">
               Password *
             </label>
@@ -159,7 +156,6 @@ export const SignUp = () => {
             ) : null}
           </div>
         </div>
-        {/* {store.message ? <div>{store.message}</div> : null} */}
         <div className="py-2 d-flex gap-2">
           <button
             // type="submit"

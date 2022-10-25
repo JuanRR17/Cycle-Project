@@ -118,23 +118,23 @@ const UserDataForm = ({ handleSetEdit }) => {
                 onChange={(e) => setLocation(e.target.value)}
               />
             </div>
-            <div className="row">
-              {/* password field */}
-              <div className="mb-3 col-lg-6">
-                <label htmlFor="inputPassword" className="form-label">
-                  Password
-                </label>
-                <input
-                  required
-                  type="password"
-                  className="form-control"
-                  id="inputPassword"
-                  placeholder="You can change your password here"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
+            {/* <div className="row"> */}
+            {/* password field */}
+            <div className="mb-3 col-lg-6">
+              <label htmlFor="inputPassword" className="form-label">
+                Password
+              </label>
+              <input
+                required
+                type="password"
+                className="form-control"
+                id="inputPassword"
+                placeholder="You can change your password here"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
+            {/* </div> */}
           </div>
           {store.message ? <div>{store.message}</div> : null}
           <button

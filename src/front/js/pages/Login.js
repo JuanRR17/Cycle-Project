@@ -29,9 +29,7 @@ const Login = () => {
 
   return (
     <div className="m-auto bg-warning px-5 py-4 shadow rounded-3 bg-gradient">
-      {/* <div className="text-center pb-2 text-dark fw-bolder">
-        <h2>Login</h2>
-      </div> */}
+      <h1 className="text-light fw-bolder text-center">Login</h1>
 
       <div>
         <div className="mb-3">
