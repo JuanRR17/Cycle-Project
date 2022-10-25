@@ -20,9 +20,10 @@ const ProductCard = ({ details }) => {
 
   const style = {
     width: "350px",
+    backgroundColor: "#ce9140",
   };
   return (
-    <div className="card p-1 m-2" style={style}>
+    <div className="card p-1 m-2 bg-gradient" style={style}>
       <div className="card-body">
         <div className="card-title d-flex justify-content-between">
           <span>{details.name}</span>
@@ -47,14 +48,14 @@ const ProductCard = ({ details }) => {
               <button
                 type="button"
                 onClick={handleClick}
-                className="btn btn-warning"
+                className="btn btn-success btn-custom"
               >
                 Details
               </button>
             </div>
             <div className="col">
               <IconContext.Provider
-                value={{ className: "shared-class", size: 25 }}
+                value={{ className: "shared-class", size: 30 }}
               >
                 <span className="d-flex justify-content-between">
                   <FavouriteIcon product={details} />

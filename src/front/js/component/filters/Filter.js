@@ -11,7 +11,7 @@ const Filter = ({ label, fields, handleSetFilter }) => {
 
   return (
     <div className="d-flex">
-      <span className="m-1">{label}</span>
+      <label className="text-on-bg m-1">{label}: </label>
       <select
         name="select"
         className="form-select w-auto"

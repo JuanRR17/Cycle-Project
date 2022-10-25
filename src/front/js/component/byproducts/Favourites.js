@@ -28,7 +28,7 @@ const Favourites = () => {
             aria-expanded="false"
             data-bs-auto-close="outside"
           >
-            <IconContext.Provider value={{ className: "", size: 20 }}>
+            <IconContext.Provider value={{ className: "", size: 25 }}>
               {store.favourites.length === 0 ? (
                 <AiOutlineStar />
               ) : (
@@ -44,15 +44,17 @@ const Favourites = () => {
             aria-labelledby="dropdownMenuLink"
             style={ulStyle}
           >
-            <li className="text-center p-1 bg-transparent text-success">
-              Favourites
-            </li>
             {store.favourites.length > 0 ? (
-              store.favourites.map((fav) => {
-                return <FavouriteLI key={fav.id} fav={fav} />;
-              })
+              <>
+                <li className="text-center p-1 bg-transparent text-success">
+                  Favourites
+                </li>
+                {store.favourites.map((fav) => {
+                  return <FavouriteLI key={fav.id} fav={fav} />;
+                })}
+              </>
             ) : (
-              <li className="text-center">(empty)</li>
+              <li className="text-center text-success">(empty)</li>
             )}
           </ul>
         </div>

@@ -86,8 +86,8 @@ const ConfirmOrder = (props) => {
   };
 
   return (
-    <div>
-      <div>Confirm Order</div>
+    <div className="m-3 bg-custom px-5 py-4 shadow rounded-3">
+      <h1 className="text-on-bg text-center">Confirm Order</h1>
       <div className="accordion" id="accordionExample">
         {/* ITEMS TABLE */}
         <div className="accordion-item">
@@ -166,22 +166,25 @@ const ConfirmOrder = (props) => {
           </div>
         </div>
       </div>
-      <button className="btn btn-success" onClick={handleConfirm}>
-        Confirm
-      </button>
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-        className="btn btn-danger"
-      >
-        Cancel
-      </button>
+
       {errors?.total && store.basket.length === 0 ? (
-        <div>{errors?.total}</div>
+        <div className="text-danger fw-bolder">{errors?.total}</div>
       ) : (
         ""
       )}
+      <div className="py-2 d-flex gap-2">
+        <button className="btn btn-success btn-custom" onClick={handleConfirm}>
+          Confirm
+        </button>
+        <button
+          onClick={() => {
+            navigate(-1);
+          }}
+          className="btn btn-danger btn-custom"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };
