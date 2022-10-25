@@ -4,11 +4,10 @@
 body {
   background-image: url(https://naranjasribera.com/wp-content/uploads/2019/03/flor-de-azahar.jpg);
   background-position: center;
-  /* background-repeat: no-repeat; */
   background-size: cover;
 }
 /* body {
-    background-color: #f9f9fa
+  background-color: #2d972d;
 } */
 
 .btn-custom {

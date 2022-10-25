@@ -10,8 +10,8 @@ const Filter = ({ label, fields, handleSetFilter }) => {
   };
 
   return (
-    <div className="d-flex">
-      <label className="text-on-bg m-1">{label}: </label>
+    <div className="d-flex bg">
+      {/* <label className="text-on-bg m-1">{label}: </label> */}
       <select
         name="select"
         className="form-select w-auto"
@@ -23,7 +23,7 @@ const Filter = ({ label, fields, handleSetFilter }) => {
           if (idx === 0) {
             return (
               <option key={idx} value={idx}>
-                All
+                {label}
               </option>
             );
           } else {
