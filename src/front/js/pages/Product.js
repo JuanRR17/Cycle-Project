@@ -62,98 +62,113 @@ export const Product = () => {
 
   return (
     <div className="mt-3">
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => navigate("/prod_list")}
-      >
-        <TiArrowBackOutline /> Back
-      </button>
-
-      {store.product ? (
-        <>
-          <h1 className="text-center">{product.name}</h1>
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-8">
-                <img
-                  src={thinkay}
-                  alt={product.name}
-                  className="img-fluid img-thumbnail"
-                />
-              </div>
-              <div className="col-sm-4">
-                <div>Type: {product.type}</div>
-                {store.data ? (
-                  <>
-                    <div>Location: {product.location}</div>
-                    {store.token ? (
-                      <div>
-                        Price:
-                        {product.price} €/{product.unit}
+      <div className="m-auto w-75  bg-warning p-5">
+        <button
+          type="button"
+          className="btn btn-danger btn-custom m-2 float-end"
+          onClick={() => navigate("/prod_list")}
+        >
+          <TiArrowBackOutline /> Back
+        </button>
+        {store.product ? (
+          <>
+            <h1 className="text-center fw-bolder mb-4">{product.name}</h1>
+            <div className="container-fluid mx-0 text-success">
+              <div className="row gap-3">
+                <div className="col-lg-8">
+                  <img
+                    src={thinkay}
+                    alt={product.name}
+                    className="img-fluid img-thumbnail shadow"
+                  />
+                </div>
+                <div className="row col-lg-4">
+                  <div className="col-4 col-lg-12">
+                    <label>Type:</label> {product.type}
+                  </div>
+                  {store.data ? (
+                    <>
+                      <div className="col-4 col-lg-12">
+                        {" "}
+                        <label>Location:</label> {product.location}
                       </div>
-                    ) : (
-                      ""
-                    )}
-                    <div>
-                      Stock: {product.stock} {product.unit}
-                    </div>
-                    {product.user_id === store.data.id ? (
-                      <div>Created By You</div>
-                    ) : (
-                      <>
-                        <div>Created By {product.user.username}</div>
-                        {/* <div>Phone: {product.user.phone}</div>
+                      {store.token ? (
+                        <div className="col-4 col-lg-12">
+                          <label>Price:</label>
+                          {product.price} €/{product.unit}
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      <div className="col-4 col-lg-12">
+                        <label>Stock:</label> {product.stock} {product.unit}
+                      </div>
+                      {product.user_id === store.data.id ? (
+                        <div className="col-4 col-lg-12">Created By You</div>
+                      ) : (
+                        <>
+                          <div className="col-4 col-lg-12">
+                            {" "}
+                            <label>Created By:</label> {product.user.username}
+                          </div>
+                          {/* <div>Phone: {product.user.phone}</div>
                         <div>Email: {product.user.email}</div> */}
-                      </>
-                    )}
-                    <div>Description:</div>
-                    <div>{product.description}</div>
-                    {store.token && product.user_id !== store.data.id ? (
-                      <>
-                        <div>Quantity:</div>
-                        <Quantity
-                          quantity={quantity}
-                          stock={product.stock}
-                          handleSetQuantity={(value) => setQuantity(value)}
-                        />
-                        <span className="ms-1">{product.unit}</span>
-                      </>
-                    ) : null}
-                  </>
-                ) : null}
-
-                <div className="d-flex mt-2">
-                  {store.token && product.user_id !== store.data?.id ? (
-                    <div>
-                      <button
-                        type="button"
-                        className="btn btn-warning lh-sm px-4 py-2"
-                        onClick={handleBuy}
-                      >
-                        Buy
-                      </button>
-                    </div>
+                        </>
+                      )}
+                      <div className="col-lg-12">
+                        <label>Description:</label>
+                      </div>
+                      <div>{product.description}</div>
+                      {store.token && product.user_id !== store.data.id ? (
+                        <>
+                          <div className="col-4 col-lg-12">
+                            <label>Quantity:</label>
+                          </div>
+                          <div className="col-4 col-lg-12">
+                            <Quantity
+                              quantity={quantity}
+                              stock={product.stock}
+                              handleSetQuantity={(value) => setQuantity(value)}
+                            />
+                            <span className="ms-1">{product.unit}</span>
+                          </div>
+                        </>
+                      ) : null}
+                    </>
                   ) : null}
-                  <span className="ms-4">
-                    {store.message ? store.message : ""}
-                    <IconContext.Provider
-                      value={{ className: "mx-2", size: 25 }}
-                    >
-                      <>
-                        <FavouriteIcon product={product} />
-                        <BasketIcon product={product} />
-                      </>
-                    </IconContext.Provider>
-                  </span>
+
+                  <div className="d-flex gap-3 mt-2">
+                    {store.token && product.user_id !== store.data?.id ? (
+                      <div>
+                        <button
+                          type="button"
+                          className="btn btn-success lh-sm px-4 py-2 btn-custom"
+                          onClick={handleBuy}
+                        >
+                          Buy
+                        </button>
+                      </div>
+                    ) : null}
+                    <span>
+                      {store.message ? store.message : ""}
+                      <IconContext.Provider
+                        value={{ className: "mx-2", size: 30 }}
+                      >
+                        <>
+                          <FavouriteIcon product={product} />
+                          <BasketIcon product={product} />
+                        </>
+                      </IconContext.Provider>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </>
-      ) : (
-        "This product doesn't exist"
-      )}
+          </>
+        ) : (
+          "This product doesn't exist"
+        )}
+      </div>
     </div>
   );
 };

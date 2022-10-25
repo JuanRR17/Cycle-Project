@@ -47,7 +47,7 @@ const ProductCard = ({ details }) => {
               <button
                 type="button"
                 onClick={handleClick}
-                className="btn btn-warning"
+                className="btn btn-warning btn-custom"
               >
                 Details
               </button>
