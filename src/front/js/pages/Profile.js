@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useMemo, useRef } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
-import UserDataForm from "../component/user_profile/UserDataForm";
+import EditUserDataForm from "../component/user_profile/EditUserDataForm";
 import UserInfo from "../component/user_profile/UserInfo";
 import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
@@ -10,6 +10,7 @@ import MyOrdersTable from "../component/user_profile/MyOrdersTable";
 import SoldOrdersTable from "../component/user_profile/SoldOrdersTable";
 import { IconContext } from "react-icons";
 import { FaUserSlash } from "react-icons/fa";
+import UserForm from "../component/user_profile/UserForm";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -59,7 +60,7 @@ const Profile = () => {
     <div className="mt-5 container">
       <div className="row bg-warning bg-opacity-75 p-5 justify-content-center">
         {edit ? (
-          <UserDataForm handleSetEdit={(value) => setEdit(value)} />
+          <UserForm edit={true} handleSetEdit={(value) => setEdit(value)} />
         ) : (
           <UserInfo data={store.data} handleEdit={handleEditProfile} />
         )}

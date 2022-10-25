@@ -3,7 +3,7 @@ import { Context } from "../../store/appContext";
 import "../../../styles/home.css";
 import PropTypes from "prop-types";
 
-const UserDataForm = ({ handleSetEdit }) => {
+const EditUserDataForm = ({ handleSetEdit }) => {
   const { store, actions } = useContext(Context);
 
   const [username, setUsername] = useState("");
@@ -154,8 +154,8 @@ const UserDataForm = ({ handleSetEdit }) => {
   );
 };
 
-UserDataForm.propTypes = {
+EditUserDataForm.propTypes = {
   handleSetEdit: PropTypes.func,
 };
 
-export default UserDataForm;
+export default EditUserDataForm;
