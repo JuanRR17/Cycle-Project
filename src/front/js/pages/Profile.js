@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useMemo, useRef } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
-import UserDataForm from "../component/user_profile/UserDataForm";
+import EditUserDataForm from "../component/user_profile/EditUserDataForm";
 import UserInfo from "../component/user_profile/UserInfo";
 import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
@@ -10,6 +10,7 @@ import MyOrdersTable from "../component/user_profile/MyOrdersTable";
 import SoldOrdersTable from "../component/user_profile/SoldOrdersTable";
 import { IconContext } from "react-icons";
 import { FaUserSlash } from "react-icons/fa";
+import UserForm from "../component/user_profile/UserForm";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -57,16 +58,14 @@ const Profile = () => {
 
   return (
     <div className="mt-5 container">
-      <div className="row m-auto bg-warning bg-opacity-75 p-3 justify-content-center">
+      <div className="row bg-warning bg-opacity-75 p-5 justify-content-center">
         {edit ? (
-          <div>
-            <UserDataForm handleSetEdit={(value) => setEdit(value)} />
-          </div>
+          <UserForm edit={true} handleSetEdit={(value) => setEdit(value)} />
         ) : (
           <UserInfo data={store.data} handleEdit={handleEditProfile} />
         )}
 
-        <div className="accordion" id="accordionPanelsStayOpenExample">
+        <div className="accordion p-0" id="accordionPanelsStayOpenExample">
           <div className="accordion-item">
             <h2 className="accordion-header" id="panelsStayOpen-headingOne">
               <button
@@ -139,12 +138,12 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center pt-3">
           {/* Button trigger modal */}
 
           <button
             type="button"
-            className="btn btn-danger m-2"
+            className="btn btn-danger btn-custom"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
@@ -163,7 +162,7 @@ const Profile = () => {
           >
             <div className="modal-dialog">
               <div className="modal-content">
-                <div className="modal-header">
+                <div className="modal-header justify-content-center">
                   <h5 className="modal-title" id="exampleModalLabel">
                     Delete Profile
                   </h5>
@@ -177,21 +176,21 @@ const Profile = () => {
                 <div className="modal-body">
                   Are you sure you want to delete your Profile?
                 </div>
-                <div className="modal-footer">
+                <div className="modal-footer justify-content-center">
                   <button
                     type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
+                    className="btn btn-danger btn-custom"
                     data-bs-dismiss="modal"
                     onClick={() => actions.delete_profile(store.data.id)}
                   >
                     Yes, Remove my Profile
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-custom"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
                   </button>
                 </div>
               </div>

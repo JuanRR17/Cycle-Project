@@ -7,10 +7,18 @@ import DeleteIcon from "../icons/DeleteIcon";
 
 const FavouriteLI = ({ fav }) => {
   const { store, actions } = useContext(Context);
-  // console.log("fav:", fav);
+
+  const style = {
+    color: "#b27300",
+  };
+
   return (
     <li className="dropdown-item list-group-item">
-      <Link className="text-decoration-none" to={"/product/" + fav.product_id}>
+      <Link
+        className="text-decoration-none pe-2"
+        style={style}
+        to={"/product/" + fav.product_id}
+      >
         {fav.product.name}
       </Link>
       <span className="float-end">

@@ -3,7 +3,7 @@ import { Context } from "../../store/appContext";
 import "../../../styles/home.css";
 import PropTypes from "prop-types";
 
-const UserDataForm = ({ handleSetEdit }) => {
+const EditUserDataForm = ({ handleSetEdit }) => {
   const { store, actions } = useContext(Context);
 
   const [username, setUsername] = useState("");
@@ -51,13 +51,11 @@ const UserDataForm = ({ handleSetEdit }) => {
   return (
     <>
       {data.current ? (
-        <div className="container">
+        <div className="container p-3">
           <div className="row">
             {/* username field */}
             <div className="mb-3 col col-lg-6">
-              <label htmlFor="inputUser" className="form-label">
-                Username
-              </label>
+              <label htmlFor="inputUser">Username</label>
               <input
                 required
                 type="text"
@@ -120,29 +118,32 @@ const UserDataForm = ({ handleSetEdit }) => {
                 onChange={(e) => setLocation(e.target.value)}
               />
             </div>
-            <div className="row">
-              {/* password field */}
-              <div className="mb-3 col-lg-6">
-                <label htmlFor="inputPassword" className="form-label">
-                  Password
-                </label>
-                <input
-                  required
-                  type="password"
-                  className="form-control"
-                  id="inputPassword"
-                  placeholder="You can change your password here"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
+            {/* <div className="row"> */}
+            {/* password field */}
+            <div className="mb-3 col-lg-6">
+              <label htmlFor="inputPassword" className="form-label">
+                Password
+              </label>
+              <input
+                required
+                type="password"
+                className="form-control"
+                id="inputPassword"
+                placeholder="You can change your password here"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
+            {/* </div> */}
           </div>
           {store.message ? <div>{store.message}</div> : null}
-          <button onClick={handleConfirm} className="btn btn-success">
+          <button
+            onClick={handleConfirm}
+            className="btn btn-success  btn-custom"
+          >
             Confirm
           </button>
-          <button onClick={handleCancel} className="btn btn-danger">
+          <button onClick={handleCancel} className="btn btn-danger btn-custom">
             Cancel
           </button>
         </div>
@@ -153,8 +154,8 @@ const UserDataForm = ({ handleSetEdit }) => {
   );
 };
 
-UserDataForm.propTypes = {
+EditUserDataForm.propTypes = {
   handleSetEdit: PropTypes.func,
 };
 
-export default UserDataForm;
+export default EditUserDataForm;

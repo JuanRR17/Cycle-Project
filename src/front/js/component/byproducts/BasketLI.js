@@ -8,8 +8,11 @@ const BasketLI = ({ item }) => {
   const { store, actions } = useContext(Context);
 
   return (
-    <li className="dropdown-item list-group-item">
-      <Link className="text-decoration-none" to={"/product/" + item.product_id}>
+    <li className="dropdown-item list-group-item text-success">
+      <Link
+        className="text-decoration-none text-success"
+        to={"/product/" + item.product_id}
+      >
         {item.product.name}
       </Link>
       <span className="float-end">
