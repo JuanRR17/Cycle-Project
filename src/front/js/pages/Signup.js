@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useMemo } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
@@ -14,11 +14,36 @@ export const SignUp = () => {
   const [location, setLocation] = useState("");
   const navigate = useNavigate();
 
+  const [errors, setErrors] = useState();
+  const [message, setMessage] = useState(store.message);
+
+  // const message = useMemo(() => store.message, [store.message]);
   useEffect(() => {
     actions.clearmessage();
   }, []);
 
   const handleSubmit = async () => {
+    let select_errors;
+    if (!username) {
+      select_errors = { ...select_errors, username: "Enter a Username" };
+    }
+    if (!email) {
+      select_errors = { ...select_errors, email: "Enter an email" };
+    }
+    if (!password) {
+      select_errors = { ...select_errors, password: "Enter a password" };
+    }
+
+    //Check if any error exists
+    // console.log("select_errors", select_errors);
+    if (select_errors) {
+      setErrors(select_errors);
+      actions.clearmessage();
+      return;
+    } else if (errors) {
+      setErrors("");
+    }
+
     if (await actions.signup(username, email, password)) {
       navigate("/login");
     }
@@ -48,6 +73,12 @@ export const SignUp = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
+            {errors?.username ? (
+              <div className="text-danger">{errors?.username}</div>
+            ) : null}
+            {store.message && store.message.split(" ")[1] === "username" ? (
+              <div className="text-danger">{store.message}</div>
+            ) : null}
           </div>
           {/* email field */}
           <div className="mb-3 col-md-6">
@@ -62,6 +93,12 @@ export const SignUp = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {errors?.email ? (
+              <div className="text-danger">{errors?.email}</div>
+            ) : null}
+            {store.message && store.message.split(" ")[1] === "email" ? (
+              <div className="text-danger">{store.message}</div>
+            ) : null}
           </div>
           {/* Company field */}
           <div className="mb-3 col-md-6">
@@ -117,20 +154,25 @@ export const SignUp = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {errors?.password ? (
+              <div className="text-danger">{errors?.password}</div>
+            ) : null}
           </div>
         </div>
-        {store.message ? <div>{store.message}</div> : null}
-        <button
-          // type="submit"
-          className="btn btn-primary"
-          onClick={handleSubmit}
-        >
-          Sign Up
-        </button>
-        <button onClick={handleCancel} className="btn btn-danger">
-          Cancel
-        </button>
-        {/* </form> */}
+        {/* {store.message ? <div>{store.message}</div> : null} */}
+        <div className="py-2 d-flex gap-2">
+          <button
+            // type="submit"
+            className="btn btn-success btn-custom"
+            onClick={handleSubmit}
+          >
+            Sign Up
+          </button>
+          <button onClick={handleCancel} className="btn btn-danger btn-custom">
+            Cancel
+          </button>
+          {/* </form> */}
+        </div>
       </div>
     </div>
   );

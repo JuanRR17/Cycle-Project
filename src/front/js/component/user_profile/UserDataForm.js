@@ -51,13 +51,11 @@ const UserDataForm = ({ handleSetEdit }) => {
   return (
     <>
       {data.current ? (
-        <div className="container">
+        <div className="container p-3">
           <div className="row">
             {/* username field */}
             <div className="mb-3 col col-lg-6">
-              <label htmlFor="inputUser" className="form-label">
-                Username
-              </label>
+              <label htmlFor="inputUser">Username</label>
               <input
                 required
                 type="text"
@@ -139,10 +137,13 @@ const UserDataForm = ({ handleSetEdit }) => {
             </div>
           </div>
           {store.message ? <div>{store.message}</div> : null}
-          <button onClick={handleConfirm} className="btn btn-success">
+          <button
+            onClick={handleConfirm}
+            className="btn btn-success  btn-custom"
+          >
             Confirm
           </button>
-          <button onClick={handleCancel} className="btn btn-danger">
+          <button onClick={handleCancel} className="btn btn-danger btn-custom">
             Cancel
           </button>
         </div>

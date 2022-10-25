@@ -59,9 +59,7 @@ const Profile = () => {
     <div className="mt-5 container">
       <div className="row bg-warning bg-opacity-75 p-5 justify-content-center">
         {edit ? (
-          <div>
-            <UserDataForm handleSetEdit={(value) => setEdit(value)} />
-          </div>
+          <UserDataForm handleSetEdit={(value) => setEdit(value)} />
         ) : (
           <UserInfo data={store.data} handleEdit={handleEditProfile} />
         )}

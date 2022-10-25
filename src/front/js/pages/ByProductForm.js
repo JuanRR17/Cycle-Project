@@ -277,10 +277,13 @@ const ByProductForm = (props) => {
             </div> */}
           </div>
           {store.message ? <div>{store.message}</div> : null}
-          <button onClick={handleConfirm} className="btn btn-success">
+          <button
+            onClick={handleConfirm}
+            className="btn btn-success btn-custom"
+          >
             Confirm
           </button>
-          <button onClick={handleCancel} className="btn btn-danger">
+          <button onClick={handleCancel} className="btn btn-danger btn-custom">
             Cancel
           </button>
         </div>

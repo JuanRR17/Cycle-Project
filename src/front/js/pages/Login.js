@@ -43,7 +43,7 @@ const Login = () => {
           </label>
           <input
             type="email"
-            className="form-control shadow"
+            className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             value={email}
@@ -59,7 +59,7 @@ const Login = () => {
           </label>
           <input
             type="password"
-            className="form-control shadow"
+            className="form-control"
             id="exampleInputPassword1"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
