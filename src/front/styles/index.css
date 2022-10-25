@@ -42,7 +42,8 @@ h1 {
 }
 
 .bg-custom {
-  background-color: rgba(33, 37, 41, 0.85);
+  background-color: rgba(33, 37, 41, 0.9);
+  border-radius: 20px;
 }
 
 .user-card-full {

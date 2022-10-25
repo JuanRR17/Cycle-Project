@@ -40,7 +40,7 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
               value={quantity}
               onChange={handleChange}
               type="text"
-              className="btn border p-0 mx-0 rounded-3 text-light"
+              className="btn border p-0 mx-0 rounded-3 text-success fw-bolder"
               id="btncheck2"
               size={quantity.toString().length}
               placeholder="0"
