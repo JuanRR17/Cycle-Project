@@ -84,7 +84,6 @@ const ConfirmOrder = (props) => {
       navigate("/profile");
     }
   };
-
   return (
     <div className="m-3 bg-custom px-5 py-4 shadow rounded-3">
       <h1 className="text-on-bg text-center">Confirm Order</h1>
@@ -167,11 +166,12 @@ const ConfirmOrder = (props) => {
         </div>
       </div>
 
-      {errors?.total && store.basket.length === 0 ? (
-        <div className="text-danger fw-bolder">{errors?.total}</div>
-      ) : (
-        ""
-      )}
+      <div className="text-danger fw-bolder">
+        {errors?.total && store.basket.length === 0 ? errors.total : ""}
+        {errors && !errors.total
+          ? "Please enter mandatory address details"
+          : ""}
+      </div>
       <div className="py-2 d-flex gap-2">
         <button className="btn btn-success btn-custom" onClick={handleConfirm}>
           Confirm
