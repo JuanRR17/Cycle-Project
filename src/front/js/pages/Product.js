@@ -62,8 +62,8 @@ export const Product = () => {
       <div className="m-auto w-75 bg-custom p-5">
         {store.product ? (
           <>
-            <h1 className="text-center text-on-bg mb-4">{product.name}</h1>
-            <div className="container-fluid mx-0 my-2 text-on-bg ">
+            <h1 className="text-center  mb-4">{product.name}</h1>
+            <div className="container-fluid mx-0 my-2  ">
               <div className="row gap-3">
                 <div className="col-lg-7">
                   <img

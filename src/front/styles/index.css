@@ -32,9 +32,9 @@ label {
   margin-bottom: 0.5rem;
 }
 
-.text-on-bg {
+/* . {
   color: rgb(219, 226, 223);
-}
+} */
 
 h1 {
   font-weight: bold;
@@ -43,6 +43,7 @@ h1 {
 .bg-custom {
   background-color: rgba(20, 48, 9, 0.9);
   border-radius: 20px;
+  color: rgb(219, 226, 223);
 }
 
 .card {
@@ -164,6 +165,11 @@ h1 {
   border-radius: 5px;
 }
 
+/* BASKET TABLE */
+.table {
+  color: unset;
+}
+
 table .basket-item:hover {
   color: orange;
   background: rgba(138, 124, 116, 0.5);
@@ -179,11 +185,5 @@ table .basket-item:hover {
 }
 
 .basket-number {
-  /* padding: 0.5rem 8% 0.5rem 0.5rem; */
   text-align: right;
 }
-
-/* .table > :not(caption) > * > * .basket-number {
-  padding: 0.5rem 8% 0.5rem 0.5rem;
-  text-align: right;
-} */

@@ -32,18 +32,36 @@ const Order = (props) => {
     }
   });
   return (
-    <div>
+    <div className="m-3 bg-custom px-5 py-4">
       <h1>Order Details</h1>
       {store.order ? (
-        <>
-          <div>Order Id: {store.order.id}</div>
-          <div>Creation Date: {store.order.created_at}</div>
-          <div>Client: {store.order.user_id}</div>
-          <div>Seller: {store.order.seller}</div>
-          <div>Items</div>
-          <OrderRows orderRows={store.order.order_rows} />
-          <div>Total: {store.order.total} €</div>
-        </>
+        <div className="container-fluid">
+          <div className="row gap-2">
+            <div className="col mb-2">
+              <label className="mb-0">Order Id: </label>{" "}
+              <div>{store.order.id}</div>
+            </div>
+            <div className="col-auto mb-2">
+              <label className="mb-0">Creation Date: </label>{" "}
+              <div>{store.order.created_at}</div>
+            </div>
+            <div className="col mb-2">
+              <label className="mb-0">Client: </label>{" "}
+              <div>{store.order.user_id}</div>
+            </div>
+            <div className="col mb-2">
+              <label className="mb-0">Seller: </label>{" "}
+              <div>{store.order.seller}</div>
+            </div>
+          </div>
+          <label className="mb-0">Order Items:</label>
+          <div className="my-2">
+            <OrderRows orderRows={store.order.order_rows} />
+          </div>
+          <div className=" fw-bolder text-end">
+            Total: {store.order.total} €
+          </div>
+        </div>
       ) : (
         ""
       )}

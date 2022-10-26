@@ -89,15 +89,13 @@ const UserForm = ({ edit, handleSetEdit }) => {
 
   return (
     <>
-      <h1 className="text-on-bg text-center">
-        {edit ? "Update" : "Create"} Profile
-      </h1>
+      <h1 className=" text-center">{edit ? "Update" : "Create"} Profile</h1>
       {/* <form className="container"> */}
       <div className="container pb-3">
         <div className="row">
           {/* username field */}
           <div className="mb-3 col-md-6">
-            <label htmlFor="inputUser" className="text-on-bg form-label">
+            <label htmlFor="inputUser" className=" form-label">
               Username *
             </label>
             <input
@@ -117,7 +115,7 @@ const UserForm = ({ edit, handleSetEdit }) => {
           </div>
           {/* email field */}
           <div className="mb-3 col-md-6">
-            <label htmlFor="inputEmail" className="text-on-bg form-label">
+            <label htmlFor="inputEmail" className=" form-label">
               Email *
             </label>
             <input
@@ -137,7 +135,7 @@ const UserForm = ({ edit, handleSetEdit }) => {
           </div>
           {/* Company field */}
           <div className="mb-3 col-sm-6 col-md-4">
-            <label htmlFor="inputCompany" className="text-on-bg form-label ">
+            <label htmlFor="inputCompany" className=" form-label ">
               Company
             </label>
             <input
@@ -150,7 +148,7 @@ const UserForm = ({ edit, handleSetEdit }) => {
           </div>
           {/* Phone field */}
           <div className="mb-3 col-sm-6 col-md-4">
-            <label htmlFor="inputPhone" className="text-on-bg form-label">
+            <label htmlFor="inputPhone" className=" form-label">
               Phone
             </label>
             <input
@@ -163,7 +161,7 @@ const UserForm = ({ edit, handleSetEdit }) => {
           </div>
           {/* Location field */}
           <div className="mb-3 col-sm-6 col-md-4">
-            <label htmlFor="inputLocation" className="text-on-bg form-label">
+            <label htmlFor="inputLocation" className=" form-label">
               Location
             </label>
             <input
@@ -178,7 +176,7 @@ const UserForm = ({ edit, handleSetEdit }) => {
         <div className="row">
           {/* password field */}
           <div className="mb-3 col-sm-6">
-            <label htmlFor="inputPassword" className="text-on-bg form-label">
+            <label htmlFor="inputPassword" className=" form-label">
               Password *
             </label>
             <input
