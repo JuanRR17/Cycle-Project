@@ -8,18 +8,34 @@ const ItemsTable = ({ total }) => {
 
   return (
     <>
-      <div>Items from user: {store.user?.username}</div>
-      <table className="table table-hover">
+      <h3 className="fw-bolder">Items from user: {store.user?.username}</h3>
+      <table className="table text-on-bg">
         <thead>
           <tr>
-            <th scope="col">Actions</th>
-            <th scope="col">By-Product</th>
-            <th scope="col">Type</th>
-            <th scope="col">Location</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Subtotal</th>
+            <th className="col" scope="col">
+              Actions
+            </th>
+            <th className="col-2" scope="col">
+              By-Product
+            </th>
+            <th className="col" scope="col">
+              Type
+            </th>
+            <th className="col" scope="col">
+              Location
+            </th>
+            <th className="col-1" scope="col">
+              Quantity
+            </th>
+            <th className="col-1 basket-number" scope="col">
+              Stock
+            </th>
+            <th className="col flex-grow-1 basket-number" scope="col">
+              Price
+            </th>
+            <th className="col basket-number" scope="col">
+              Subtotal
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -31,10 +47,10 @@ const ItemsTable = ({ total }) => {
         </tbody>
         <tfoot>
           <tr>
-            <td className="pe-5 text-end" colSpan="7">
-              Total
+            <td className="basket-number fw-bolder h4" colSpan="7">
+              Total:
             </td>
-            <td className="pe-5 text-end">{total} €</td>
+            <td className="basket-number fw-bolder h4">{total} €</td>
           </tr>
         </tfoot>
       </table>

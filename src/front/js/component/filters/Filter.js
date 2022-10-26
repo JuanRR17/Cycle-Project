@@ -10,11 +10,10 @@ const Filter = ({ label, fields, handleSetFilter }) => {
   };
 
   return (
-    <div className="d-flex bg">
-      {/* <label className="text-on-bg m-1">{label}: </label> */}
+    <div className="d-flex ">
       <select
         name="select"
-        className="form-select w-auto"
+        className="form-select w-auto border-success border-3"
         id="inputType"
         value={value}
         onChange={handleChange}

@@ -9,14 +9,13 @@ const UserInfo = ({ data, handleEdit }) => {
   return (
     <div className="d-flex justify-content-center px-0">
       <div className="col-md-12">
-        <div className="card user-card-full">
+        <div className="card overflow-hidden">
           <div className="row mx-0">
             <div className="col-sm-4 bg-c-lite-green">
               <div className=" py-4 text-center text-white">
                 <div className="mb-2">
                   <img
                     src="https://img.icons8.com/bubbles/100/000000/user.png"
-                    className="img-radius"
                     alt="User-Profile-Image"
                   />
                 </div>
@@ -46,30 +45,30 @@ const UserInfo = ({ data, handleEdit }) => {
               </div>
             </div>
             <div className="col-sm-8">
-              <div className="card-block">
-                <h4 className="mb-3 p-b-5 b-b-default f-w-600">
+              <div className="p-4">
+                <h4 className="mb-3 pb-2 border-bottom fw-bolder">
                   Account Information
                 </h4>
                 <div className="row">
                   <div className="col-sm-6">
-                    <p className="mb-2 fw-bolder">Email</p>
+                    <h5 className="mb-2 fw-bolder">Email</h5>
                     <h6 className="text-muted f-w-400">{data?.email}</h6>
                   </div>
                   <div className="col-sm-6">
-                    <p className="mb-2 fw-bolder">Phone</p>
+                    <h5 className="mb-2 fw-bolder">Phone</h5>
                     <h6 className="text-muted f-w-400">{data?.phone}</h6>
                   </div>
                 </div>
-                <h6 className="mb-3 m-t-40 p-b-5 b-b-default f-w-600">
+                <h4 className="mb-3 mt-3 pb-2 border-bottom fw-bolder">
                   Company
-                </h6>
+                </h4>
                 <div className="row">
                   <div className="col-sm-6">
-                    <p className="mb-2 fw-bolder">Name</p>
+                    <h5 className="mb-2 fw-bolder">Name</h5>
                     <h6 className="text-muted f-w-400">{data?.company}</h6>
                   </div>
                   <div className="col-sm-6">
-                    <p className="mb-2 fw-bolder">Location</p>
+                    <h5 className="mb-2 fw-bolder">Location</h5>
                     <h6 className="text-muted f-w-400">{data?.location}</h6>
                   </div>
                 </div>

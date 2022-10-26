@@ -41,12 +41,8 @@ h1 {
 }
 
 .bg-custom {
-  background-color: rgba(33, 37, 41, 0.9);
+  background-color: rgba(20, 48, 9, 0.9);
   border-radius: 20px;
-}
-
-.user-card-full {
-  overflow: hidden;
 }
 
 .card {
@@ -72,79 +68,122 @@ h1 {
   background: linear-gradient(to right, #ee5a6f, #f29263);
 }
 
-.user-profile {
-  padding: 20px 0;
-}
-
-.card-block {
-  padding: 1.25rem;
-}
-
-.img-radius {
-  border-radius: 5px;
-}
-
-.card .card-block p {
-  line-height: 25px;
-}
-
 @media only screen and (min-width: 1400px) {
   p {
     font-size: 14px;
   }
 }
-
-.b-b-default {
-  border-bottom: 1px solid #e0e0e0;
+.btn,
+.icon {
+  transition: 0.2s all;
+}
+.btn:active,
+.icon:active {
+  transform: scale(0.9);
 }
 
-.p-b-5 {
-  padding-bottom: 5px !important;
+.favourite-li:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #f3cd72d4;
+}
+.basket-li:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #acf0c1;
 }
 
-.card .card-block p {
-  line-height: 25px;
-}
-
-.text-muted {
-  color: #919aa3 !important;
-}
-
-.b-b-default {
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.f-w-600 {
-  font-weight: 600;
-}
-
-.m-b-20 {
-  margin-bottom: 20px;
-}
-
-.m-t-40 {
-  margin-top: 20px;
-}
-
-.p-b-5 {
-  padding-bottom: 5px !important;
-}
-
-.m-b-10 {
+/* ACCORDION */
+#accordion .panel {
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
   margin-bottom: 10px;
+  background: transparent;
+}
+#accordion .panel-heading {
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  position: relative;
+}
+#accordion .panel-heading {
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  position: relative;
+}
+#accordion .panel-title button {
+  display: block;
+  padding: 20px 30px;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 17px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 5px;
+  position: relative;
+}
+#accordion .panel-title button.collapsed {
+  border: none;
+}
+#accordion .panel-title button:before,
+#accordion .panel-title button.collapsed:before {
+  content: "\f107";
+  font-family: "Font Awesome 5 Free";
+  width: 30px;
+  height: 30px;
+  line-height: 27px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 900;
+  color: #fff;
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  transform: rotate(180deg);
+  transition: all 0.4s cubic-bezier(0.08, 1.09, 0.32, 1.275);
+}
+#accordion .panel-title button.collapsed:before {
+  color: rgba(255, 255, 255, 0.5);
+  transform: rotate(0deg);
+}
+#accordion .panel-body {
+  padding: 20px 30px;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 15px;
+  color: #fff;
+  line-height: 28px;
+  letter-spacing: 1px;
+  border-top: none;
+  border-radius: 5px;
 }
 
-.m-t-40 {
-  margin-top: 20px;
+table .basket-item:hover {
+  color: orange;
+  background: rgba(138, 124, 116, 0.5);
 }
 
-.user-card-full .social-link li {
-  display: inline-block;
+.basket-link {
+  color: orange;
 }
 
-.user-card-full .social-link li a {
-  font-size: 20px;
-  margin: 0 10px 0 0;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+.basket-link:hover {
+  color: orange;
+  font-weight: bold;
 }
+
+.basket-number {
+  /* padding: 0.5rem 8% 0.5rem 0.5rem; */
+  text-align: right;
+}
+
+/* .table > :not(caption) > * > * .basket-number {
+  padding: 0.5rem 8% 0.5rem 0.5rem;
+  text-align: right;
+} */

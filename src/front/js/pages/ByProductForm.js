@@ -129,8 +129,8 @@ const ByProductForm = (props) => {
 
   return (
     <div className="mt-5">
-      <div className="m-auto w-75 bg-warning p-3">
-        <h1>
+      <div className="m-auto w-75 bg-custom p-3">
+        <h1 className="text-on-bg text-center">
           {store.product ? "Edit " : "Add "}
           Byproduct
         </h1>
@@ -138,7 +138,7 @@ const ByProductForm = (props) => {
           <div className="row">
             {/* Name field */}
             <div className="mb-3 col col-lg-6">
-              <label htmlFor="inputUser" className="form-label">
+              <label htmlFor="inputUser" className="text-on-bg form-label">
                 Name*
               </label>
               <input
@@ -155,7 +155,7 @@ const ByProductForm = (props) => {
             </div>
             {/* Location field */}
             <div className="mb-3 col-md-6">
-              <label htmlFor="inputLocation" className="form-label">
+              <label htmlFor="inputLocation" className="text-on-bg form-label">
                 Location*
               </label>
               <input
@@ -172,7 +172,7 @@ const ByProductForm = (props) => {
             </div>
             {/* Price field */}
             <div className="mb-3 col-md-6">
-              <label htmlFor="inputPrice" className="form-label">
+              <label htmlFor="inputPrice" className="text-on-bg form-label">
                 Price*
               </label>
               <input
@@ -191,7 +191,7 @@ const ByProductForm = (props) => {
             </div>
             {/* Unit field */}
             <div className="mb-3 col-md-6">
-              <label htmlFor="inputUnit" className="form-label">
+              <label htmlFor="inputUnit" className="text-on-bg form-label">
                 Units*
               </label>
               <select
@@ -215,7 +215,7 @@ const ByProductForm = (props) => {
             </div>
             {/* Stock field */}
             <div className="mb-3 col-md-6">
-              <label htmlFor="inputStock" className="form-label">
+              <label htmlFor="inputStock" className="text-on-bg form-label">
                 Stock*
               </label>
               <input
@@ -231,7 +231,7 @@ const ByProductForm = (props) => {
             </div>
             {/* Type field */}
             <div className="mb-3 col-md-6">
-              <label htmlFor="inputType" className="form-label">
+              <label htmlFor="inputType" className="text-on-bg form-label">
                 Type*
               </label>
               <select
@@ -255,7 +255,10 @@ const ByProductForm = (props) => {
             </div>
             {/* Description field */}
             <div className="mb-3 col-12">
-              <label htmlFor="inputDescription" className="form-label">
+              <label
+                htmlFor="inputDescription"
+                className="text-on-bg form-label"
+              >
                 Description
               </label>
               <textarea
@@ -277,15 +280,20 @@ const ByProductForm = (props) => {
             </div> */}
           </div>
           {store.message ? <div>{store.message}</div> : null}
-          <button
-            onClick={handleConfirm}
-            className="btn btn-success btn-custom"
-          >
-            Confirm
-          </button>
-          <button onClick={handleCancel} className="btn btn-danger btn-custom">
-            Cancel
-          </button>
+          <div className="py-2 d-flex gap-2">
+            <button
+              onClick={handleConfirm}
+              className="btn btn-success btn-custom"
+            >
+              Confirm
+            </button>
+            <button
+              onClick={handleCancel}
+              className="btn btn-danger btn-custom"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

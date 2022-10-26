@@ -33,7 +33,7 @@ const BasketIcon = ({ product }) => {
         <span
           type="button"
           onClick={() => handleItemInBasket(product)}
-          className="text-success"
+          className="text-success icon"
         >
           {basket_prod_ids.includes(product.id) ? (
             <BsFillCartFill />

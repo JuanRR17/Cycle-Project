@@ -24,7 +24,7 @@ const ProductCard = ({ details }) => {
   };
   return (
     <div
-      className="card p-1 m-2 bg-gradient  border border-success border-5"
+      className="card p-1 m-2 bg-gradient border border-success border-3"
       style={style}
     >
       <div className="card-body">
@@ -32,7 +32,11 @@ const ProductCard = ({ details }) => {
           <span>{details.name}</span>
           <span>{details.type}</span>
         </div>
-        <img src={thinkay} className="card-img-top" alt={details.name} />
+        <img
+          src={thinkay}
+          className="card-img-top img-thumbnail shadow my-2"
+          alt={details.name}
+        />
         <div className="card-title d-flex justify-content-between">
           <span>{details.location}</span>
           {store.token ? (

@@ -13,7 +13,7 @@ const FavouriteLI = ({ fav }) => {
   };
 
   return (
-    <li className="dropdown-item list-group-item">
+    <li className="dropdown-item list-group-item favourite-li">
       <Link
         className="text-decoration-none pe-2"
         style={style}

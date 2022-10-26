@@ -28,9 +28,12 @@ const ProductsTableBase = (props) => {
     return (
       <div>
         {selectedRows.length == 1 ? (
-          <button key="see" onClick={handleSee} className="btn btn-success">
+          <button
+            key="see"
+            onClick={handleSee}
+            className="btn btn-success btn-custom"
+          >
             <VisibilityOutlinedIcon />
-            See
           </button>
         ) : null}
       </div>
