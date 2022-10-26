@@ -32,7 +32,7 @@ const SoldOrdersTable = (props) => {
     },
     {
       name: "Buyer Id",
-      selector: (row) => row.user_id,
+      selector: (row) => row.user_id ?? "User deleted",
       center: true,
       sortable: true,
     },

@@ -45,10 +45,10 @@ const Login = () => {
 
   return (
     <div className="m-auto bg-custom px-5 py-4 shadow ">
-      <h1 className="text-on-bg text-center">Login</h1>
+      <h1 className=" text-center">Login</h1>
 
       <div className="mb-3">
-        <label htmlFor="exampleInputEmail1" className="text-on-bg form-label">
+        <label htmlFor="exampleInputEmail1" className=" form-label">
           Email address
         </label>
         <input
@@ -67,10 +67,7 @@ const Login = () => {
         ) : null}
       </div>
       <div className="mb-3">
-        <label
-          htmlFor="exampleInputPassword1"
-          className="text-on-bg form-label"
-        >
+        <label htmlFor="exampleInputPassword1" className=" form-label">
           Password
         </label>
         <input

@@ -157,7 +157,7 @@ const Profile = () => {
 
           {/* <Modal> */}
           <div
-            className="modal fade"
+            className="modal fade text-dark"
             id="exampleModal"
             tabIndex="-1"
             aria-labelledby="exampleModalLabel"
@@ -184,7 +184,10 @@ const Profile = () => {
                     type="button"
                     className="btn btn-danger btn-custom"
                     data-bs-dismiss="modal"
-                    onClick={() => actions.delete_profile(store.data.id)}
+                    onClick={() => {
+                      actions.delete_profile(store.data.id);
+                      actions.logout();
+                    }}
                   >
                     Yes, Remove my Profile
                   </button>

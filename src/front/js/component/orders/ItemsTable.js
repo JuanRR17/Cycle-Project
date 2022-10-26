@@ -9,7 +9,7 @@ const ItemsTable = ({ total }) => {
   return (
     <>
       <h3 className="fw-bolder">Items from user: {store.user?.username}</h3>
-      <table className="table text-on-bg">
+      <table className="table ">
         <thead>
           <tr>
             <th className="col" scope="col">

@@ -44,33 +44,31 @@ const UserInfo = ({ data, handleEdit }) => {
                 <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
               </div>
             </div>
-            <div className="col-sm-8">
-              <div className="p-4">
-                <h4 className="mb-3 pb-2 border-bottom fw-bolder">
-                  Account Information
-                </h4>
-                <div className="row">
-                  <div className="col-sm-6">
-                    <h5 className="mb-2 fw-bolder">Email</h5>
-                    <h6 className="text-muted f-w-400">{data?.email}</h6>
-                  </div>
-                  <div className="col-sm-6">
-                    <h5 className="mb-2 fw-bolder">Phone</h5>
-                    <h6 className="text-muted f-w-400">{data?.phone}</h6>
-                  </div>
+            <div className="col-sm-8 p-4  text-dark">
+              <h4 className="mb-3 pb-2 border-bottom fw-bolder">
+                Account Information
+              </h4>
+              <div className="row">
+                <div className="col-sm-6">
+                  <h5 className="mb-2 fw-bolder">Email</h5>
+                  <h6 className="text-muted f-w-400">{data?.email}</h6>
                 </div>
-                <h4 className="mb-3 mt-3 pb-2 border-bottom fw-bolder">
-                  Company
-                </h4>
-                <div className="row">
-                  <div className="col-sm-6">
-                    <h5 className="mb-2 fw-bolder">Name</h5>
-                    <h6 className="text-muted f-w-400">{data?.company}</h6>
-                  </div>
-                  <div className="col-sm-6">
-                    <h5 className="mb-2 fw-bolder">Location</h5>
-                    <h6 className="text-muted f-w-400">{data?.location}</h6>
-                  </div>
+                <div className="col-sm-6">
+                  <h5 className="mb-2 fw-bolder">Phone</h5>
+                  <h6 className="text-muted f-w-400">{data?.phone}</h6>
+                </div>
+              </div>
+              <h4 className="mb-3 mt-3 pb-2 border-bottom fw-bolder">
+                Company
+              </h4>
+              <div className="row">
+                <div className="col-sm-6">
+                  <h5 className="mb-2 fw-bolder">Name</h5>
+                  <h6 className="text-muted f-w-400">{data?.company}</h6>
+                </div>
+                <div className="col-sm-6">
+                  <h5 className="mb-2 fw-bolder">Location</h5>
+                  <h6 className="text-muted f-w-400">{data?.location}</h6>
                 </div>
               </div>
             </div>
