@@ -47,11 +47,11 @@ const Order = (props) => {
             </div>
             <div className="col mb-2">
               <label className="mb-0">Client: </label>{" "}
-              <div>{store.order.user_id}</div>
+              <div>{store.order.user_id ?? "User deleted"}</div>
             </div>
             <div className="col mb-2">
               <label className="mb-0">Seller: </label>{" "}
-              <div>{store.order.seller}</div>
+              <div>{store.order.seller_username ?? "User deleted"}</div>
             </div>
           </div>
           <label className="mb-0">Order Items:</label>

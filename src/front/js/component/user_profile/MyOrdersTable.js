@@ -38,7 +38,7 @@ const MyOrdersTable = ({ orders }) => {
     },
     {
       name: "Seller",
-      selector: (row) => row.seller,
+      selector: (row) => row.seller_username,
       center: true,
       sortable: true,
     },

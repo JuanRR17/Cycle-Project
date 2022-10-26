@@ -452,13 +452,15 @@ def new_order():
     seller_id = product.serialize()['user_id']
     #4. Get seller username
     seller = User.query.filter_by(id=seller_id).first()
+    seller_id = seller.serialize()['id']
     seller_username = seller.serialize()['username']
 
     #Create new order
     new_order = Order()
     setattr(new_order, "user_id", user_id)
     setattr(new_order, "total", total)
-    setattr(new_order, "seller", seller_username)
+    setattr(new_order, "seller_id", seller_id)
+    setattr(new_order, "seller_username", seller_username)
 
     #Add delivery details
     for f in delivery:
@@ -490,7 +492,7 @@ def new_order():
 
 # GET ONE ORDER DATA
 @api.route("/order/<int:id>", methods=["GET"])
-# @jwt_required()
+@jwt_required()
 def get_order(id):
     order = Order.query.filter_by(id=id).first()
 
@@ -498,10 +500,6 @@ def get_order(id):
     order_rows = []
     for orw in search:
         order_row = dict(orw.serialize())
-        # product = Product.query.filter_by(id=order_row['product_id']).first()
-        # print("product")
-        # print(product)
-        # order_row['product_name'] = product.serialize()['name']
         order_rows.append(order_row)
     order_with_rows = order.serialize()
     order_with_rows['order_rows']=order_rows
@@ -533,10 +531,7 @@ def made_orders(id):
 @api.route("/user_sold_orders/<int:id>", methods=["GET"])
 @jwt_required()
 def sold_orders(id):
-    user = User.query.filter_by(id=id).first()
-    username = user.serialize()['username']
-
-    orders = Order.query.filter_by(seller=username)
+    orders = Order.query.filter_by(seller_id=str(id))
 
     orders = list(map(lambda x: x.serialize(), orders))
     json_text = jsonify(orders),200
