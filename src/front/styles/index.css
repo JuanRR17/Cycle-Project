@@ -188,4 +188,15 @@ table .basket-item:hover {
   text-align: right;
 }
 
-/* ORDER VIEW */
+/* PROFILE LISTS */
+
+.rdt_TableHeader {
+  background-color: transparent;
+}
+
+.rdt_TableRow {
+  background-color: grey;
+}
+.rdt_TableHeadRow {
+  background-color: green;
+}

@@ -25,6 +25,7 @@ const ProductsTableBase = (props) => {
     const handleSee = () => {
       navigate("/order/" + selectedRows[0].id);
     };
+
     return (
       <div>
         {selectedRows.length == 1 ? (
@@ -39,6 +40,7 @@ const ProductsTableBase = (props) => {
       </div>
     );
   }, [data, selectedRows]);
+
   return (
     <>
       <DataTable

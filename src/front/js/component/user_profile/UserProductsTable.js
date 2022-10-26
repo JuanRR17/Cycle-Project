@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo } from "react";
 import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
 import ProductsTableBase from "./ProductsTableBase";
+import "../../../styles/index.css";
 
 const UserProductsTable = ({ products }) => {
   const { store, actions } = useContext(Context);

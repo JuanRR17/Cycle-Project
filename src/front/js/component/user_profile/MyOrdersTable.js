@@ -28,7 +28,7 @@ const MyOrdersTable = ({ orders }) => {
       }
     }
   });
-
+  // console.log("store.orders_made", store.orders_made);
   const columns = [
     {
       name: "Id",
@@ -43,16 +43,10 @@ const MyOrdersTable = ({ orders }) => {
       sortable: true,
     },
     {
-      name: "Created",
+      name: "Created At",
       selector: (row) => row.created_at,
       center: true,
       sortable: true,
-    },
-    {
-      name: "Phone",
-      selector: (row) => row.phone,
-      center: true,
-      sortable: false,
     },
     {
       name: "Location",
