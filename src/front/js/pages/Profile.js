@@ -64,9 +64,10 @@ const Profile = () => {
           <UserInfo data={store.data} handleEdit={handleEditProfile} />
         )}
 
-        <div className="accordion p-0" id="accordionPanelsStayOpenExample">
-          <div className="accordion-item">
-            <h2 className="accordion-header" id="panelsStayOpen-headingOne">
+        <div className=" p-0 panel" id="accordion">
+          {/* My By-Products table */}
+          <div className="panel-heading">
+            <h2 className="panel-title " id="panelsStayOpen-headingOne">
               <button
                 className="accordion-button"
                 type="button"
@@ -83,13 +84,14 @@ const Profile = () => {
               className="accordion-collapse collapse show"
               aria-labelledby="panelsStayOpen-headingOne"
             >
-              <div className="accordion-body">
+              <div className="panel-body">
                 <UserProductsTable products={store.data?.products} />
               </div>
             </div>
           </div>
-          <div className="accordion-item">
-            <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
+          {/* My Made Orders table */}
+          <div className="panel-heading">
+            <h2 className="panel-title" id="panelsStayOpen-headingTwo">
               <button
                 className="accordion-button collapsed"
                 type="button"
@@ -106,15 +108,17 @@ const Profile = () => {
               className="accordion-collapse collapse"
               aria-labelledby="panelsStayOpen-headingTwo"
             >
-              <div className="accordion-body">
+              <div className="panel-body">
                 <MyOrdersTable
                 // orders={store.orders_made}
                 />
               </div>
             </div>
           </div>
-          <div className="accordion-item">
-            <h2 className="accordion-header" id="panelsStayOpen-headingThree">
+          {/* My Sold Orders table */}
+
+          <div className="panel-heading">
+            <h2 className="panel-title" id="panelsStayOpen-headingThree">
               <button
                 className="accordion-button collapsed"
                 type="button"
@@ -131,7 +135,7 @@ const Profile = () => {
               className="accordion-collapse collapse"
               aria-labelledby="panelsStayOpen-headingThree"
             >
-              <div className="accordion-body">
+              <div className="panel-body">
                 <SoldOrdersTable />
               </div>
             </div>

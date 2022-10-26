@@ -26,10 +26,10 @@ const SearchBar = ({ placeholder, data }) => {
   const ULstyle = {
     minWidth: "max-content",
   };
-
+  console.log("filteredData:", filteredData);
   return (
     <div className="dropdown">
-      <div className="d-flex align-items-center form-control p-0">
+      <div className="d-flex align-items-center form-control p-0 border-success border-3">
         <input
           className="flex-grow-1 border-0 form-control  m-0 shadow-none"
           type="text"
@@ -53,20 +53,20 @@ const SearchBar = ({ placeholder, data }) => {
         </div>
 
         <ul
-          className="dropdown-menu p-0 border-0 w-50"
+          className="dropdown-menu p-0 border-success w-50"
           aria-labelledby="dropdownMenuButton1"
           style={ULstyle}
         >
           {filteredData.length > 0 ? (
             <>
-              <li className="list-group-item list-group-item-action p-1">
+              <li className="list-group-item list-group-item-action px-3 bg-success bg-opacity-25">
                 <span>Name</span> <span className="ps-2 float-end">Price</span>
               </li>
               {filteredData.map((product) => {
                 return (
                   <li
                     key={product.id}
-                    className="list-group-item list-group-item-action p-1"
+                    className="list-group-item list-group-item-action px-3 border-1"
                   >
                     <Link
                       className="text-decoration-none"

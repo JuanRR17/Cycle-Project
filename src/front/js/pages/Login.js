@@ -10,8 +10,24 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [errors, setErrors] = useState();
 
   const handleLogin = async () => {
+    let select_errors;
+    if (!password) {
+      select_errors = { ...select_errors, password: "Enter a password" };
+    }
+    if (!email) {
+      select_errors = { ...select_errors, email: "Enter an email" };
+    }
+    //Check if any error exists
+    if (select_errors) {
+      setErrors(select_errors);
+      actions.clearmessage();
+      return;
+    } else if (errors) {
+      setErrors("");
+    }
     await actions.login(email, password);
   };
 
@@ -31,50 +47,58 @@ const Login = () => {
     <div className="m-auto bg-custom px-5 py-4 shadow ">
       <h1 className="text-on-bg text-center">Login</h1>
 
-      <div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="text-on-bg form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label
-            htmlFor="exampleInputPassword1"
-            className="text-on-bg form-label"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+      <div className="mb-3">
+        <label htmlFor="exampleInputEmail1" className="text-on-bg form-label">
+          Email address
+        </label>
+        <input
+          type="email"
+          className="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {errors?.email ? (
+          <div className="text-danger">{errors?.email}</div>
+        ) : null}
+        {store.message && store.message.split(" ")[1] === "email" ? (
+          <div className="text-danger">{store.message}</div>
+        ) : null}
+      </div>
+      <div className="mb-3">
+        <label
+          htmlFor="exampleInputPassword1"
+          className="text-on-bg form-label"
+        >
+          Password
+        </label>
+        <input
+          type="password"
+          className="form-control"
+          id="exampleInputPassword1"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {errors?.password ? (
+          <div className="text-danger">{errors?.password}</div>
+        ) : null}
         {store.message && (
-          <span className="text-danger fw-bolder">{store.message}</span>
+          <div className="text-danger fw-bolder mb-3">{store.message}</div>
         )}
-        <div className="py-2 d-flex gap-2">
-          <button
-            // type="submit"
-            className="btn btn-success btn-custom"
-            onClick={handleLogin}
-          >
-            Login
-          </button>
-          <button onClick={handleCancel} className="btn btn-danger btn-custom ">
-            Cancel
-          </button>
-        </div>
+      </div>
+
+      <div className="py-2 d-flex gap-2">
+        <button
+          // type="submit"
+          className="btn btn-success btn-custom"
+          onClick={handleLogin}
+        >
+          Login
+        </button>
+        <button onClick={handleCancel} className="btn btn-danger btn-custom ">
+          Cancel
+        </button>
       </div>
     </div>
   );
