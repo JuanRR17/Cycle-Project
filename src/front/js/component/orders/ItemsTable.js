@@ -15,7 +15,7 @@ const ItemsTable = ({ total }) => {
             <th className="col" scope="col">
               Actions
             </th>
-            <th className="col" scope="col">
+            <th className="col-2" scope="col">
               By-Product
             </th>
             <th className="col" scope="col">
@@ -24,7 +24,7 @@ const ItemsTable = ({ total }) => {
             <th className="col" scope="col">
               Location
             </th>
-            <th className="col" scope="col">
+            <th className="col-1" scope="col">
               Quantity
             </th>
             <th className="col-1 basket-number" scope="col">

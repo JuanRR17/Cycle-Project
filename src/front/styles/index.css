@@ -73,10 +73,12 @@ h1 {
     font-size: 14px;
   }
 }
-.btn {
+.btn,
+.icon {
   transition: 0.2s all;
 }
-.btn:active {
+.btn:active,
+.icon:active {
   transform: scale(0.9);
 }
 

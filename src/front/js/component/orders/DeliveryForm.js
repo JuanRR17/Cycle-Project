@@ -24,11 +24,11 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
 
   return (
     <div className="mt-5">
-      <div className="m-auto w-75 bg-warning p-3">
+      <div className="m-auto bg-opacity-75 bg-warning p-3">
         <div className="container">
           <div className="row">
             {/* Address field */}
-            <div className="mb-3 col col-lg-6">
+            <div className="mb-3 col col-md-6">
               <label htmlFor="inputAddress" className="form-label">
                 Address*
               </label>
@@ -66,7 +66,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
               ) : null}
             </div>
             {/* CP field */}
-            <div className="mb-3 col-md-6">
+            <div className="mb-3  col-sm-6 col-md-4 col-lg-6">
               <label htmlFor="inputCp" className="form-label">
                 CP*
               </label>
@@ -86,7 +86,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
               ) : null}
             </div>
             {/* Province field */}
-            <div className="mb-3 col col-lg-6">
+            <div className="mb-3  col-sm-6 col-md-4 col-lg-6">
               <label htmlFor="inputProvince" className="form-label">
                 Province*
               </label>
@@ -105,7 +105,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
               ) : null}
             </div>
             {/* Country field */}
-            <div className="mb-3 col col-lg-6">
+            <div className="mb-3  col-sm-6 col-md-4 col-lg-6">
               <label htmlFor="inputCountry" className="form-label">
                 Country*
               </label>
@@ -124,7 +124,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
               ) : null}
             </div>
             {/* Phone field */}
-            <div className="mb-3 col col-lg-6">
+            <div className="mb-3  col-sm-6 col-md-4 col-lg-6">
               <label htmlFor="inputPhone" className="form-label">
                 Phone*
               </label>
@@ -143,7 +143,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
               ) : null}
             </div>
             {/* Company field */}
-            <div className="mb-3 col col-lg-6">
+            <div className="mb-3  col-sm-6 col-md-4 col-lg-6">
               <label htmlFor="inputCompany" className="form-label">
                 Company
               </label>

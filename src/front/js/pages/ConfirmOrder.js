@@ -86,7 +86,7 @@ const ConfirmOrder = (props) => {
   };
   return (
     <div className="m-3 bg-custom px-5 py-4 shadow rounded-3">
-      <h1 className="text-on-bg text-center">Confirm Order</h1>
+      <h1 className="text-on-bg text-center mb-4">Confirm Order</h1>
       <div className="accordion" id="accordion">
         {/* ITEMS TABLE */}
         <div className="panel-heading">
