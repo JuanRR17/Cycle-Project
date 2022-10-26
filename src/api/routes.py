@@ -482,9 +482,16 @@ def new_order():
         prod_name = product['name']
         price = product['price']
         quantity = item['quantity']
+        #Update stock
+        product_update_stock = Product.query.filter_by(id=product_id).first()
+        prev_stock = product_update_stock.serialize()['stock']
+        new_stock = prev_stock - quantity
+        setattr(product_update_stock, "stock", new_stock)
+        db.session.commit()
+
         subtotal = item['subtotal'] 
         new_order_row = OrderRow(order_id, product_id, prod_name, quantity, price, subtotal)
-
+        
         db.session.add(new_order_row)
         db.session.commit()
     
