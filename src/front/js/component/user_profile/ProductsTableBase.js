@@ -46,15 +46,21 @@ const ProductsTableBase = (props) => {
       navigate("/byproduct_form/" + selectedRows[0].id);
     };
     return (
-      <div>
-        <button key="delete" onClick={handleDelete} className="btn btn-danger">
+      <div className="py-2 d-flex gap-2">
+        <button
+          key="delete"
+          onClick={handleDelete}
+          className="btn btn-danger btn-custom"
+        >
           <DeleteIcon />
-          Delete
         </button>
         {selectedRows.length == 1 ? (
-          <button key="edit" onClick={handleEdit} className="btn btn-warning">
+          <button
+            key="edit"
+            onClick={handleEdit}
+            className="btn btn-warning btn-custom"
+          >
             <EditIcon />
-            Edit
           </button>
         ) : null}
       </div>

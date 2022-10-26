@@ -41,7 +41,7 @@ h1 {
 }
 
 .bg-custom {
-  background-color: rgba(33, 37, 41, 0.9);
+  background-color: rgba(20, 48, 9, 0.9);
   border-radius: 20px;
 }
 
@@ -78,8 +78,19 @@ h1 {
 }
 .btn:active {
   transform: scale(0.9);
-  /* Scaling button to 0.98 to its original size */
 }
+
+.favourite-li:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #f3cd72d4;
+}
+.basket-li:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #acf0c1;
+}
+
 /* ACCORDION */
 #accordion .panel {
   border: none;
@@ -150,3 +161,27 @@ h1 {
   border-top: none;
   border-radius: 5px;
 }
+
+table .basket-item:hover {
+  color: orange;
+  background: rgba(138, 124, 116, 0.5);
+}
+
+.basket-link {
+  color: orange;
+}
+
+.basket-link:hover {
+  color: orange;
+  font-weight: bold;
+}
+
+.basket-number {
+  /* padding: 0.5rem 8% 0.5rem 0.5rem; */
+  text-align: right;
+}
+
+/* .table > :not(caption) > * > * .basket-number {
+  padding: 0.5rem 8% 0.5rem 0.5rem;
+  text-align: right;
+} */

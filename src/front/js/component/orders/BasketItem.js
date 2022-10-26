@@ -4,32 +4,31 @@ import Quantity from "./Quantity";
 import DeleteIcon from "../icons/DeleteIcon";
 import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
+import { IconContext } from "react-icons";
 
 const BasketItem = ({ item }) => {
   const { store, actions } = useContext(Context);
   return (
-    <tr className="align-middle">
+    <tr className="align-middle basket-item">
       <td>
         <span className="text-center">
-          <DeleteIcon
-            id={item.id}
-            handleRemove={(value) => actions.delete_from_basket(value)}
-          />
+          <IconContext.Provider value={{ className: "", size: 20 }}>
+            <DeleteIcon
+              id={item.id}
+              handleRemove={(value) => actions.delete_from_basket(value)}
+            />
+          </IconContext.Provider>
         </span>
       </td>
 
       <td>
         {" "}
-        <Link
-          className="text-decoration-none"
-          to={"/product/" + item.product_id}
-        >
+        <Link className="basket-link" to={"/product/" + item.product_id}>
           {item.product.name}
         </Link>
       </td>
       <td>{item.product.type}</td>
       <td>{item.product.location}</td>
-      <td className="pe-5 text-end">{item.product.stock}</td>
       <td>
         <Quantity
           quantity={item.quantity}
@@ -37,10 +36,11 @@ const BasketItem = ({ item }) => {
           handleSetQuantity={(value) => actions.bi_quantity(item.id, value)}
         />
       </td>
-      <td className="pe-5 text-end">
+      <td className="basket-number">{item.product.stock}</td>
+      <td className="basket-number">
         {item.product.price} €/{item.product.unit}
       </td>
-      <td className="pe-5 text-end">{item.subtotal} €</td>
+      <td className="basket-number">{item.subtotal} €</td>
     </tr>
   );
 };

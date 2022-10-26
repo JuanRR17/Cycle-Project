@@ -88,10 +88,10 @@ const ConfirmOrder = (props) => {
   return (
     <div className="m-3 bg-custom px-5 py-4 shadow rounded-3">
       <h1 className="text-on-bg text-center">Confirm Order</h1>
-      <div className="accordion" id="accordionExample">
+      <div className="accordion" id="accordion">
         {/* ITEMS TABLE */}
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="panelsStayOpen-headingOne">
+        <div className="panel-heading">
+          <h2 className="panel-title" id="panelsStayOpen-headingOne">
             <button
               className="accordion-button"
               type="button"
@@ -108,14 +108,14 @@ const ConfirmOrder = (props) => {
             className="accordion-collapse collapse show"
             aria-labelledby="panelsStayOpen-headingOne"
           >
-            <div className="accordion-body">
+            <div className="panel-body  table-responsive">
               <ItemsTable total={total} />
             </div>
           </div>
         </div>
         {/* DELIVERY ADDRESS */}
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
+        <div className="panel-heading">
+          <h2 className="panel-title" id="panelsStayOpen-headingTwo">
             <button
               className="accordion-button collapsed"
               type="button"
@@ -132,7 +132,7 @@ const ConfirmOrder = (props) => {
             className="accordion-collapse collapse"
             aria-labelledby="panelsStayOpen-headingTwo"
           >
-            <div className="accordion-body">
+            <div className="panel-body">
               <DeliveryForm
                 delivery={delivery}
                 errors={errors}
@@ -142,8 +142,8 @@ const ConfirmOrder = (props) => {
           </div>
         </div>
         {/* PAYMENT */}
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="panelsStayOpen-headingThree">
+        <div className="panel-heading">
+          <h2 className="panel-title" id="panelsStayOpen-headingThree">
             <button
               className="accordion-button collapsed"
               type="button"
@@ -160,7 +160,7 @@ const ConfirmOrder = (props) => {
             className="accordion-collapse collapse"
             aria-labelledby="panelsStayOpen-headingThree"
           >
-            <div className="accordion-body">
+            <div className="panel-body">
               <div className="text-center"> Total: {total} €</div>
             </div>
           </div>
