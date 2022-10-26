@@ -144,7 +144,9 @@ class OrderRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    prod_name = db.Column(db.String(120))
     quantity = db.Column(db.FLOAT(), default=0)
+    price = db.Column(db.FLOAT(), default=0)
     subtotal = db.Column(db.FLOAT(), default=0)
 
     order = db.relationship('Order', backref='order_rows')
@@ -153,10 +155,12 @@ class OrderRow(db.Model):
     def __repr__(self):
         return f'<Order_Row {self.id}>'
 
-    def __init__(self, order_id, product_id, quantity, subtotal):
+    def __init__(self, order_id, product_id, prod_name, quantity, price, subtotal):
         self.order_id = order_id
         self.product_id = product_id
+        self.prod_name = prod_name
         self.quantity = quantity
+        self.price = price
         self.subtotal = subtotal
 
     def serialize(self):
@@ -164,10 +168,11 @@ class OrderRow(db.Model):
             "id": self.id,
             "order_id": self.order_id,
             "product_id": self.product_id,
+            "prod_name": self.prod_name,
             "quantity": self.quantity,
+            "price": self.price,
             "subtotal": self.subtotal,
-            # "subtotal": self.calculate_subtotal(),
-            # "product":self.product
+
         }
 
 class BasketItem(db.Model):

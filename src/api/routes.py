@@ -474,9 +474,14 @@ def new_order():
     print(order_id)
     for item in items:
         product_id = item['product_id']
+        product = item['product']
+        print("product")
+        print(product)
+        prod_name = product['name']
+        price = product['price']
         quantity = item['quantity']
         subtotal = item['subtotal'] 
-        new_order_row = OrderRow(order_id, product_id, quantity, subtotal)
+        new_order_row = OrderRow(order_id, product_id, prod_name, quantity, price, subtotal)
 
         db.session.add(new_order_row)
         db.session.commit()
@@ -485,7 +490,7 @@ def new_order():
 
 # GET ONE ORDER DATA
 @api.route("/order/<int:id>", methods=["GET"])
-@jwt_required()
+# @jwt_required()
 def get_order(id):
     order = Order.query.filter_by(id=id).first()
 
@@ -493,6 +498,10 @@ def get_order(id):
     order_rows = []
     for orw in search:
         order_row = dict(orw.serialize())
+        # product = Product.query.filter_by(id=order_row['product_id']).first()
+        # print("product")
+        # print(product)
+        # order_row['product_name'] = product.serialize()['name']
         order_rows.append(order_row)
     order_with_rows = order.serialize()
     order_with_rows['order_rows']=order_rows
