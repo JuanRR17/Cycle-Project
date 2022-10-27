@@ -21,15 +21,16 @@ const ProductCard = ({ details }) => {
   const style = {
     width: "350px",
     backgroundColor: "#e2e0ce",
+    borderRadius: "20px",
   };
   return (
     <div
-      className="card p-1 m-2 bg-gradient border border-success border-3"
+      className="card p-1 bg-gradient border border-success border-3"
       style={style}
     >
       <div className="card-body">
         <div className="card-title d-flex justify-content-between">
-          <span>{details.name}</span>
+          <span className="fw-bolder">{details.name}</span>
           <span>{details.type}</span>
         </div>
         <img

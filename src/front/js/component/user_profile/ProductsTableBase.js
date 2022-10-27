@@ -1,13 +1,14 @@
-import React, { useState, useCallback, useMemo, useContext } from "react";
+import React, { useContext } from "react";
+import DataTable, { createTheme } from "react-data-table-component";
+import "../../../styles/index.css";
 import { Context } from "../../store/appContext";
-import DataTable from "react-data-table-component";
 import PropTypes from "prop-types";
 import Checkbox from "@material-ui/core/Checkbox";
-
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { useNavigate } from "react-router-dom";
+import { customStyles } from "../../utils/tables-style";
 
 const _ = require("lodash");
 const sortIcon = <ArrowDownward />;
@@ -66,6 +67,7 @@ const ProductsTableBase = (props) => {
       </div>
     );
   }, [data, selectedRows, toggleCleared]);
+
   return (
     <>
       <DataTable
@@ -88,6 +90,7 @@ const ProductsTableBase = (props) => {
         subHeaderAlign="right"
         subHeaderWrap
         {...props}
+        customStyles={customStyles}
       />
     </>
   );

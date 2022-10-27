@@ -23,15 +23,23 @@ const SearchBar = ({ placeholder, data }) => {
     setWordEntered("");
   };
 
+  const style = {
+    borderRadius: "100px",
+    overflow: "hidden",
+  };
+
   const ULstyle = {
     minWidth: "max-content",
   };
   console.log("filteredData:", filteredData);
   return (
     <div className="dropdown">
-      <div className="d-flex align-items-center form-control p-0 border-success border-3">
+      <div
+        className="d-flex align-items-center form-control p-0 border-success border-3"
+        style={style}
+      >
         <input
-          className="flex-grow-1 border-0 form-control  m-0 shadow-none"
+          className="flex-grow-1 border-0 form-control ms-1 m-0 shadow-none"
           type="text"
           placeholder={placeholder}
           id="dropdownMenuButton1"
@@ -39,7 +47,7 @@ const SearchBar = ({ placeholder, data }) => {
           onChange={handleFilter}
           value={wordEntered}
         />
-        <div className="p-2">
+        <div className="py-2 px-3">
           {wordEntered ? (
             <button
               type="button"
@@ -53,7 +61,7 @@ const SearchBar = ({ placeholder, data }) => {
         </div>
 
         <ul
-          className="dropdown-menu p-0 border-success w-50"
+          className="dropdown-menu p-0 border-success w-50 mt-1"
           aria-labelledby="dropdownMenuButton1"
           style={ULstyle}
         >

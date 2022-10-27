@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useMemo, useRef } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
+import "../../styles/index.css";
 import UserInfo from "../component/user_profile/UserInfo";
 import UserProductsTable from "../component/user_profile/UserProductsTable";
 import PropTypes from "prop-types";
@@ -165,7 +166,7 @@ const Profile = () => {
           >
             <div className="modal-dialog">
               <div className="modal-content">
-                <div className="modal-header justify-content-center">
+                <div className="modal-header justify-content-center bg-danger bg-opacity-75 bg-gradient text-light">
                   <h5 className="modal-title" id="exampleModalLabel">
                     Delete Profile
                   </h5>

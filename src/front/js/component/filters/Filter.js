@@ -9,32 +9,35 @@ const Filter = ({ label, fields, handleSetFilter }) => {
     setValue(e.target.value);
   };
 
+  const style = {
+    borderRadius: "100px",
+  };
+
   return (
-    <div className="d-flex ">
-      <select
-        name="select"
-        className="form-select w-auto border-success border-3"
-        id="inputType"
-        value={value}
-        onChange={handleChange}
-      >
-        {fields.map((f, idx) => {
-          if (idx === 0) {
-            return (
-              <option key={idx} value={idx}>
-                {label}
-              </option>
-            );
-          } else {
-            return (
-              <option key={idx} value={idx}>
-                {f}
-              </option>
-            );
-          }
-        })}
-      </select>
-    </div>
+    <select
+      name="select"
+      className="form-select w-auto border-success border-3"
+      id="inputType"
+      value={value}
+      onChange={handleChange}
+      style={style}
+    >
+      {fields.map((f, idx) => {
+        if (idx === 0) {
+          return (
+            <option key={idx} value={idx}>
+              {label}
+            </option>
+          );
+        } else {
+          return (
+            <option key={idx} value={idx}>
+              {f}
+            </option>
+          );
+        }
+      })}
+    </select>
   );
 };
 

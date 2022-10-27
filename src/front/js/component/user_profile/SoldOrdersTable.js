@@ -22,7 +22,7 @@ const SoldOrdersTable = (props) => {
       }
     }
   });
-
+  // console.log("store.orders_sold", store.orders_sold);
   const columns = [
     {
       name: "Id",
@@ -41,12 +41,6 @@ const SoldOrdersTable = (props) => {
       selector: (row) => row.created_at,
       center: true,
       sortable: true,
-    },
-    {
-      name: "Phone",
-      selector: (row) => row.phone,
-      center: true,
-      sortable: false,
     },
     {
       name: "Location",
