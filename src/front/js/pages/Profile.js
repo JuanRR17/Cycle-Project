@@ -166,7 +166,7 @@ const Profile = () => {
           >
             <div className="modal-dialog">
               <div className="modal-content">
-                <div className="modal-header justify-content-center">
+                <div className="modal-header justify-content-center bg-danger bg-opacity-75 bg-gradient text-light">
                   <h5 className="modal-title" id="exampleModalLabel">
                     Delete Profile
                   </h5>

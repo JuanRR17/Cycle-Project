@@ -42,19 +42,17 @@ const ProductsList = () => {
     }
   }, [token]);
 
+  const bgStyle = {
+    borderRadius: "20px",
+  };
+
   return (
-    <div className="text-center m-5 bg-light bg-opacity-50 py-5">
+    <div className="text-center m-5 bg-dark bg-opacity-50 py-5" style={bgStyle}>
       {store.all_products ? (
         <>
           <div className="container-fluid">
             <div className="row d-flex justify-content-center mx-5 my-3">
-              <div className="col-md-4 ms-auto">
-                <SearchBar
-                  placeholder="Search By-Products"
-                  data={store.all_products}
-                />
-              </div>
-              <div className="col-md-4 me-auto">
+              <div className="col-md-4 d-flex justify-content-end">
                 <Filter
                   label="Type"
                   fields={store.types}
@@ -63,9 +61,15 @@ const ProductsList = () => {
                   }}
                 />
               </div>
+              <div className="col-md-4">
+                <SearchBar
+                  placeholder="Search By-Products"
+                  data={store.all_products}
+                />
+              </div>
             </div>
-            <div className="row">
-              <div className="d-flex flex-wrap justify-content-center">
+            <div className="row mt-5">
+              <div className="d-flex flex-wrap justify-content-center gap-3">
                 {filteredList &&
                   filteredList.map((p, idx) => {
                     return <ProductCard key={idx} details={p} />;

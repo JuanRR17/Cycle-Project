@@ -10,8 +10,8 @@ const UserInfo = ({ data, handleEdit }) => {
     <div className="d-flex justify-content-center px-0">
       <div className="col-md-12">
         <div className="card overflow-hidden">
-          <div className="row mx-0">
-            <div className="col-sm-4 bg-c-lite-green">
+          <div className="row mx-0 bg-c-lite-green">
+            <div className="col-sm-4">
               <div className=" py-4 text-center text-white">
                 <div className="mb-2">
                   <img
@@ -19,7 +19,7 @@ const UserInfo = ({ data, handleEdit }) => {
                     alt="User-Profile-Image"
                   />
                 </div>
-                <h4 className="m-3 fw-bolder">{data?.username}</h4>
+                <h4 className="m-4 fw-bolder">{data?.username}</h4>
                 <IconContext.Provider value={{ className: "p-1", size: 30 }}>
                   <div className="d-flex flex-wrap gap-2 justify-content-center">
                     <button
@@ -51,24 +51,24 @@ const UserInfo = ({ data, handleEdit }) => {
               <div className="row">
                 <div className="col-sm-6">
                   <h5 className="mb-2 fw-bolder">Email</h5>
-                  <h6 className="text-muted f-w-400">{data?.email}</h6>
+                  <h6 className="text-light f-w-400">{data?.email}</h6>
                 </div>
                 <div className="col-sm-6">
                   <h5 className="mb-2 fw-bolder">Phone</h5>
-                  <h6 className="text-muted f-w-400">{data?.phone}</h6>
+                  <h6 className="text-light f-w-400">{data?.phone}</h6>
                 </div>
               </div>
               <h4 className="mb-3 mt-3 pb-2 border-bottom fw-bolder">
-                Company
+                Personal Information
               </h4>
               <div className="row">
                 <div className="col-sm-6">
-                  <h5 className="mb-2 fw-bolder">Name</h5>
-                  <h6 className="text-muted f-w-400">{data?.company}</h6>
+                  <h5 className="mb-2 fw-bolder">Location</h5>
+                  <h6 className="text-light f-w-400">{data?.location}</h6>
                 </div>
                 <div className="col-sm-6">
-                  <h5 className="mb-2 fw-bolder">Location</h5>
-                  <h6 className="text-muted f-w-400">{data?.location}</h6>
+                  <h5 className="mb-2 fw-bolder">Company</h5>
+                  <h6 className="text-light f-w-400">{data?.company}</h6>
                 </div>
               </div>
             </div>

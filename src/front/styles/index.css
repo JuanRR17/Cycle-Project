@@ -47,26 +47,15 @@ h1 {
 }
 
 .card {
-  border-radius: 5px;
+  border-radius: 25px;
   -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
   box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
   border: none;
   margin-bottom: 30px;
 }
 
-.user-card-full .user-profile {
-  border-radius: 5px 0 0 5px;
-}
-
 .bg-c-lite-green {
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#f29263),
-    to(#ee5a6f)
-  );
-  background: linear-gradient(to right, #ee5a6f, #f29263);
+  background: linear-gradient(to right, #cca437, #387e38);
 }
 
 @media only screen and (min-width: 1400px) {
