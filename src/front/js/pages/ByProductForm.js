@@ -16,7 +16,7 @@ const ByProductForm = (props) => {
   const [description, setDescription] = useState("");
   const [type, setType] = useState(0);
   const [unit, setUnit] = useState(0);
-  const [stock, setStock] = useState(0);
+  const [stock, setStock] = useState("");
 
   const [errors, setErrors] = useState();
 
@@ -150,7 +150,7 @@ const ByProductForm = (props) => {
                 onChange={(e) => setName(e.target.value)}
               />
               {errors?.name ? (
-                <div className="text-danger">{errors?.name}</div>
+                <div className="text-error">{errors?.name}</div>
               ) : null}
             </div>
             {/* Location field */}
@@ -167,7 +167,7 @@ const ByProductForm = (props) => {
                 onChange={(e) => setLocation(e.target.value)}
               />
               {errors?.location ? (
-                <div className="text-danger">{errors?.location}</div>
+                <div className="text-error">{errors?.location}</div>
               ) : null}
             </div>
             {/* Price field */}
@@ -186,7 +186,7 @@ const ByProductForm = (props) => {
                 onChange={(e) => setPrice(e.target.value)}
               />
               {errors?.price ? (
-                <div className="text-danger">{errors?.price}</div>
+                <div className="text-error">{errors?.price}</div>
               ) : null}
             </div>
             {/* Unit field */}
@@ -210,7 +210,7 @@ const ByProductForm = (props) => {
                 })}
               </select>
               {errors?.unit ? (
-                <div className="text-danger">{errors?.unit}</div>
+                <div className="text-error">{errors?.unit}</div>
               ) : null}
             </div>
             {/* Stock field */}
@@ -222,9 +222,9 @@ const ByProductForm = (props) => {
                 required
                 type="number"
                 className="form-control"
-                placeholder={unit}
+                placeholder="0"
                 id="inputStock"
-                value={stock ?? 0}
+                value={stock}
                 min="0"
                 onChange={(e) => setStock(e.target.value)}
               />
@@ -250,7 +250,7 @@ const ByProductForm = (props) => {
                 })}
               </select>
               {errors?.type ? (
-                <div className="text-danger">{errors?.type}</div>
+                <div className="text-error">{errors?.type}</div>
               ) : null}
             </div>
             {/* Description field */}

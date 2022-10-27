@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import OrderRows from "../component/orders/OrderRows";
+import BackButton from "../component/buttons/BackButton";
 
 const Order = (props) => {
   const { store, actions } = useContext(Context);
@@ -33,6 +34,7 @@ const Order = (props) => {
   });
   return (
     <div className="m-3 bg-custom px-5 py-4">
+      <BackButton route={"/profile"} />
       <h1>Order Details</h1>
       {store.order ? (
         <div className="container-fluid">
@@ -63,7 +65,7 @@ const Order = (props) => {
           </div>
         </div>
       ) : (
-        ""
+        "This order doesn't exist"
       )}
     </div>
   );

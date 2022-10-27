@@ -8,6 +8,7 @@ import FavouriteIcon from "../component/icons/FavouriteIcon";
 import BasketIcon from "../component/icons/BasketIcon";
 import { IconContext } from "react-icons";
 import thinkay from "../../img/thinkay.jpg";
+import BackButton from "../component/buttons/BackButton";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);
@@ -172,15 +173,9 @@ export const Product = () => {
             </div>
           </>
         ) : (
-          <span className="text-danger">This product doesn't exist</span>
+          <span className="text-error">This product doesn't exist</span>
         )}
-        <button
-          type="button"
-          className="btn btn-danger btn-custom m-2 me-auto"
-          onClick={() => navigate("/prod_list")}
-        >
-          <TiArrowBackOutline /> Back
-        </button>
+        <BackButton route={"/prod_list"} />
       </div>
     </div>
   );

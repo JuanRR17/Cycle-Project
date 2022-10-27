@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ea3256faed3d
+Revision ID: 9b27139a62f0
 Revises: 
-Create Date: 2022-10-18 11:46:13.436028
+Create Date: 2022-10-27 16:43:43.270821
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ea3256faed3d'
+revision = '9b27139a62f0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,8 +33,10 @@ def upgrade():
     op.create_table('order',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('seller_id', sa.Integer(), nullable=True),
+    sa.Column('seller_username', sa.String(length=120), nullable=True),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
-    sa.Column('total', sa.Numeric(precision=120), nullable=True),
+    sa.Column('total', sa.FLOAT(), nullable=True),
     sa.Column('address', sa.String(length=120), nullable=True),
     sa.Column('location', sa.String(length=120), nullable=True),
     sa.Column('cp', sa.String(length=120), nullable=True),
@@ -50,7 +52,7 @@ def upgrade():
     sa.Column('name', sa.String(length=120), nullable=False),
     sa.Column('stock', sa.Integer(), nullable=True),
     sa.Column('type', sa.String(length=120), nullable=True),
-    sa.Column('price', sa.Integer(), nullable=True),
+    sa.Column('price', sa.FLOAT(), nullable=True),
     sa.Column('unit', sa.String(length=120), nullable=True),
     sa.Column('location', sa.String(length=120), nullable=True),
     sa.Column('description', sa.String(length=120), nullable=True),
@@ -77,20 +79,21 @@ def upgrade():
     )
     op.create_table('image',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('img', sa.Text(), nullable=False),
     sa.Column('mimetype', sa.Text(), nullable=False),
     sa.Column('product_id', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(length=120), nullable=False),
-    sa.Column('is_default', sa.Boolean(), nullable=False),
+    sa.Column('path', sa.Text(), nullable=False),
     sa.ForeignKeyConstraint(['product_id'], ['product.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('img')
+    sa.UniqueConstraint('path')
     )
     op.create_table('order_row',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('order_id', sa.Integer(), nullable=True),
     sa.Column('product_id', sa.Integer(), nullable=True),
+    sa.Column('prod_name', sa.String(length=120), nullable=True),
     sa.Column('quantity', sa.FLOAT(), nullable=True),
+    sa.Column('price', sa.FLOAT(), nullable=True),
     sa.Column('subtotal', sa.FLOAT(), nullable=True),
     sa.ForeignKeyConstraint(['order_id'], ['order.id'], ),
     sa.ForeignKeyConstraint(['product_id'], ['product.id'], ),

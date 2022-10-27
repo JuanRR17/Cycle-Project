@@ -1,5 +1,6 @@
 import React from "react";
 import DataTable from "react-data-table-component";
+import { customStyles } from "../../utils/tables-style";
 
 const OrderRows = ({ orderRows }) => {
   const columns = [
@@ -42,6 +43,8 @@ const OrderRows = ({ orderRows }) => {
           // title="My Made Orders"
           columns={columns}
           data={orderRows}
+          striped
+          customStyles={customStyles}
         />
       ) : null}
     </>

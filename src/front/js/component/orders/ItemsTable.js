@@ -33,7 +33,7 @@ const ItemsTable = ({ total }) => {
             <th className="col flex-grow-1 basket-number" scope="col">
               Price
             </th>
-            <th className="col basket-number" scope="col">
+            <th className="col-2 basket-number" scope="col">
               Subtotal
             </th>
           </tr>
@@ -50,7 +50,9 @@ const ItemsTable = ({ total }) => {
             <td className="basket-number fw-bolder h4" colSpan="7">
               Total:
             </td>
-            <td className="basket-number fw-bolder h4">{total} €</td>
+            <td className="basket-number fw-bolder h4">
+              {(Math.round(total * 100) / 100).toFixed(2)} €
+            </td>
           </tr>
         </tfoot>
       </table>

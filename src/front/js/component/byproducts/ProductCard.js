@@ -25,7 +25,7 @@ const ProductCard = ({ details }) => {
   };
   return (
     <div
-      className="card p-1 bg-gradient border border-success border-3"
+      className="card p-1 text-dark bg-gradient border border-success border-3"
       style={style}
     >
       <div className="card-body">

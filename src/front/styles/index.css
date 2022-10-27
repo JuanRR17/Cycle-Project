@@ -32,16 +32,17 @@ label {
   margin-bottom: 0.5rem;
 }
 
-/* . {
-  color: rgb(219, 226, 223);
-} */
+.text-error {
+  color: rgb(220, 53, 69);
+  font-weight: bolder;
+}
 
 h1 {
   font-weight: bold;
 }
 
 .bg-custom {
-  background-color: rgba(20, 48, 9, 0.9);
+  background-color: rgba(20, 48, 9, 0.8);
   border-radius: 20px;
   color: rgb(219, 226, 223);
 }
@@ -112,7 +113,7 @@ h1 {
   background: rgba(0, 0, 0, 0.4);
   font-size: 17px;
   font-weight: bold;
-  color: #fff;
+  color: #ffffffd3;
   text-transform: uppercase;
   letter-spacing: 1px;
   border: none;

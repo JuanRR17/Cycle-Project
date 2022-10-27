@@ -19,7 +19,7 @@ export const customStyles = {
   },
   rows: {
     style: {
-      backgroundColor: "unset",
+      backgroundColor: "#ffffffd3",
     },
     selectedHighlightStyle: {
       "&:nth-of-type(n)": {
@@ -61,9 +61,14 @@ export const customStyles = {
       backgroundColor: "white",
       padding: "1px",
       margin: "2px",
-      // "&:disabled": {
-      //   color: "red",
-      // },
+    },
+  },
+  noData: {
+    style: {
+      color: "#ffffffd3",
+      backgroundColor: "rgba(20, 48, 9)",
+      fontSize: "20px",
+      fontWeight: "600",
     },
   },
 };
