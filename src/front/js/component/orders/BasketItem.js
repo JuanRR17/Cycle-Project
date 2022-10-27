@@ -40,7 +40,9 @@ const BasketItem = ({ item }) => {
       <td className="basket-number">
         {item.product.price} €/{item.product.unit}
       </td>
-      <td className="basket-number">{item.subtotal} €</td>
+      <td className="basket-number">
+        {(Math.round(item.subtotal * 100) / 100).toFixed(2)} €
+      </td>
     </tr>
   );
 };

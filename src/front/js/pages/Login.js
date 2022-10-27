@@ -60,10 +60,10 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         {errors?.email ? (
-          <div className="text-danger">{errors?.email}</div>
+          <div className="text-error">{errors?.email}</div>
         ) : null}
         {store.message && store.message.split(" ")[1] === "email" ? (
-          <div className="text-danger">{store.message}</div>
+          <div className="text-error">{store.message}</div>
         ) : null}
       </div>
       <div className="mb-3">
@@ -78,10 +78,10 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         {errors?.password ? (
-          <div className="text-danger">{errors?.password}</div>
+          <div className="text-error">{errors?.password}</div>
         ) : null}
         {store.message && (
-          <div className="text-danger fw-bolder mb-3">{store.message}</div>
+          <div className="text-error mb-3">{store.message}</div>
         )}
       </div>
 

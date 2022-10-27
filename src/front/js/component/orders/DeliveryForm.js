@@ -43,7 +43,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
                 }
               />
               {errors?.address ? (
-                <div className="text-danger">{errors?.address}</div>
+                <div className="text-error">{errors?.address}</div>
               ) : null}
             </div>
             {/* Location field */}
@@ -62,7 +62,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
                 }
               />
               {errors?.location ? (
-                <div className="text-danger">{errors?.location}</div>
+                <div className="text-error">{errors?.location}</div>
               ) : null}
             </div>
             {/* CP field */}
@@ -82,7 +82,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
                 }
               />
               {errors?.cp ? (
-                <div className="text-danger">{errors?.cp}</div>
+                <div className="text-error">{errors?.cp}</div>
               ) : null}
             </div>
             {/* Province field */}
@@ -101,7 +101,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
                 }
               />
               {errors?.province ? (
-                <div className="text-danger">{errors?.province}</div>
+                <div className="text-error">{errors?.province}</div>
               ) : null}
             </div>
             {/* Country field */}
@@ -120,7 +120,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
                 }
               />
               {errors?.country ? (
-                <div className="text-danger">{errors?.country}</div>
+                <div className="text-error">{errors?.country}</div>
               ) : null}
             </div>
             {/* Phone field */}
@@ -139,7 +139,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
                 }
               />
               {errors?.phone ? (
-                <div className="text-danger">{errors?.phone}</div>
+                <div className="text-error">{errors?.phone}</div>
               ) : null}
             </div>
             {/* Company field */}

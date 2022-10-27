@@ -47,7 +47,7 @@ const ProductsList = () => {
   };
 
   return (
-    <div className="text-center m-5 bg-dark bg-opacity-50 py-5" style={bgStyle}>
+    <div className="text-center m-5 bg-custom py-5" style={bgStyle}>
       {store.all_products ? (
         <>
           <div className="container-fluid">

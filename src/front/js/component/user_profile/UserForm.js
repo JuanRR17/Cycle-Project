@@ -107,10 +107,10 @@ const UserForm = ({ edit, handleSetEdit }) => {
               onChange={(e) => setUsername(e.target.value)}
             />
             {errors?.username ? (
-              <div className="text-danger">{errors?.username}</div>
+              <div className="text-error">{errors?.username}</div>
             ) : null}
             {store.message && store.message.split(" ")[1] === "username" ? (
-              <div className="text-danger">{store.message}</div>
+              <div className="text-error">{store.message}</div>
             ) : null}
           </div>
           {/* email field */}
@@ -127,10 +127,10 @@ const UserForm = ({ edit, handleSetEdit }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
             {errors?.email ? (
-              <div className="text-danger">{errors?.email}</div>
+              <div className="text-error">{errors?.email}</div>
             ) : null}
             {store.message && store.message.split(" ")[1] === "email" ? (
-              <div className="text-danger">{store.message}</div>
+              <div className="text-error">{store.message}</div>
             ) : null}
           </div>
           {/* Company field */}
@@ -177,19 +177,19 @@ const UserForm = ({ edit, handleSetEdit }) => {
           {/* password field */}
           <div className="mb-3 col-sm-6">
             <label htmlFor="inputPassword" className=" form-label">
-              Password *
+              Password {!edit && "*"}
             </label>
             <input
               required
               type="password"
               className="form-control"
-              placeholder="You can change your password here"
+              placeholder={edit && "New password"}
               id="inputPassword"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             {errors?.password ? (
-              <div className="text-danger">{errors?.password}</div>
+              <div className="text-error">{errors?.password}</div>
             ) : null}
           </div>
         </div>

@@ -684,7 +684,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           //Update object's quantity property.
           basket[objIndex].quantity = basket_item.quantity;
-          basket[objIndex].subtotal = basket_item.subtotal;
+          basket[objIndex].subtotal = +(
+            Math.round(basket_item.subtotal * 100) / 100
+          ).toFixed(2);
 
           setStore({ basket: basket });
 

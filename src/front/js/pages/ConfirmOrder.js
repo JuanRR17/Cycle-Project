@@ -160,13 +160,15 @@ const ConfirmOrder = (props) => {
             aria-labelledby="panelsStayOpen-headingThree"
           >
             <div className="panel-body">
-              <div className="text-center"> Total: {total} €</div>
+              <div className="text-center">
+                Total: {(Math.round(total * 100) / 100).toFixed(2)} €
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="text-danger fw-bolder">
+      <div className="text-error">
         {errors?.total && store.basket.length === 0 ? errors.total : ""}
         {errors && !errors.total
           ? "Please enter mandatory address details"
