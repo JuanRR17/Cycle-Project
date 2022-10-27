@@ -2,7 +2,7 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import PropTypes from "prop-types";
 import Checkbox from "@material-ui/core/Checkbox";
-
+import { customStyles } from "../../utils/tables-style";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import { useNavigate } from "react-router-dom";
@@ -62,6 +62,7 @@ const ProductsTableBase = (props) => {
         subHeaderAlign="right"
         subHeaderWrap
         {...props}
+        customStyles={customStyles}
       />
     </>
   );

@@ -8,6 +8,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { useNavigate } from "react-router-dom";
+import { customStyles } from "../../utils/tables-style";
 
 const _ = require("lodash");
 const sortIcon = <ArrowDownward />;
@@ -66,49 +67,6 @@ const ProductsTableBase = (props) => {
       </div>
     );
   }, [data, selectedRows, toggleCleared]);
-
-  const customStyles = {
-    header: {
-      style: {
-        color: "white",
-        backgroundColor: "unset",
-      },
-    },
-    head: {
-      style: {
-        color: "green",
-        fontSize: "15px",
-      },
-    },
-    headRow: {
-      style: {
-        backgroundColor: "orange",
-      },
-    },
-    rows: {
-      style: {
-        backgroundColor: "unset",
-      },
-      selectedHighlightStyle: {
-        "&:nth-of-type(n)": {
-          color: "black",
-          backgroundColor: "#ffc459",
-          borderBottomColor: "orange",
-        },
-      },
-    },
-    cells: {
-      style: {
-        backgroundColor: "unset",
-      },
-    },
-    contextMenu: {
-      style: {
-        backgroundColor: "#ffc459",
-        borderRadius: "10px",
-      },
-    },
-  };
 
   return (
     <>
