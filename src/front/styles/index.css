@@ -1,14 +1,15 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+:root {
+  --bg-color: rgba(20, 48, 9, 0.8);
+}
+
 body {
   background-image: url(https://naranjasribera.com/wp-content/uploads/2019/03/flor-de-azahar.jpg);
   background-position: center;
   background-size: cover;
 }
-/* body {
-  background-color: #2d972d;
-} */
 
 .btn-custom {
   background-image: linear-gradient(
@@ -42,9 +43,10 @@ h1 {
 }
 
 .bg-custom {
-  background-color: rgba(20, 48, 9, 0.8);
+  background-color: var(--bg-color);
   border-radius: 20px;
   color: rgb(219, 226, 223);
+  box-shadow: 0px 0px 20px 20px var(--bg-color);
 }
 
 .card {
@@ -57,6 +59,7 @@ h1 {
 
 .bg-c-lite-green {
   background: linear-gradient(to right, #cca437, #387e38);
+  box-shadow: inset 0 0 20px 10px var(--bg-color);
 }
 
 @media only screen and (min-width: 1400px) {
