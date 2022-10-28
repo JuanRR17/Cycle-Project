@@ -2,7 +2,9 @@ export const customStyles = {
   table: {
     style: {
       boxShadow: "inset 0 0 15px 10px rgba(20, 48, 9, 0.8)",
-      // border: "10px solid rgba(20, 48, 9, 0.8)",
+      marginBottom: "10px",
+      borderRadius: "20px",
+      overflow: "hidden",
     },
   },
   header: {

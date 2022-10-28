@@ -42,16 +42,12 @@ const ProductsList = () => {
     }
   }, [token]);
 
-  const bgStyle = {
-    borderRadius: "20px",
-  };
-
   return (
-    <div className="text-center m-5 bg-custom py-5" style={bgStyle}>
+    <div className=" bg-custom">
       {store.all_products ? (
         <>
           <div className="container-fluid">
-            <div className="row d-flex justify-content-center mx-5 my-3">
+            <div className="row d-flex justify-content-center mx-5 my-3 gap-2">
               <div className="col-md-4 d-flex justify-content-end">
                 <Filter
                   label="Type"
