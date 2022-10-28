@@ -19,13 +19,13 @@ const ProductCard = ({ details }) => {
   };
 
   const style = {
-    width: "350px",
-    backgroundColor: "#e2e0ce",
-    borderRadius: "20px",
+    // width: "350px",
+    // backgroundColor: "#e2e0ce",
+    // borderRadius: "20px",
   };
   return (
     <div
-      className="card p-1 text-dark bg-gradient border border-success border-3"
+      className="product-card card p-1 text-dark bg-gradient border border-success border-3"
       style={style}
     >
       <div className="card-body">

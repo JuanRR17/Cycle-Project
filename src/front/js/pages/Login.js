@@ -44,7 +44,7 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="m-auto bg-custom px-5 py-4 shadow ">
+    <div className="m-auto bg-custom">
       <h1 className=" text-center">Login</h1>
 
       <div className="mb-3">

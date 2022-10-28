@@ -9,7 +9,7 @@ const UserInfo = ({ data, handleEdit }) => {
   return (
     <div className="d-flex justify-content-center px-0">
       <div className="col-md-12">
-        <div className="card overflow-hidden">
+        <div className="profile-card overflow-hidden">
           <div className="row mx-0 bg-c-lite-green">
             <div className="col-sm-4">
               <div className=" py-4 text-center text-white">

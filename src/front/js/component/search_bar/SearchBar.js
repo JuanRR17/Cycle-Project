@@ -39,7 +39,7 @@ const SearchBar = ({ placeholder, data }) => {
         style={style}
       >
         <input
-          className="flex-grow-1 border-0 form-control ms-1 m-0 shadow-none"
+          className="flex-grow-1 border-0 pe-0 form-control ms-1 m-0 shadow-none"
           type="text"
           placeholder={placeholder}
           id="dropdownMenuButton1"
@@ -47,7 +47,7 @@ const SearchBar = ({ placeholder, data }) => {
           onChange={handleFilter}
           value={wordEntered}
         />
-        <div className="py-2 px-3">
+        <div className="py-2 ps-1 pe-3">
           {wordEntered ? (
             <button
               type="button"
