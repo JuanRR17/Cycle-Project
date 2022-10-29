@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ItemsTable from "../component/orders/ItemsTable";
 import DeliveryForm from "../component/orders/DeliveryForm";
 import PayPal from "../component/payment/PayPal";
+import "../../styles/index.css";
 
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
@@ -83,6 +84,8 @@ const ConfirmOrder = (props) => {
       setErrors(errorsFirstCheck);
     } else {
       setCheckout(true);
+      setErrors();
+
       // await actions.create_order(delivery, total, store.data.id);
       // await actions.getMadeOrders(store.data.id);
       // navigate("/profile");
@@ -144,56 +147,46 @@ const ConfirmOrder = (props) => {
             </div>
           </div>
         </div>
-        {/* PAYMENT */}
-        {/* <div className="panel-heading">
-          <h2 className="panel-title" id="panelsStayOpen-headingThree">
-            <button
-              className="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#panelsStayOpen-collapseThree"
-              aria-expanded="false"
-              aria-controls="panelsStayOpen-collapseThree"
-            >
-              Payment
-            </button>
-          </h2>
-          <div
-            id="panelsStayOpen-collapseThree"
-            className="accordion-collapse collapse"
-            aria-labelledby="panelsStayOpen-headingThree"
-          >
-            <div className="panel-body">
-              <div className="text-center">Total: {total} €</div>
-              <div>
-                <Checkout ready={total ? true : false} />
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
-      <div className="">Total: {total} €</div>
+      <div className="text-center">
+        <h1 className="">
+          Total: {(Math.round(total * 100) / 100).toFixed(2)} €
+        </h1>
 
-      <div className="text-error">
-        {errors?.total && store.basket.length === 0 ? errors.total : ""}
-        {errors && !errors.total
-          ? "Please enter mandatory address details"
-          : ""}
+        <div className="text-error">
+          {errors?.total && store.basket.length === 0 ? errors.total : ""}
+          {errors && !errors.total
+            ? "Please enter delivery address details"
+            : ""}
+        </div>
+        <div className="py-2 d-flex gap-2 justify-content-center">
+          <button
+            className="btn btn-success btn-custom"
+            onClick={handleConfirm}
+          >
+            Confirm
+          </button>
+          <button
+            onClick={() => {
+              navigate(-1);
+            }}
+            className="btn btn-danger btn-custom"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
-      <div className="py-2 d-flex gap-2">
-        <button className="btn btn-success btn-custom" onClick={handleConfirm}>
-          Confirm
-        </button>
-        <button
-          onClick={() => {
-            navigate(-1);
-          }}
-          className="btn btn-danger btn-custom"
-        >
-          Cancel
-        </button>
-      </div>
-      {checkout ? <PayPal total={total} delivery={delivery} /> : ""}
+
+      {checkout ? (
+        <div className="text-center m-auto" style={{ width: "500px" }}>
+          <span className="text-light fw-bolder p-3">
+            All details are correct!
+          </span>
+          <PayPal total={total} delivery={delivery} />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

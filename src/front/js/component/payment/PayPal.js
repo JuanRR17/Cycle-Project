@@ -44,11 +44,7 @@ const PayPal = ({ total, delivery }) => {
       .render(paypal.current);
   }, []);
 
-  return (
-    <div>
-      <div ref={paypal}></div>
-    </div>
-  );
+  return <div className="bg-light p-2 m-auto" ref={paypal}></div>;
 };
 
 PayPal.propTypes = {};
