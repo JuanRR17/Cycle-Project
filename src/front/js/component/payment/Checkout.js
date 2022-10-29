@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import PayPal from "./PayPal";
 
 const Checkout = (props) => {
   const [checkout, setCheckout] = useState(false);
   return (
-    <>
-      {checkout ? (
-        <Paypal />
+    <div>
+      Hola2
+      {/* {checkout ? (
+        <PayPal />
       ) : (
         <button
           onClick={() => {
@@ -15,8 +17,8 @@ const Checkout = (props) => {
         >
           Checkout
         </button>
-      )}
-    </>
+      )} */}
+    </div>
   );
 };
 
