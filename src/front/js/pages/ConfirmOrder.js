@@ -4,13 +4,15 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import ItemsTable from "../component/orders/ItemsTable";
 import DeliveryForm from "../component/orders/DeliveryForm";
-import Checkout from "../component/payment/Checkout";
+import PayPal from "../component/payment/PayPal";
 
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
   const [total, setTotal] = useState(0);
   const [delivery, setDelivery] = useState({});
   const [errors, setErrors] = useState();
+  const [checkout, setCheckout] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const ConfirmOrder = (props) => {
         actions.delete_from_basket(item.id);
       } else {
         new_total += item.subtotal;
-        setTotal(new_total);
+        setTotal(+(Math.round(new_total * 100) / 100).toFixed(2));
       }
     });
     if (store.basket.length === 0) {
@@ -80,9 +82,10 @@ const ConfirmOrder = (props) => {
     if (errorsFirstCheck) {
       setErrors(errorsFirstCheck);
     } else {
-      await actions.create_order(delivery, total, store.data.id);
-      await actions.getMadeOrders(store.data.id);
-      navigate("/profile");
+      setCheckout(true);
+      // await actions.create_order(delivery, total, store.data.id);
+      // await actions.getMadeOrders(store.data.id);
+      // navigate("/profile");
     }
   };
   return (
@@ -142,7 +145,7 @@ const ConfirmOrder = (props) => {
           </div>
         </div>
         {/* PAYMENT */}
-        <div className="panel-heading">
+        {/* <div className="panel-heading">
           <h2 className="panel-title" id="panelsStayOpen-headingThree">
             <button
               className="accordion-button collapsed"
@@ -161,16 +164,15 @@ const ConfirmOrder = (props) => {
             aria-labelledby="panelsStayOpen-headingThree"
           >
             <div className="panel-body">
-              <div className="text-center">
-                Total: {(Math.round(total * 100) / 100).toFixed(2)} €
-              </div>
+              <div className="text-center">Total: {total} €</div>
               <div>
-                <Checkout />
+                <Checkout ready={total ? true : false} />
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
+      <div className="">Total: {total} €</div>
 
       <div className="text-error">
         {errors?.total && store.basket.length === 0 ? errors.total : ""}
@@ -191,6 +193,7 @@ const ConfirmOrder = (props) => {
           Cancel
         </button>
       </div>
+      {checkout ? <PayPal total={total} delivery={delivery} /> : ""}
     </div>
   );
 };

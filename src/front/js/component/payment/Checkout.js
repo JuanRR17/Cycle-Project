@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import PayPal from "./PayPal";
 
-const Checkout = (props) => {
+const Checkout = ({ ready }) => {
+  console.log("ready:", ready);
   const [checkout, setCheckout] = useState(false);
   return (
     <>
