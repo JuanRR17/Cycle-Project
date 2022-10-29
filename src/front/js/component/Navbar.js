@@ -22,7 +22,7 @@ const Navbar = () => {
       actions.getCurrentUserData();
     }
   }, [token, data]);
-  console.log("navbar");
+  // console.log("navbar");
   return (
     <nav
       className="navbar navbar-expand-sm navbar-light bg-light nav-tabs sticky-top"
