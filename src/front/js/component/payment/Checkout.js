@@ -5,9 +5,8 @@ import PayPal from "./PayPal";
 const Checkout = (props) => {
   const [checkout, setCheckout] = useState(false);
   return (
-    <div>
-      Hola2
-      {/* {checkout ? (
+    <>
+      {checkout ? (
         <PayPal />
       ) : (
         <button
@@ -17,8 +16,8 @@ const Checkout = (props) => {
         >
           Checkout
         </button>
-      )} */}
-    </div>
+      )}
+    </>
   );
 };
 

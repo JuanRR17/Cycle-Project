@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import ItemsTable from "../component/orders/ItemsTable";
 import DeliveryForm from "../component/orders/DeliveryForm";
+import Checkout from "../component/payment/Checkout";
 
 const ConfirmOrder = (props) => {
   const { store, actions } = useContext(Context);
@@ -162,6 +163,9 @@ const ConfirmOrder = (props) => {
             <div className="panel-body">
               <div className="text-center">
                 Total: {(Math.round(total * 100) / 100).toFixed(2)} €
+              </div>
+              <div>
+                <Checkout />
               </div>
             </div>
           </div>
