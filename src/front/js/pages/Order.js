@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import OrderRows from "../component/orders/OrderRows";
 import BackButton from "../component/buttons/BackButton";
+import Paypal from "../component/payment/Paypal";
 
 const Order = (props) => {
   const { store, actions } = useContext(Context);
@@ -61,6 +62,7 @@ const Order = (props) => {
             <OrderRows orderRows={store.order.order_rows} />
           </div>
           <div className=" fw-bolder text-end">
+            <Paypal />
             Total: {store.order.total} €
           </div>
         </div>
