@@ -10,8 +10,12 @@ const ProductsList = () => {
   const { store, actions } = useContext(Context);
   const [filter, setFilter] = useState(0);
   const [filteredList, setFilteredList] = useState([]);
+  const [checked, setChecked] = useState(false);
 
   const token = useMemo(() => store.token, [store.token]);
+  const userCheck = useMemo(() => {
+    return checked;
+  }, [checked]);
 
   const all_Products = useMemo(() => store.all_products, [store.all_products]);
 
@@ -24,16 +28,24 @@ const ProductsList = () => {
   }, [all_Products]);
 
   useEffect(() => {
+    let products = [];
+    if (userCheck) {
+      products = all_Products.filter((product) => {
+        return product.user_id !== store.data.id;
+      });
+    } else {
+      products = all_Products;
+    }
     if (+filter !== 0) {
-      const filterByTypeList = all_Products.filter((product) => {
+      const filterByTypeList = products.filter((product) => {
         return product.type === store.types[filter];
       });
 
       setFilteredList(filterByTypeList);
     } else {
-      setFilteredList(all_Products);
+      setFilteredList(products);
     }
-  }, [filter, all_Products]);
+  }, [filter, all_Products, userCheck]);
 
   useEffect(() => {
     actions.syncTokenFromSessionStore();
@@ -42,11 +54,30 @@ const ProductsList = () => {
     }
   }, [token]);
 
+  const handleChange = (e) => {
+    setChecked(e.target.checked);
+  };
+
   return (
     <div className=" bg-custom">
       {store.all_products ? (
         <>
           <div className="container-fluid">
+            {token && (
+              <div className="form-check d-flex gap-2 justify-content-center">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  onChange={handleChange}
+                  checked={checked}
+                />
+                <label className="form-check-label" htmlFor="flexCheckDefault">
+                  Hide your By-Products
+                </label>
+              </div>
+            )}
             <div className="row d-flex justify-content-center mx-5 my-3 gap-2">
               <div className="col-md-4 d-flex justify-content-end">
                 <Filter
