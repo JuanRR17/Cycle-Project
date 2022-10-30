@@ -75,9 +75,11 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "bootstrap": "^5.2.2",
     "lodash": "^4.17.21",
     "prop-types": "^15.6.1",
     "react": "^16.8.4",
+    "react-bootstrap": "^2.5.0",
     "react-data-table-component": "^7.5.3",
     "react-dom": "^16.8.4",
     "react-icons": "^4.4.0",

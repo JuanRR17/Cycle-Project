@@ -6,6 +6,7 @@ import FavouriteIcon from "../icons/FavouriteIcon";
 import BasketIcon from "../icons/BasketIcon";
 import { IconContext } from "react-icons";
 import thinkay from "../../../img/thinkay.jpg";
+import { MdOutlineLocationOn } from "react-icons/md";
 
 const ProductCard = ({ details }) => {
   const { store, actions } = useContext(Context);
@@ -18,16 +19,8 @@ const ProductCard = ({ details }) => {
     navigate(url);
   };
 
-  const style = {
-    // width: "350px",
-    // backgroundColor: "#e2e0ce",
-    // borderRadius: "20px",
-  };
   return (
-    <div
-      className="product-card card p-1 text-dark bg-gradient border border-success border-3"
-      style={style}
-    >
+    <div className="product-card card p-1 text-dark bg-gradient border border-success border-3">
       <div className="card-body">
         <div className="card-title d-flex justify-content-between">
           <span className="fw-bolder">{details.name}</span>
@@ -39,7 +32,10 @@ const ProductCard = ({ details }) => {
           alt={details.name}
         />
         <div className="card-title d-flex justify-content-between">
-          <span>{details.location}</span>
+          <span>
+            <MdOutlineLocationOn />
+            {details.location}
+          </span>
           {store.token ? (
             <span>
               {details.price} €/{details.unit}
@@ -50,7 +46,13 @@ const ProductCard = ({ details }) => {
         </div>
         <div className="container">
           <div className="row">
-            <div className="col"></div>
+            <div className="col">
+              {details.stock > 0 ? (
+                ""
+              ) : (
+                <span className="text-error "> Out of Stock</span>
+              )}
+            </div>
             <div className="col">
               {" "}
               <button

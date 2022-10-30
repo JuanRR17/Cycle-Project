@@ -29,7 +29,7 @@ const BasketItem = ({ item }) => {
       </td>
       <td>{item.product.type}</td>
       <td>{item.product.location}</td>
-      <td>
+      <td className="text-center">
         <Quantity
           quantity={item.quantity}
           stock={item.product.stock}
