@@ -567,15 +567,15 @@ def get_images():
 @api.route("/distance")
 def calc_distance():
     BASE_URL = 'https://nominatim.openstreetmap.org/search?format=json'
-    postcode='11002'
-    response=requests.get(f"{BASE_URL}&postalcode={postcode}&country=spain")
+    city='cadiz'
+    response=requests.get(f"{BASE_URL}&city={city}&country=spain")
     data = response.json()
     latitude = data[0].get('lat')
     longitude = data[0].get('lon')
     location = (float(latitude), float(longitude))
 
-    postcode2='41001'
-    response2=requests.get(f"{BASE_URL}&postalcode={postcode2}&country=spain")
+    city2='sevilla'
+    response2=requests.get(f"{BASE_URL}&city={city2}&country=spain")
     data2 = response2.json()
     latitude2 = data2[0].get('lat')
     longitude2 = data2[0].get('lon')
@@ -584,6 +584,5 @@ def calc_distance():
     km = geodesic(location, location2).km
     # m = folium.Map(location=list(location), zoom_start = 13)
 
-    # return jsonify({"distance":km})
+    # return jsonify(location)
     return str(km)
-    # return type(km)
