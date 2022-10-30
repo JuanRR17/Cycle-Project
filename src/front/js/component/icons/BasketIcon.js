@@ -17,7 +17,9 @@ const BasketIcon = ({ product }) => {
   const handleItemInBasket = (elem) => {
     if (!basket_prod_ids.includes(elem.id)) {
       if (!basket_items_userid || basket_items_userid === elem.user_id) {
-        actions.add_to_basket(store.data.id, elem.id);
+        if (elem.stock > 0) {
+          actions.add_to_basket(store.data.id, elem.id);
+        }
       }
     } else {
       const getBasketProd = store.basket.filter((b) => {
@@ -33,7 +35,7 @@ const BasketIcon = ({ product }) => {
         <span
           type="button"
           onClick={() => handleItemInBasket(product)}
-          className="text-success icon"
+          className={product.stock > 0 ? "text-success icon" : "text-danger"}
         >
           {basket_prod_ids.includes(product.id) ? (
             <BsFillCartFill />

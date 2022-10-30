@@ -24,7 +24,7 @@ const ItemsTable = ({ total }) => {
             <th className="col" scope="col">
               Location
             </th>
-            <th className="col-1" scope="col">
+            <th className="col-1 text-center" scope="col">
               Quantity
             </th>
             <th className="col-1 basket-number" scope="col">

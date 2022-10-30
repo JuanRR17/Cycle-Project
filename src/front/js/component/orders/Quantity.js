@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import { IconContext } from "react-icons";
@@ -17,6 +17,15 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
       handleSetQuantity(1);
     }
   };
+
+  const handleAdd = () => {
+    if (quantity < stock) handleSetQuantity(quantity + 1);
+  };
+
+  const handleRest = () => {
+    if (quantity > 0) handleSetQuantity(quantity - 1);
+  };
+
   return (
     <>
       {stock === 0 ? (
@@ -30,12 +39,7 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
           <IconContext.Provider
             value={{ className: "text-light py-1", size: 30 }}
           >
-            <MdAddCircle
-              type="button"
-              onClick={() => {
-                if (quantity < stock) handleSetQuantity(quantity + 1);
-              }}
-            />
+            <MdAddCircle type="button" onClick={handleAdd} />
             <input
               value={quantity}
               onChange={handleChange}
@@ -50,9 +54,7 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
             <MdRemoveCircle
               type="button"
               className="text-secondary"
-              onClick={() => {
-                if (quantity > 0) handleSetQuantity(quantity - 1);
-              }}
+              onClick={handleRest}
             />
           </IconContext.Provider>
         </div>

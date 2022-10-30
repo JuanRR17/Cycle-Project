@@ -91,7 +91,12 @@ export const Product = () => {
                         ""
                       )}
                       <div className="col-sm-6 col-md-4 col-lg-12">
-                        <label>Stock:</label> {product.stock} {product.unit}
+                        <label>Stock: </label>
+                        {product.stock > 0 ? (
+                          ` ${product.stock} ${product.unit}`
+                        ) : (
+                          <span className="text-error"> Out of Stock</span>
+                        )}
                       </div>
                       {product.user_id === store.data.id ? (
                         <div className="col-sm-6 col-md-4 col-lg-12">
@@ -121,7 +126,9 @@ export const Product = () => {
                                   setQuantity(value)
                                 }
                               />
-                              <span className="ms-1">{product.unit}</span>
+                              {product.stock > 0 && (
+                                <span className="ms-1">{product.unit}</span>
+                              )}
                             </div>
                           </div>
                         </>
@@ -130,7 +137,9 @@ export const Product = () => {
                   ) : null}
 
                   <div className="d-flex gap-3 my-2">
-                    {store.token && product.user_id !== store.data?.id ? (
+                    {store.token &&
+                    product.user_id !== store.data?.id &&
+                    product.stock > 0 ? (
                       <div>
                         <button
                           type="button"

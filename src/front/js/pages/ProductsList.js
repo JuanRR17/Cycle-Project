@@ -25,10 +25,11 @@ const ProductsList = () => {
 
   useEffect(() => {
     if (+filter !== 0) {
-      const newFilteredList = all_Products.filter((product) => {
+      const filterByTypeList = all_Products.filter((product) => {
         return product.type === store.types[filter];
       });
-      setFilteredList(newFilteredList);
+
+      setFilteredList(filterByTypeList);
     } else {
       setFilteredList(all_Products);
     }
@@ -37,7 +38,6 @@ const ProductsList = () => {
   useEffect(() => {
     actions.syncTokenFromSessionStore();
     if (!sessionStorage.getItem("token") && !token) {
-      // if (!store.data && store.token) {
       actions.logout();
     }
   }, [token]);

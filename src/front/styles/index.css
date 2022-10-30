@@ -2,7 +2,7 @@
     General Styles used on every website (Don't Repeat Yourself)
 */
 :root {
-  --bg-color: rgba(20, 48, 9, 0.8);
+  --bg-color: rgba(20, 48, 9, 0.9);
 }
 
 body {
