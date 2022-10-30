@@ -31,7 +31,6 @@ const SearchBar = ({ placeholder, data }) => {
   const ULstyle = {
     minWidth: "max-content",
   };
-  console.log("filteredData:", filteredData);
   return (
     <div className="dropdown">
       <div
