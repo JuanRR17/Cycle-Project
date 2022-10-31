@@ -14,6 +14,7 @@ const ProductsList = () => {
   const [checked, setChecked] = useState(false);
   const [distance, setDistance] = useState("");
   const [distanceFilter, setDistanceFilter] = useState(false);
+  const [origin, setOrigin] = useState("");
 
   const token = useMemo(() => store.token, [store.token]);
   const userCheck = useMemo(() => {
@@ -22,19 +23,27 @@ const ProductsList = () => {
 
   const all_Products = useMemo(() => store.all_products, [store.all_products]);
 
+  //Check user is logon
+  useEffect(() => {
+    actions.syncTokenFromSessionStore();
+    if (!sessionStorage.getItem("token") && !token) {
+      actions.logout();
+    }
+  }, [token]);
+
+  //Get Products List
   useEffect(() => {
     actions.getAllProducts();
   }, []);
 
+  //Calculate products distance
   useEffect(() => {
-    if (distanceFilter) {
-      all_Products.map((product) => {
-        return (product["distance"] = 100);
-      });
-    }
     setFilteredList(all_Products);
-  }, [all_Products, distanceFilter]);
+  }, [all_Products]);
+
   console.log("all_Products:", all_Products);
+
+  //Filters selected by user
   useEffect(() => {
     let products = [];
     //Filter by user by-products
@@ -46,13 +55,12 @@ const ProductsList = () => {
       products = all_Products;
     }
     // Filter by Distance
-    if (distanceFilter) {
-      console.log("distanceFilter");
+    // if (distanceFilter) {
+    //   products = products.filter((product)=>{
+    //     return
+    //   })
 
-      products = products.filter((product) => {
-        return product.distance < distance;
-      });
-    }
+    // }
     // Filter by Type
     if (+filter !== 0) {
       const filterByTypeList = products.filter((product) => {
@@ -63,13 +71,6 @@ const ProductsList = () => {
       setFilteredList(products);
     }
   }, [filter, all_Products, userCheck, distanceFilter]);
-
-  useEffect(() => {
-    actions.syncTokenFromSessionStore();
-    if (!sessionStorage.getItem("token") && !token) {
-      actions.logout();
-    }
-  }, [token]);
 
   const handleChange = (e) => {
     setChecked(e.target.checked);
@@ -98,10 +99,10 @@ const ProductsList = () => {
             <div className="row justify-content-center gap-2">
               <div className="col-sm-9 col-lg-4">
                 <Distance
-                  distance={distance}
                   distanceFilter={distanceFilter}
                   handleSetDistance={(value) => setDistance(value)}
                   handleSetDistanceFilter={(value) => setDistanceFilter(value)}
+                  handleSetOrigin={(value) => setOrigin(value)}
                 />
               </div>
               <div className="col-sm-9 col-lg-4">
@@ -124,7 +125,9 @@ const ProductsList = () => {
               <div className="d-flex flex-wrap justify-content-center gap-3">
                 {filteredList &&
                   filteredList.map((p, idx) => {
-                    return <ProductCard key={idx} details={p} />;
+                    return (
+                      <ProductCard key={idx} details={p} origin={origin} />
+                    );
                   })}
               </div>
             </div>

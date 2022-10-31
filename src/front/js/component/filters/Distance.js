@@ -8,6 +8,7 @@ const Distance = ({
   distanceFilter,
   handleSetDistance,
   handleSetDistanceFilter,
+  handleSetOrigin,
 }) => {
   const [location, setLocation] = useState("");
   const [valid, setValid] = useState(false);
@@ -55,6 +56,7 @@ const Distance = ({
   const handleDistanceFilter = () => {
     console.log("1");
     handleSetDistanceFilter(true);
+    handleSetOrigin(location);
   };
 
   const clearInput = () => {
