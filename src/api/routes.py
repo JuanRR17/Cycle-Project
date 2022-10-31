@@ -25,6 +25,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #Get Location Coordinates
+
 def get_location_coordinates(city):
     BASE_URL = 'https://nominatim.openstreetmap.org/search?format=json'
     response=requests.get(f"{BASE_URL}&city={city}&country=spain")
@@ -34,7 +35,7 @@ def get_location_coordinates(city):
     location = (float(latitude), float(longitude))
     return location
 
-#Validate location
+#Validate location function
 def validate_location(location):
     try:
         check = get_location_coordinates(location)
@@ -622,3 +623,16 @@ def calc_distance(loc1,loc2):
         return jsonify({"msg":"Enter a valid location"}),500
     else:
         return str(km),200
+
+#Validate location function
+@api.route("/validate/<string:location>")
+def valid_loc(location):
+    try:
+        check = get_location_coordinates(location)
+        print("check")
+        print(check)
+    except:
+        return jsonify({"msg":"Enter a valid location"}),500
+
+    else:
+        return jsonify({"msg":"This location is valid"}),200

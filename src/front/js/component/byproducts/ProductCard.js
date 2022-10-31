@@ -7,7 +7,7 @@ import BasketIcon from "../icons/BasketIcon";
 import { IconContext } from "react-icons";
 import thinkay from "../../../img/thinkay.jpg";
 import { MdOutlineLocationOn } from "react-icons/md";
-// import { RiPinDistanceLine } from "react-icons/ri";
+import { RiPinDistanceLine } from "react-icons/ri";
 
 const ProductCard = ({ details }) => {
   const { store, actions } = useContext(Context);
@@ -45,9 +45,9 @@ const ProductCard = ({ details }) => {
             ""
           )}
         </div>
-        {/* <div>
+        <div>
           <RiPinDistanceLine />
-        </div> */}
+        </div>
         <div className="container">
           <div className="row">
             <div className="col">

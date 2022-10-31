@@ -5,12 +5,14 @@ import "../../styles/home.css";
 import ProductCard from "../component/byproducts/ProductCard";
 import SearchBar from "../component/search_bar/SearchBar";
 import Filter from "../component/filters/Filter";
+import Distance from "../component/filters/Distance";
 
 const ProductsList = () => {
   const { store, actions } = useContext(Context);
   const [filter, setFilter] = useState(0);
   const [filteredList, setFilteredList] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [distance, setDistance] = useState("");
 
   const token = useMemo(() => store.token, [store.token]);
   const userCheck = useMemo(() => {
@@ -78,20 +80,26 @@ const ProductsList = () => {
                 </label>
               </div>
             )}
-            <div className="row d-flex justify-content-center mx-5 my-3 gap-2">
-              <div className="col-md-4 d-flex justify-content-end">
+            <div className="row justify-content-center gap-2">
+              <div className="col-sm-9 col-lg-4">
+                <Distance
+                  distance={distance}
+                  handleSetDistance={(value) => setDistance(value)}
+                />
+              </div>
+              <div className="col-sm-9 col-lg-4">
+                <SearchBar
+                  placeholder="Search By-Products"
+                  data={store.all_products}
+                />
+              </div>
+              <div className="col-sm-9 col-lg-2">
                 <Filter
                   label="Type"
                   fields={store.types}
                   handleSetFilter={(value) => {
                     setFilter(value);
                   }}
-                />
-              </div>
-              <div className="col-md-4">
-                <SearchBar
-                  placeholder="Search By-Products"
-                  data={store.all_products}
                 />
               </div>
             </div>
