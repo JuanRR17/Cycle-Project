@@ -5,12 +5,16 @@ import "../../styles/home.css";
 import ProductCard from "../component/byproducts/ProductCard";
 import SearchBar from "../component/search_bar/SearchBar";
 import Filter from "../component/filters/Filter";
+import Distance from "../component/filters/Distance";
 
 const ProductsList = () => {
   const { store, actions } = useContext(Context);
   const [filter, setFilter] = useState(0);
   const [filteredList, setFilteredList] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [distance, setDistance] = useState("");
+  const [distanceFilter, setDistanceFilter] = useState(false);
+  const [origin, setOrigin] = useState("");
 
   const token = useMemo(() => store.token, [store.token]);
   const userCheck = useMemo(() => {
@@ -19,16 +23,34 @@ const ProductsList = () => {
 
   const all_Products = useMemo(() => store.all_products, [store.all_products]);
 
+  //Check user is logon
+  useEffect(() => {
+    actions.syncTokenFromSessionStore();
+    if (!sessionStorage.getItem("token") && !token) {
+      actions.logout();
+    }
+  }, [token]);
+
+  //Get Products List
   useEffect(() => {
     actions.getAllProducts();
   }, []);
 
+  //Calculate products distance
   useEffect(() => {
-    setFilteredList(all_Products);
-  }, [all_Products]);
+    if (origin) {
+      actions.getAllProducts(origin);
+    } else {
+      setFilteredList(all_Products);
+    }
+  }, [origin]);
 
+  console.log("all_Products:", all_Products);
+
+  //Filters selected by user
   useEffect(() => {
     let products = [];
+    //Filter by user by-products
     if (userCheck) {
       products = all_Products.filter((product) => {
         return product.user_id !== store.data.id;
@@ -36,23 +58,22 @@ const ProductsList = () => {
     } else {
       products = all_Products;
     }
+    // Filter by Distance
+    if (distanceFilter) {
+      products = products.filter((product) => {
+        return product.distance <= distance;
+      });
+    }
+    // Filter by Type
     if (+filter !== 0) {
       const filterByTypeList = products.filter((product) => {
         return product.type === store.types[filter];
       });
-
       setFilteredList(filterByTypeList);
     } else {
       setFilteredList(products);
     }
-  }, [filter, all_Products, userCheck]);
-
-  useEffect(() => {
-    actions.syncTokenFromSessionStore();
-    if (!sessionStorage.getItem("token") && !token) {
-      actions.logout();
-    }
-  }, [token]);
+  }, [filter, all_Products, userCheck, distanceFilter]);
 
   const handleChange = (e) => {
     setChecked(e.target.checked);
@@ -78,8 +99,23 @@ const ProductsList = () => {
                 </label>
               </div>
             )}
-            <div className="row d-flex justify-content-center mx-5 my-3 gap-2">
-              <div className="col-md-4 d-flex justify-content-end">
+            <div className="row justify-content-center gap-2">
+              <div className="col-sm-9 col-lg-4">
+                <Distance
+                  distance={distance}
+                  distanceFilter={distanceFilter}
+                  handleSetDistance={(value) => setDistance(value)}
+                  handleSetDistanceFilter={(value) => setDistanceFilter(value)}
+                  handleSetOrigin={(value) => setOrigin(value)}
+                />
+              </div>
+              <div className="col-sm-9 col-lg-4">
+                <SearchBar
+                  placeholder="Search By-Products"
+                  data={store.all_products}
+                />
+              </div>
+              <div className="col-sm-9 col-lg-2">
                 <Filter
                   label="Type"
                   fields={store.types}
@@ -88,18 +124,18 @@ const ProductsList = () => {
                   }}
                 />
               </div>
-              <div className="col-md-4">
-                <SearchBar
-                  placeholder="Search By-Products"
-                  data={store.all_products}
-                />
-              </div>
             </div>
             <div className="row mt-5">
               <div className="d-flex flex-wrap justify-content-center gap-3">
                 {filteredList &&
                   filteredList.map((p, idx) => {
-                    return <ProductCard key={idx} details={p} />;
+                    return (
+                      <ProductCard
+                        key={idx}
+                        details={p}
+                        distanceFilter={distanceFilter}
+                      />
+                    );
                   })}
               </div>
             </div>

@@ -7,11 +7,10 @@ import BasketIcon from "../icons/BasketIcon";
 import { IconContext } from "react-icons";
 import thinkay from "../../../img/thinkay.jpg";
 import { MdOutlineLocationOn } from "react-icons/md";
-// import { RiPinDistanceLine } from "react-icons/ri";
+import { RiPinDistanceLine } from "react-icons/ri";
 
-const ProductCard = ({ details }) => {
+const ProductCard = ({ details, distanceFilter }) => {
   const { store, actions } = useContext(Context);
-
   const navigate = useNavigate();
 
   const url = "/product/" + details.id;
@@ -45,9 +44,11 @@ const ProductCard = ({ details }) => {
             ""
           )}
         </div>
-        {/* <div>
-          <RiPinDistanceLine />
-        </div> */}
+        {distanceFilter && (
+          <div>
+            <RiPinDistanceLine /> {details.distance} km
+          </div>
+        )}
         <div className="container">
           <div className="row">
             <div className="col">

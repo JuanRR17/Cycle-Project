@@ -374,8 +374,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ product: null });
       },
       //GET ALL PRODUCTS
-      getAllProducts: async () => {
-        const url = process.env.BACKEND_URL + "/api/products/";
+      getAllProducts: async (origin = undefined) => {
+        let url;
+        if (origin) {
+          url = process.env.BACKEND_URL + "/api/products/" + origin;
+        } else {
+          url = process.env.BACKEND_URL + "/api/products";
+        }
         try {
           const resp = await fetch(url);
           if (resp.status !== 200) {

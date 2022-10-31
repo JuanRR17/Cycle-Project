@@ -25,6 +25,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #Get Location Coordinates
+
 def get_location_coordinates(city):
     BASE_URL = 'https://nominatim.openstreetmap.org/search?format=json'
     response=requests.get(f"{BASE_URL}&city={city}&country=spain")
@@ -34,7 +35,7 @@ def get_location_coordinates(city):
     location = (float(latitude), float(longitude))
     return location
 
-#Validate location
+#Validate location function
 def validate_location(location):
     try:
         check = get_location_coordinates(location)
@@ -302,16 +303,26 @@ def new_product():
         return jsonify(new_product.serialize()), 200
 
 # GET ALL PRODUCTS
+@api.route("/products/<origin>", methods=['GET'])
 @api.route("/products", methods=['GET'])
-
-def get_products():
+def get_products(origin=None):
     products = Product.query.all()
     all_products=[]
     for p in products:
         if p.user != None:
             product = dict(p.serialize())
-            product['user']=p.user.serialize()
+            product['user'] = p.user.serialize()
+            if origin:
+                try:
+                    location1 = get_location_coordinates(origin)
+                    location = product['location']
+                    location2 = get_location_coordinates(location)
+                    km = geodesic(location1, location2).km
+                    product['distance'] = float("%.2f" % round(km, 2))
+                except:
+                    return jsonify({"msg":"Enter a valid location"}),500
             all_products.append(product)
+
     return jsonify(all_products)
 
 # GET ONE PRODUCT DATA
@@ -480,8 +491,7 @@ def update_basket_item(id):
 @jwt_required()
 def new_order():
     request_body = request.get_json(force=True)
-    print("request_body")
-    print(request_body)
+
     items = request_body['items']
     delivery = request_body['delivery']
     total = request_body['total']
@@ -622,3 +632,16 @@ def calc_distance(loc1,loc2):
         return jsonify({"msg":"Enter a valid location"}),500
     else:
         return str(km),200
+
+#Validate location function
+@api.route("/validate/<string:location>")
+def valid_loc(location):
+    try:
+        check = get_location_coordinates(location)
+        print("check")
+        print(check)
+    except:
+        return jsonify({"msg":"Enter a valid location"}),500
+
+    else:
+        return jsonify({"msg":"This location is valid"}),200
