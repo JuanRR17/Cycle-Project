@@ -3,6 +3,7 @@ import { Context } from "../../store/appContext";
 import "../../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { capitalize } from "../../utils/utils";
 
 const UserForm = ({ edit, handleSetEdit }) => {
   const { store, actions } = useContext(Context);
@@ -58,7 +59,16 @@ const UserForm = ({ edit, handleSetEdit }) => {
     }
 
     if (!edit) {
-      if (await actions.signup(username, email, password)) {
+      if (
+        await actions.signup(
+          username,
+          email,
+          company,
+          phone,
+          location,
+          password
+        )
+      ) {
         navigate("/login");
       }
     } else {
@@ -169,8 +179,14 @@ const UserForm = ({ edit, handleSetEdit }) => {
               className="form-control"
               id="inputLocation"
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={(e) => setLocation(capitalize(e.target.value))}
             />
+
+            {store.message &&
+            store.message.split(" ")[store.message.split(" ").length - 1] ===
+              "location" ? (
+              <div className="text-error">{store.message}</div>
+            ) : null}
           </div>
         </div>
         <div className="row">
@@ -183,7 +199,7 @@ const UserForm = ({ edit, handleSetEdit }) => {
               required
               type="password"
               className="form-control"
-              placeholder={edit && "New password"}
+              placeholder={edit ? "New password" : ""}
               id="inputPassword"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

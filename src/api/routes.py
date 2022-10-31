@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-import os
+import os, requests, folium
 from flask import Flask, request, jsonify, url_for, Blueprint, Request
 from api.models import db, User, Product, Favourite, BasketItem,Order,OrderRow,Image
 from api.utils import generate_sitemap, APIException
@@ -12,6 +12,9 @@ from flask_jwt_extended import jwt_required
 
 from werkzeug.utils import secure_filename
 
+from geopy.geocoders import Nominatim
+from geopy.distance import geodesic
+
 # Create Flask app
 api = Blueprint('api', __name__)
 
@@ -20,6 +23,25 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+#Get Location Coordinates
+def get_location_coordinates(city):
+    BASE_URL = 'https://nominatim.openstreetmap.org/search?format=json'
+    response=requests.get(f"{BASE_URL}&city={city}&country=spain")
+    data = response.json()
+    latitude = data[0].get('lat')
+    longitude = data[0].get('lon')
+    location = (float(latitude), float(longitude))
+    return location
+
+#Validate location
+def validate_location(location):
+    try:
+        check = get_location_coordinates(location)
+    except:
+        return False
+    else:
+        return True
 
 # SIGN UP
 @api.route("/signup", methods=['POST'])
@@ -42,13 +64,18 @@ def sign_up():
     elif User.query.filter_by(username = request_body['username']).first() != None:
         return jsonify({"msg":'This username is already in use'}),500
     else:
-
         new_user = User()
         fields = ["username","email","password","phone","location","company"]
 
         gen = (f for f in fields if f in request_keys)
         for f in gen:
-            if request_body[f] != "":
+            if f == "location":
+                if not validate_location(request_body[f]):
+                    return jsonify({"msg":"Enter a valid location"}),500
+                else:
+                    setattr(new_user, f, request_body[f])
+
+            elif request_body[f] != "":
                 setattr(new_user, f, request_body[f])
 
         db.session.add(new_user)
@@ -144,8 +171,14 @@ def update_user(id):
             unvalid_fields = []
             for f in request_body:
                 if f in fields:
-                    if f!="password":
+                    if f == "location":
+                        if not validate_location(request_body[f]):
+                            return jsonify({"msg":"Enter a valid location"}),500
+                        else:
+                            setattr(user, f, request_body[f])
+                    elif f!="password":
                         setattr(user, f, request_body[f])
+
                     elif request_body[f]!="":
                         setattr(user, f, request_body[f])
                 else:
@@ -216,6 +249,12 @@ def new_product():
 
         gen = (f for f in fields if f in request_keys)
         for f in gen:
+            if f == "location":
+                if not validate_location(request_body[f]):
+                    return jsonify({"msg":"Enter a valid location"}),500
+                else:
+                    setattr(new_product, f, request_body[f])
+
             if request_body[f] != "":
                 setattr(new_product, f, request_body[f])
 
@@ -317,6 +356,11 @@ def update_product(id):
             unvalid_fields = []
             for f in request_body:
                 if f in fields:
+                    if f == "location":
+                        if not validate_location(request_body[f]):
+                            return jsonify({"msg":"Enter a valid location"}),500
+                        else:
+                            setattr(product, f, request_body[f])
                     setattr(product, f, request_body[f])
                 else:
                     unvalid_fields.append(f)
@@ -559,3 +603,22 @@ def get_images():
     all_images = list(map(lambda x: x.serialize()['id'], all_images))
     json_text = jsonify(all_images)
     return json_text
+
+#CALCULATE DISTANCE
+@api.route("/distance/<string:loc1>/<string:loc2>")
+def calc_distance(loc1,loc2):
+    try:
+        location1 = get_location_coordinates(loc1)
+        print("location1")
+        print(location1)
+
+        location2 = get_location_coordinates(loc2)
+        print("location2")
+        print(location2)
+
+        km = geodesic(location1, location2).km
+        # m = folium.Map(location=list(location), zoom_start = 13)
+    except:
+        return jsonify({"msg":"Enter a valid location"}),500
+    else:
+        return str(km),200
