@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { capitalize } from "../../utils/utils";
+import { ImSearch } from "react-icons/im";
 
 const Distance = ({ distance, handleSetDistance }) => {
   const [location, setLocation] = useState("");
   const [valid, setValid] = useState(false);
 
   const handleLocation = async (e) => {
+    let mounted = true;
     const url = process.env.BACKEND_URL + "/api/validate/" + e.target.value;
     fetch(url, {
       method: "GET",
@@ -19,10 +21,12 @@ const Distance = ({ distance, handleSetDistance }) => {
         console.log(resp.ok); // will be true if the response is successfull
         console.log(resp.status); // the status code = 200 or code = 400 etc.
         console.log(resp.text()); // will try return the exact result as string
-        if (resp.status === 200) {
-          setValid(true);
-        } else {
-          setValid(false);
+        if (mounted) {
+          if (resp.status === 200) {
+            setValid(true);
+          } else {
+            setValid(false);
+          }
         }
         return resp; // (returns promise) will try to parse the result as json as return a promise that you can .then for results
       })
@@ -31,7 +35,12 @@ const Distance = ({ distance, handleSetDistance }) => {
         console.log(error);
         setValid(false);
       });
-    setLocation(capitalize(e.target.value));
+    if (mounted) {
+      setLocation(capitalize(e.target.value));
+    }
+    return function cleanup() {
+      mounted = false;
+    };
   };
   console.log("valid:", valid);
   const handleDistance = (e) => {
@@ -48,12 +57,13 @@ const Distance = ({ distance, handleSetDistance }) => {
       style={style}
     >
       <input
-        className="flex-grow-1 border-0 pe-0 form-control ms-1 m-0 shadow-none"
+        className="flex-grow-1 border-0 form-control ms-1 m-0 shadow-none text-end"
         type="text"
         placeholder="Location"
         onChange={handleLocation}
         value={location}
       />
+
       <input
         className="py-2 ps-1 form-control m-0 shadow-none text-end"
         type="text"
@@ -63,7 +73,20 @@ const Distance = ({ distance, handleSetDistance }) => {
         disabled={!valid}
         style={{ width: "60px" }}
       />
-      <span className="px-2">km</span>
+      <span className="ps-1 pe-2">km</span>
+
+      <div className="py-2 ps-1 pe-3">
+        {valid ? (
+          <button
+            type="button"
+            className="btn-close"
+            aria-label="Close"
+            // onClick={clearInput}
+          ></button>
+        ) : (
+          <ImSearch />
+        )}
+      </div>
     </div>
   );
 };
