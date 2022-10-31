@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import PropTypes from "prop-types";
+import { capitalize } from "../utils/utils";
 
 const ByProductForm = (props) => {
   const { store, actions } = useContext(Context);
@@ -164,7 +165,7 @@ const ByProductForm = (props) => {
                 className="form-control"
                 id="inputLocation"
                 value={location ?? ""}
-                onChange={(e) => setLocation(e.target.value)}
+                onChange={(e) => setLocation(capitalize(e.target.value))}
               />
               {errors?.location ? (
                 <div className="text-error">{errors?.location}</div>

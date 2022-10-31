@@ -3,6 +3,7 @@ import { Context } from "../../store/appContext";
 import "../../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { capitalize } from "../../utils/utils";
 
 const UserForm = ({ edit, handleSetEdit }) => {
   const { store, actions } = useContext(Context);
@@ -178,7 +179,7 @@ const UserForm = ({ edit, handleSetEdit }) => {
               className="form-control"
               id="inputLocation"
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={(e) => setLocation(capitalize(e.target.value))}
             />
 
             {store.message &&

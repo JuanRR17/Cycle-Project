@@ -1,7 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
+import { Context } from "../../store/appContext";
+
 import PropTypes from "prop-types";
 
 const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
+  const { store, actions } = useContext(Context);
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
   const [province, setProvince] = useState("");
@@ -63,6 +66,11 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
               />
               {errors?.location ? (
                 <div className="text-error">{errors?.location}</div>
+              ) : null}
+              {store?.message &&
+              store.message.split(" ")[store.message.split(" ").length - 1] ===
+                "location" ? (
+                <div className="text-error">{store.message}</div>
               ) : null}
             </div>
             {/* CP field */}
