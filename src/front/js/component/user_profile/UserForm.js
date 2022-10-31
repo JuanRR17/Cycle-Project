@@ -58,7 +58,16 @@ const UserForm = ({ edit, handleSetEdit }) => {
     }
 
     if (!edit) {
-      if (await actions.signup(username, email, password)) {
+      if (
+        await actions.signup(
+          username,
+          email,
+          company,
+          phone,
+          location,
+          password
+        )
+      ) {
         navigate("/login");
       }
     } else {
@@ -171,6 +180,12 @@ const UserForm = ({ edit, handleSetEdit }) => {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             />
+
+            {store.message &&
+            store.message.split(" ")[store.message.split(" ").length - 1] ===
+              "location" ? (
+              <div className="text-error">{store.message}</div>
+            ) : null}
           </div>
         </div>
         <div className="row">
@@ -183,7 +198,7 @@ const UserForm = ({ edit, handleSetEdit }) => {
               required
               type="password"
               className="form-control"
-              placeholder={edit && "New password"}
+              placeholder={edit ? "New password" : ""}
               id="inputPassword"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

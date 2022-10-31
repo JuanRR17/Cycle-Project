@@ -169,6 +169,11 @@ const ByProductForm = (props) => {
               {errors?.location ? (
                 <div className="text-error">{errors?.location}</div>
               ) : null}
+              {store.message &&
+              store.message.split(" ")[store.message.split(" ").length - 1] ===
+                "location" ? (
+                <div className="text-error">{store.message}</div>
+              ) : null}
             </div>
             {/* Price field */}
             <div className="mb-3 col-md-6">
@@ -276,7 +281,6 @@ const ByProductForm = (props) => {
               </div>
             </div> */}
           </div>
-          {store.message ? <div>{store.message}</div> : null}
           <div className="py-2 d-flex gap-2">
             <button
               onClick={handleConfirm}

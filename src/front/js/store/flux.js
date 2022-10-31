@@ -47,7 +47,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       //SIGN UP
-      signup: async (username, email, password) => {
+      signup: async (username, email, company, phone, location, password) => {
         const opts = {
           method: "POST",
           headers: {
@@ -56,6 +56,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           body: JSON.stringify({
             username: username,
             email: email,
+            company: company,
+            phone: phone,
+            location: location,
             password: password,
           }),
         };
