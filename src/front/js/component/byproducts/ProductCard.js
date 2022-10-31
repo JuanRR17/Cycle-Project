@@ -45,9 +45,11 @@ const ProductCard = ({ details }) => {
             ""
           )}
         </div>
-        <div>
-          <RiPinDistanceLine />
-        </div>
+        {details.distance && (
+          <div>
+            <RiPinDistanceLine /> {details.distance} km
+          </div>
+        )}
         <div className="container">
           <div className="row">
             <div className="col">

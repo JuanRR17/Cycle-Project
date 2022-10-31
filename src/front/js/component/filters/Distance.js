@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import { capitalize } from "../../utils/utils";
 import { ImSearch } from "react-icons/im";
 
-const Distance = ({ distance, handleSetDistance }) => {
+const Distance = ({
+  distance,
+  distanceFilter,
+  handleSetDistance,
+  handleSetDistanceFilter,
+}) => {
   const [location, setLocation] = useState("");
   const [valid, setValid] = useState(false);
 
@@ -46,10 +51,24 @@ const Distance = ({ distance, handleSetDistance }) => {
   const handleDistance = (e) => {
     handleSetDistance(e.target.value);
   };
+
+  const handleDistanceFilter = () => {
+    console.log("1");
+    handleSetDistanceFilter(true);
+  };
+
+  const clearInput = () => {
+    handleSetDistanceFilter(false);
+    setLocation("");
+    setValid(false);
+    handleSetDistance("");
+  };
+
   const style = {
     borderRadius: "100px",
     overflow: "hidden",
   };
+
   return (
     // <span>Distance</span>
     <div
@@ -75,18 +94,20 @@ const Distance = ({ distance, handleSetDistance }) => {
       />
       <span className="ps-1 pe-2">km</span>
 
-      <div className="py-2 ps-1 pe-3">
-        {valid ? (
-          <button
-            type="button"
-            className="btn-close"
-            aria-label="Close"
-            // onClick={clearInput}
-          ></button>
-        ) : (
-          <ImSearch />
-        )}
-      </div>
+      {valid && distance > 0 && (
+        <div className="py-2 ps-1 pe-3">
+          {distanceFilter ? (
+            <button
+              type="button"
+              className="btn-close"
+              aria-label="Close"
+              onClick={clearInput}
+            ></button>
+          ) : (
+            <ImSearch onClick={handleDistanceFilter} />
+          )}
+        </div>
+      )}
     </div>
   );
 };

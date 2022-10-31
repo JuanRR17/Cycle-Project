@@ -13,6 +13,7 @@ const ProductsList = () => {
   const [filteredList, setFilteredList] = useState([]);
   const [checked, setChecked] = useState(false);
   const [distance, setDistance] = useState("");
+  const [distanceFilter, setDistanceFilter] = useState(false);
 
   const token = useMemo(() => store.token, [store.token]);
   const userCheck = useMemo(() => {
@@ -26,11 +27,17 @@ const ProductsList = () => {
   }, []);
 
   useEffect(() => {
+    if (distanceFilter) {
+      all_Products.map((product) => {
+        return (product["distance"] = 100);
+      });
+    }
     setFilteredList(all_Products);
-  }, [all_Products]);
-
+  }, [all_Products, distanceFilter]);
+  console.log("all_Products:", all_Products);
   useEffect(() => {
     let products = [];
+    //Filter by user by-products
     if (userCheck) {
       products = all_Products.filter((product) => {
         return product.user_id !== store.data.id;
@@ -38,16 +45,24 @@ const ProductsList = () => {
     } else {
       products = all_Products;
     }
+    // Filter by Distance
+    if (distanceFilter) {
+      console.log("distanceFilter");
+
+      products = products.filter((product) => {
+        return product.distance < distance;
+      });
+    }
+    // Filter by Type
     if (+filter !== 0) {
       const filterByTypeList = products.filter((product) => {
         return product.type === store.types[filter];
       });
-
       setFilteredList(filterByTypeList);
     } else {
       setFilteredList(products);
     }
-  }, [filter, all_Products, userCheck]);
+  }, [filter, all_Products, userCheck, distanceFilter]);
 
   useEffect(() => {
     actions.syncTokenFromSessionStore();
@@ -84,7 +99,9 @@ const ProductsList = () => {
               <div className="col-sm-9 col-lg-4">
                 <Distance
                   distance={distance}
+                  distanceFilter={distanceFilter}
                   handleSetDistance={(value) => setDistance(value)}
+                  handleSetDistanceFilter={(value) => setDistanceFilter(value)}
                 />
               </div>
               <div className="col-sm-9 col-lg-4">
