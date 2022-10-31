@@ -38,8 +38,12 @@ const ProductsList = () => {
 
   //Calculate products distance
   useEffect(() => {
-    setFilteredList(all_Products);
-  }, [all_Products]);
+    if (origin) {
+      actions.getAllProducts(origin);
+    } else {
+      setFilteredList(all_Products);
+    }
+  }, [origin]);
 
   console.log("all_Products:", all_Products);
 
@@ -55,12 +59,11 @@ const ProductsList = () => {
       products = all_Products;
     }
     // Filter by Distance
-    // if (distanceFilter) {
-    //   products = products.filter((product)=>{
-    //     return
-    //   })
-
-    // }
+    if (distanceFilter) {
+      products = products.filter((product) => {
+        return product.distance <= distance;
+      });
+    }
     // Filter by Type
     if (+filter !== 0) {
       const filterByTypeList = products.filter((product) => {
@@ -99,6 +102,7 @@ const ProductsList = () => {
             <div className="row justify-content-center gap-2">
               <div className="col-sm-9 col-lg-4">
                 <Distance
+                  distance={distance}
                   distanceFilter={distanceFilter}
                   handleSetDistance={(value) => setDistance(value)}
                   handleSetDistanceFilter={(value) => setDistanceFilter(value)}
@@ -126,7 +130,11 @@ const ProductsList = () => {
                 {filteredList &&
                   filteredList.map((p, idx) => {
                     return (
-                      <ProductCard key={idx} details={p} origin={origin} />
+                      <ProductCard
+                        key={idx}
+                        details={p}
+                        distanceFilter={distanceFilter}
+                      />
                     );
                   })}
               </div>

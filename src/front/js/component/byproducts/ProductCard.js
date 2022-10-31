@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
@@ -8,33 +8,12 @@ import { IconContext } from "react-icons";
 import thinkay from "../../../img/thinkay.jpg";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { RiPinDistanceLine } from "react-icons/ri";
-import { makeRequest } from "../../utils/utils";
 
-const ProductCard = ({ details, origin }) => {
+const ProductCard = ({ details, distanceFilter }) => {
   const { store, actions } = useContext(Context);
-  const [distance, setDistance] = useState();
   const navigate = useNavigate();
 
   const url = "/product/" + details.id;
-
-  useEffect(() => {
-    if (origin) {
-      const url =
-        process.env.BACKEND_URL +
-        "/api/distance/" +
-        origin +
-        "/" +
-        details.location;
-
-      const calculateDistance = async (url) => {
-        const data = await makeRequest(url);
-        console.log("data2", data);
-
-        setDistance(data);
-      };
-      calculateDistance(url);
-    }
-  }, [origin]);
 
   const handleClick = () => {
     navigate(url);
@@ -65,9 +44,9 @@ const ProductCard = ({ details, origin }) => {
             ""
           )}
         </div>
-        {origin && (
+        {distanceFilter && (
           <div>
-            <RiPinDistanceLine /> {distance} km
+            <RiPinDistanceLine /> {details.distance} km
           </div>
         )}
         <div className="container">

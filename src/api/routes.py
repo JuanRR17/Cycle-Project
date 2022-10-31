@@ -303,16 +303,26 @@ def new_product():
         return jsonify(new_product.serialize()), 200
 
 # GET ALL PRODUCTS
+@api.route("/products/<origin>", methods=['GET'])
 @api.route("/products", methods=['GET'])
-
-def get_products():
+def get_products(origin=None):
     products = Product.query.all()
     all_products=[]
     for p in products:
         if p.user != None:
             product = dict(p.serialize())
-            product['user']=p.user.serialize()
+            product['user'] = p.user.serialize()
+            if origin:
+                try:
+                    location1 = get_location_coordinates(origin)
+                    location = product['location']
+                    location2 = get_location_coordinates(location)
+                    km = geodesic(location1, location2).km
+                    product['distance'] = float("%.2f" % round(km, 2))
+                except:
+                    return jsonify({"msg":"Enter a valid location"}),500
             all_products.append(product)
+
     return jsonify(all_products)
 
 # GET ONE PRODUCT DATA
@@ -481,8 +491,7 @@ def update_basket_item(id):
 @jwt_required()
 def new_order():
     request_body = request.get_json(force=True)
-    print("request_body")
-    print(request_body)
+
     items = request_body['items']
     delivery = request_body['delivery']
     total = request_body['total']

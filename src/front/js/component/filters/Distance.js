@@ -64,6 +64,7 @@ const Distance = ({
     setLocation("");
     setValid(false);
     handleSetDistance("");
+    handleSetOrigin("");
   };
 
   const style = {
