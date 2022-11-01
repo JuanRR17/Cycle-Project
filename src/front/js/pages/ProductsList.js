@@ -39,9 +39,12 @@ const ProductsList = () => {
   //Calculate products distance
   useEffect(() => {
     if (origin) {
+      console.log("set distances");
       actions.getAllProducts(origin);
     } else {
-      setFilteredList(all_Products);
+      console.log("clear distances");
+      actions.getAllProducts();
+      // setFilteredList(all_Products);
     }
   }, [origin]);
 
@@ -50,6 +53,8 @@ const ProductsList = () => {
   //Filters selected by user
   useEffect(() => {
     let products = [];
+    setFilteredList(all_Products);
+
     //Filter by user by-products
     if (userCheck) {
       products = all_Products.filter((product) => {
@@ -129,13 +134,7 @@ const ProductsList = () => {
               <div className="d-flex flex-wrap justify-content-center gap-3">
                 {filteredList &&
                   filteredList.map((p, idx) => {
-                    return (
-                      <ProductCard
-                        key={idx}
-                        details={p}
-                        distanceFilter={distanceFilter}
-                      />
-                    );
+                    return <ProductCard key={idx} details={p} />;
                   })}
               </div>
             </div>

@@ -9,7 +9,7 @@ import thinkay from "../../../img/thinkay.jpg";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { RiPinDistanceLine } from "react-icons/ri";
 
-const ProductCard = ({ details, distanceFilter }) => {
+const ProductCard = ({ details }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ const ProductCard = ({ details, distanceFilter }) => {
             ""
           )}
         </div>
-        {distanceFilter && (
+        {details.distance && (
           <div>
             <RiPinDistanceLine /> {details.distance} km
           </div>
