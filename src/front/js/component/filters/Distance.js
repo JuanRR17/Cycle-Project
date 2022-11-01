@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { capitalize } from "../../utils/utils";
-import { ImSearch } from "react-icons/im";
+import { BiCurrentLocation, BiFilter } from "react-icons/bi";
+import { IconContext } from "react-icons";
 
 const Distance = ({
   distance,
@@ -13,9 +14,9 @@ const Distance = ({
   const [location, setLocation] = useState("");
   const [valid, setValid] = useState(false);
 
-  const handleLocation = async (e) => {
+  const handleLocation = async () => {
     let mounted = true;
-    const url = process.env.BACKEND_URL + "/api/validate/" + e.target.value;
+    const url = process.env.BACKEND_URL + "/api/validate/" + location;
     fetch(url, {
       method: "GET",
 
@@ -42,24 +43,15 @@ const Distance = ({
         setValid(false);
       });
     if (mounted) {
-      setLocation(capitalize(e.target.value));
+      console.log("set origin");
+      handleSetOrigin(location);
     }
     return function cleanup() {
       mounted = false;
     };
   };
-  console.log("valid:", valid);
-  const handleDistance = (e) => {
-    handleSetDistance(e.target.value);
-  };
 
-  const handleDistanceFilter = () => {
-    console.log("1");
-    handleSetDistanceFilter(true);
-    handleSetOrigin(location);
-  };
-
-  const clearInput = () => {
+  const clearLocation = () => {
     handleSetDistanceFilter(false);
     setLocation("");
     setValid(false);
@@ -67,47 +59,110 @@ const Distance = ({
     handleSetOrigin("");
   };
 
+  const handleOriginChange = (e) => {
+    if (!valid) {
+      setLocation(capitalize(e.target.value));
+    }
+  };
+
+  const handleDistance = (e) => {
+    handleSetDistance(e.target.value);
+  };
+
+  const handleDistanceFilter = () => {
+    console.log("1");
+    handleSetDistanceFilter(true);
+  };
+
+  const clearInput = () => {
+    handleSetDistanceFilter(false);
+    handleSetDistance("");
+  };
+
   const style = {
-    borderRadius: "100px",
+    // borderRadius: "100px",
     overflow: "hidden",
   };
 
   return (
     // <span>Distance</span>
     <div
-      className="d-flex align-items-center form-control p-0 border-success border-3"
+      className="container form-control p-0 rounded-pill border-success border-3 px-4 py-1"
       style={style}
     >
-      <input
-        className="flex-grow-1 border-0 form-control ms-1 m-0 shadow-none text-end"
-        type="text"
-        placeholder="Location"
-        onChange={handleLocation}
-        value={location}
-      />
+      <div className="row align-items-center gx-0">
+        <div className="col">
+          <input
+            className="flex-grow-1 border-0 form-control ms-1 m-0 shadow-none text-end"
+            type="text"
+            placeholder="Location"
+            onChange={handleOriginChange}
+            value={location}
+          />
+        </div>
 
-      <input
-        className="py-2 ps-1 form-control m-0 shadow-none text-end"
-        type="text"
-        placeholder="0"
-        onChange={handleDistance}
-        value={distance}
-        disabled={!valid}
-        style={{ width: "60px" }}
-      />
-      <span className="ps-1 pe-2">km</span>
-
-      {valid && distance > 0 && (
-        <div className="py-2 ps-1 pe-3">
-          {distanceFilter ? (
+        <div className="col-auto">
+          <div
+            className="btn btn-custom text-light m-1"
+            style={{
+              padding: "3px",
+              backgroundColor: `${valid ? "#14b514" : "#db5353"}`,
+            }}
+            onClick={handleLocation}
+          >
+            <IconContext.Provider value={{ size: 25 }}>
+              <BiCurrentLocation />
+            </IconContext.Provider>
+          </div>
+        </div>
+        {valid && (
+          <div className="col-auto px-1">
             <button
               type="button"
-              className="btn-close"
+              className=" my-auto btn-close"
               aria-label="Close"
-              onClick={clearInput}
+              onClick={clearLocation}
             ></button>
-          ) : (
-            <ImSearch onClick={handleDistanceFilter} />
+          </div>
+        )}
+      </div>
+      {valid && (
+        <div className="row align-items-center gx-0">
+          <div className="col">
+            <input
+              className="py-2 ps-1 form-control m-0 shadow-none text-end border-0 pe-0"
+              type="text"
+              placeholder="Distance"
+              onChange={handleDistance}
+              value={distance}
+              disabled={!valid}
+              style={
+                {
+                  // width: "60px",
+                  // backgroundColor: `${valid ? "#8bdc8b" : "#ea9f9f"}`,
+                }
+              }
+            />
+          </div>
+          <div className="col-auto">
+            <span className="p-1">km</span>
+          </div>
+
+          {valid && distance > 0 && (
+            <div className="py-2 px-1 col-auto">
+              <IconContext.Provider value={{ size: 25 }}>
+                {distanceFilter ? (
+                  <button
+                    type="button"
+                    className="btn-close"
+                    aria-label="Close"
+                    onClick={clearInput}
+                  ></button>
+                ) : (
+                  <BiFilter onClick={handleDistanceFilter} />
+                )}
+              </IconContext.Provider>
+            </div>
           )}
         </div>
       )}
