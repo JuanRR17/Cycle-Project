@@ -84,88 +84,86 @@ const Distance = ({
   };
 
   return (
-    <div>
-      <div
-        className="container form-control p-0 rounded-pill border-success border-3 px-4 py-1"
-        style={style}
-      >
-        <div className="row align-items-center gx-0">
-          <div className="col">
-            <input
-              className="flex-grow-1 border-0 form-control ms-1 m-0 shadow-none text-end"
-              type="text"
-              placeholder="Location"
-              onChange={handleOriginChange}
-              value={location}
-            />
-          </div>
+    <div
+      className="form-control p-0 rounded-pill border-success border-3 px-4 py-1"
+      style={style}
+    >
+      <div className="row align-items-center gx-0">
+        <div className="col">
+          <input
+            className="flex-grow-1 border-0 form-control ms-1 m-0 shadow-none text-end"
+            type="text"
+            placeholder="Location"
+            onChange={handleOriginChange}
+            value={location}
+          />
+        </div>
 
-          <div className="col-auto">
-            <div
-              className="btn btn-custom text-light m-1"
-              style={{
-                padding: "3px",
-                backgroundColor: `${valid ? "#14b514" : "#db5353"}`,
-              }}
-              onClick={handleLocation}
-            >
-              <IconContext.Provider value={{ size: 25 }}>
-                <BiCurrentLocation />
-              </IconContext.Provider>
-            </div>
+        <div className="col-auto">
+          <div
+            className="btn btn-custom text-light m-1"
+            style={{
+              padding: "3px",
+              backgroundColor: `${valid ? "#14b514" : "#db5353"}`,
+            }}
+            onClick={handleLocation}
+          >
+            <IconContext.Provider value={{ size: 25 }}>
+              <BiCurrentLocation />
+            </IconContext.Provider>
           </div>
-          {valid && (
-            <div className="col-auto px-1">
-              <button
-                type="button"
-                className=" my-auto btn-close"
-                aria-label="Close"
-                onClick={clearLocation}
-              ></button>
-            </div>
-          )}
         </div>
         {valid && (
-          <div className="row align-items-center gx-0">
-            <div className="col">
-              <input
-                className="py-2 ps-1 form-control m-0 shadow-none text-end border-0 pe-0"
-                type="text"
-                placeholder="Distance"
-                onChange={handleDistance}
-                value={distance}
-                disabled={!valid}
-                style={
-                  {
-                    // width: "60px",
-                    // backgroundColor: `${valid ? "#8bdc8b" : "#ea9f9f"}`,
-                  }
-                }
-              />
-            </div>
-            <div className="col-auto">
-              <span className="p-1">km</span>
-            </div>
-
-            {valid && distance > 0 && (
-              <div className="py-2 px-1 col-auto">
-                <IconContext.Provider value={{ size: 25 }}>
-                  {distanceFilter ? (
-                    <button
-                      type="button"
-                      className="btn-close"
-                      aria-label="Close"
-                      onClick={clearInput}
-                    ></button>
-                  ) : (
-                    <BiFilter onClick={handleDistanceFilter} />
-                  )}
-                </IconContext.Provider>
-              </div>
-            )}
+          <div className="col-auto px-1">
+            <button
+              type="button"
+              className=" my-auto btn-close"
+              aria-label="Close"
+              onClick={clearLocation}
+            ></button>
           </div>
         )}
       </div>
+      {valid && (
+        <div className="row align-items-center gx-0">
+          <div className="col">
+            <input
+              className="py-2 ps-1 form-control m-0 shadow-none text-end border-0 pe-0"
+              type="text"
+              placeholder="Distance"
+              onChange={handleDistance}
+              value={distance}
+              disabled={!valid}
+              style={
+                {
+                  // width: "60px",
+                  // backgroundColor: `${valid ? "#8bdc8b" : "#ea9f9f"}`,
+                }
+              }
+            />
+          </div>
+          <div className="col-auto">
+            <span className="p-1">km</span>
+          </div>
+
+          {valid && distance > 0 && (
+            <div className="py-2 px-1 col-auto">
+              <IconContext.Provider value={{ size: 25 }}>
+                {distanceFilter ? (
+                  <button
+                    type="button"
+                    className="btn-close"
+                    aria-label="Close"
+                    onClick={clearInput}
+                  ></button>
+                ) : (
+                  <BiFilter onClick={handleDistanceFilter} />
+                )}
+              </IconContext.Provider>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

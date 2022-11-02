@@ -16,7 +16,7 @@ const Filter = ({ label, fields, handleSetFilter }) => {
   return (
     <select
       name="select"
-      className="form-select w-auto mx-auto border-success border-3"
+      className="form-select w-auto border-success border-3"
       id="inputType"
       value={value}
       onChange={handleChange}

@@ -20,7 +20,7 @@ const ProductCard = ({ details, origin }) => {
   };
 
   return (
-    <div className="container product-card p-3 text-dark bg-gradient border border-success border-3">
+    <div className="container mx-0 product-card p-3 text-dark bg-gradient border border-success border-3">
       <div className="d-flex mb-1 justify-content-between">
         <span className="fw-bolder" type="button" onClick={handleClick}>
           {details.name}
