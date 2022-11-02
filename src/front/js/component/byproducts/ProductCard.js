@@ -7,12 +7,13 @@ import BasketIcon from "../icons/BasketIcon";
 import { IconContext } from "react-icons";
 import thinkay from "../../../img/thinkay.jpg";
 import { MdOutlineLocationOn } from "react-icons/md";
-import { RiPinDistanceLine } from "react-icons/ri";
+import { GiPathDistance } from "react-icons/gi";
+import { FaEuroSign, FaRecycle } from "react-icons/fa";
 
-const ProductCard = ({ details }) => {
+const ProductCard = ({ details, origin }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-
+  console.log("origin", origin);
   const url = "/product/" + details.id;
 
   const handleClick = () => {
@@ -20,67 +21,78 @@ const ProductCard = ({ details }) => {
   };
 
   return (
-    <div className="product-card card p-1 text-dark bg-gradient border border-success border-3">
-      <div className="card-body">
-        <div className="card-title d-flex justify-content-between">
-          <span className="fw-bolder">{details.name}</span>
-          <span>{details.type}</span>
-        </div>
-        <img
-          src={thinkay}
-          className="card-img-top img-thumbnail shadow my-2"
-          alt={details.name}
-        />
-        <div className="card-title d-flex justify-content-between">
-          <span>
+    <div className="container product-card p-3 text-dark bg-gradient border border-success border-3">
+      <div className="d-flex mb-1 justify-content-between">
+        <span className="fw-bolder" type="button" onClick={handleClick}>
+          {details.name}
+        </span>
+        <span>
+          {" "}
+          <IconContext.Provider value={{ className: "shared-class", size: 25 }}>
+            <span className="d-flex justify-content-between gap-1">
+              <BasketIcon product={details} />
+              <FavouriteIcon product={details} />
+            </span>
+          </IconContext.Provider>
+        </span>
+      </div>
+      <IconContext.Provider value={{ className: "me-1", size: 15 }}>
+        <div className="d-flex mb-1 justify-content-between gap-3">
+          {/* <div className=" mb-1"> */}
+          <div>
             <MdOutlineLocationOn />
             {details.location}
-          </span>
-          {store.token ? (
-            <span>
-              {details.price} €/{details.unit}
-            </span>
-          ) : (
-            ""
+          </div>
+          {origin && (
+            <div>
+              {details.distance !== undefined ? (
+                <>
+                  <GiPathDistance />
+                  {details.distance} km
+                </>
+              ) : (
+                "Loading"
+              )}
+            </div>
           )}
         </div>
-        {details.distance && (
-          <div>
-            <RiPinDistanceLine /> {details.distance} km
+
+        <div className="row">
+          <div className="col">
+            {" "}
+            <img
+              src={thinkay}
+              className="card-img-top img-thumbnail shadow"
+              alt={details.name}
+              type="button"
+              onClick={handleClick}
+            />
           </div>
-        )}
-        <div className="container">
-          <div className="row">
-            <div className="col">
+          <div className="col-7">
+            {store.token ? (
+              <div>
+                <FaEuroSign />
+                {details.price} €/{details.unit}
+              </div>
+            ) : (
+              ""
+            )}
+
+            <div>
+              <FaRecycle />
+              {details.type}
+            </div>
+
+            <div>
               {details.stock > 0 ? (
                 ""
               ) : (
                 <span className="text-error "> Out of Stock</span>
               )}
             </div>
-            <div className="col">
-              {" "}
-              <button
-                type="button"
-                onClick={handleClick}
-                className="btn btn-success btn-custom"
-              >
-                Details
-              </button>
-            </div>
-            <div className="col">
-              <IconContext.Provider
-                value={{ className: "shared-class", size: 30 }}
-              >
-                <span className="d-flex justify-content-between">
-                  <FavouriteIcon product={details} />
-                  <BasketIcon product={details} />
-                </span>
-              </IconContext.Provider>
-            </div>
           </div>
         </div>
-      </div>
+      </IconContext.Provider>
     </div>
   );
 };

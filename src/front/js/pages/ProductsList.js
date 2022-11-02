@@ -47,6 +47,7 @@ const ProductsList = () => {
       // setFilteredList(all_Products);
     }
   }, [origin]);
+  console.log("origin", origin);
 
   console.log("all_Products:", all_Products);
 
@@ -134,7 +135,9 @@ const ProductsList = () => {
               <div className="d-flex flex-wrap justify-content-center gap-3">
                 {filteredList &&
                   filteredList.map((p, idx) => {
-                    return <ProductCard key={idx} details={p} />;
+                    return (
+                      <ProductCard key={idx} details={p} origin={origin} />
+                    );
                   })}
               </div>
             </div>
