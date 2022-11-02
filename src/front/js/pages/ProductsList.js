@@ -15,6 +15,7 @@ const ProductsList = () => {
   const [distance, setDistance] = useState("");
   const [distanceFilter, setDistanceFilter] = useState(false);
   const [origin, setOrigin] = useState("");
+  const [sortBy, setSortBy] = useState(0);
 
   const token = useMemo(() => store.token, [store.token]);
   const userCheck = useMemo(() => {
@@ -22,6 +23,13 @@ const ProductsList = () => {
   }, [checked]);
 
   const all_Products = useMemo(() => store.all_products, [store.all_products]);
+
+  const sortByArray = [
+    "",
+    // "Distance",
+    "Name",
+    "Location",
+  ];
 
   //Check user is logon
   useEffect(() => {
@@ -47,17 +55,16 @@ const ProductsList = () => {
 
   //Filters selected by user
   useEffect(() => {
-    let products = [];
-    setFilteredList(all_Products);
+    let products = all_Products;
+    // setFilteredList(all_Products);
 
     //Filter by user by-products
     if (userCheck) {
-      products = all_Products.filter((product) => {
+      products = products.filter((product) => {
         return product.user_id !== store.data.id;
       });
-    } else {
-      products = all_Products;
     }
+
     // Filter by Distance
     if (distanceFilter) {
       products = products.filter((product) => {
@@ -66,14 +73,60 @@ const ProductsList = () => {
     }
     // Filter by Type
     if (+filter !== 0) {
-      const filterByTypeList = products.filter((product) => {
+      products = products.filter((product) => {
         return product.type === store.types[filter];
       });
-      setFilteredList(filterByTypeList);
-    } else {
-      setFilteredList(products);
     }
-  }, [filter, all_Products, userCheck, distanceFilter]);
+
+    //Sort By
+    if (+sortBy !== 0) {
+      products.sort((a, b) => {
+        const nameA = a[sortByArray[sortBy].toLowerCase()].toLowerCase(); // ignore upper and lowercase
+        const nameB = b[sortByArray[sortBy].toLowerCase()].toLowerCase(); // ignore upper and lowercase
+
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
+      console.log("products", products);
+    }
+    setFilteredList(products);
+  }, [filter, all_Products, userCheck, distanceFilter, sortBy]);
+
+  // useEffect(() => {
+  //   //Sort By
+  //   if (+sortBy !== 0) {
+  //     filteredList.map((a) => {
+  //       console.log(
+  //         "a[sortByArray[sortBy]]",
+  //         a[sortByArray[sortBy].toLowerCase()]
+  //       );
+  //     });
+  //     const sortByList = filteredList.sort((a, b) => {
+  //       const nameA = a[sortByArray[sortBy].toLowerCase()].toLowerCase(); // ignore upper and lowercase
+  //       const nameB = b[sortByArray[sortBy].toLowerCase()].toLowerCase(); // ignore upper and lowercase
+
+  //       if (nameA < nameB) {
+  //         return -1;
+  //       }
+  //       if (nameA > nameB) {
+  //         return 1;
+  //       }
+
+  //       // names must be equal
+  //       return 0;
+  //     });
+  //     console.log("sortByList", sortByList);
+
+  //     setFilteredList(sortByList);
+  //   }
+  // }, [sortBy]);
 
   const handleChange = (e) => {
     setChecked(e.target.checked);
@@ -103,12 +156,7 @@ const ProductsList = () => {
                   </label>
                 </div>
               )}
-              <label
-                className="form-check-label mb-0"
-                htmlFor="flexCheckDefault"
-              >
-                Distance Filter:
-              </label>
+              <label className="form-check-label mb-0">Distance Filter:</label>
               <Distance
                 distance={distance}
                 distanceFilter={distanceFilter}
@@ -129,6 +177,18 @@ const ProductsList = () => {
 
             <div className="col-lg-9">
               {" "}
+              <label className="form-check-label ms-3">
+                Items:{" "}
+                {filteredList ? filteredList.length : all_Products.length} /{" "}
+                {all_Products.length}
+              </label>
+              <Filter
+                label="Sort by"
+                fields={sortByArray}
+                handleSetFilter={(value) => {
+                  setSortBy(value);
+                }}
+              />
               <div className="d-flex flex-wrap gap-3">
                 {filteredList &&
                   filteredList.map((p, idx) => {
