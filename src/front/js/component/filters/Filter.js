@@ -5,7 +5,7 @@ const Filter = ({ label, fields, handleSetFilter }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (e) => {
-    handleSetFilter(e.target.value);
+    handleSetFilter(+e.target.value);
     setValue(e.target.value);
   };
 
@@ -16,7 +16,7 @@ const Filter = ({ label, fields, handleSetFilter }) => {
   return (
     <select
       name="select"
-      className="form-select w-auto mx-auto border-success border-3"
+      className="form-select w-auto border-success border-3"
       id="inputType"
       value={value}
       onChange={handleChange}
