@@ -39,17 +39,11 @@ const ProductsList = () => {
   //Calculate products distance
   useEffect(() => {
     if (origin) {
-      console.log("set distances");
       actions.getAllProducts(origin);
     } else {
-      console.log("clear distances");
       actions.getAllProducts();
-      // setFilteredList(all_Products);
     }
   }, [origin]);
-  console.log("origin", origin);
-
-  console.log("all_Products:", all_Products);
 
   //Filters selected by user
   useEffect(() => {
@@ -88,40 +82,41 @@ const ProductsList = () => {
   return (
     <div className=" bg-custom">
       {store.all_products ? (
-        <>
-          <div className="container-fluid">
-            {token && (
-              <div className="form-check d-flex gap-2 justify-content-center">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                  onChange={handleChange}
-                  checked={checked}
-                />
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                  Hide your By-Products
-                </label>
-              </div>
-            )}
-            <div className="row justify-content-center gap-2">
-              <div className="col-sm-9 col-lg-4">
-                <Distance
-                  distance={distance}
-                  distanceFilter={distanceFilter}
-                  handleSetDistance={(value) => setDistance(value)}
-                  handleSetDistanceFilter={(value) => setDistanceFilter(value)}
-                  handleSetOrigin={(value) => setOrigin(value)}
-                />
-              </div>
-              {/* <div className="col-sm-9 col-lg-4">
-                <SearchBar
-                  placeholder="Search By-Products"
-                  data={store.all_products}
-                />
-              </div> */}
-              <div className="col-sm-9 col-lg-2">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-3 d-flex flex-column gap-2 mb-3">
+              {token && (
+                <div className="form-check d-flex gap-2 justify-content-center">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                    onChange={handleChange}
+                    checked={checked}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexCheckDefault"
+                  >
+                    Hide your By-Products
+                  </label>
+                </div>
+              )}
+              <label
+                className="form-check-label mb-0"
+                htmlFor="flexCheckDefault"
+              >
+                Distance Filter:
+              </label>
+              <Distance
+                distance={distance}
+                distanceFilter={distanceFilter}
+                handleSetDistance={(value) => setDistance(value)}
+                handleSetDistanceFilter={(value) => setDistanceFilter(value)}
+                handleSetOrigin={(value) => setOrigin(value)}
+              />
+              <div>
                 <Filter
                   label="Type"
                   fields={store.types}
@@ -131,8 +126,10 @@ const ProductsList = () => {
                 />
               </div>
             </div>
-            <div className="row mt-5">
-              <div className="d-flex flex-wrap justify-content-center gap-3">
+
+            <div className="col-lg-9">
+              {" "}
+              <div className="d-flex flex-wrap gap-3">
                 {filteredList &&
                   filteredList.map((p, idx) => {
                     return (
@@ -142,7 +139,7 @@ const ProductsList = () => {
               </div>
             </div>
           </div>
-        </>
+        </div>
       ) : (
         "No By-Products to show"
       )}

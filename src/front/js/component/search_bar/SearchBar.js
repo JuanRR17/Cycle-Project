@@ -83,7 +83,6 @@ const SearchBar = ({ data }) => {
                       onClick={() => {
                         const url = "/product/" + product.id;
                         navigate(url);
-                        // clearInput();
                         setFilteredData([]);
                         setWordEntered(product.name);
                       }}
