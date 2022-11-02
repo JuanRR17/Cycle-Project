@@ -5,24 +5,29 @@ import Basket from "./byproducts/Basket";
 import { Context } from "../store/appContext";
 import { IconContext } from "react-icons";
 import { FaPowerOff } from "react-icons/fa";
+import SearchBar from "./search_bar/SearchBar";
 
 const Navbar = () => {
   const { store, actions } = useContext(Context);
 
   const token = useMemo(() => store.token, [store.token]);
   const data = useMemo(() => {
-    console.log("data use memo", store.data);
     store.data;
   }, [store.data?.id]);
 
+  const all_Products = useMemo(() => store.all_products, [store.all_products]);
+
+  //Get Products List
   useEffect(() => {
-    // if (!sessionStorage.getItem("token") || !store.token) {
+    actions.getAllProducts();
+  }, []);
+
+  useEffect(() => {
     console.log("useEffect");
     if (!data && token) {
       actions.getCurrentUserData();
     }
   }, [token, data]);
-  // console.log("navbar");
   return (
     <nav
       className="navbar navbar-expand-sm navbar-light bg-light nav-tabs sticky-top"
@@ -45,15 +50,16 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
+            <span>
+              <SearchBar data={store.all_products} />
+            </span>
             <Link className="nav-item nav-link" to="/">
               <span>Home</span>
             </Link>
             <Link className="nav-item nav-link" to="/prod_list">
               <span>Products</span>
             </Link>
-            <Link className="nav-item nav-link" to="/blog">
-              <span>Blog</span>
-            </Link>
+
             {store.token && store.data ? (
               <>
                 <Link className="nav-item nav-link" to="profile">

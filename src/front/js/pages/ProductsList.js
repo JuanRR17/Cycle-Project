@@ -115,12 +115,12 @@ const ProductsList = () => {
                   handleSetOrigin={(value) => setOrigin(value)}
                 />
               </div>
-              <div className="col-sm-9 col-lg-4">
+              {/* <div className="col-sm-9 col-lg-4">
                 <SearchBar
                   placeholder="Search By-Products"
                   data={store.all_products}
                 />
-              </div>
+              </div> */}
               <div className="col-sm-9 col-lg-2">
                 <Filter
                   label="Type"
