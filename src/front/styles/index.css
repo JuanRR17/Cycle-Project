@@ -179,19 +179,17 @@ table .basket-item:hover {
 
 /* PRODUCT CARDS */
 .product-card {
-  width: 350px;
+  width: 300px;
   background-color: #e2e0ce;
   border-radius: 20px;
+  transition: 0.2s all;
+  opacity: 90%;
+}
+.product-card:hover {
+  transform: scale(1.03);
+  opacity: 100%;
 }
 
 .icon:hover {
   filter: drop-shadow(0px 0px 20px rgba(231, 236, 202, 0.692));
 }
-
-/* .correct {
-  background-color: #e2e0ce;
-  padding: 5px;
-  border-radius: 20px;
-  border: none;
-  box-shadow: 0px 0px 5px 5px #e2e0ce;
-} */
