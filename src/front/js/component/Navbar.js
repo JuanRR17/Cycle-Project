@@ -15,8 +15,6 @@ const Navbar = () => {
     store.data;
   }, [store.data?.id]);
 
-  const all_Products = useMemo(() => store.all_products, [store.all_products]);
-
   //Get Products List
   useEffect(() => {
     actions.getAllProducts();
@@ -50,9 +48,6 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
-            <span>
-              <SearchBar data={store.all_products} />
-            </span>
             <Link className="nav-item nav-link" to="/">
               <span>Home</span>
             </Link>
@@ -86,6 +81,9 @@ const Navbar = () => {
                 </Link>
               </>
             )}
+            <span>
+              <SearchBar data={store.all_products} />
+            </span>
           </ul>
         </div>
       </div>

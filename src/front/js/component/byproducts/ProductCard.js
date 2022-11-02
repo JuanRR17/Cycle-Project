@@ -13,7 +13,6 @@ import { FaEuroSign, FaRecycle } from "react-icons/fa";
 const ProductCard = ({ details, origin }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-  console.log("origin", origin);
   const url = "/product/" + details.id;
 
   const handleClick = () => {
