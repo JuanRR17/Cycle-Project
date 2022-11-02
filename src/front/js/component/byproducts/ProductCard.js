@@ -44,16 +44,21 @@ const ProductCard = ({ details, origin }) => {
             {details.location}
           </div>
           {origin && (
-            <div>
+            <>
               {details.distance !== undefined ? (
-                <>
+                <div>
                   <GiPathDistance />
                   {details.distance} km
-                </>
+                </div>
               ) : (
-                "Loading"
+                <div
+                  className="spinner-border spinner-border-sm text-success"
+                  role="status"
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               )}
-            </div>
+            </>
           )}
         </div>
 
