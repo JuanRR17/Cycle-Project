@@ -96,6 +96,7 @@ const Distance = ({
             placeholder="Location"
             onChange={handleOriginChange}
             value={location}
+            disabled={valid}
           />
         </div>
 
