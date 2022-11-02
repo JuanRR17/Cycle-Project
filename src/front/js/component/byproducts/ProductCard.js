@@ -36,29 +36,12 @@ const ProductCard = ({ details, origin }) => {
         </span>
       </div>
       <IconContext.Provider value={{ className: "me-1", size: 15 }}>
-        <div className="d-flex mb-1 justify-content-between gap-3">
-          {/* <div className=" mb-1"> */}
+        {/* <div className="d-flex mb-1 justify-content-between gap-3"> */}
+        <div className=" mb-1">
           <div>
             <MdOutlineLocationOn />
             {details.location}
           </div>
-          {origin && (
-            <>
-              {details.distance !== undefined ? (
-                <div>
-                  <GiPathDistance />
-                  {details.distance} km
-                </div>
-              ) : (
-                <div
-                  className="spinner-border spinner-border-sm text-success"
-                  role="status"
-                >
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              )}
-            </>
-          )}
         </div>
 
         <div className="row">
@@ -73,6 +56,23 @@ const ProductCard = ({ details, origin }) => {
             />
           </div>
           <div className="col-7">
+            {origin && (
+              <>
+                {details.distance !== undefined ? (
+                  <div>
+                    <GiPathDistance />
+                    {details.distance} km
+                  </div>
+                ) : (
+                  <div
+                    className="spinner-border spinner-border-sm text-success"
+                    role="status"
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                )}
+              </>
+            )}
             {store.token ? (
               <div>
                 <FaEuroSign />

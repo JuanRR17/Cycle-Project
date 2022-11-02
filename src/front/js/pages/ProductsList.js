@@ -6,7 +6,7 @@ import ProductCard from "../component/byproducts/ProductCard";
 import SearchBar from "../component/search_bar/SearchBar";
 import Filter from "../component/filters/Filter";
 import Distance from "../component/filters/Distance";
-import { FaSortAmountUpAlt } from "react-icons/fa";
+import { FaSortAmountDownAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
 const ProductsList = () => {
@@ -18,6 +18,7 @@ const ProductsList = () => {
   const [distanceFilter, setDistanceFilter] = useState(false);
   const [origin, setOrigin] = useState("");
   const [sortBy, setSortBy] = useState(0);
+  const [sortByArray, setSortByArray] = useState(["", "Name", "Location"]);
 
   const token = useMemo(() => store.token, [store.token]);
   const userCheck = useMemo(() => {
@@ -25,13 +26,6 @@ const ProductsList = () => {
   }, [checked]);
 
   const all_Products = useMemo(() => store.all_products, [store.all_products]);
-
-  const sortByArray = [
-    "",
-    // "Distance",
-    "Name",
-    "Location",
-  ];
 
   //Check user is logon
   useEffect(() => {
@@ -50,10 +44,15 @@ const ProductsList = () => {
   useEffect(() => {
     if (origin) {
       actions.getAllProducts(origin);
+      setSortByArray(["", "Name", "Location", "Distance"]);
     } else {
       actions.getAllProducts();
+      if (sortByArray[sortBy] === "Distance") {
+        setSortBy(0);
+      }
+      setSortByArray(["", "Name", "Location"]);
     }
-  }, [origin]);
+  }, [origin, sortBy]);
 
   //Filters selected by user
   useEffect(() => {
@@ -73,29 +72,37 @@ const ProductsList = () => {
         return product.distance <= distance;
       });
     }
+
     // Filter by Type
-    if (+typeFilter !== 0) {
+    if (typeFilter !== 0) {
       products = products.filter((product) => {
         return product.type === store.types[typeFilter];
       });
     }
 
     //Sort By
-    if (+sortBy !== 0) {
-      const sortedProducts = [].concat(products).sort((a, b) => {
-        const nameA = a[sortByArray[sortBy].toLowerCase()].toLowerCase(); // ignore upper and lowercase
-        const nameB = b[sortByArray[sortBy].toLowerCase()].toLowerCase(); // ignore upper and lowercase
+    if (sortBy !== 0) {
+      const sortedProducts = [].concat(products);
+      if (sortByArray[sortBy] === "Distance" && origin) {
+        sortedProducts.sort((a, b) => {
+          return a.distance - b.distance;
+        });
+      } else {
+        sortedProducts.sort((a, b) => {
+          const nameA = a[sortByArray[sortBy].toLowerCase()].toLowerCase(); // ignore upper and lowercase
+          const nameB = b[sortByArray[sortBy].toLowerCase()].toLowerCase(); // ignore upper and lowercase
 
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
 
-        // names must be equal
-        return 0;
-      });
+          // names must be equal
+          return 0;
+        });
+      }
       setFilteredList(sortedProducts);
     } else {
       setFilteredList(products);
@@ -166,7 +173,7 @@ const ProductsList = () => {
                 <div>
                   <label>
                     <IconContext.Provider value={{ size: 20 }}>
-                      <FaSortAmountUpAlt />{" "}
+                      <FaSortAmountDownAlt />{" "}
                     </IconContext.Provider>
                   </label>
                   <div className="d-inline-block ms-2">

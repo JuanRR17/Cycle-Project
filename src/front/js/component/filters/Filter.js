@@ -5,7 +5,7 @@ const Filter = ({ label, fields, handleSetFilter }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (e) => {
-    handleSetFilter(e.target.value);
+    handleSetFilter(+e.target.value);
     setValue(e.target.value);
   };
 
