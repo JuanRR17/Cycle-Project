@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import FavouriteIcon from "../icons/FavouriteIcon";
 import BasketIcon from "../icons/BasketIcon";
+import FavouriteIcon from "../icons/FavouriteIcon";
 import { IconContext } from "react-icons";
-import thinkay from "../../../img/thinkay.jpg";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { GiPathDistance } from "react-icons/gi";
 import { FaEuroSign, FaRecycle } from "react-icons/fa";
+import thinkay from "../../../img/thinkay.jpg";
+import PropTypes from "prop-types";
 
 const ProductCard = ({ details, origin }) => {
   const { store, actions } = useContext(Context);

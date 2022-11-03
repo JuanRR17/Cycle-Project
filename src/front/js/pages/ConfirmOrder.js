@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import ItemsTable from "../component/orders/ItemsTable";
 import DeliveryForm from "../component/orders/DeliveryForm";
+import ItemsTable from "../component/orders/ItemsTable";
 import PayPal from "../component/payment/PayPal";
 import "../../styles/index.css";
+import PropTypes from "prop-types";
 
 const ConfirmOrder = () => {
   const { store, actions } = useContext(Context);

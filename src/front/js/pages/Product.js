@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect, useMemo } from "react";
 import { Context } from "../store/appContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import Quantity from "../component/orders/Quantity";
-import FavouriteIcon from "../component/icons/FavouriteIcon";
+import BackButton from "../component/buttons/BackButton";
 import BasketIcon from "../component/icons/BasketIcon";
+import FavouriteIcon from "../component/icons/FavouriteIcon";
+import Quantity from "../component/orders/Quantity";
 import { IconContext } from "react-icons";
 import thinkay from "../../img/thinkay.jpg";
-import BackButton from "../component/buttons/BackButton";
 
 export const Product = () => {
   const { store, actions } = useContext(Context);

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import DataTable from "react-data-table-component";
-import "../../../styles/index.css";
 import { Context } from "../../store/appContext";
-import Checkbox from "@material-ui/core/Checkbox";
+import { useNavigate } from "react-router-dom";
+import DataTable from "react-data-table-component";
+import { customStyles } from "../../utils/tables-style";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Checkbox from "@material-ui/core/Checkbox";
 import EditIcon from "@material-ui/icons/Edit";
-import { useNavigate } from "react-router-dom";
-import { customStyles } from "../../utils/tables-style";
+import "../../../styles/index.css";
 
 const _ = require("lodash");
 const sortIcon = <ArrowDownward />;

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
-import Favourites from "./byproducts/Favourites";
-import Basket from "./byproducts/Basket";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
+import Basket from "./byproducts/Basket";
+import Favourites from "./byproducts/Favourites";
+import SearchBar from "./search_bar/SearchBar";
 import { IconContext } from "react-icons";
 import { FaPowerOff } from "react-icons/fa";
-import SearchBar from "./search_bar/SearchBar";
 
 const Navbar = () => {
   const { store, actions } = useContext(Context);

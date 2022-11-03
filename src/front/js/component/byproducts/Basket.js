@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Context } from "../../store/appContext";
+import { Link } from "react-router-dom";
 import BasketLI from "./BasketLI";
-import { BsCart, BsFillCartFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
+import { BsCart, BsFillCartFill } from "react-icons/bs";
 
 const Basket = () => {
   const { store, actions } = useContext(Context);

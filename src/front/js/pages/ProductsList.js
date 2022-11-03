@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect, useMemo } from "react";
 import { Context } from "../store/appContext";
-import PropTypes from "prop-types";
-import ProductCard from "../component/byproducts/ProductCard";
-import Filter from "../component/filters/Filter";
 import Distance from "../component/filters/Distance";
+import Filter from "../component/filters/Filter";
+import ProductCard from "../component/byproducts/ProductCard";
 import { FaSortAmountDownAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import PropTypes from "prop-types";
 
 const ProductsList = () => {
   const { store, actions } = useContext(Context);
