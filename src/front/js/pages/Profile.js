@@ -41,7 +41,7 @@ const Profile = () => {
   }, [token, data]);
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid col-lg-8">
       <div className="row bg-custom">
         {edit ? (
           <UserForm edit={true} handleSetEdit={(value) => setEdit(value)} />
