@@ -55,13 +55,6 @@ export const Home = () => {
               </Link>
             </div>
           )}
-          {/* 
-          <div className="col-md-4">
-            <p>Need inspiration? Check out our Blog to get inspired!</p>
-            <Link to="/blog">
-              <button className="btn btn-primary">Blog</button>
-            </Link>
-          </div> */}
         </div>
       </div>
     </div>

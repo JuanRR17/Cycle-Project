@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { ImSearch } from "react-icons/im";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ data }) => {
   const [filteredData, setFilteredData] = useState([]);
@@ -47,6 +47,7 @@ const SearchBar = ({ data }) => {
           data-bs-toggle="dropdown"
           onChange={handleFilter}
           value={wordEntered}
+          autoComplete="off"
         />
         <div className="py-2 ps-1 pe-3">
           {wordEntered ? (
@@ -107,6 +108,8 @@ const SearchBar = ({ data }) => {
   );
 };
 
-SearchBar.propTypes = {};
+SearchBar.propTypes = {
+  data: PropTypes.array,
+};
 
 export default SearchBar;

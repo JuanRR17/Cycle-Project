@@ -10,6 +10,9 @@ const DeleteIcon = ({ id, handleRemove }) => {
   );
 };
 
-DeleteIcon.propTypes = { id: PropTypes.number, handleRemove: PropTypes.func };
+DeleteIcon.propTypes = {
+  id: PropTypes.number.isRequired,
+  handleRemove: PropTypes.func.isRequired,
+};
 
 export default DeleteIcon;

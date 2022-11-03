@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import DataTable, { createTheme } from "react-data-table-component";
+import DataTable from "react-data-table-component";
 import "../../../styles/index.css";
 import { Context } from "../../store/appContext";
-import PropTypes from "prop-types";
 import Checkbox from "@material-ui/core/Checkbox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -84,7 +83,6 @@ const ProductsTableBase = (props) => {
         selectableRowsHighlight
         selectableRowsNoSelectAll
         selectableRowsRadio="radio"
-        //   selectableRowsSingle
         sortIcon={sortIcon}
         striped
         subHeaderAlign="right"
@@ -95,7 +93,5 @@ const ProductsTableBase = (props) => {
     </>
   );
 };
-
-ProductsTableBase.propTypes = {};
 
 export default ProductsTableBase;

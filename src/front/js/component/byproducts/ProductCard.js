@@ -36,7 +36,6 @@ const ProductCard = ({ details, origin }) => {
         </span>
       </div>
       <IconContext.Provider value={{ className: "me-1", size: 15 }}>
-        {/* <div className="d-flex mb-1 justify-content-between gap-3"> */}
         <div className=" mb-1">
           <div>
             <MdOutlineLocationOn />
@@ -101,6 +100,9 @@ const ProductCard = ({ details, origin }) => {
   );
 };
 
-ProductCard.propTypes = { details: PropTypes.object };
+ProductCard.propTypes = {
+  details: PropTypes.object.isRequired,
+  origin: PropTypes.string,
+};
 
 export default ProductCard;

@@ -43,7 +43,6 @@ const Distance = ({
         setValid(false);
       });
     if (mounted) {
-      console.log("set origin");
       handleSetOrigin(location);
     }
     return function cleanup() {
@@ -169,6 +168,12 @@ const Distance = ({
   );
 };
 
-Distance.propTypes = {};
+Distance.propTypes = {
+  distance: PropTypes.string.isRequired,
+  distanceFilter: PropTypes.bool.isRequired,
+  handleSetDistance: PropTypes.func.isRequired,
+  handleSetDistanceFilter: PropTypes.func.isRequired,
+  handleSetOrigin: PropTypes.func.isRequired,
+};
 
 export default Distance;

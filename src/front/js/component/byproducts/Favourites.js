@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
-import { Link } from "react-router-dom";
-
 import FavouriteLI from "./FavouriteLI";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { IconContext } from "react-icons";

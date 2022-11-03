@@ -41,6 +41,10 @@ const Filter = ({ label, fields, handleSetFilter }) => {
   );
 };
 
-Filter.propTypes = {};
+Filter.propTypes = {
+  label: PropTypes.string.isRequired,
+  fields: PropTypes.array.isRequired,
+  handleSetFilter: PropTypes.func.isRequired,
+};
 
 export default Filter;

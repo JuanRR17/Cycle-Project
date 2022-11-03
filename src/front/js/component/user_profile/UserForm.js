@@ -26,7 +26,6 @@ const UserForm = ({ edit, handleSetEdit }) => {
   }, []);
 
   useEffect(() => {
-    console.log("UserDataForm:", data);
     if (store.data) {
       setUsername(data.current.username);
       setEmail(data.current.email);
@@ -100,7 +99,6 @@ const UserForm = ({ edit, handleSetEdit }) => {
   return (
     <>
       <h1 className=" text-center">{edit ? "Update" : "Create"} Profile</h1>
-      {/* <form className="container"> */}
       <div className="container pb-3">
         <div className="row">
           {/* username field */}
@@ -210,23 +208,21 @@ const UserForm = ({ edit, handleSetEdit }) => {
           </div>
         </div>
         <div className="py-2 d-flex gap-2">
-          <button
-            // type="submit"
-            className="btn btn-success btn-custom"
-            onClick={handleSubmit}
-          >
+          <button className="btn btn-success btn-custom" onClick={handleSubmit}>
             {edit ? "Update" : "Sign Up"}
           </button>
           <button onClick={handleCancel} className="btn btn-danger btn-custom">
             Cancel
           </button>
-          {/* </form> */}
         </div>
       </div>
     </>
   );
 };
 
-UserForm.propTypes = {};
+UserForm.propTypes = {
+  edit: PropTypes.bool.isRequired,
+  handleSetEdit: PropTypes.func.isRequired,
+};
 
 export default UserForm;

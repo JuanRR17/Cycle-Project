@@ -21,7 +21,6 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    console.log("useEffect");
     if (!data && token) {
       actions.getCurrentUserData();
     }

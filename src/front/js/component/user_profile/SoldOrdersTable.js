@@ -1,10 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
-import PropTypes from "prop-types";
 import OrdersTableBase from "./OrdersTableBase";
 import { useNavigate } from "react-router-dom";
 
-const SoldOrdersTable = (props) => {
+const SoldOrdersTable = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
@@ -22,7 +21,6 @@ const SoldOrdersTable = (props) => {
       }
     }
   });
-  // console.log("store.orders_sold", store.orders_sold);
   const columns = [
     {
       name: "Id",
@@ -71,7 +69,5 @@ const SoldOrdersTable = (props) => {
     </>
   );
 };
-
-SoldOrdersTable.propTypes = {};
 
 export default SoldOrdersTable;
