@@ -18,6 +18,7 @@ const ProductsList = () => {
   const [sortBy, setSortBy] = useState(0);
   const [sortByArray, setSortByArray] = useState(["", "Name", "Location"]);
   const [reverse, setReverse] = useState(false);
+  const [outOfStock, setOutOfStock] = useState(false);
 
   const token = useMemo(() => store.token, [store.token]);
   const userCheck = useMemo(() => {
@@ -61,6 +62,13 @@ const ProductsList = () => {
     if (userCheck) {
       products = products.filter((product) => {
         return product.user_id !== store.data.id;
+      });
+    }
+
+    //Filter by out-of-stock
+    if (outOfStock) {
+      products = products.filter((product) => {
+        return product.stock > 0;
       });
     }
 
@@ -114,11 +122,15 @@ const ProductsList = () => {
     } else {
       setFilteredList(products);
     }
-  }, [typeFilter, all_Products, userCheck, distanceFilter, sortBy, reverse]);
-
-  const handleUserCheck = (e) => {
-    setChecked(e.target.checked);
-  };
+  }, [
+    typeFilter,
+    all_Products,
+    userCheck,
+    distanceFilter,
+    sortBy,
+    reverse,
+    outOfStock,
+  ]);
 
   return (
     <div className=" bg-custom">
@@ -133,7 +145,9 @@ const ProductsList = () => {
                     type="checkbox"
                     value=""
                     id="flexCheckDefault"
-                    onChange={handleUserCheck}
+                    onChange={(e) => {
+                      setChecked(e.target.checked);
+                    }}
                     checked={checked}
                   />
                   <label
@@ -144,9 +158,23 @@ const ProductsList = () => {
                   </label>
                 </div>
               )}
+              <div className="form-check d-flex gap-2">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="outOfStock"
+                  onChange={(e) => {
+                    setOutOfStock(e.target.checked);
+                  }}
+                  checked={outOfStock}
+                />
+                <label className="form-check-label" htmlFor="outOfStock">
+                  Hide Out-of-Stock
+                </label>
+              </div>
               <label className="form-check-label mb-0">Distance Filter:</label>
               <div className="row align-items-center gap-2">
-                <div className="col-6 col-xl-12">
+                <div className="col-12 col-sm-6 col-xl-12">
                   <Distance
                     distance={distance}
                     distanceFilter={distanceFilter}

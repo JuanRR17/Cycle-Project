@@ -6,6 +6,7 @@ import Favourites from "./byproducts/Favourites";
 import SearchBar from "./search_bar/SearchBar";
 import { IconContext } from "react-icons";
 import { FaPowerOff } from "react-icons/fa";
+import logo from "../../img/logo.png";
 
 const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -31,9 +32,7 @@ const Navbar = () => {
       style={{ background: "linear-gradient(to left, orange, yellow)" }}
     >
       <div className="container">
-        <Link className="nav-item nav-link" to="/">
-          Logo
-        </Link>
+        <img src={logo} alt="logo" height="50" />
         <button
           className="navbar-toggler"
           type="button"

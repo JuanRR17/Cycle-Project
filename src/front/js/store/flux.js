@@ -740,6 +740,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       //CHECK BASKET PRODUCTS USER
       check_user: (user) => {
         const store = getStore();
+        const actions = getActions();
 
         const basket_items_userid = store.basket.map((item) => {
           return item.product.user_id;
@@ -754,9 +755,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           basket_items_userid !== user.id
         ) {
           setStore({
-            message:
-              "Basket can only contain by-products from a single user. By-products in the basket are from the user: " +
-              store.user.username,
+            message: "Basket can only contain by-products from the same user. ",
           });
         } else {
           return true;
