@@ -147,7 +147,6 @@ export const Product = () => {
                       </div>
                     ) : null}
                     <div className="d-flex gap-3">
-                      {store.message ? store.message : ""}
                       <IconContext.Provider value={{ className: "", size: 40 }}>
                         <>
                           <FavouriteIcon product={product} />
@@ -156,6 +155,11 @@ export const Product = () => {
                       </IconContext.Provider>
                     </div>
                   </div>
+                  {store.message ? (
+                    <div className="text-error">{store.message}</div>
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 <div className="col-lg-12">

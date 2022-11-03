@@ -33,37 +33,37 @@ const Order = () => {
     }
   });
   return (
-    <div className="m-3 bg-custom px-5 py-4">
+    <div className="col-md-10 col-xl-6 m-3 bg-custom px-5 py-4 m-auto">
       <BackButton route={"/profile"} />
-      <h1>Order Details</h1>
       {store.order ? (
-        <div className="container-fluid">
-          <div className="row gap-2">
-            <div className="col mb-2">
-              <label className="mb-0">Order Id: </label>{" "}
-              <div>{store.order.id}</div>
-            </div>
-            <div className="col-auto mb-2">
-              <label className="mb-0">Creation Date: </label>{" "}
-              <div>{store.order.created_at}</div>
-            </div>
-            <div className="col mb-2">
-              <label className="mb-0">Client: </label>{" "}
-              <div>{store.order.user_id ?? "User deleted"}</div>
-            </div>
-            <div className="col mb-2">
-              <label className="mb-0">Seller: </label>{" "}
-              <div>{store.order.seller_username ?? "User deleted"}</div>
+        <>
+          <h1 className="text-center mb-4">Order #{store.order.id}</h1>
+          <div className="container-fluid">
+            <div className="m-auto" style={{ width: "500px" }}>
+              <div className="row gap-2 ">
+                <div className="col-auto mb-2">
+                  <label className="mb-0">Creation Date: </label>{" "}
+                  <div>{store.order.created_at}</div>
+                </div>
+                <div className="col-auto mb-2">
+                  <label className="mb-0">Client Id: </label>{" "}
+                  <div>{store.order.user_id ?? "User deleted"}</div>
+                </div>
+                <div className="col-auto mb-2">
+                  <label className="mb-0">Seller: </label>{" "}
+                  <div>{store.order.seller_username ?? "User deleted"}</div>
+                </div>
+              </div>
+              <div className="my-2 mx-auto" style={{ width: "500px" }}>
+                <label>Order Items:</label>
+                <OrderRows orderRows={store.order.order_rows} />
+                <h3 className=" fw-bolder text-end">
+                  Total: {store.order.total} €
+                </h3>
+              </div>
             </div>
           </div>
-          <label className="mb-0">Order Items:</label>
-          <div className="my-2">
-            <OrderRows orderRows={store.order.order_rows} />
-          </div>
-          <div className=" fw-bolder text-end">
-            Total: {store.order.total} €
-          </div>
-        </div>
+        </>
       ) : (
         "This order doesn't exist"
       )}
