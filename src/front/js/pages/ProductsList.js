@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import Distance from "../component/filters/Distance";
 import Filter from "../component/filters/Filter";
 import ProductCard from "../component/byproducts/ProductCard";
-import { FaSortAmountDownAlt } from "react-icons/fa";
+import { ImSortAlphaAsc, ImSortAlphaDesc } from "react-icons/im";
 import { IconContext } from "react-icons";
 import PropTypes from "prop-types";
 
@@ -17,6 +17,7 @@ const ProductsList = () => {
   const [origin, setOrigin] = useState("");
   const [sortBy, setSortBy] = useState(0);
   const [sortByArray, setSortByArray] = useState(["", "Name", "Location"]);
+  const [reverse, setReverse] = useState(false);
 
   const token = useMemo(() => store.token, [store.token]);
   const userCheck = useMemo(() => {
@@ -82,7 +83,11 @@ const ProductsList = () => {
       const sortedProducts = [].concat(products);
       if (sortByArray[sortBy] === "Distance" && origin) {
         sortedProducts.sort((a, b) => {
-          return a.distance - b.distance;
+          if (reverse) {
+            return b.distance - a.distance;
+          } else {
+            return a.distance - b.distance;
+          }
         });
       } else {
         sortedProducts.sort((a, b) => {
@@ -90,10 +95,15 @@ const ProductsList = () => {
           const nameB = b[sortByArray[sortBy].toLowerCase()].toLowerCase(); // ignore upper and lowercase
 
           if (nameA < nameB) {
-            return -1;
+            if (reverse) {
+              return 1;
+            } else return -1;
           }
+
           if (nameA > nameB) {
-            return 1;
+            if (reverse) {
+              return -1;
+            } else return 1;
           }
 
           // names must be equal
@@ -104,7 +114,7 @@ const ProductsList = () => {
     } else {
       setFilteredList(products);
     }
-  }, [typeFilter, all_Products, userCheck, distanceFilter, sortBy]);
+  }, [typeFilter, all_Products, userCheck, distanceFilter, sortBy, reverse]);
 
   const handleUserCheck = (e) => {
     setChecked(e.target.checked);
@@ -168,11 +178,15 @@ const ProductsList = () => {
                   {all_Products.length}
                 </label>
                 <div>
-                  <label>
-                    <IconContext.Provider value={{ size: 20 }}>
-                      <FaSortAmountDownAlt />{" "}
+                  <span
+                    type="button"
+                    className="icon"
+                    onClick={() => setReverse(!reverse)}
+                  >
+                    <IconContext.Provider value={{ size: 25 }}>
+                      {reverse ? <ImSortAlphaDesc /> : <ImSortAlphaAsc />}
                     </IconContext.Provider>
-                  </label>
+                  </span>
                   <div className="d-inline-block ms-2">
                     <Filter
                       label="Sort by"
