@@ -15,7 +15,6 @@ const UserProductsTable = ({ products }) => {
       actions.toggle_update();
     }
   }, [update]);
-
   const columns = [
     {
       name: "Id",
@@ -78,6 +77,8 @@ const UserProductsTable = ({ products }) => {
   );
 };
 
-UserProductsTable.propTypes = {};
+UserProductsTable.propTypes = {
+  location: PropTypes.array,
+};
 
 export default UserProductsTable;

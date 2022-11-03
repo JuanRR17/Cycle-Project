@@ -12,8 +12,6 @@ import ProductsList from "./pages/ProductsList";
 import { Product } from "./pages/Product";
 import ConfirmOrder from "./pages/ConfirmOrder";
 import Order from "./pages/Order";
-import { Blog } from "./pages/Blog";
-import { BlogEntryForm } from "./pages/BlogEntryForm";
 
 import injectContext from "./store/appContext";
 
@@ -39,8 +37,6 @@ const Layout = () => {
             <Route element={<ByProductForm />} path="/byproduct_form/:id" />
             <Route element={<ByProductForm />} path="/byproduct_form/" />
             <Route element={<ProductsList />} path="/prod_list" />
-            <Route element={<Blog />} path="/blog" />
-            <Route element={<BlogEntryForm />} path="/blog_entry_form" />
             <Route element={<Product />} path="/product/:id" />
             <Route element={<Order />} path="/order/:id" />
             <Route element={<ConfirmOrder />} path="/confirm_order" />

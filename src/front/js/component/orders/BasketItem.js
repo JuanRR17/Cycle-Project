@@ -48,7 +48,7 @@ const BasketItem = ({ item }) => {
 };
 
 BasketItem.propTypes = {
-  item: PropTypes.object,
+  item: PropTypes.object.isRequired,
 };
 
 export default BasketItem;

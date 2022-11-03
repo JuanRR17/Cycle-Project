@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import DataTable from "react-data-table-component";
 import { customStyles } from "../../utils/tables-style";
 
@@ -51,6 +52,8 @@ const OrderRows = ({ orderRows }) => {
   );
 };
 
-OrderRows.propTypes = {};
+OrderRows.propTypes = {
+  orderRows: PropTypes.array.isRequired,
+};
 
 export default OrderRows;

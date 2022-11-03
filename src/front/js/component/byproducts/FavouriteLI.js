@@ -33,7 +33,7 @@ const FavouriteLI = ({ fav }) => {
 };
 
 FavouriteLI.propTypes = {
-  fav: PropTypes.object,
+  fav: PropTypes.object.isRequired,
 };
 
 export default FavouriteLI;

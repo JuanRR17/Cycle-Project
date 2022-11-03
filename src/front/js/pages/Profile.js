@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect, useMemo, useRef } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
-import "../../styles/home.css";
 import "../../styles/index.css";
 import UserInfo from "../component/user_profile/UserInfo";
 import UserProductsTable from "../component/user_profile/UserProductsTable";
@@ -11,6 +10,8 @@ import SoldOrdersTable from "../component/user_profile/SoldOrdersTable";
 import { IconContext } from "react-icons";
 import { FaUserSlash } from "react-icons/fa";
 import UserForm from "../component/user_profile/UserForm";
+import { BsJournalPlus } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -19,42 +20,25 @@ const Profile = () => {
   const [edit, setEdit] = useState(false);
   const token = useMemo(() => store.token, [store.token]);
   const data = useMemo(() => {
-    console.log("data use memo", store.data);
     store.data;
   }, [store.data?.id]);
-  // const orders_made = useMemo(() => {
-  //   console.log("orders use memo", store.orders_made);
-  //   store.orders_made;
-  // }, [store.orders_made]);
-  // const orders_made = useRef(store.orders_made);
 
   const handleEditProfile = () => {
     setEdit(true);
   };
-  console.log("profile store", store);
+  // console.log("profile store", store);
   useEffect(() => {
     actions.syncTokenFromSessionStore();
-    console.log("useEffect token", token);
 
     if (!sessionStorage.getItem("token")) {
-      // if (!store.data && store.token) {
       actions.logout();
       navigate("/");
     }
-    console.log("store.data:", data);
-    // console.log("orders_made:", orders_made);
+    // console.log("store.data:", data);
     if (!data) {
       actions.getCurrentUserData();
     }
-    // if (!orders_made && data) {
-    //   console.log("orders_made");
-    //   actions.getMadeOrders(data.id);
-    // }
-  }, [
-    token,
-    data,
-    // , orders_made
-  ]);
+  }, [token, data]);
 
   return (
     <div className="container-fluid">
@@ -86,6 +70,18 @@ const Profile = () => {
               aria-labelledby="panelsStayOpen-headingOne"
             >
               <div className="panel-body">
+                <IconContext.Provider value={{ className: "p-1", size: 30 }}>
+                  <button type="button" className="btn btn-success btn-custom">
+                    <Link
+                      to="/byproduct_form"
+                      className="text-decoration-none text-light shadow"
+                    >
+                      <BsJournalPlus />
+                    </Link>
+                  </button>
+                  <label className="ps-1">Create New By-Product</label>
+                </IconContext.Provider>
+
                 <UserProductsTable products={store.data?.products} />
               </div>
             </div>
@@ -110,9 +106,7 @@ const Profile = () => {
               aria-labelledby="panelsStayOpen-headingTwo"
             >
               <div className="panel-body">
-                <MyOrdersTable
-                // orders={store.orders_made}
-                />
+                <MyOrdersTable />
               </div>
             </div>
           </div>

@@ -4,9 +4,8 @@ import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import OrderRows from "../component/orders/OrderRows";
 import BackButton from "../component/buttons/BackButton";
-import Checkout from "../component/payment/Checkout";
 
-const Order = (props) => {
+const Order = () => {
   const { store, actions } = useContext(Context);
 
   const navigate = useNavigate();
@@ -62,8 +61,6 @@ const Order = (props) => {
             <OrderRows orderRows={store.order.order_rows} />
           </div>
           <div className=" fw-bolder text-end">
-            <div>Hola</div>
-            <Checkout />
             Total: {store.order.total} €
           </div>
         </div>

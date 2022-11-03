@@ -86,11 +86,7 @@ const Login = () => {
       </div>
 
       <div className="py-2 d-flex gap-2">
-        <button
-          // type="submit"
-          className="btn btn-success btn-custom"
-          onClick={handleLogin}
-        >
+        <button className="btn btn-success btn-custom" onClick={handleLogin}>
           Login
         </button>
         <button onClick={handleCancel} className="btn btn-danger btn-custom ">

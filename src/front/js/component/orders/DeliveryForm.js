@@ -175,7 +175,7 @@ const DeliveryForm = ({ delivery, errors, handleSetDelivery }) => {
 DeliveryForm.propTypes = {
   delivery: PropTypes.object,
   errors: PropTypes.object,
-  handleSetDelivery: PropTypes.func,
+  handleSetDelivery: PropTypes.func.isRequired,
 };
 
 export default DeliveryForm;

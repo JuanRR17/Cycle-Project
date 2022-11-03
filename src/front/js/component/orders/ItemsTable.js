@@ -61,7 +61,7 @@ const ItemsTable = ({ total }) => {
 };
 
 ItemsTable.propTypes = {
-  total: PropTypes.number,
+  total: PropTypes.number.isRequired,
 };
 
 export default ItemsTable;

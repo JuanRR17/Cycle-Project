@@ -48,6 +48,6 @@ const BasketIcon = ({ product }) => {
   );
 };
 
-BasketIcon.propTypes = { product: PropTypes.object };
+BasketIcon.propTypes = { product: PropTypes.object.isRequired };
 
 export default BasketIcon;

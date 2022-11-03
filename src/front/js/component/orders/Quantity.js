@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import { IconContext } from "react-icons";
@@ -64,9 +64,9 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
 };
 
 Quantity.propTypes = {
-  quantity: PropTypes.number,
-  stock: PropTypes.number,
-  handleSetQuantity: PropTypes.func,
+  quantity: PropTypes.number.isRequired,
+  stock: PropTypes.number.isRequired,
+  handleSetQuantity: PropTypes.func.isRequired,
 };
 
 export default Quantity;

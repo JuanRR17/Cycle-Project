@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { IconContext } from "react-icons";
-import { BsJournalPlus } from "react-icons/bs";
 import { FaUserEdit } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 const UserInfo = ({ data, handleEdit }) => {
   return (
@@ -27,17 +25,6 @@ const UserInfo = ({ data, handleEdit }) => {
                       className="btn btn-primary btn-custom"
                     >
                       <FaUserEdit />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-success btn-custom"
-                    >
-                      <Link
-                        to="/byproduct_form"
-                        className="text-decoration-none text-light shadow"
-                      >
-                        <BsJournalPlus />
-                      </Link>
                     </button>
                   </div>
                 </IconContext.Provider>
@@ -87,6 +74,7 @@ const UserInfo = ({ data, handleEdit }) => {
 
 UserInfo.propTypes = {
   data: PropTypes.object,
+  handleEdit: PropTypes.func.isRequired,
 };
 
 export default UserInfo;

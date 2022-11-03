@@ -7,7 +7,7 @@ import DeliveryForm from "../component/orders/DeliveryForm";
 import PayPal from "../component/payment/PayPal";
 import "../../styles/index.css";
 
-const ConfirmOrder = (props) => {
+const ConfirmOrder = () => {
   const { store, actions } = useContext(Context);
   const [total, setTotal] = useState(0);
   const [delivery, setDelivery] = useState({});
@@ -20,7 +20,6 @@ const ConfirmOrder = (props) => {
     //Check token
     actions.syncTokenFromSessionStore();
     if (!sessionStorage.getItem("token") && !store.token) {
-      // if (!store.data || !store.token) {
       actions.logout();
       navigate("/");
     }
@@ -85,10 +84,6 @@ const ConfirmOrder = (props) => {
     } else {
       setCheckout(true);
       setErrors();
-
-      // await actions.create_order(delivery, total, store.data.id);
-      // await actions.getMadeOrders(store.data.id);
-      // navigate("/profile");
     }
   };
   return (

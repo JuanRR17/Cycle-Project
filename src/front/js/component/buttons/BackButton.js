@@ -16,6 +16,6 @@ const BackButton = ({ route }) => {
   );
 };
 
-BackButton.propTypes = {};
+BackButton.propTypes = { route: PropTypes.string.isRequired };
 
 export default BackButton;

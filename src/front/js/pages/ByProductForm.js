@@ -1,11 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import "../../styles/home.css";
 import PropTypes from "prop-types";
 import { capitalize } from "../utils/utils";
 
-const ByProductForm = (props) => {
+const ByProductForm = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const url = useLocation();

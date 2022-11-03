@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const PayPal = ({ total, delivery }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
-
   const createOrder = async () => {
     await actions.create_order(delivery, total, store.data.id);
     await actions.getMadeOrders(store.data.id);
@@ -47,6 +46,9 @@ const PayPal = ({ total, delivery }) => {
   return <div className="bg-light p-2 m-auto" ref={paypal}></div>;
 };
 
-PayPal.propTypes = {};
+PayPal.propTypes = {
+  total: PropTypes.number.isRequired,
+  delivery: PropTypes.object.isRequired,
+};
 
 export default PayPal;

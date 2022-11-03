@@ -1,9 +1,7 @@
 import React, { useState, useContext, useEffect, useMemo } from "react";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
-import "../../styles/home.css";
 import ProductCard from "../component/byproducts/ProductCard";
-import SearchBar from "../component/search_bar/SearchBar";
 import Filter from "../component/filters/Filter";
 import Distance from "../component/filters/Distance";
 import { FaSortAmountDownAlt } from "react-icons/fa";
@@ -57,7 +55,6 @@ const ProductsList = () => {
   //Filters selected by user
   useEffect(() => {
     let products = all_Products;
-    // setFilteredList(all_Products);
 
     //Filter by user by-products
     if (userCheck) {
