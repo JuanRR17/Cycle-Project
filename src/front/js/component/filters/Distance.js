@@ -101,9 +101,8 @@ const Distance = ({
 
         <div className="col-auto">
           <div
-            className="btn btn-custom text-light m-1"
+            className="btn btn-custom text-light m-1 p-1"
             style={{
-              padding: "3px",
               backgroundColor: `${valid ? "#14b514" : "#db5353"}`,
             }}
             onClick={handleLocation}
@@ -134,12 +133,6 @@ const Distance = ({
               onChange={handleDistance}
               value={distance}
               disabled={!valid}
-              style={
-                {
-                  // width: "60px",
-                  // backgroundColor: `${valid ? "#8bdc8b" : "#ea9f9f"}`,
-                }
-              }
             />
           </div>
           <div className="col-auto">

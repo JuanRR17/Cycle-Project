@@ -26,7 +26,6 @@ const Profile = () => {
   const handleEditProfile = () => {
     setEdit(true);
   };
-  // console.log("profile store", store);
   useEffect(() => {
     actions.syncTokenFromSessionStore();
 
@@ -34,7 +33,6 @@ const Profile = () => {
       actions.logout();
       navigate("/");
     }
-    // console.log("store.data:", data);
     if (!data) {
       actions.getCurrentUserData();
     }

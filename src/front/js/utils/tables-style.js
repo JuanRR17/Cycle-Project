@@ -1,9 +1,9 @@
 export const customStyles = {
   table: {
     style: {
-      boxShadow: "inset 0 0 15px 10px rgba(20, 48, 9, 0.8)",
-      marginBottom: "10px",
-      borderRadius: "20px",
+      boxShadow: "inset 0 0 1em 0.8em rgba(20, 48, 9, 0.8)",
+      marginBottom: "0.8em",
+      borderRadius: "1.3em",
       overflow: "hidden",
     },
   },
@@ -16,14 +16,14 @@ export const customStyles = {
   head: {
     style: {
       color: "green",
-      fontSize: "15px",
+      fontSize: "1rem",
       fontWeight: 600,
     },
   },
   headRow: {
     style: {
       backgroundColor: "#eead35",
-      boxShadow: "inset 0 10px 20px 0px rgba(20, 48, 9, 0.8)",
+      boxShadow: "inset 0 0.8em 1.3em 0 rgba(20, 48, 9, 0.8)",
     },
   },
   rows: {
@@ -53,30 +53,30 @@ export const customStyles = {
   contextMenu: {
     style: {
       backgroundColor: "#8db77b",
-      borderRadius: "10px",
+      borderRadius: "0.8em",
     },
   },
   pagination: {
     style: {
       color: "white",
-      fontSize: "13px",
-      minHeight: "56px",
+      fontSize: "0.9rem",
+      minHeight: "3.5em",
       backgroundColor: "unset",
       borderTopStyle: "solid",
-      borderTopWidth: "1px",
+      borderTopWidth: "0.1em",
     },
     pageButtonsStyle: {
       color: "white",
       backgroundColor: "white",
-      padding: "1px",
-      margin: "2px",
+      padding: "0.1em",
+      margin: "0.1em",
     },
   },
   noData: {
     style: {
       color: "#ffffffd3",
       backgroundColor: "rgba(20, 48, 9)",
-      fontSize: "20px",
+      fontSize: "1.5rem",
       fontWeight: "600",
     },
   },

@@ -6,7 +6,7 @@ import { FaUserEdit } from "react-icons/fa";
 const UserInfo = ({ data, handleEdit }) => {
   return (
     <div className="d-flex justify-content-center px-0">
-      <div className="col-xl-6">
+      <div className="col-xl-8">
         <div className="profile-card overflow-hidden">
           <div className="row mx-0 bg-c-lite-green">
             <div className="col-sm-4">

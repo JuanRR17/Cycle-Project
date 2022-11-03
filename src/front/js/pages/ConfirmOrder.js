@@ -173,7 +173,7 @@ const ConfirmOrder = () => {
       </div>
 
       {checkout ? (
-        <div className="text-center m-auto" style={{ width: "500px" }}>
+        <div className="text-center m-auto" style={{ width: "30em" }}>
           <span className="text-light fw-bolder p-3">
             All details are correct!
           </span>

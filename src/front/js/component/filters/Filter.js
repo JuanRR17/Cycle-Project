@@ -9,18 +9,13 @@ const Filter = ({ label, fields, handleSetFilter }) => {
     setValue(e.target.value);
   };
 
-  const style = {
-    borderRadius: "100px",
-  };
-
   return (
     <select
       name="select"
-      className="form-select w-auto border-success border-3"
+      className="form-select w-auto border-success border-3 rounded-pill"
       id="inputType"
       value={value}
       onChange={handleChange}
-      style={style}
     >
       {fields.map((f, idx) => {
         if (idx === 0) {
