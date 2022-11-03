@@ -25,7 +25,6 @@ const SearchBar = ({ data }) => {
   };
 
   const style = {
-    borderRadius: "100px",
     overflow: "hidden",
   };
 
@@ -36,7 +35,7 @@ const SearchBar = ({ data }) => {
   return (
     <div className="dropdown">
       <div
-        className="d-flex align-items-center form-control p-0 border-success border-3"
+        className="d-flex align-items-center form-control p-0 border-success border-3 rounded-pill"
         style={style}
       >
         <input

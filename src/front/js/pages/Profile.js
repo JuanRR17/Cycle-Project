@@ -26,7 +26,6 @@ const Profile = () => {
   const handleEditProfile = () => {
     setEdit(true);
   };
-  // console.log("profile store", store);
   useEffect(() => {
     actions.syncTokenFromSessionStore();
 
@@ -34,14 +33,13 @@ const Profile = () => {
       actions.logout();
       navigate("/");
     }
-    // console.log("store.data:", data);
     if (!data) {
       actions.getCurrentUserData();
     }
   }, [token, data]);
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid col-lg-8">
       <div className="row bg-custom">
         {edit ? (
           <UserForm edit={true} handleSetEdit={(value) => setEdit(value)} />
