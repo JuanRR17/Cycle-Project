@@ -1,9 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
+import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-
-import { Context } from "../store/appContext";
-import "../../styles/home.css";
 
 const Login = () => {
   const { store, actions } = useContext(Context);

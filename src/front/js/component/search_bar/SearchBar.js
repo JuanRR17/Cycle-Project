@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { ImSearch } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import { ImSearch } from "react-icons/im";
+import PropTypes from "prop-types";
 
 const SearchBar = ({ data }) => {
   const [filteredData, setFilteredData] = useState([]);

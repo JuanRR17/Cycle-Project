@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
+import { Link } from "react-router-dom";
 import BasketIcon from "../icons/BasketIcon";
 import DeleteIcon from "../icons/DeleteIcon";
+import PropTypes from "prop-types";
 
 const FavouriteLI = ({ fav }) => {
   const { store, actions } = useContext(Context);

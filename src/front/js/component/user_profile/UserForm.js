@@ -1,9 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { Context } from "../../store/appContext";
-import "../../../styles/home.css";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import { capitalize } from "../../utils/utils";
+import PropTypes from "prop-types";
 
 const UserForm = ({ edit, handleSetEdit }) => {
   const { store, actions } = useContext(Context);

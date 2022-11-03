@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import PropTypes from "prop-types";
-import OrderRows from "../component/orders/OrderRows";
+import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../component/buttons/BackButton";
+import OrderRows from "../component/orders/OrderRows";
+import PropTypes from "prop-types";
 
 const Order = () => {
   const { store, actions } = useContext(Context);

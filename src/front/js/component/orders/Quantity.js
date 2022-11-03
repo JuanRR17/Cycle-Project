@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import { IconContext } from "react-icons";
+import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
+import PropTypes from "prop-types";
 
 const Quantity = ({ quantity, stock, handleSetQuantity }) => {
   const handleChange = (e) => {

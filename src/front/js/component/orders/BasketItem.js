@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import Quantity from "./Quantity";
-import DeleteIcon from "../icons/DeleteIcon";
 import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
+import DeleteIcon from "../icons/DeleteIcon";
+import Quantity from "./Quantity";
 import { IconContext } from "react-icons";
+import PropTypes from "prop-types";
 
 const BasketItem = ({ item }) => {
   const { store, actions } = useContext(Context);

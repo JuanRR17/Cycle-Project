@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { capitalize } from "../../utils/utils";
-import { BiCurrentLocation, BiFilter } from "react-icons/bi";
 import { IconContext } from "react-icons";
+import { BiCurrentLocation, BiFilter } from "react-icons/bi";
+import PropTypes from "prop-types";
 
 const Distance = ({
   distance,

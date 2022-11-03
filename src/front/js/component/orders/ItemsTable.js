@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
-import PropTypes from "prop-types";
 import BasketItem from "./BasketItem";
+import PropTypes from "prop-types";
 
 const ItemsTable = ({ total }) => {
   const { store, actions } = useContext(Context);

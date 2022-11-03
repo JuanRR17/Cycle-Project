@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
 import { Context } from "../../store/appContext";
 import { BsCart, BsFillCartFill } from "react-icons/bs";
+import PropTypes from "prop-types";
 
 const BasketIcon = ({ product }) => {
   const { store, actions } = useContext(Context);

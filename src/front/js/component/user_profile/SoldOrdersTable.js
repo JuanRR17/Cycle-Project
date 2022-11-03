@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
-import OrdersTableBase from "./OrdersTableBase";
 import { useNavigate } from "react-router-dom";
+import OrdersTableBase from "./OrdersTableBase";
 
 const SoldOrdersTable = () => {
   const { store, actions } = useContext(Context);

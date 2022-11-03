@@ -1,10 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import DataTable from "react-data-table-component";
-import Checkbox from "@material-ui/core/Checkbox";
 import { customStyles } from "../../utils/tables-style";
+import Checkbox from "@material-ui/core/Checkbox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import { useNavigate } from "react-router-dom";
 
 const _ = require("lodash");
 const sortIcon = <ArrowDownward />;

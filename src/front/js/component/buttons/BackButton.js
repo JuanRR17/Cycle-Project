@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { TiArrowBackOutline } from "react-icons/ti";
+import PropTypes from "prop-types";
 
 const BackButton = ({ route }) => {
   const navigate = useNavigate();

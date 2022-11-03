@@ -1,17 +1,16 @@
 import React, { useContext, useState, useEffect, useMemo } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
-import "../../styles/index.css";
-import UserInfo from "../component/user_profile/UserInfo";
-import UserProductsTable from "../component/user_profile/UserProductsTable";
-import PropTypes from "prop-types";
+import { useNavigate, Link } from "react-router-dom";
 import MyOrdersTable from "../component/user_profile/MyOrdersTable";
 import SoldOrdersTable from "../component/user_profile/SoldOrdersTable";
-import { IconContext } from "react-icons";
-import { FaUserSlash } from "react-icons/fa";
 import UserForm from "../component/user_profile/UserForm";
+import UserInfo from "../component/user_profile/UserInfo";
+import UserProductsTable from "../component/user_profile/UserProductsTable";
 import { BsJournalPlus } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { FaUserSlash } from "react-icons/fa";
+import { IconContext } from "react-icons";
+import "../../styles/index.css";
+import PropTypes from "prop-types";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
