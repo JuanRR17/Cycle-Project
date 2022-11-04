@@ -137,63 +137,51 @@ const ProductsList = () => {
       {store.all_products ? (
         <div className="container-fluid">
           <div className="row">
-            <div className="col-xl-3 d-flex flex-column gap-2 mb-3">
-              {token && (
+            <div className="col-xl-3 d-flex flex-xl-column gap-2 mb-3">
+              <div>
+                {token && (
+                  <div className="form-check d-flex gap-2">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                      onChange={(e) => {
+                        setChecked(e.target.checked);
+                      }}
+                      checked={checked}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexCheckDefault"
+                    >
+                      Hide your By-Products
+                    </label>
+                  </div>
+                )}
                 <div className="form-check d-flex gap-2">
                   <input
                     className="form-check-input"
                     type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
+                    id="outOfStock"
                     onChange={(e) => {
-                      setChecked(e.target.checked);
+                      setOutOfStock(e.target.checked);
                     }}
-                    checked={checked}
+                    checked={outOfStock}
                   />
-                  <label
-                    className="form-check-label"
-                    htmlFor="flexCheckDefault"
-                  >
-                    Hide your By-Products
+                  <label className="form-check-label" htmlFor="outOfStock">
+                    Hide Out-of-Stock
                   </label>
                 </div>
-              )}
-              <div className="form-check d-flex gap-2">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="outOfStock"
-                  onChange={(e) => {
-                    setOutOfStock(e.target.checked);
-                  }}
-                  checked={outOfStock}
-                />
-                <label className="form-check-label" htmlFor="outOfStock">
-                  Hide Out-of-Stock
-                </label>
               </div>
-              <label className="form-check-label mb-0">Distance Filter:</label>
-              <div className="row align-items-center gap-2">
-                <div className="col-12 col-sm-6 col-xl-12">
-                  <Distance
-                    distance={distance}
-                    distanceFilter={distanceFilter}
-                    handleSetDistance={(value) => setDistance(value)}
-                    handleSetDistanceFilter={(value) =>
-                      setDistanceFilter(value)
-                    }
-                    handleSetOrigin={(value) => setOrigin(value)}
-                  />
-                </div>
-                <div className="col-auto col-xl-12">
-                  <Filter
-                    label="Type"
-                    fields={store.types}
-                    handleSetFilter={(value) => {
-                      setTypeFilter(value);
-                    }}
-                  />
-                </div>
+              <div className="col-auto">
+                <Distance
+                  distance={distance}
+                  distanceFilter={distanceFilter}
+                  handleSetDistance={(value) => setDistance(value)}
+                  handleSetDistanceFilter={(value) => setDistanceFilter(value)}
+                  handleSetOrigin={(value) => setOrigin(value)}
+                />
               </div>
             </div>
 
@@ -221,6 +209,16 @@ const ProductsList = () => {
                       fields={sortByArray}
                       handleSetFilter={(value) => {
                         setSortBy(value);
+                      }}
+                    />
+                  </div>
+
+                  <div className="d-inline-block ms-2">
+                    <Filter
+                      label="Type"
+                      fields={store.types}
+                      handleSetFilter={(value) => {
+                        setTypeFilter(value);
                       }}
                     />
                   </div>
