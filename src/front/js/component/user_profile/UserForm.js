@@ -67,7 +67,9 @@ const UserForm = ({ edit, handleSetEdit }) => {
           password
         )
       ) {
-        navigate("/login");
+        await actions.login(email, password);
+
+        navigate("/profile");
       }
     } else {
       if (
