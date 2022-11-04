@@ -72,7 +72,7 @@ def sign_up():
         for f in gen:
             if f == "location":
                 if not validate_location(request_body[f]):
-                    return jsonify({"msg":"Enter a valid location"}),500
+                    return jsonify({"msg":"Enter a valid Spanish location"}),500
                 else:
                     setattr(new_user, f, request_body[f])
 
@@ -174,7 +174,7 @@ def update_user(id):
                 if f in fields:
                     if f == "location":
                         if not validate_location(request_body[f]):
-                            return jsonify({"msg":"Enter a valid location"}),500
+                            return jsonify({"msg":"Enter a valid Spanish location"}),500
                         else:
                             setattr(user, f, request_body[f])
                     elif f!="password":
@@ -252,7 +252,7 @@ def new_product():
         for f in gen:
             if f == "location":
                 if not validate_location(request_body[f]):
-                    return jsonify({"msg":"Enter a valid location"}),500
+                    return jsonify({"msg":"Enter a valid Spanish location"}),500
                 else:
                     setattr(new_product, f, request_body[f])
 
@@ -320,7 +320,7 @@ def get_products(origin=None):
                     km = geodesic(location1, location2).km
                     product['distance'] = float("%.2f" % round(km, 2))
                 except:
-                    return jsonify({"msg":"Enter a valid location"}),500
+                    return jsonify({"msg":"Enter a valid Spanish location"}),500
             all_products.append(product)
 
     return jsonify(all_products)
@@ -369,7 +369,7 @@ def update_product(id):
                 if f in fields:
                     if f == "location":
                         if not validate_location(request_body[f]):
-                            return jsonify({"msg":"Enter a valid location"}),500
+                            return jsonify({"msg":"Enter a valid Spanish location"}),500
                         else:
                             setattr(product, f, request_body[f])
                     setattr(product, f, request_body[f])
@@ -629,7 +629,7 @@ def calc_distance(loc1,loc2):
         km = geodesic(location1, location2).km
         # m = folium.Map(location=list(location), zoom_start = 13)
     except:
-        return jsonify({"msg":"Enter a valid location"}),500
+        return jsonify({"msg":"Enter a valid Spanish location"}),500
     else:
         return str(km),200
 
@@ -641,7 +641,7 @@ def valid_loc(location):
         print("check")
         print(check)
     except:
-        return jsonify({"msg":"Enter a valid location"}),500
+        return jsonify({"msg":"Enter a valid Spanish location"}),500
 
     else:
         return jsonify({"msg":"This location is valid"}),200

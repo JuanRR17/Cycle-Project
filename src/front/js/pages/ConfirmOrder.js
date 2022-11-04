@@ -15,7 +15,6 @@ const ConfirmOrder = () => {
   const [checkout, setCheckout] = useState(false);
 
   const navigate = useNavigate();
-
   useEffect(() => {
     //Check token
     actions.syncTokenFromSessionStore();
