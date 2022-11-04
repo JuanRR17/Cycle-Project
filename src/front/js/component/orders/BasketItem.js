@@ -1,15 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
 import DeleteIcon from "../icons/DeleteIcon";
 import Quantity from "./Quantity";
 import { IconContext } from "react-icons";
+import { MdDelete, MdOutlineCancel } from "react-icons/md";
 import PropTypes from "prop-types";
 
 const BasketItem = ({ item }) => {
   const { store, actions } = useContext(Context);
+  const [confirm, setConfirm] = useState(false);
+
+  const handleQtyChange = (value) => {
+    if (value === 0) {
+      setConfirm(true);
+    } else {
+      actions.bi_quantity(item.id, value);
+    }
+  };
+
   return (
-    <tr className="align-middle basket-item">
+    <tr
+      className="align-middle basket-item"
+      style={{ backgroundColor: `${confirm ? "#a6444494" : ""}` }}
+    >
       <td>
         <span className="text-center">
           <IconContext.Provider value={{ className: "", size: 20 }}>
@@ -30,11 +44,31 @@ const BasketItem = ({ item }) => {
       <td>{item.product.type}</td>
       <td>{item.product.location}</td>
       <td className="text-center">
-        <Quantity
-          quantity={item.quantity}
-          stock={item.product.stock}
-          handleSetQuantity={(value) => actions.bi_quantity(item.id, value)}
-        />
+        {confirm ? (
+          <div className="d-flex justify-content-center gap-1">
+            <IconContext.Provider value={{ className: "", size: 25 }}>
+              <button
+                className="btn-custom btn p-1 bg-danger"
+                onClick={() => actions.bi_quantity(item.id, 0)}
+              >
+                <MdDelete />
+              </button>
+
+              <button
+                className="btn-custom btn p-1 bg-light"
+                onClick={() => setConfirm(false)}
+              >
+                <MdOutlineCancel />
+              </button>
+            </IconContext.Provider>
+          </div>
+        ) : (
+          <Quantity
+            quantity={item.quantity}
+            stock={item.product.stock}
+            handleSetQuantity={handleQtyChange}
+          />
+        )}
       </td>
       <td className="basket-number">{item.product.stock}</td>
       <td className="basket-number">
