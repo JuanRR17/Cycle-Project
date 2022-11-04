@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+const { Popover } = bootstrap;
 import { capitalize } from "../../utils/utils";
 import { IconContext } from "react-icons";
 import { BiCurrentLocation, BiFilter } from "react-icons/bi";
@@ -17,6 +18,16 @@ const Distance = ({
   const [location, setLocation] = useState("");
   const [valid, setValid] = useState(false);
   const [message, setMessage] = useState("");
+
+  const popoverRef = useRef();
+  useEffect(() => {
+    var popover = new Popover(popoverRef.current, {
+      customClass: "distance-popover",
+      content:
+        "Enter a location to calculate the distance from the By-Products and filter by distance.",
+      trigger: "hover",
+    });
+  });
 
   const handleLocation = async () => {
     let mounted = true;
@@ -92,6 +103,7 @@ const Distance = ({
       <div
         className="form-control p-0 rounded-pill border-success border-3 px-4 py-1"
         style={style}
+        ref={popoverRef}
       >
         <div className="row align-items-center gx-0">
           <div className="col">
@@ -164,10 +176,6 @@ const Distance = ({
             )}
           </div>
         )}
-      </div>
-      <div>
-        Enter a location to calculate the distance from the By-Products and
-        filter by distance.
       </div>
     </>
   );
