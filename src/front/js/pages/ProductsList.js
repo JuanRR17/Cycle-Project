@@ -137,8 +137,8 @@ const ProductsList = () => {
       {store.all_products ? (
         <div className="container-fluid">
           <div className="row">
-            <div className="col-xl-3 d-flex flex-xl-column gap-2 mb-3">
-              <div>
+            <div className="col-xl-3 d-flex flex-column flex-sm-row flex-xl-column gap-1 gap-sm-5 gap-xl-1 mb-3">
+              <div className="col-auto">
                 {token && (
                   <div className="form-check d-flex gap-2">
                     <input
@@ -174,7 +174,7 @@ const ProductsList = () => {
                   </label>
                 </div>
               </div>
-              <div className="col-auto">
+              <div className="col-lg-auto">
                 <Distance
                   distance={distance}
                   distanceFilter={distanceFilter}
