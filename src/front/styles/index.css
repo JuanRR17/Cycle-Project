@@ -192,12 +192,3 @@ table .basket-item:hover {
 .icon:hover {
   filter: drop-shadow(0 0 1.3em rgba(231, 236, 202, 0.692));
 }
-
-/* DISTANCE FILTER POPOVER*/
-.distance-popover {
-  padding: 0;
-  border: 0.2em solid rgb(19, 141, 50);
-  border-radius: 2em;
-  font-weight: 600;
-  background-color: #6eb66e;
-}
