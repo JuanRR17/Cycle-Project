@@ -182,23 +182,25 @@ table .basket-item:hover {
   background-color: #e2e0ce;
   border-radius: 1.3em;
   transition: 0.2s all;
-  opacity: 90%;
+  /* opacity: 90%; */
 }
 .product-card:hover {
   transform: scale(1.03);
-  opacity: 100%;
+  background-color: #fffbda;
+
+  /* opacity: 100%; */
 }
 
 .icon:hover {
   filter: drop-shadow(0 0 1.3em rgba(231, 236, 202, 0.692));
 }
 
-/* TOOLTIP */
-.my-tooltip {
+/* DISTANCE TOOLTIP */
+.distance-tooltip {
   position: relative;
 }
-.my-tooltip::before,
-.my-tooltip::after {
+.distance-tooltip::before,
+.distance-tooltip::after {
   --scale: 0;
   --arrow-size: 1em;
   --tooltip-color: rgb(57 103 48);
@@ -208,11 +210,11 @@ table .basket-item:hover {
   left: 50%;
   transform: translateX(-50%) translateY(var(--translate-y, 0))
     scale(var(--scale));
-  transition: 150ms transform;
+  transition: 300ms transform;
   transform-origin: bottom center;
 }
 
-.my-tooltip::before {
+.distance-tooltip::before {
   --translate-y: calc(-100% - var(--arrow-size));
   content: attr(data-tooltip);
   color: #d3d3d3;
@@ -220,19 +222,63 @@ table .basket-item:hover {
   border-radius: 0.3em;
   text-align: center;
   width: max-content;
+  min-width: 350px;
   max-width: 100%;
   background: var(--tooltip-color);
 }
 
-.my-tooltip:hover::before,
-.my-tooltip:hover::after {
+.distance-tooltip:hover::before,
+.distance-tooltip:hover::after {
   --scale: 1;
 }
 
-.my-tooltip::after {
+.distance-tooltip::after {
   --translate-y: calc(-1 * var(--arrow-size));
   content: "";
   border: var(--arrow-size) solid transparent;
   border-top-color: var(--tooltip-color);
   transform-origin: top center;
+}
+
+/* BASKET TOOLTIP */
+.basket-tooltip {
+  position: relative;
+}
+.basket-tooltip::before,
+.basket-tooltip::after {
+  /* --scale: 0; */
+  --arrow-size: 0.6em;
+  --tooltip-color: #a83030;
+  position: absolute;
+  top: -0.5em;
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--translate-y, 0));
+  transition: 150ms transform;
+  transform-origin: bottom center;
+}
+
+.basket-tooltip::before {
+  --translate-y: calc(-100% - var(--arrow-size));
+  content: attr(data-tooltip);
+  font-size: 0.75rem;
+  color: #d3d3d3;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  text-align: center;
+  min-width: 300px;
+  /* max-width: 200px; */
+  background: var(--tooltip-color);
+}
+
+.basket-tooltip::after {
+  --translate-y: calc(-1 * var(--arrow-size));
+  content: "";
+  border: var(--arrow-size) solid transparent;
+  border-top-color: var(--tooltip-color);
+  transform-origin: top center;
+}
+
+.distance-tooltip:hover::before,
+.distance-tooltip:hover::after {
+  filter: none;
 }

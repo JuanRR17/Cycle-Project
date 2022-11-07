@@ -90,7 +90,7 @@ const Distance = ({
     <>
       <label className="form-check-label">Distance Filter:</label>
       <div
-        className="form-control p-0 rounded-pill border-success border-3 px-4 py-1 my-tooltip"
+        className="form-control p-0 rounded-pill border-success border-3 px-4 py-1 distance-tooltip"
         style={style}
         data-tooltip="Enter a location to calculate the distance from the By-Products and filter by distance."
       >
