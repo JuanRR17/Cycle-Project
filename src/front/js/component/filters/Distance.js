@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { capitalize } from "../../utils/utils";
 import { IconContext } from "react-icons";
-import { BiCurrentLocation, BiFilter } from "react-icons/bi";
+import { BiFilter } from "react-icons/bi";
 import { TbZoomCheck } from "react-icons/tb";
 import { RiCheckboxCircleLine } from "react-icons/ri";
 
@@ -83,15 +83,16 @@ const Distance = ({
   };
 
   const style = {
-    overflow: "hidden",
+    // overflow: "hidden",
   };
 
   return (
     <>
       <label className="form-check-label">Distance Filter:</label>
       <div
-        className="form-control p-0 rounded-pill border-success border-3 px-4 py-1"
+        className="form-control p-0 rounded-pill border-success border-3 px-4 py-1 distance-tooltip"
         style={style}
+        data-tooltip="Enter a location to calculate the distance from the By-Products and filter by distance."
       >
         <div className="row align-items-center gx-0">
           <div className="col">
@@ -164,10 +165,6 @@ const Distance = ({
             )}
           </div>
         )}
-      </div>
-      <div>
-        Enter a location to calculate the distance from the By-Products and
-        filter by distance.
       </div>
     </>
   );

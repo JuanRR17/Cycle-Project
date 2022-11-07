@@ -755,7 +755,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           basket_items_userid !== user.id
         ) {
           setStore({
-            message: "Basket can only contain by-products from the same user. ",
+            message: "Basket can only contain items from the same user.",
           });
         } else {
           return true;
