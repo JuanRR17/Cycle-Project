@@ -6,17 +6,21 @@ import PropTypes from "prop-types";
 const BasketIcon = ({ product }) => {
   const { store, actions } = useContext(Context);
 
+  //Get the product id of products in basket
   const basket_prod_ids = store.basket.map((b) => {
     return b.product_id;
   });
 
+  //Get the user id of the products in the basket
   const basket_items_userid = store.basket.map((item) => {
     return item.product.user_id;
   })[0];
 
   const handleItemInBasket = (elem) => {
     if (!basket_prod_ids.includes(elem.id)) {
-      if (!basket_items_userid || basket_items_userid === elem.user_id) {
+      if (basket_items_userid && basket_items_userid !== elem.user_id) {
+        console.log("Only items from the same user");
+      } else if (!basket_items_userid || basket_items_userid === elem.user_id) {
         if (elem.stock > 0) {
           actions.add_to_basket(store.data.id, elem.id);
         }
