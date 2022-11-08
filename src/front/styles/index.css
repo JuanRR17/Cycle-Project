@@ -11,6 +11,49 @@ body {
     background-color: #f9f9fa
 } */
 
+.bg-custom {
+  background-color: rgba(20, 48, 9, 8.9);
+  opacity: 0.80;
+}
+
+
+.img {
+  position: absolute;
+  right: 250px;
+  padding-top: 30px;
+  
+}
+.heatherwithimage {
+  position: relative;
+  text-align: center;
+  color: white;
+}  
+
+#more {display: none;}
+
+
+.card-img-top {
+  border-radius: 50%;
+}
+.card-container {
+  background-color: transparent
+}
+.card-body {
+  background-color: rgba(252, 244, 233, 0.705);
+  border-radius: 50px;
+}
+
+.card-deck {
+  border-radius: 25px;
+} 
+
+.card-text {
+  border-style: dotted;
+  border-width: 5px;
+  border-color: #f5cd77;
+}
+
+
 .btn-custom {
   /* .btn-custom { */
   background-image: linear-gradient(
