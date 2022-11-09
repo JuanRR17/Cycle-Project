@@ -217,7 +217,7 @@ table .basket-item:hover {
 .distance-tooltip::before,
 .distance-tooltip::after {
   --scale: 0;
-  --arrow-size: 1em;
+  --arrow-size: 0.5em;
   --tooltip-color: rgb(57 103 48);
 
   position: absolute;
