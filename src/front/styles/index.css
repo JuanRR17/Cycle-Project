@@ -11,6 +11,21 @@ body {
   background-size: cover;
 }
 
+.card {
+  margin: 1em;
+  background-color: unset;
+}
+
+.heatherwithimage {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+#more {
+  display: none;
+}
+
 .btn-custom {
   background-image: linear-gradient(
     180deg,
