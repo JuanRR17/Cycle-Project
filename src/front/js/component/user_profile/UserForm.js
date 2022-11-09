@@ -223,7 +223,7 @@ const UserForm = ({ edit, handleSetEdit }) => {
 
 UserForm.propTypes = {
   edit: PropTypes.bool.isRequired,
-  handleSetEdit: PropTypes.func.isRequired,
+  handleSetEdit: PropTypes.func,
 };
 
 export default UserForm;
