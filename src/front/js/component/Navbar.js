@@ -32,7 +32,9 @@ const Navbar = () => {
       style={{ background: "linear-gradient(to left, orange, yellow)" }}
     >
       <div className="container">
-        <img src={logo} alt="logo" height="50" />
+        <Link className="nav-item nav-link" to="/">
+          <img src={logo} alt="logo" height="50" />
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -46,9 +48,6 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
-            <Link className="nav-item nav-link" to="/">
-              <span>Home</span>
-            </Link>
             <Link className="nav-item nav-link" to="/prod_list">
               <span>Products</span>
             </Link>
