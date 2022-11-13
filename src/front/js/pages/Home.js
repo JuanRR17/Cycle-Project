@@ -41,9 +41,7 @@ export const Home = () => {
         </div>
       </div>
 
-      {/* <br></br> */}
       <div className="card-container row justify-content-center">
-        {/* <div className="card-container card-deck d-flex justify-content-center"> */}
         <div className="card col-lg-4">
           <div className="card-body bg-custom text-center">
             <h5 className="card-title">What do we do?</h5>
@@ -55,9 +53,8 @@ export const Home = () => {
             </p>
           </div>
         </div>
-        {/* <br></br> */}
         <div className="card col-lg-4">
-          <div className="card-body bg-custom text-center">
+          <div className="card-body bg-custom text-center h-100">
             <h5 className="card-title">Why?</h5>
             <p className="card-text">
               Our aim is to encourage the implementation of initiatives which
@@ -76,9 +73,8 @@ export const Home = () => {
             </button>
           </div>
         </div>
-        {/* <br></br> */}
         <div className="card col-lg-4">
-          <div className="card-body bg-custom text-center">
+          <div className="card-body bg-custom text-center h-100">
             <h5 className="card-title">
               Curious about the by-products available?
             </h5>
@@ -93,7 +89,7 @@ export const Home = () => {
           </div>
         </div>
         <div className="card col-lg-4">
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center h-100">
             {!store.token && (
               <div className="card-body bg-custom text-center">
                 <p className="card-title">Interested in joining Thinkay?</p>
@@ -106,7 +102,6 @@ export const Home = () => {
             )}
           </div>
         </div>
-        {/* </div> */}
       </div>
     </div>
   );
