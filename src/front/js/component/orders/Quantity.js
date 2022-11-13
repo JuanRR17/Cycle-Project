@@ -29,7 +29,7 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
   return (
     <>
       {stock === 0 ? (
-        <div className="text-error">Out of Stock</div>
+        <div className="text-error">Unavailable</div>
       ) : (
         <div
           className="btn-group "

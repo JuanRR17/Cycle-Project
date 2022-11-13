@@ -93,7 +93,7 @@ export const Product = () => {
                         {product.stock > 0 ? (
                           ` ${product.stock} ${product.unit}`
                         ) : (
-                          <span className="text-error"> Out of Stock</span>
+                          <span className="text-error"> Unavailable</span>
                         )}
                       </div>
                       {product.user_id === store.data.id ? (
