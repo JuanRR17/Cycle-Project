@@ -39,7 +39,11 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
           <IconContext.Provider
             value={{ className: "text-light py-1", size: 30 }}
           >
-            <MdAddCircle type="button" onClick={handleAdd} />
+            <MdRemoveCircle
+              type="button"
+              className="text-secondary"
+              onClick={handleRest}
+            />
             <input
               value={quantity}
               onChange={handleChange}
@@ -51,11 +55,7 @@ const Quantity = ({ quantity, stock, handleSetQuantity }) => {
               max={stock}
               min="0"
             />
-            <MdRemoveCircle
-              type="button"
-              className="text-secondary"
-              onClick={handleRest}
-            />
+            <MdAddCircle type="button" onClick={handleAdd} />
           </IconContext.Provider>
         </div>
       )}
