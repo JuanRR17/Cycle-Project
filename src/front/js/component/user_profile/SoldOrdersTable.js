@@ -23,7 +23,7 @@ const SoldOrdersTable = () => {
   });
   const columns = [
     {
-      name: "Transaction Id",
+      name: "Order Id",
       selector: (row) => row.id,
       center: true,
       sortable: true,

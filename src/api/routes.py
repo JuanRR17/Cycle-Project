@@ -556,6 +556,13 @@ def new_order():
 @jwt_required()
 def get_order(id):
     order = Order.query.filter_by(id=id).first()
+    order_details = order.serialize()
+
+    #if the seller exists we get the updated username of the seller
+    seller = User.query.filter_by(id=order.seller_id).first()
+    if seller != None and order.seller_username != seller.username:
+            order.seller_username = seller.username
+    #otherwise we provide the latest seller username stored in the order
 
     search = OrderRow.query.filter_by(order_id=order.id)
     order_rows = []
@@ -585,6 +592,14 @@ def made_orders(id):
     orders = Order.query.filter_by(user_id=id)
 
     orders = list(map(lambda x: x.serialize(), orders))
+    for order in orders:
+        seller = User.query.filter_by(id=order['seller_id']).first()
+        #if the seller exists we get the updated username of the seller
+        if seller != None and order['seller_username'] != seller.serialize()['username']:
+                order['seller_username'] = seller.serialize()['username']
+        #otherwise we provide the latest seller username stored in the order
+        
+
     json_text = jsonify(orders),200
     return json_text
 
