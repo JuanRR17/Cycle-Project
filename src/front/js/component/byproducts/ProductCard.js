@@ -90,7 +90,7 @@ const ProductCard = ({ details, origin }) => {
               {details.stock > 0 ? (
                 ""
               ) : (
-                <span className="text-error "> Out of Stock</span>
+                <span className="text-error ">Unavailable</span>
               )}
             </div>
           </div>

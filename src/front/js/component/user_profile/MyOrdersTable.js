@@ -24,7 +24,7 @@ const MyOrdersTable = () => {
 
   const columns = [
     {
-      name: "Id",
+      name: "Order Id",
       selector: (row) => row.id,
       center: true,
       sortable: true,

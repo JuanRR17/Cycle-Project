@@ -169,8 +169,8 @@ const ProductsList = () => {
                     }}
                     checked={outOfStock}
                   />
-                  <label className="form-check-label" htmlFor="outOfStock">
-                    Hide Out-of-Stock
+                  <label className="form-check-label" htmlFor="unavailable">
+                    Hide Unavailable By-Products
                   </label>
                 </div>
               </div>

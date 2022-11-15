@@ -11,6 +11,22 @@ body {
   background-size: cover;
 }
 
+.login {
+  width: 16rem;
+  margin: auto;
+  margin-top: 5em;
+  margin-bottom: 5em;
+  margin-left: 5em;
+  margin-right: 5em;
+}
+
+@media (max-width: 600px) {
+  .login {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+}
+
 .card {
   margin: 1em;
   background-color: unset;

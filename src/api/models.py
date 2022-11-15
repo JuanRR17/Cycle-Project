@@ -109,7 +109,8 @@ class Favourite(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    buyer_username = db.Column(db.String(120))
     seller_id = db.Column(db.Integer)
     seller_username = db.Column(db.String(120))
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
@@ -129,7 +130,8 @@ class Order(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
+            "buyer_id": self.buyer_id,
+            "buyer_username": self.buyer_username,
             "seller_id": self.seller_id,
             "seller_username": self.seller_username,
             "created_at": self.created_at,

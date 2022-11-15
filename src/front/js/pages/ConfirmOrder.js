@@ -173,9 +173,13 @@ const ConfirmOrder = () => {
 
       {checkout ? (
         <div className="text-center m-auto" style={{ width: "30em" }}>
-          <span className="text-light fw-bolder p-3">
-            All details are correct!
-          </span>
+          <div className="text-light fw-bolder p-3">
+            <div>All details are correct!</div>
+            <div>
+              (You need to use a Paypal sandbox account to complete the
+              purchase){" "}
+            </div>
+          </div>
           <PayPal total={total} delivery={delivery} />
         </div>
       ) : (

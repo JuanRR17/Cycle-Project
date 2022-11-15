@@ -495,9 +495,9 @@ def new_order():
     items = request_body['items']
     delivery = request_body['delivery']
     total = request_body['total']
-    user_id = request_body['user_id']
+    buyer_id = request_body['user_id']
 
-    #Get seller 
+    #Get seller
     #1. Get product id
     productId = items[0]['product_id']
     #2. Get product
@@ -509,9 +509,14 @@ def new_order():
     seller_id = seller.serialize()['id']
     seller_username = seller.serialize()['username']
 
+    #Get buyer username
+    buyer = User.query.filter_by(id=buyer_id).first()
+    buyer_username = buyer.serialize()['username']
+
     #Create new order
     new_order = Order()
-    setattr(new_order, "user_id", user_id)
+    setattr(new_order, "buyer_id", buyer_id)
+    setattr(new_order, "buyer_username", buyer_username)
     setattr(new_order, "total", total)
     setattr(new_order, "seller_id", seller_id)
     setattr(new_order, "seller_username", seller_username)
@@ -557,6 +562,18 @@ def new_order():
 def get_order(id):
     order = Order.query.filter_by(id=id).first()
 
+    #if the seller exists we get the updated username of the seller
+    seller = User.query.filter_by(id=order.seller_id).first()
+    if seller != None and order.seller_username != seller.username:
+            order.seller_username = seller.username
+    #otherwise we provide the latest seller username stored in the order
+
+    #if the buyer exists we get the updated username of the buyer
+    buyer = User.query.filter_by(id=order.buyer_id).first()
+    if buyer != None and order.buyer_username != buyer.username:
+            order.buyer_username = buyer.username
+    #otherwise we provide the latest buyer username stored in the order
+
     search = OrderRow.query.filter_by(order_id=order.id)
     order_rows = []
     for orw in search:
@@ -582,9 +599,17 @@ def delete_order(id):
 @jwt_required()
 def made_orders(id):
 
-    orders = Order.query.filter_by(user_id=id)
+    orders = Order.query.filter_by(buyer_id=id)
 
     orders = list(map(lambda x: x.serialize(), orders))
+    for order in orders:
+        seller = User.query.filter_by(id=order['seller_id']).first()
+        #if the seller exists we get the updated username of the seller
+        if seller != None and order['seller_username'] != seller.serialize()['username']:
+                order['seller_username'] = seller.serialize()['username']
+        #otherwise we provide the latest seller username stored in the order
+        
+
     json_text = jsonify(orders),200
     return json_text
 

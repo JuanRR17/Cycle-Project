@@ -23,14 +23,14 @@ const SoldOrdersTable = () => {
   });
   const columns = [
     {
-      name: "Id",
+      name: "Order Id",
       selector: (row) => row.id,
       center: true,
       sortable: true,
     },
     {
-      name: "Buyer Id",
-      selector: (row) => row.user_id ?? "User deleted",
+      name: "Buyer",
+      selector: (row) => row.buyer_username ?? "User deleted",
       center: true,
       sortable: true,
     },

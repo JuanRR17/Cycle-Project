@@ -46,8 +46,8 @@ const Order = () => {
                   <div>{store.order.created_at}</div>
                 </div>
                 <div className="col-auto mb-2">
-                  <label className="mb-0">Client Id: </label>{" "}
-                  <div>{store.order.user_id ?? "User deleted"}</div>
+                  <label className="mb-0">Client: </label>{" "}
+                  <div>{store.order.buyer_username ?? "User deleted"}</div>
                 </div>
                 <div className="col-auto mb-2">
                   <label className="mb-0">Seller: </label>{" "}
