@@ -4,11 +4,15 @@
 :root {
   --bg-color: rgba(20, 48, 9, 0.9);
 }
-
+html,
 body {
+  height: 100%;
+}
+.bg {
   background-image: url(https://naranjasribera.com/wp-content/uploads/2019/03/flor-de-azahar.jpg);
   background-position: center;
   background-size: cover;
+  height: 100%;
 }
 
 .login {
