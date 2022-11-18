@@ -29,6 +29,18 @@ export const Home = () => {
                   framework of bioeconomy towards a circular economic model.
                 </em>
               </h2>
+              {!store.token && (
+                <div className="card-body bg-custom text-center">
+                  <Link to="/signup">
+                    <button
+                      className="btn btn-primary btn-custom"
+                      style={{ fontSize: "x-large", padding: "1rem" }}
+                    >
+                      Sign up!
+                    </button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
           <div className="col-xl-6">
@@ -86,20 +98,6 @@ export const Home = () => {
                 </button>
               </Link>
             </div>
-          </div>
-        </div>
-        <div className="card col-lg-4">
-          <div className="d-flex justify-content-center h-100">
-            {!store.token && (
-              <div className="card-body bg-custom text-center">
-                <p className="card-title">Interested in joining Thinkay?</p>
-                <Link to="/signup">
-                  <button className="btn btn-primary btn-custom">
-                    Sign up
-                  </button>
-                </Link>
-              </div>
-            )}
           </div>
         </div>
       </div>
